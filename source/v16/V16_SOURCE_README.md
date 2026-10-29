@@ -15,3 +15,13 @@ See `GameTrace_Approved_Design_and_Development.md` for approved geometry, colors
 The Start Game patch uses explicit local Save actions so it also works when native form submission is blocked in a preview frame. `test_v16_start_import.cjs` covers this regression and the sample import flow.
 
 Import `GameTrace_V16_Test_Games.json` through Menu → Backup & Export → Import backup → Import 3 new games. The three completed synthetic games have TEST-prefixed opponents and stable IDs, so importing again does not duplicate them. Regenerate the fixture with `node create_v16_test_data.cjs`.
+
+
+The approved app icon is the actual report Game Circle with a blank cream center. Icon assets are in app_icons/; create_game_circle_icon.cjs reproduces them from the report. build_v16.py embeds the 32px favicon/header image and 180px Apple touch icon. Hosted installs also use manifest.webmanifest with the 192px and 512px PNGs at /icons/.
+
+Canonical hosted source: https://github.com/ohhigetit/gametrace/tree/development/source/v16
+Production: https://game-trace.netlify.app/
+Development: https://development--game-trace.netlify.app/
+
+
+Latest package update: official branding assets use gametrace-official-* and the approved master PNG. The earlier Game Circle icon is superseded. build_v16.py includes gametrace_solid_controller.css and gametrace_solid_controller.js. GameTrace_App_Package.zip contains a directly hostable index.html, manifest and icons. This package is saved for review; it is not a new hosted deployment.

@@ -29,12 +29,14 @@ source=source.replace((p/'gametrace_v15_app.js').read_text(),app,1)
 source=source.replace((p/'gametrace_core_v15.cjs').read_text(),(p/'gametrace_core_v16.cjs').read_text(),1)
 source=source.replace('GameTrace V15 — Menu & Game Setup','GameTrace V16 — Your Games & Game Report',1)
 icon_root=p/'app_icons'
-if (icon_root/'gametrace-circle-180.png').exists():
-    data=lambda size:'data:image/png;base64,'+base64.b64encode((icon_root/f'gametrace-circle-{size}.png').read_bytes()).decode()
+if (icon_root/'gametrace-official-180.png').exists():
+    data=lambda size:'data:image/png;base64,'+base64.b64encode((icon_root/f'gametrace-official-{size}.png').read_bytes()).decode()
     metadata='<link rel="icon" type="image/png" sizes="32x32" href="'+data(32)+'"><link rel="apple-touch-icon" sizes="180x180" href="'+data(180)+'"><link rel="manifest" href="./manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="GameTrace"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
     source=source.replace('<title>',metadata+'<title>',1)
     source=source.replace('id="brandHome"', 'id="brandHome"',1)
     source=re.sub(r'(<button[^>]*id="brandHome"[^>]*>)',lambda m:m.group(1)+'<img class="app-brand-icon" src="'+data(32)+'" alt="" width="32" height="32">',source,count=1)
+source=source.replace('</head>','<style>'+(p/'gametrace_solid_controller.css').read_text()+'</style></head>',1)
+source=source.replace('</body>','<script>'+(p/'gametrace_solid_controller.js').read_text()+'</script></body>',1)
 source=source.replace('</style>','\n'+(p/'gametrace_v16.css').read_text()+'\n</style>',1)
 # Keep existing DOM IDs for navigation listeners, with no duplicated bottom report/library CTAs.
 source=source.replace('<nav class="view-footer" aria-label="Game library tools">','<nav class="view-footer" hidden aria-label="Game library tools">')
