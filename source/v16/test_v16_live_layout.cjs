@@ -1,0 +1,15 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict');
+const url='file://'+__dirname+'/GameTrace_V16_Your_Games_and_Report.html';
+(async()=>{const b=await chromium.launch({headless:true,executablePath:'/tmp/chromium',args:['--no-sandbox']});
+try{for(const theme of ['courtside','day'])for(const[width,height,safe]of[[440,956,true],[390,844,true],[375,667,false],[320,568,false]]){
+ const p=await b.newPage({viewport:{width,height},isMobile:true,hasTouch:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(url);
+ if(safe)await p.addStyleTag({content:'.app.gt-app{padding-top:74px!important;padding-bottom:50px!important}'});
+ const fits=async()=>assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await p.locator('#settingsButton').tap();await p.locator('[data-navigation="Settings"]').tap();await p.locator(`[data-appearance=${theme}]`).tap();await fits();await p.screenshot({path:__dirname+`/v16_live_settings_${theme}_${width}.png`,fullPage:true});
+ await p.locator('#settingsButton').tap();await fits();await p.screenshot({path:__dirname+`/v16_live_menu_${theme}_${width}.png`,fullPage:true});await p.locator('.menu-new-game').tap();await fits();await p.screenshot({path:__dirname+`/v16_live_setup_${theme}_${width}.png`,fullPage:true});
+ await p.getByLabel('Player name',{exact:true}).fill('Georgina');await p.getByLabel('Team',{exact:true}).fill('West Essex');await p.getByLabel('Opponent',{exact:true}).fill('Riverdale');await p.locator('.ng-lengths summary').tap();await fits();await p.screenshot({path:__dirname+`/v16_live_periods_${theme}_${width}.png`,fullPage:true});await p.getByRole('button',{name:'Start Game',exact:true}).tap();
+ const svg=await p.locator('.visual>svg').boundingBox();assert.ok(svg.x>=0&&svg.x+svg.width<=width+1&&svg.y+svg.height<=height-(safe?49:7));await fits();
+ await p.locator('[data-action=SUB]').focus();await p.keyboard.press('Enter');await p.getByRole('button',{name:'Confirm IN',exact:true}).tap();await p.locator('[data-action="3PT"]').tap();const modal=await p.locator('#sheet').boundingBox();assert.ok(modal.x>=0&&modal.x+modal.width<=width&&modal.y>=0&&modal.y+modal.height<=height);await p.screenshot({path:__dirname+`/v16_live_choices_${theme}_${width}.png`});await p.getByRole('button',{name:'Make',exact:true}).tap();
+ await p.locator('#lastAction').tap();await p.locator('[data-recent-id]').first().tap();await fits();const editor=await p.locator('#sheet').boundingBox();assert.ok(editor.y>=0&&editor.y+editor.height<=height);await p.screenshot({path:__dirname+`/v16_live_editor_${theme}_${width}.png`});await p.keyboard.press('Escape');
+ await p.locator('#settingsButton').tap();await p.locator('[data-navigation="Backup & Export"]').tap();await fits();await p.screenshot({path:__dirname+`/v16_live_backup_${theme}_${width}.png`,fullPage:true});assert.deepEqual(errors,[]);await p.close();console.log('PASS',theme,width,height,'safe',safe);
+}}finally{await b.close()}})();

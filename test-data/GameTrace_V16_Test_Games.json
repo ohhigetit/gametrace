@@ -1,0 +1,2931 @@
+{
+  "format": "GameTraceBackup",
+  "version": 12,
+  "revision": 0,
+  "updatedAt": null,
+  "activeGameId": "gametrace-v16-demo-balanced",
+  "prefs": {
+    "sound": false,
+    "periods": {
+      "version": 1,
+      "format": "4Q",
+      "current": 0,
+      "durations": {
+        "4Q": [
+          480,
+          480,
+          480,
+          480
+        ],
+        "2H": [
+          1200,
+          1200
+        ]
+      }
+    }
+  },
+  "games": [
+    {
+      "id": "gametrace-v16-demo-balanced",
+      "player": "Test Player",
+      "number": "3",
+      "team": "Demo Team",
+      "opponent": "TEST · Balanced win",
+      "gameType": "regular",
+      "date": "2026-10-28",
+      "status": "completed",
+      "createdAt": "2026-10-28T22:00:00.000Z",
+      "updatedAt": "2026-10-28T22:41:00.000Z",
+      "completedAt": "2026-10-28T22:41:00.000Z",
+      "revision": 1,
+      "settings": {
+        "version": 1,
+        "format": "4Q",
+        "current": 3,
+        "durations": {
+          "4Q": [
+            480,
+            480,
+            480,
+            480
+          ],
+          "2H": [
+            1200,
+            1200
+          ]
+        }
+      },
+      "events": [
+        {
+          "id": "gametrace-v16-demo-balanced-event-001",
+          "code": "game_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.334Z",
+          "updatedAt": "2026-10-29T19:28:14.334Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:00:00.000Z",
+          "order": 1
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-002",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.334Z",
+          "updatedAt": "2026-10-29T19:28:14.334Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:00:00.000Z",
+          "order": 2
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-003",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:00:00.000Z",
+          "order": 3
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-004",
+          "code": "3_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:00:26.000Z",
+          "order": 4
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-005",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:00:51.000Z",
+          "order": 5
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-006",
+          "code": "2_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:01:17.000Z",
+          "order": 6
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-007",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:01:43.000Z",
+          "order": 7
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-008",
+          "code": "reb_o",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:02:09.000Z",
+          "order": 8
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-009",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:02:34.000Z",
+          "order": 9
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-010",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:03:00.000Z",
+          "order": 10
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-011",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.335Z",
+          "updatedAt": "2026-10-29T19:28:14.335Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:03:26.000Z",
+          "order": 11
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-012",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:03:51.000Z",
+          "order": 12
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-013",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:04:17.000Z",
+          "order": 13
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-014",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:04:43.000Z",
+          "order": 14
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-015",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:05:09.000Z",
+          "order": 15
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-016",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:05:34.000Z",
+          "order": 16
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-017",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:06:00.000Z",
+          "order": 17
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-018",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.336Z",
+          "updatedAt": "2026-10-29T19:28:14.336Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:08:00.000Z",
+          "order": 18
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-019",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.337Z",
+          "updatedAt": "2026-10-29T19:28:14.337Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:10:00.000Z",
+          "order": 19
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-020",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.337Z",
+          "updatedAt": "2026-10-29T19:28:14.337Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:10:00.000Z",
+          "order": 20
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-021",
+          "code": "3_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.337Z",
+          "updatedAt": "2026-10-29T19:28:14.337Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:10:26.000Z",
+          "order": 21
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-022",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.338Z",
+          "updatedAt": "2026-10-29T19:28:14.338Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:10:51.000Z",
+          "order": 22
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-023",
+          "code": "2_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.338Z",
+          "updatedAt": "2026-10-29T19:28:14.338Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:11:17.000Z",
+          "order": 23
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-024",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.338Z",
+          "updatedAt": "2026-10-29T19:28:14.338Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:11:43.000Z",
+          "order": 24
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-025",
+          "code": "reb_o",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.339Z",
+          "updatedAt": "2026-10-29T19:28:14.339Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:12:09.000Z",
+          "order": 25
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-026",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.339Z",
+          "updatedAt": "2026-10-29T19:28:14.339Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:12:34.000Z",
+          "order": 26
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-027",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.339Z",
+          "updatedAt": "2026-10-29T19:28:14.339Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:13:00.000Z",
+          "order": 27
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-028",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.341Z",
+          "updatedAt": "2026-10-29T19:28:14.341Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:13:26.000Z",
+          "order": 28
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-029",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.341Z",
+          "updatedAt": "2026-10-29T19:28:14.341Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:13:51.000Z",
+          "order": 29
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-030",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.341Z",
+          "updatedAt": "2026-10-29T19:28:14.341Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:14:17.000Z",
+          "order": 30
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-031",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.341Z",
+          "updatedAt": "2026-10-29T19:28:14.341Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:14:43.000Z",
+          "order": 31
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-032",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.341Z",
+          "updatedAt": "2026-10-29T19:28:14.341Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:15:09.000Z",
+          "order": 32
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-033",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.342Z",
+          "updatedAt": "2026-10-29T19:28:14.342Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:15:34.000Z",
+          "order": 33
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-034",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.342Z",
+          "updatedAt": "2026-10-29T19:28:14.342Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:16:00.000Z",
+          "order": 34
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-035",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.342Z",
+          "updatedAt": "2026-10-29T19:28:14.342Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:18:00.000Z",
+          "order": 35
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-036",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.343Z",
+          "updatedAt": "2026-10-29T19:28:14.343Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:23:00.000Z",
+          "order": 36
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-037",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.344Z",
+          "updatedAt": "2026-10-29T19:28:14.344Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:23:00.000Z",
+          "order": 37
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-038",
+          "code": "3_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.344Z",
+          "updatedAt": "2026-10-29T19:28:14.344Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:23:28.000Z",
+          "order": 38
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-039",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.344Z",
+          "updatedAt": "2026-10-29T19:28:14.344Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:23:55.000Z",
+          "order": 39
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-040",
+          "code": "2_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.344Z",
+          "updatedAt": "2026-10-29T19:28:14.344Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:24:23.000Z",
+          "order": 40
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-041",
+          "code": "ft_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.344Z",
+          "updatedAt": "2026-10-29T19:28:14.344Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:24:51.000Z",
+          "order": 41
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-042",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.345Z",
+          "updatedAt": "2026-10-29T19:28:14.345Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:25:18.000Z",
+          "order": 42
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-043",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.345Z",
+          "updatedAt": "2026-10-29T19:28:14.345Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:25:46.000Z",
+          "order": 43
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-044",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.345Z",
+          "updatedAt": "2026-10-29T19:28:14.345Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:26:14.000Z",
+          "order": 44
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-045",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.346Z",
+          "updatedAt": "2026-10-29T19:28:14.346Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:26:42.000Z",
+          "order": 45
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-046",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.346Z",
+          "updatedAt": "2026-10-29T19:28:14.346Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:27:09.000Z",
+          "order": 46
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-047",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.346Z",
+          "updatedAt": "2026-10-29T19:28:14.346Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:27:37.000Z",
+          "order": 47
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-048",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.347Z",
+          "updatedAt": "2026-10-29T19:28:14.347Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:28:05.000Z",
+          "order": 48
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-049",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.347Z",
+          "updatedAt": "2026-10-29T19:28:14.347Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:28:32.000Z",
+          "order": 49
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-050",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.347Z",
+          "updatedAt": "2026-10-29T19:28:14.347Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:29:00.000Z",
+          "order": 50
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-051",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.347Z",
+          "updatedAt": "2026-10-29T19:28:14.347Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:31:00.000Z",
+          "order": 51
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-052",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.348Z",
+          "updatedAt": "2026-10-29T19:28:14.348Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:33:00.000Z",
+          "order": 52
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-053",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.348Z",
+          "updatedAt": "2026-10-29T19:28:14.348Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:33:00.000Z",
+          "order": 53
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-054",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.348Z",
+          "updatedAt": "2026-10-29T19:28:14.348Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:33:28.000Z",
+          "order": 54
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-055",
+          "code": "2_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.349Z",
+          "updatedAt": "2026-10-29T19:28:14.349Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:33:55.000Z",
+          "order": 55
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-056",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.349Z",
+          "updatedAt": "2026-10-29T19:28:14.349Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:34:23.000Z",
+          "order": 56
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-057",
+          "code": "ft_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.350Z",
+          "updatedAt": "2026-10-29T19:28:14.350Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:34:51.000Z",
+          "order": 57
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-058",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.350Z",
+          "updatedAt": "2026-10-29T19:28:14.350Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:35:18.000Z",
+          "order": 58
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-059",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.350Z",
+          "updatedAt": "2026-10-29T19:28:14.350Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:35:46.000Z",
+          "order": 59
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-060",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.351Z",
+          "updatedAt": "2026-10-29T19:28:14.351Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:36:14.000Z",
+          "order": 60
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-061",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.351Z",
+          "updatedAt": "2026-10-29T19:28:14.351Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:36:42.000Z",
+          "order": 61
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-062",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.352Z",
+          "updatedAt": "2026-10-29T19:28:14.352Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:37:09.000Z",
+          "order": 62
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-063",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.352Z",
+          "updatedAt": "2026-10-29T19:28:14.352Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:37:37.000Z",
+          "order": 63
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-064",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.353Z",
+          "updatedAt": "2026-10-29T19:28:14.353Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:38:05.000Z",
+          "order": 64
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-065",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.354Z",
+          "updatedAt": "2026-10-29T19:28:14.354Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:38:32.000Z",
+          "order": 65
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-066",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.354Z",
+          "updatedAt": "2026-10-29T19:28:14.354Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:39:00.000Z",
+          "order": 66
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-067",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.355Z",
+          "updatedAt": "2026-10-29T19:28:14.355Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:41:00.000Z",
+          "order": 67
+        },
+        {
+          "id": "gametrace-v16-demo-balanced-event-068",
+          "code": "game_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.355Z",
+          "updatedAt": "2026-10-29T19:28:14.355Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-28T22:41:00.000Z",
+          "order": 68
+        }
+      ],
+      "timingVersion": 1,
+      "finalScore": {
+        "team": 54,
+        "opponent": 48
+      },
+      "autoEnded": false
+    },
+    {
+      "id": "gametrace-v16-demo-low-shooting",
+      "player": "Test Player",
+      "number": "3",
+      "team": "Demo Team",
+      "opponent": "TEST · Tough shooting loss",
+      "gameType": "regular",
+      "date": "2026-10-27",
+      "status": "completed",
+      "createdAt": "2026-10-27T22:00:00.000Z",
+      "updatedAt": "2026-10-27T22:42:00.000Z",
+      "completedAt": "2026-10-27T22:42:00.000Z",
+      "revision": 1,
+      "settings": {
+        "version": 1,
+        "format": "2H",
+        "current": 1,
+        "durations": {
+          "4Q": [
+            480,
+            480,
+            480,
+            480
+          ],
+          "2H": [
+            1200,
+            1200
+          ]
+        }
+      },
+      "events": [
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-001",
+          "code": "game_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:00:00.000Z",
+          "order": 1
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-002",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:00:00.000Z",
+          "order": 2
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-003",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:00:00.000Z",
+          "order": 3
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-004",
+          "code": "3_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:00:26.000Z",
+          "order": 4
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-005",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:00:52.000Z",
+          "order": 5
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-006",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:01:18.000Z",
+          "order": 6
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-007",
+          "code": "2_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:01:44.000Z",
+          "order": 7
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-008",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.357Z",
+          "updatedAt": "2026-10-29T19:28:14.357Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:02:10.000Z",
+          "order": 8
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-009",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.358Z",
+          "updatedAt": "2026-10-29T19:28:14.358Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:02:37.000Z",
+          "order": 9
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-010",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.358Z",
+          "updatedAt": "2026-10-29T19:28:14.358Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:03:03.000Z",
+          "order": 10
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-011",
+          "code": "ft_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.358Z",
+          "updatedAt": "2026-10-29T19:28:14.358Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:03:29.000Z",
+          "order": 11
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-012",
+          "code": "ft_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.358Z",
+          "updatedAt": "2026-10-29T19:28:14.358Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:03:55.000Z",
+          "order": 12
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-013",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.359Z",
+          "updatedAt": "2026-10-29T19:28:14.359Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:04:21.000Z",
+          "order": 13
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-014",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.359Z",
+          "updatedAt": "2026-10-29T19:28:14.359Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:04:47.000Z",
+          "order": 14
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-015",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.359Z",
+          "updatedAt": "2026-10-29T19:28:14.359Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:05:13.000Z",
+          "order": 15
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-016",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.360Z",
+          "updatedAt": "2026-10-29T19:28:14.360Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:05:39.000Z",
+          "order": 16
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-017",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.361Z",
+          "updatedAt": "2026-10-29T19:28:14.361Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:06:05.000Z",
+          "order": 17
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-018",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.361Z",
+          "updatedAt": "2026-10-29T19:28:14.361Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:06:31.000Z",
+          "order": 18
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-019",
+          "code": "turnover",
+          "turnoverType": "bad_pass",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.361Z",
+          "updatedAt": "2026-10-29T19:28:14.361Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:06:57.000Z",
+          "order": 19
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-020",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.361Z",
+          "updatedAt": "2026-10-29T19:28:14.361Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:07:23.000Z",
+          "order": 20
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-021",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.361Z",
+          "updatedAt": "2026-10-29T19:28:14.361Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:07:50.000Z",
+          "order": 21
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-022",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.362Z",
+          "updatedAt": "2026-10-29T19:28:14.362Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:08:16.000Z",
+          "order": 22
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-023",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.362Z",
+          "updatedAt": "2026-10-29T19:28:14.362Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:08:42.000Z",
+          "order": 23
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-024",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.362Z",
+          "updatedAt": "2026-10-29T19:28:14.362Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:09:08.000Z",
+          "order": 24
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-025",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.363Z",
+          "updatedAt": "2026-10-29T19:28:14.363Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:09:34.000Z",
+          "order": 25
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-026",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.365Z",
+          "updatedAt": "2026-10-29T19:28:14.365Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:10:00.000Z",
+          "order": 26
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-027",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.365Z",
+          "updatedAt": "2026-10-29T19:28:14.365Z",
+          "period": {
+            "format": "2H",
+            "number": 1,
+            "label": "H1",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:20:00.000Z",
+          "order": 27
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-028",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.366Z",
+          "updatedAt": "2026-10-29T19:28:14.366Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:22:00.000Z",
+          "order": 28
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-029",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.366Z",
+          "updatedAt": "2026-10-29T19:28:14.366Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:22:00.000Z",
+          "order": 29
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-030",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.366Z",
+          "updatedAt": "2026-10-29T19:28:14.366Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:22:27.000Z",
+          "order": 30
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-031",
+          "code": "3_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.366Z",
+          "updatedAt": "2026-10-29T19:28:14.366Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:22:55.000Z",
+          "order": 31
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-032",
+          "code": "2_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.366Z",
+          "updatedAt": "2026-10-29T19:28:14.366Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:23:22.000Z",
+          "order": 32
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-033",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.367Z",
+          "updatedAt": "2026-10-29T19:28:14.367Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:23:49.000Z",
+          "order": 33
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-034",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.367Z",
+          "updatedAt": "2026-10-29T19:28:14.367Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:24:16.000Z",
+          "order": 34
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-035",
+          "code": "2_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.367Z",
+          "updatedAt": "2026-10-29T19:28:14.367Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:24:44.000Z",
+          "order": 35
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-036",
+          "code": "ft_make",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.369Z",
+          "updatedAt": "2026-10-29T19:28:14.369Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:25:11.000Z",
+          "order": 36
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-037",
+          "code": "ft_miss",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.369Z",
+          "updatedAt": "2026-10-29T19:28:14.369Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:25:38.000Z",
+          "order": 37
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-038",
+          "code": "reb_o",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.370Z",
+          "updatedAt": "2026-10-29T19:28:14.370Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:26:05.000Z",
+          "order": 38
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-039",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.370Z",
+          "updatedAt": "2026-10-29T19:28:14.370Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:26:33.000Z",
+          "order": 39
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-040",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.370Z",
+          "updatedAt": "2026-10-29T19:28:14.370Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:27:00.000Z",
+          "order": 40
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-041",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.371Z",
+          "updatedAt": "2026-10-29T19:28:14.371Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:27:27.000Z",
+          "order": 41
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-042",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.371Z",
+          "updatedAt": "2026-10-29T19:28:14.371Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:27:55.000Z",
+          "order": 42
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-043",
+          "code": "turnover",
+          "turnoverType": "bad_pass",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.371Z",
+          "updatedAt": "2026-10-29T19:28:14.371Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:28:22.000Z",
+          "order": 43
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-044",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.371Z",
+          "updatedAt": "2026-10-29T19:28:14.371Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:28:49.000Z",
+          "order": 44
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-045",
+          "code": "turnover",
+          "turnoverType": "bad_pass",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.371Z",
+          "updatedAt": "2026-10-29T19:28:14.371Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:29:16.000Z",
+          "order": 45
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-046",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.372Z",
+          "updatedAt": "2026-10-29T19:28:14.372Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:29:44.000Z",
+          "order": 46
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-047",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.372Z",
+          "updatedAt": "2026-10-29T19:28:14.372Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:30:11.000Z",
+          "order": 47
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-048",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.372Z",
+          "updatedAt": "2026-10-29T19:28:14.372Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:30:38.000Z",
+          "order": 48
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-049",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.373Z",
+          "updatedAt": "2026-10-29T19:28:14.373Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:31:05.000Z",
+          "order": 49
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-050",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.373Z",
+          "updatedAt": "2026-10-29T19:28:14.373Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:31:33.000Z",
+          "order": 50
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-051",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.373Z",
+          "updatedAt": "2026-10-29T19:28:14.373Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:32:00.000Z",
+          "order": 51
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-052",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.374Z",
+          "updatedAt": "2026-10-29T19:28:14.374Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:42:00.000Z",
+          "order": 52
+        },
+        {
+          "id": "gametrace-v16-demo-low-shooting-event-053",
+          "code": "game_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.374Z",
+          "updatedAt": "2026-10-29T19:28:14.374Z",
+          "period": {
+            "format": "2H",
+            "number": 2,
+            "label": "H2",
+            "configuredDurationSeconds": 1200
+          },
+          "occurredAt": "2026-10-27T22:42:00.000Z",
+          "order": 53
+        }
+      ],
+      "timingVersion": 1,
+      "finalScore": {
+        "team": 42,
+        "opponent": 46
+      },
+      "autoEnded": false
+    },
+    {
+      "id": "gametrace-v16-demo-zero-attempts",
+      "player": "Test Player",
+      "number": "3",
+      "team": "Demo Team",
+      "opponent": "TEST · Defense, no shots",
+      "gameType": "regular",
+      "date": "2026-10-26",
+      "status": "completed",
+      "createdAt": "2026-10-26T22:00:00.000Z",
+      "updatedAt": "2026-10-26T22:41:00.000Z",
+      "completedAt": "2026-10-26T22:41:00.000Z",
+      "revision": 1,
+      "settings": {
+        "version": 1,
+        "format": "4Q",
+        "current": 3,
+        "durations": {
+          "4Q": [
+            480,
+            480,
+            480,
+            480
+          ],
+          "2H": [
+            1200,
+            1200
+          ]
+        }
+      },
+      "events": [
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-001",
+          "code": "game_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:00.000Z",
+          "order": 1
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-002",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:00.000Z",
+          "order": 2
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-003",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:00.000Z",
+          "order": 3
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-004",
+          "code": "reb_o",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:12.000Z",
+          "order": 4
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-005",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:24.000Z",
+          "order": 5
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-006",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:36.000Z",
+          "order": 6
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-007",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:00:48.000Z",
+          "order": 7
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-008",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:01:00.000Z",
+          "order": 8
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-009",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:01:12.000Z",
+          "order": 9
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-010",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:01:24.000Z",
+          "order": 10
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-011",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.375Z",
+          "updatedAt": "2026-10-29T19:28:14.375Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:01:36.000Z",
+          "order": 11
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-012",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:01:48.000Z",
+          "order": 12
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-013",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:02:00.000Z",
+          "order": 13
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-014",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 1,
+            "label": "Q1",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:08:00.000Z",
+          "order": 14
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-015",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:10:00.000Z",
+          "order": 15
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-016",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:10:00.000Z",
+          "order": 16
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-017",
+          "code": "reb_o",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:10:12.000Z",
+          "order": 17
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-018",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:10:24.000Z",
+          "order": 18
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-019",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.376Z",
+          "updatedAt": "2026-10-29T19:28:14.376Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:10:36.000Z",
+          "order": 19
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-020",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.377Z",
+          "updatedAt": "2026-10-29T19:28:14.377Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:10:48.000Z",
+          "order": 20
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-021",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.377Z",
+          "updatedAt": "2026-10-29T19:28:14.377Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:11:00.000Z",
+          "order": 21
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-022",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.377Z",
+          "updatedAt": "2026-10-29T19:28:14.377Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:11:12.000Z",
+          "order": 22
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-023",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.377Z",
+          "updatedAt": "2026-10-29T19:28:14.377Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:11:24.000Z",
+          "order": 23
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-024",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.377Z",
+          "updatedAt": "2026-10-29T19:28:14.377Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:11:36.000Z",
+          "order": 24
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-025",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.377Z",
+          "updatedAt": "2026-10-29T19:28:14.377Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:11:48.000Z",
+          "order": 25
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-026",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.378Z",
+          "updatedAt": "2026-10-29T19:28:14.378Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:12:00.000Z",
+          "order": 26
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-027",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.378Z",
+          "updatedAt": "2026-10-29T19:28:14.378Z",
+          "period": {
+            "format": "4Q",
+            "number": 2,
+            "label": "Q2",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:18:00.000Z",
+          "order": 27
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-028",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.378Z",
+          "updatedAt": "2026-10-29T19:28:14.378Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:23:00.000Z",
+          "order": 28
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-029",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.379Z",
+          "updatedAt": "2026-10-29T19:28:14.379Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:23:00.000Z",
+          "order": 29
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-030",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.379Z",
+          "updatedAt": "2026-10-29T19:28:14.379Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:23:12.000Z",
+          "order": 30
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-031",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.379Z",
+          "updatedAt": "2026-10-29T19:28:14.379Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:23:24.000Z",
+          "order": 31
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-032",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.379Z",
+          "updatedAt": "2026-10-29T19:28:14.379Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:23:36.000Z",
+          "order": 32
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-033",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.379Z",
+          "updatedAt": "2026-10-29T19:28:14.379Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:23:48.000Z",
+          "order": 33
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-034",
+          "code": "foul",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.379Z",
+          "updatedAt": "2026-10-29T19:28:14.379Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:24:00.000Z",
+          "order": 34
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-035",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.380Z",
+          "updatedAt": "2026-10-29T19:28:14.380Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:24:12.000Z",
+          "order": 35
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-036",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.380Z",
+          "updatedAt": "2026-10-29T19:28:14.380Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:24:24.000Z",
+          "order": 36
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-037",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.380Z",
+          "updatedAt": "2026-10-29T19:28:14.380Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:24:36.000Z",
+          "order": 37
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-038",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.380Z",
+          "updatedAt": "2026-10-29T19:28:14.380Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:24:48.000Z",
+          "order": 38
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-039",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.380Z",
+          "updatedAt": "2026-10-29T19:28:14.380Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:25:00.000Z",
+          "order": 39
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-040",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.381Z",
+          "updatedAt": "2026-10-29T19:28:14.381Z",
+          "period": {
+            "format": "4Q",
+            "number": 3,
+            "label": "Q3",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:31:00.000Z",
+          "order": 40
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-041",
+          "code": "period_start",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.381Z",
+          "updatedAt": "2026-10-29T19:28:14.381Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:33:00.000Z",
+          "order": 41
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-042",
+          "code": "in",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.382Z",
+          "updatedAt": "2026-10-29T19:28:14.382Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:33:00.000Z",
+          "order": 42
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-043",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.383Z",
+          "updatedAt": "2026-10-29T19:28:14.383Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:33:13.000Z",
+          "order": 43
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-044",
+          "code": "reb_d",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.383Z",
+          "updatedAt": "2026-10-29T19:28:14.383Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:33:27.000Z",
+          "order": 44
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-045",
+          "code": "assist",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.384Z",
+          "updatedAt": "2026-10-29T19:28:14.384Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:33:40.000Z",
+          "order": 45
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-046",
+          "code": "steal",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.384Z",
+          "updatedAt": "2026-10-29T19:28:14.384Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:33:53.000Z",
+          "order": 46
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-047",
+          "code": "turnover",
+          "turnoverType": "ball_handling",
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.384Z",
+          "updatedAt": "2026-10-29T19:28:14.384Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:34:07.000Z",
+          "order": 47
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-048",
+          "code": "touch",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.384Z",
+          "updatedAt": "2026-10-29T19:28:14.384Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:34:20.000Z",
+          "order": 48
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-049",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.386Z",
+          "updatedAt": "2026-10-29T19:28:14.386Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:34:33.000Z",
+          "order": 49
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-050",
+          "code": "pass",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.386Z",
+          "updatedAt": "2026-10-29T19:28:14.386Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:34:47.000Z",
+          "order": 50
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-051",
+          "code": "out",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.387Z",
+          "updatedAt": "2026-10-29T19:28:14.387Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:35:00.000Z",
+          "order": 51
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-052",
+          "code": "period_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.388Z",
+          "updatedAt": "2026-10-29T19:28:14.388Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:41:00.000Z",
+          "order": 52
+        },
+        {
+          "id": "gametrace-v16-demo-zero-attempts-event-053",
+          "code": "game_end",
+          "turnoverType": null,
+          "note": "",
+          "createdAt": "2026-10-29T19:28:14.389Z",
+          "updatedAt": "2026-10-29T19:28:14.389Z",
+          "period": {
+            "format": "4Q",
+            "number": 4,
+            "label": "Q4",
+            "configuredDurationSeconds": 480
+          },
+          "occurredAt": "2026-10-26T22:41:00.000Z",
+          "order": 53
+        }
+      ],
+      "timingVersion": 1,
+      "finalScore": {
+        "team": 38,
+        "opponent": 35
+      },
+      "autoEnded": false
+    }
+  ],
+  "exportedAt": "2026-10-29T19:28:14.391Z"
+}

@@ -1,0 +1,85 @@
+/* V16 approved report and list. The live controller remains the V14 geometry. */
+html[data-theme] #app.app.gt-app .brand{display:flex;align-items:center;gap:0}
+html[data-theme] #app.app.gt-app .app-brand-icon{display:block;width:32px;height:32px;border-radius:7px;margin-right:8px;flex-shrink:0}
+html[data-theme] #app.app.gt-app{--gc-field:#454D49;--gc-track:light-dark(#d1d7d2,#2c3430);--gc-make:var(--gt-accent);--gc-miss:#C9D8CC;--gc-win:var(--gt-accent);--gc-loss:#C61975;--gc-three:#71B7FF;--gc-two:#A5D5FF;--gc-ft:#D9EFFF;--gc-stl:#A3D936}
+html[data-theme] #app.app.gt-app .games-section-title{font-size:16px;font-weight:600;margin:20px 0 0}
+html[data-theme] #app.app.gt-app .previous-title{margin-top:28px}
+html[data-theme] #app.app.gt-app .games-current{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0 22px;border-bottom:1px solid var(--gt-edge)}
+html[data-theme] #app.app.gt-app .games-current strong,html[data-theme] #app.app.gt-app .games-list-row strong{display:block;font-size:16px;font-weight:600;overflow-wrap:anywhere}
+html[data-theme] #app.app.gt-app .games-current small,html[data-theme] #app.app.gt-app .games-list-row small{display:block;font-size:12px;color:var(--gt-muted);margin-top:6px}
+html[data-theme] #app.app.gt-app .games-current small{color:var(--gt-accent)}
+html[data-theme] #app.app.gt-app .content .games-list-row{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:none;border:0;border-bottom:1px solid var(--gt-edge);border-radius:0;text-align:left;min-height:86px;padding:20px 0;font-weight:400}
+html[data-theme] #app.app.gt-app .games-current>span,html[data-theme] #app.app.gt-app .games-list-row>span:first-child{min-width:0}
+html[data-theme] #app.app.gt-app .games-empty{padding:15px 0;color:var(--gt-muted)}
+html[data-theme] #app.app.gt-app .content .games-legacy{width:100%;margin-top:10px;font-size:12px}
+html[data-theme] #app.app.gt-app .report-heading.page-heading{margin-bottom:13px}
+html[data-theme] #app.app.gt-app .report-heading.page-heading h1{font-size:19px;font-weight:650;letter-spacing:-.3px}
+html[data-theme] #app.app.gt-app .report-icon{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;flex-shrink:0}
+html[data-theme] #app.app.gt-app .report-icon svg{width:17px;height:17px}
+html[data-theme] #app.app.gt-app .content .report-summary{display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;text-align:left;background:none;border:0;border-bottom:1px solid var(--gt-edge);border-radius:0;padding:0 0 20px;font-weight:400}
+html[data-theme] #app.app.gt-app .report-summary-text{min-width:0}
+html[data-theme] #app.app.gt-app .report-matchup{display:block;font-size:18px;font-weight:650;letter-spacing:-.3px;margin-bottom:4px;overflow-wrap:anywhere}
+html[data-theme] #app.app.gt-app .report-matchup .report-icon{margin-left:5px;color:var(--gt-muted)}
+html[data-theme] #app.app.gt-app .report-matchup svg{width:13px;height:13px}
+html[data-theme] #app.app.gt-app .report-meta{display:block;color:var(--gt-muted);font-size:12px}
+html[data-theme] #app.app.gt-app .report-score{text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+html[data-theme] #app.app.gt-app .report-score strong{display:block;font-size:25px;font-weight:650;letter-spacing:-.7px;white-space:nowrap}
+html[data-theme] #app.app.gt-app .report-score small{display:block;font-size:11px;color:var(--gt-muted)}
+html[data-theme] #app.app.gt-app :is(.report-performance,.report-circles,.report-record) h2{font-size:14px;font-weight:600;margin:0 0 12px}
+html[data-theme] #app.app.gt-app .report-performance{padding:19px 0 18px;border-bottom:1px solid var(--gt-edge)}
+html[data-theme] #app.app.gt-app .report-stats{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+html[data-theme] #app.app.gt-app .content .report-stat{padding:8px 0;background:none;border:0;border-radius:9px;min-height:58px;min-width:0;text-align:center}
+html[data-theme] #app.app.gt-app .report-stat strong{display:block;font-size:20px;line-height:1.25;letter-spacing:-.5px;font-weight:600;font-variant-numeric:tabular-nums}
+html[data-theme] #app.app.gt-app .report-stat span{display:block;font-size:11px;color:var(--gt-muted);margin-top:5px}
+html[data-theme] #app.app.gt-app .content .report-stat[aria-expanded=true]{background:var(--gt-control);color:var(--gt-accent)}
+html[data-theme] #app.app.gt-app .report-secondary{background:var(--gt-control);border-radius:10px;margin-top:12px;padding:10px 14px;font-size:12px}
+html[data-theme] #app.app.gt-app .content .report-secondary-row{background:none;border:0;border-radius:0;padding:9px 0;min-height:44px;width:100%;font-size:12px;font-weight:400}
+html[data-theme] #app.app.gt-app .report-secondary-row>span{display:flex;justify-content:space-between;gap:12px;text-align:left}
+html[data-theme] #app.app.gt-app .report-secondary-row strong{font-weight:500}
+html[data-theme] #app.app.gt-app .report-circles{padding-top:20px}
+html[data-theme] #app.app.gt-app .report-circle-svg{display:block;width:100%;max-width:350px;aspect-ratio:1;margin:-5px auto 0;overflow:visible}
+html[data-theme] #app.app.gt-app .report-court{font-size:12px;color:var(--gt-muted);text-align:center;margin:0 0 16px}
+html[data-theme] #app.app.gt-app .report-timing-note{font-size:11px;color:var(--gt-muted);text-align:center;margin:-8px 0 15px;overflow-wrap:anywhere}
+html[data-theme] #app.app.gt-app .report-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:7px 14px;font-size:11px;color:var(--gt-muted)}
+html[data-theme] #app.app.gt-app .report-key{display:inline-flex;align-items:center;gap:5px}
+html[data-theme] #app.app.gt-app .report-key i{display:inline-block;width:7px;height:7px;border-radius:50%;flex-shrink:0}
+html[data-theme] #app.app.gt-app .report-legend+.report-legend{margin-top:9px}
+html[data-theme] #app.app.gt-app .report-record{margin-top:24px;padding-top:20px;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.app.gt-app .report-record details{border-bottom:1px solid var(--gt-edge)}
+html[data-theme] #app.app.gt-app .report-record summary{display:flex;align-items:center;gap:10px;min-height:56px;list-style:none;font-size:14px;font-weight:500;cursor:pointer}
+html[data-theme] #app.app.gt-app .report-record summary::-webkit-details-marker{display:none}
+html[data-theme] #app.app.gt-app .report-record summary:after{content:'+';color:var(--gt-muted);font-size:21px;font-weight:400}
+html[data-theme] #app.app.gt-app .report-record details[open]>summary:after{content:'−'}
+html[data-theme] #app.app.gt-app .report-record summary small{font-size:11px;color:var(--gt-muted);margin-left:auto}
+html[data-theme] #app.app.gt-app .report-record-body{padding:0 0 16px;font-size:13px}
+html[data-theme] #app.app.gt-app .report-record-toolbar{display:flex;justify-content:flex-end;padding:3px 0 14px}
+html[data-theme] #app.app.gt-app .content .report-tool,html[data-theme] #app.app.gt-app .sheet .report-tool{min-height:44px;min-width:44px;padding:9px 12px;background:var(--gt-surface);border:1px solid var(--gt-edge);border-radius:10px;font-size:12px;color:var(--gt-accent);font-weight:500}
+html[data-theme] #app.app.gt-app .report-tool>span{display:flex;gap:6px;align-items:center}
+html[data-theme] #app.app.gt-app .report-order-hint{font-size:11px;color:var(--gt-muted);margin:0 0 15px}
+html[data-theme] #app.app.gt-app .report-record-status{font-size:12px;color:var(--gt-accent);margin:0 0 12px}
+html[data-theme] #app.app.gt-app .report-record-status:empty{display:none}
+html[data-theme] #app.app.gt-app .report-period-heading{font-size:12px;font-weight:600;color:var(--gt-muted);padding:20px 0 6px}
+html[data-theme] #app.app.gt-app .report-play{position:relative;padding:13px 0;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.app.gt-app .report-play-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
+html[data-theme] #app.app.gt-app .report-play-label{flex:1;min-width:0;overflow-wrap:anywhere}
+html[data-theme] #app.app.gt-app .report-play small{display:block;color:var(--gt-muted);font-size:11px;margin-top:4px}
+html[data-theme] #app.app.gt-app .report-play[data-boundary=true]{background:color-mix(in srgb,var(--gt-control) 50%,var(--gt-bg));padding-inline:8px;border-radius:8px;margin-top:4px}
+html[data-theme] #app.app.gt-app .report-play[data-boundary=true] .report-play-label{font-weight:500}
+html[data-theme] #app.app.gt-app .content .report-drag{display:grid;place-items:center;width:36px;min-height:44px;min-width:36px;flex-shrink:0;touch-action:none;user-select:none;border:0;background:none;color:var(--gt-muted);border-radius:8px;padding:8px;margin-left:-7px}
+html[data-theme] #app.app.gt-app .report-adjusted{color:var(--gt-accent)!important}
+html[data-theme] #app.app.gt-app .report-play.drag-source{opacity:.45}
+html[data-theme] #app.app.gt-app .report-play.drop-before:before,html[data-theme] #app.app.gt-app .report-play.drop-after:after{content:'';position:absolute;left:0;right:0;height:3px;background:var(--gt-accent);border-radius:2px}
+html[data-theme] #app.app.gt-app .report-play.drop-before:before{top:-2px}
+html[data-theme] #app.app.gt-app .report-play.drop-after:after{bottom:-2px}
+html[data-theme] #app.app.gt-app .report-editor{padding:14px;background:var(--gt-control);border-radius:12px;margin:10px 0}
+html[data-theme] #app.app.gt-app .report-editor h3{font-size:14px;margin:0 0 8px}
+html[data-theme] #app.app.gt-app .report-editor label{display:block;font-size:12px;color:var(--gt-muted);margin:10px 0;min-width:0}
+html[data-theme] #app.app.gt-app .report-editor :is(input,select,textarea){display:block;width:100%;min-width:0;max-width:100%;min-height:46px;font:inherit;font-size:16px;padding:10px;background:var(--gt-surface);color:var(--gt-ink);border:1px solid var(--gt-edge);border-radius:9px;margin-top:5px}
+html[data-theme] #app.app.gt-app .report-editor textarea{resize:vertical}
+html[data-theme] #app.app.gt-app .report-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;clear:both}
+html[data-theme] #app.app.gt-app .report-editor .report-edit-grid{grid-template-columns:minmax(0,1fr)}
+html[data-theme] #app.app.gt-app .report-edit-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;margin-top:13px}
+html[data-theme] #app.app.gt-app .content .report-save,html[data-theme] #app.app.gt-app .sheet .report-save{background:var(--gt-accent-fill);color:var(--gt-on-accent);border-color:var(--gt-accent-fill)}
+html[data-theme] #app.app.gt-app .report-delete-confirm{background:var(--gt-surface);padding:12px;border-radius:10px;margin-top:10px}
+html[data-theme] #app.app.gt-app .report-delete-confirm button{margin-right:8px;margin-top:8px}
+@media(max-width:360px){html[data-theme] #app.app.gt-app .report-score strong{font-size:23px}html[data-theme] #app.app.gt-app .report-stat strong{font-size:18px}html[data-theme] #app.app.gt-app .report-stat[data-report-stat=fg] strong{font-size:16px}html[data-theme] #app.app.gt-app .report-legend{gap:7px 11px}}
