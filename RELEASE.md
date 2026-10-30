@@ -1,9 +1,7 @@
-# GameTrace V24 — development release
+# GameTrace V26 — development release
 
-Approved by Mike for development deployment. Adds the approved 18-second charcoal cinematic cover to deployed V22 with immediate Skip, final Enter GameTrace, reduced-motion support, focus restoration and no change to game recording or storage.
+Mike approved development deployment and saving all current standards/templates. Adds six tones to the existing three: Court tap, Net swish, Scoreboard beep, Sneaker squeak, Soft pop, Double tick. Existing Soft click, Digital tick and Basketball bounce remain. Preview and persisted selection are available in Settings; sound on/off is independent.
 
-Validation: simultaneous animated controls, all clockwise orange activation steps, second-control stop, delayed T cross, entry/skip, reduced motion, portrait 320/390/440px, landscape 844px, no runtime errors; 22 existing game-flow regression checks passed, including recording, period changes, report editing, save retry, deletion, reload and backup.
+Exact root HTML SHA256: 84b4ae0d0fb4f1778af3865c08b6437ec1ada2726602baa6739889f6668434ff.
 
-Root index.html SHA256: 8a0c13f2a1af0a83a99321cdb2fec73c6a38c76c17912b2b52a549ae636b369e.
-
-Source and tests: source/v24/. Existing source/v22/, icons, manifest, test data and legacy tracker remain. Production is unchanged.
+All nine audio graphs and actual offline audio rendering passed, plus preference/reload/backup/save failure checks, both themes at phone widths, cover checks and 22 game-flow regressions. The exact approved charcoal cover and existing V12 game data are preserved. Existing manifest/icons/legacy/test-data remain. Source and reproducible builder: source/v26/. Production is unchanged.

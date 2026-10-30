@@ -2,6 +2,18 @@
 
 ## Current approved baseline — October 30, 2026
 
+**V26 — Nine Sound Tones is approved for development deployment.** This supersedes V25 candidate status and V24 as the development app. Root index.html must match GameTrace_V26_Nine_Sound_Tones.html, SHA-256 `84b4ae0d0fb4f1778af3865c08b6437ec1ada2726602baa6739889f6668434ff`. V24 remains the rollback baseline; its exact charcoal cover is preserved. Production/main remain unchanged. Current source/build/tests: source/v26/.
+
+### Current sound-tone standard
+
+Settings → Sound tone offers **Soft click, Digital tick, Basketball bounce, Court tap, Net swish, Scoreboard beep, Sneaker squeak, Soft pop and Double tick**. Saved IDs are soft-click, digital-tick, basketball-bounce, court-tap, net-swish, scoreboard-beep, sneaker-squeak, soft-pop and double-tick. Missing/invalid IDs default to Digital tick, retaining the original deployed confirmation sound.
+
+Preview tone works while Sound is off and does not toggle recording feedback. Saved actions use the selected tone only with Sound on. Selection survives reload and JSON backup/restore; failed preference saves roll back. All tones are synthesized locally, with no downloaded assets or cover soundtrack. Sports names describe synthesized effects, not sampled recordings. Keep the existing resume-before-play AudioContext path, brief envelopes, cleanup and current-voice cancellation. Preserve the V12 storage schema and game records.
+
+V26 validation passed all nine graphs and actual OfflineAudioContext rendering with nonzero unclipped output, preview while off, resume ordering, preference persistence/failure rollback, JSON backup, invalid fallback, Day/Courtside settings layouts at 320/390/440px, cover/reduced-motion checks and all 22 game-flow regressions. Physical iPhone audibility and comfort remain user testing. Mike authorized development deployment and standards/template updates; production promotion remains separate.
+
+### Earlier baseline reference
+
 This section supersedes current-status and pending-work statements in the historical entries below. Those entries remain as the decision and release history.
 
 - Current test candidate: **V25 — Sound Tones**, implemented on V24; not deployed. Settings includes Soft click, Digital tick and Basketball bounce, independent sound on/off, preview and saved selection.
