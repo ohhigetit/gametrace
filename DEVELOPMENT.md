@@ -1,9 +1,13 @@
 # GameTrace development
 
-The development branch serves approved implementation candidates at https://development--game-trace.netlify.app/. Production is served from main and is promoted separately.
+Current development release: V24 — Cinematic Cover.
 
-Current development release: V22. The deployable app is repository-root index.html. Reproducible inputs, modules, tests and notes are under source/v22/; run python3 build_v22.py there. Previous source under source/v16/ remains for rollback/history. Existing icons and /legacy/ are preserved.
+The development branch serves https://development--game-trace.netlify.app/. Root index.html is the approved V24 standalone app. Production is served from main and is promoted separately.
 
-Synthetic games are available at /test-data/GameTrace_10_Test_Games.json for manual import only. No records are automatically added. JSON backups retain full game data; CSV exports support analysis. League and feedback preferences are optional V12 fields; opening a new backup in an older app may omit fields the older app does not support.
+V24 adds the approved charcoal cover to deployed V22. The controls assemble together, orange activation travels clockwise and stops on the second control, then the T cross, GameTrace and tagline reveal. Skip is available immediately; Enter GameTrace appears at the end. Reduced-motion preference shows the final logo immediately. The cover appears on page load and never interrupts internal navigation. The animation pauses when the page is hidden.
 
-Before production promotion, confirm this development build on the actual iPhone, including recording, saved-game reload, sticky reports and audio/nudge controls. Sound and vibration remain unverified in the user's HTML viewer. Do not promote main without separate authorization.
+Build: run python3 source/v24/build_v24.py. The builder uses source/v22/GameTrace_V22_Compact_Reports.html and source/v24/gametrace_cover_v24.html. Output is source/v24/GameTrace_V24_Cinematic_Cover.html, identical to root index.html. V22 source remains the rollback baseline. Existing icons and /legacy/ are preserved.
+
+Browser storage uses the same V12 key/schema. No game data or preferences are reset. The ten synthetic games remain at /test-data/GameTrace_10_Test_Games.json for manual import only. Audio remains the deployed V22 implementation, confirmed working by Mike after enabling device sound.
+
+Before production promotion, verify the cover and recording on the actual iPhone. Do not promote main without separate authorization.
