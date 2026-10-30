@@ -1,9 +1,9 @@
-# GameTrace V16 — official logo and solid controller
+# GameTrace V22 — development release
 
-Development release approved by Mike October 29, 2026. Uses the locked controller-inspired logo for the header, favicon and Apple Home Screen icon, plus hosted 192/512 manifest assets. Seven green outer sectors, solid orange upper-right sector without outline, orange basketball and bold central charcoal cross.
+Approved by Mike for deployment to the public development branch. Production remains unchanged.
 
-Controller faces are solid electric green #19C66A, with basketball-orange #F58A28 pressed and selection feedback. Existing labels/icons use dark ink. Bench and period lockouts, touch geometry, timing and saved-game schema are unchanged. Selected actions stay orange while options are open and return to green on save/cancel.
+Includes Reports summary and weighted Average/Total rows, compact toolbar toggle, pinned sortable table headings, filters on Reports and Previous Games, two-game comparison, League metadata, report game navigation, full-game timeline with court/bench strips and overlapping-play chooser, transactional import/restore failure handling, and controller icon contrast/touch refinements. The approved official logo and solid green/orange controller are preserved.
 
-Validated: 22 app-flow checks and both themes for selected feedback, cancellation, recording, bench lock and no horizontal overflow. Package paths verified. All previous V16 functionality and /legacy/ remain. Source under source/v16/.
+Validation: 22 game-flow checks, both-theme report/filter/compare and save-failure/timeline checks, and 320/375/390/440px pinned-header/sideways alignment checks. Sound/Nudge remain pending real iPhone Safari/Home Screen testing; HTML viewer behavior is unresolved.
 
-This update is deployed to development only. Production remains the previous release.
+Root index.html is the exact approved standalone review build: SHA256 31dfaf04da9512b5f066f1a51455ec214a992b2becd6b5403fcd78f45fc8e5d6. Source and tests: source/v22/. Ten test games: test-data/GameTrace_10_Test_Games.json, manual import only. Existing browser data uses the same V12 key/schema. Legacy tracker and icons are preserved.

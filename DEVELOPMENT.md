@@ -1,9 +1,9 @@
 # GameTrace development
 
-`development` hosts approved implementation candidates and deployment checks. `main` hosts the promoted production release.
+The development branch serves approved implementation candidates at https://development--game-trace.netlify.app/. Production is served from main and is promoted separately.
 
-V16 is the integrated Your Games and Game Report release built on V15. The approved Game Circle is used as the app icon. The previous GT logo explorations are not part of this release.
+Current development release: V22. The deployable app is repository-root index.html. Reproducible inputs, modules, tests and notes are under source/v22/; run python3 build_v22.py there. Previous source under source/v16/ remains for rollback/history. Existing icons and /legacy/ are preserved.
 
-The self-contained `index.html` is the deployable app. Editable modules, build inputs and tests are retained under `source/v16/`; generate the standalone with `build_v16.py` in that folder. The icon generator uses the approved report SVG and synthetic sample fixture; generated app icons are under `icons/`. Synthetic data is never imported automatically.
+Synthetic games are available at /test-data/GameTrace_10_Test_Games.json for manual import only. No records are automatically added. JSON backups retain full game data; CSV exports support analysis. League and feedback preferences are optional V12 fields; opening a new backup in an older app may omit fields the older app does not support.
 
-Promote a tested development tree to main with history preserved. Keep `/legacy/` unchanged and verify it after deployment. Avoid overwriting browser storage: V16 migrates V11 data to its new key and leaves the old key intact.
+Before production promotion, confirm this development build on the actual iPhone, including recording, saved-game reload, sticky reports and audio/nudge controls. Sound and vibration remain unverified in the user's HTML viewer. Do not promote main without separate authorization.
