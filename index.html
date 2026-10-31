@@ -819,6 +819,27 @@ html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padd
 #app.gt-camera-recording #gtCameraFeed{position:fixed;inset:0;height:100dvh;width:100vw;object-fit:contain;background:#111;z-index:2}
 #app.gt-camera-recording #liveView .controller-stage{z-index:3}
 @media(prefers-reduced-motion:reduce){#gtCameraRecord,#gtCameraRecord[data-recording="true"]::after{transition:none}}
+</style><style id="gt-camera-c1103-style">
+/* C1.10.3: Keep the actual Live controller above the recording preview. */
+#app.gt-camera-recording #liveView{isolation:isolate}
+#app.gt-camera-recording #liveView>.controller-stage{
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  position:relative!important;
+  z-index:60!important;
+}
+#app.gt-camera-recording #liveView>.controller-stage .visual,
+#app.gt-camera-recording #liveView>.controller-stage svg{
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+}
+#app.gt-camera-recording #gtCameraFeed{z-index:0!important;pointer-events:none!important}
+#app.gt-camera-recording #gtCameraBar{z-index:70!important}
+#app.gt-camera-recording #liveView>.controller-stage .action{
+  pointer-events:auto!important;
+}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
