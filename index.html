@@ -790,6 +790,22 @@ html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padd
 #liveView .controller-stage{position:relative;z-index:1}
 #liveView> :not(#gtCameraFeed):not(#gtCameraBar){position:relative;z-index:1}
 @media(min-width:600px){#gtCameraZoom{right:18%;left:calc(50% + 55px)}}
+</style><style id="gt-camera-c18-style">
+/* C1.8 video library and recording-focused UI */
+#gtCameraRecord{background:#70777f;box-shadow:inset 0 0 0 4px #70777f,inset 0 0 0 7px #fff}
+#gtCameraRecord[data-recording="true"]{background:#e73c46;box-shadow:inset 0 0 0 4px #e73c46,inset 0 0 0 7px #fff}
+#gtCameraSave{display:none!important}
+#gtCameraStatus{max-width:calc(50% - 42px)}
+#app.gt-camera-recording>.top{visibility:hidden;pointer-events:none}
+#app.gt-camera-recording #liveView> :not(#gtCameraFeed):not(#gtCameraBar):not(.controller-stage){visibility:hidden;pointer-events:none}
+#app.gt-camera-recording #liveView{background:transparent}
+#app.gt-camera-recording #gtCameraFeed{opacity:1}
+#gtRecordingLibrary{display:grid;gap:12px;margin:16px 0;padding:12px;border:1px solid var(--gt-edge,#555);border-radius:12px}
+#gtRecordingLibrary button{padding:9px 12px;border-radius:8px;min-height:44px}
+#gtRecordingLibrary .gt-video-item{border-top:1px solid var(--gt-edge,#555);padding-top:10px;display:grid;gap:7px}
+#gtRecordingLibrary .gt-video-actions{display:flex;flex-wrap:wrap;gap:8px}
+#gtRecordingLibrary .gt-video-actions button{flex:1;min-width:65px}
+#gtRecordingLibrary video{width:100%;max-height:340px;background:#111;border-radius:9px}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -1640,23 +1656,46 @@ play.addEventListener('click',()=>{if(playing){playing=false;cancelAnimationFram
 })();
 </script>
 
-<script id="gt-camera-c16-script">
-(()=>{const video=document.getElementById('gtCameraFeed'),record=document.getElementById('gtCameraRecord'),slider=document.getElementById('gtCameraZoomInput'),zoomLabel=document.getElementById('gtCameraZoomText'),status=document.getElementById('gtCameraStatus'),save=document.getElementById('gtCameraSave');if(!video||!record)return;
-let stream=null,recorder=null,chunks=[],blob=null,url=null,started=0,timer=null,recording=false;
-const info=t=>{status.textContent=t};
-async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and a supported browser');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}
-const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||0.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
-slider.addEventListener('input',async()=>{zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM';try{await stream?.getVideoTracks()[0].applyConstraints({advanced:[{zoom:Number(slider.value)}]})}catch{info('Camera zoom not supported')}});
-function finish(){recording=false;record.dataset.recording='false';record.setAttribute('aria-label','Start recording');clearInterval(timer);timer=null}
-function releaseBlob(){if(url)URL.revokeObjectURL(url);url=null;blob=null;save.hidden=true}
-record.addEventListener('click',async()=>{if(recording){if(recorder?.state==='recording'){recorder.stop();info('Preparing video…')}return}try{
-if(blob&&!confirm('A previous recording is ready to save. Start a new recording and discard it?'))return;
-releaseBlob();const s=await setup();if(typeof MediaRecorder==='undefined')throw Error('Video recording is unavailable in this browser');
-const types=['video/mp4;codecs=h264,aac','video/mp4','video/webm;codecs=vp9,opus','video/webm'];const mime=types.find(t=>MediaRecorder.isTypeSupported(t));recorder=new MediaRecorder(s,mime?{mimeType:mime}:undefined);chunks=[];
-recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};recorder.onerror=()=>{finish();info('Recording error — check storage')};recorder.onstop=()=>{finish();if(!chunks.length){info('No video captured');return}blob=new Blob(chunks,{type:recorder.mimeType||'video/mp4'});url=URL.createObjectURL(blob);save.hidden=false;info('Recording ready — tap Save video')};
-recorder.start(1000);recording=true;record.dataset.recording='true';record.setAttribute('aria-label','Stop recording');started=Date.now();info('● REC 00:00');timer=setInterval(()=>{const elapsed=Math.floor((Date.now()-started)/1000);info('● REC '+String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(elapsed%60).padStart(2,'0'))},1000);
-}catch(e){finish();info(e.message||'Camera permission or recording failed')}});
-save.addEventListener('click',async()=>{if(!blob)return;const ext=blob.type.includes('webm')?'webm':'mp4';const file=new File([blob],'GameTrace-'+new Date().toISOString().replace(/[:.]/g,'-')+'.'+ext,{type:blob.type});try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'GameTrace recording'});return}}catch(e){if(e.name==='AbortError')return}const a=document.createElement('a');a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();info('Video download started — save to Photos if needed')});
+<script id="gt-camera-c18-script">
+(()=>{
+const video=document.getElementById('gtCameraFeed'),record=document.getElementById('gtCameraRecord'),slider=document.getElementById('gtCameraZoomInput'),zoomLabel=document.getElementById('gtCameraZoomText'),status=document.getElementById('gtCameraStatus'),app=document.getElementById('app');
+if(!video||!record||!app)return;
+const DB_NAME='gametrace-video-library-v1',STORE='recordings';
+let stream=null,recorder=null,chunks=[],recording=false,saving=false,started=0,timer=null,pending=null,libraryURL=null;
+const say=t=>{status.textContent=t};
+function openDB(){return new Promise((resolve,reject)=>{if(!indexedDB){reject(Error('Local recording storage unavailable'));return}let req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'id'})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||Error('Storage failed'))})}
+async function transact(mode,work){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode),store=tx.objectStore(STORE);let req;try{req=work(store)}catch(e){db.close();reject(e);return}let result;req.onsuccess=()=>{result=req.result};tx.oncomplete=()=>{db.close();resolve(result)};tx.onerror=()=>{db.close();reject(tx.error||Error('Storage transaction failed'))};tx.onabort=()=>{db.close();reject(tx.error||Error('Storage aborted'))}})}
+const list=()=>transact('readonly',store=>store.getAll());
+const put=data=>transact('readwrite',store=>store.put(data));
+const remove=id=>transact('readwrite',store=>store.delete(id));
+function resetUI(){recording=false;record.dataset.recording='false';record.setAttribute('aria-label','Start recording');app.classList.remove('gt-camera-recording');video.classList.remove('active');clearInterval(timer);timer=null;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null}
+async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and Safari permission');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
+slider.addEventListener('input',async()=>{zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM';try{await stream?.getVideoTracks()[0].applyConstraints({advanced:[{zoom:Number(slider.value)}]})}catch{say('Zoom not supported')}});
+async function persistRecording(data){const now=Date.now();const name='GameTrace '+new Date(now).toLocaleString();const item={id:String(now)+'-'+Math.random().toString(36).slice(2,8),name,created:now,duration:Math.max(0,Math.round((now-started)/1000)),type:data.type||'video/mp4',size:data.size,blob:data,exported:false};await put(item);return item}
+async function finishRecording(){const data=new Blob(chunks,{type:recorder?.mimeType||'video/mp4'});chunks=[];resetUI();if(!data.size){say('Recording failed: empty video');return}saving=true;say('Saving locally…');try{const item=await persistRecording(data);pending=null;say('✓ Saved locally ('+Math.round(item.size/1048576)+' MB)');refreshLibrary()}catch(e){pending={blob:data,duration:Math.round((Date.now()-started)/1000)};say('Save failed — video recovery available in My Recordings');refreshLibrary()}finally{saving=false}}
+record.addEventListener('click',async()=>{if(recording){if(recorder?.state==='recording'){record.disabled=true;recorder.stop();say('Finalizing recording…')}return}if(saving)return;if(pending){say('Save or export previous video in My Recordings first');return}
+try{const s=await setup();if(!window.MediaRecorder)throw Error('Recording unsupported');const options=['video/mp4;codecs=h264,aac','video/mp4','video/webm;codecs=vp9,opus','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));recorder=new MediaRecorder(s,options?{mimeType:options}:undefined);chunks=[];
+recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};
+recorder.onerror=()=>{resetUI();say('Recording error — check available storage')};
+recorder.onstop=()=>{record.disabled=false;finishRecording()};
+recorder.start(1000);started=Date.now();recording=true;record.dataset.recording='true';record.setAttribute('aria-label','Stop recording');app.classList.add('gt-camera-recording');say('● REC 00:00');timer=setInterval(()=>{const d=Math.floor((Date.now()-started)/1000);say('● REC '+String(Math.floor(d/60)).padStart(2,'0')+':'+String(d%60).padStart(2,'0'))},1000);
+}catch(e){resetUI();say(e.message||'Camera access failed')}});
+async function exportItem(item){const ext=item.type.includes('webm')?'webm':'mp4',file=new File([item.blob],(item.name||'GameTrace').replace(/[^a-z0-9 _-]/gi,'_')+'.'+ext,{type:item.type});try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:item.name});return true}}catch(e){if(e.name==='AbortError')return false}
+const u=URL.createObjectURL(item.blob);const a=document.createElement('a');a.href=u;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);return true}
+let rendering=false;
+async function refreshLibrary(){const target=document.getElementById('gtRecordingLibrary');if(!target||rendering)return;rendering=true;try{const rows=(await list()).sort((a,b)=>b.created-a.created);target.replaceChildren();const heading=document.createElement('h3');heading.textContent='My Recordings ('+rows.length+')';target.append(heading);const note=document.createElement('p');note.textContent='Stored on this device in GameTrace. Export important videos to Photos or Files; browser storage is not permanent.';target.append(note);
+if(navigator.storage?.estimate){try{const e=await navigator.storage.estimate();const p=document.createElement('small');p.textContent='Browser storage: '+Math.round((e.usage||0)/1048576)+' MB used'+(e.quota?', '+Math.round(e.quota/1048576)+' MB estimated quota':'');target.append(p)}catch{}}
+if(pending){const recover=document.createElement('button');recover.type='button';recover.textContent='Retry saving unsaved video';recover.addEventListener('click',async()=>{try{await persistRecording(pending.blob);pending=null;say('✓ Recording recovered');refreshLibrary()}catch(e){say('Save failed: '+e.message)}});target.append(recover);const ex=document.createElement('button');ex.type='button';ex.textContent='Export unsaved video';ex.addEventListener('click',()=>exportItem({name:'GameTrace Recovery',blob:pending.blob,type:pending.blob.type}));target.append(ex)}
+if(!rows.length){const empty=document.createElement('p');empty.textContent='No locally saved videos yet.';target.append(empty)}
+for(const item of rows){const box=document.createElement('div');box.className='gt-video-item';const name=document.createElement('strong');name.textContent=item.name;const meta=document.createElement('small');meta.textContent=new Date(item.created).toLocaleString()+' · '+Math.floor(item.duration/60)+':'+String(item.duration%60).padStart(2,'0')+' · '+(item.size/1048576).toFixed(1)+' MB';const actions=document.createElement('div');actions.className='gt-video-actions';const add=(label,cb)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.addEventListener('click',cb);actions.append(b)};
+add('Play',()=>{if(libraryURL){URL.revokeObjectURL(libraryURL);libraryURL=null}target.querySelectorAll('video').forEach(v=>v.remove());const v=document.createElement('video');v.controls=true;v.playsInline=true;libraryURL=URL.createObjectURL(item.blob);v.src=libraryURL;box.append(v)});
+add('Export',async()=>{if(await exportItem(item)){item.exported=true;try{await put(item)}catch{}refreshLibrary()}});
+add('Rename',async()=>{const n=prompt('Recording name',item.name);if(n?.trim()){item.name=n.trim().slice(0,100);await put(item);refreshLibrary()}});
+add('Delete',async()=>{if(!confirm('Permanently delete this recording from GameTrace?'))return;await remove(item.id);refreshLibrary()});
+box.append(name,meta,actions);target.append(box)}
+}catch(e){target.textContent='Recordings unavailable: '+(e.message||e)}finally{rendering=false}}
+function ensureLibrary(){const root=document.getElementById('settingsContent');if(!root||root.closest('[hidden]'))return;if(root.querySelector('#gtRecordingLibrary'))return;const block=document.createElement('section');block.id='gtRecordingLibrary';root.append(block);refreshLibrary()}
+const observer=new MutationObserver(()=>{if(document.getElementById('settingsView')?.hidden===false)queueMicrotask(ensureLibrary)});observer.observe(document.getElementById('settingsView'),{attributes:true,attributeFilter:['hidden']});observer.observe(document.getElementById('settingsContent'),{childList:true});ensureLibrary();
 window.addEventListener('pagehide',()=>{if(recording)return;stream?.getTracks().forEach(t=>t.stop());stream=null});
 })();
 </script></body></html>
