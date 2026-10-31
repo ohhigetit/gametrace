@@ -777,7 +777,7 @@ html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padd
 .reports-floating-header .reports-table th:first-child{position:sticky;left:0;z-index:2}
 </style><style>html[data-theme] #app.gt-app .sound-tone-field{display:block;margin-top:18px}html[data-theme] #app.gt-app .sound-tone-field select{width:100%;min-width:0;max-width:100%}</style><style id="gt-camera-c16-style">
 #liveView{position:relative;isolation:isolate;min-height:calc(100svh - 90px);padding-bottom:82px}
-#gtCameraFeed{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;pointer-events:none;background:#20272b}
+#gtCameraFeed{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;background:#20272b}
 #gtCameraFeed:not(.active){opacity:0}
 #gtCameraBar{position:absolute;bottom:12px;left:0;right:0;min-height:68px;z-index:5;pointer-events:none}
 #gtCameraRecord{position:absolute;left:50%;top:4px;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;border:4px solid #fff;background:#eb3847;box-shadow:inset 0 0 0 4px #eb3847,inset 0 0 0 7px #fff;pointer-events:auto;touch-action:manipulation}
@@ -788,6 +788,7 @@ html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padd
 #gtCameraSave{position:absolute;left:8px;top:39px;border:1px solid #a3ff26;border-radius:7px;background:#182a1f;color:white;font-size:10px;padding:4px 7px;pointer-events:auto}
 #gtCameraRecord:focus-visible,#gtCameraSave:focus-visible{outline:3px solid #a3ff26;outline-offset:3px}
 #liveView .controller-stage{position:relative;z-index:1}
+#liveView> :not(#gtCameraFeed):not(#gtCameraBar){position:relative;z-index:1}
 @media(min-width:600px){#gtCameraZoom{right:18%;left:calc(50% + 55px)}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
