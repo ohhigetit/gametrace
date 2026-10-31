@@ -1682,32 +1682,45 @@ const list=()=>transact('readonly',store=>store.getAll());
 const put=data=>transact('readwrite',store=>store.put(data));
 const remove=id=>transact('readwrite',store=>store.delete(id));
 
-function makePortraitRecordingStream(source){
-  if(!HTMLCanvasElement.prototype.captureStream)throw Error('Portrait recording is not supported in this Safari version');
+async function makePortraitRecordingStream(source){
+  if(!HTMLCanvasElement.prototype.captureStream)throw Error('Portrait canvas recording is unavailable on this device');
+  // Let Safari report the actual decoded frame; requested camera dimensions are not authoritative.
+  if(video.readyState<2||!video.videoWidth||!video.videoHeight){
+    await new Promise((resolve,reject)=>{
+      const timeout=setTimeout(()=>{cleanup();reject(Error('Camera frame unavailable'))},5000);
+      const ready=()=>{if(video.videoWidth&&video.videoHeight){cleanup();resolve()}};
+      const cleanup=()=>{clearTimeout(timeout);video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready)};
+      video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);ready();
+    });
+  }
   const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1920;
   const ctx=canvas.getContext('2d',{alpha:false});
-  if(!ctx)throw Error('Could not initialize portrait recording');
+  if(!ctx)throw Error('Portrait video rendering unavailable');
   portraitCanvas=canvas;
-  let running=true;
+  const w=video.videoWidth,h=video.videoHeight;
+  // A landscape feed must be rotated into the *pixels* of the 9:16 recording.
+  // Portrait feeds are passed upright. Do not rely on encoder rotation metadata.
+  const rotate=w>h;
   const draw=()=>{
-    if(!running)return;
     if(video.readyState>=2){
-      const w=video.videoWidth,h=video.videoHeight;
-      if(w&&h){
-        // Render the same visually upright camera preview Safari shows, into portrait output.
-        // Crop only to fill the portrait canvas; never encode the raw landscape sensor track.
+      ctx.save();ctx.fillStyle='#111';ctx.fillRect(0,0,canvas.width,canvas.height);
+      if(rotate){
+        const scale=Math.max(canvas.width/h,canvas.height/w);
+        ctx.translate(canvas.width/2,canvas.height/2);
+        ctx.rotate(Math.PI/2);
+        ctx.drawImage(video,-w*scale/2,-h*scale/2,w*scale,h*scale);
+      }else{
         const scale=Math.max(canvas.width/w,canvas.height/h);
-        const dw=w*scale,dh=h*scale;
-        ctx.drawImage(video,(canvas.width-dw)/2,(canvas.height-dh)/2,dw,dh);
+        ctx.drawImage(video,(canvas.width-w*scale)/2,(canvas.height-h*scale)/2,w*scale,h*scale);
       }
+      ctx.restore();
     }
     paintFrame=requestAnimationFrame(draw);
   };
   draw();
   const captured=canvas.captureStream(30);
-  const result=new MediaStream([...captured.getVideoTracks(),...source.getAudioTracks()]);
   canvasStream=captured;
-  return result;
+  return new MediaStream([...captured.getVideoTracks(),...source.getAudioTracks()]);
 }
 function stopPortraitDrawing(){
   if(paintFrame!==null){cancelAnimationFrame(paintFrame);paintFrame=null}
@@ -1715,12 +1728,12 @@ function stopPortraitDrawing(){
   portraitCanvas=null;
 }
 function resetUI(){stopPortraitDrawing();recording=false;record.dataset.recording='false';record.setAttribute('aria-label','Start recording');app.classList.remove('gt-camera-recording');video.classList.remove('active');clearInterval(timer);timer=null;clock.hidden=true;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null}
-async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and Safari permission');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'},width:{ideal:1080},height:{ideal:1920},aspectRatio:{ideal:9/16}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
+async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and Safari permission');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},aspectRatio:{ideal:16/9}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
 slider.addEventListener('input',async()=>{zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM';try{await stream?.getVideoTracks()[0].applyConstraints({advanced:[{zoom:Number(slider.value)}]})}catch{say('Zoom not supported')}});
 async function persistRecording(data){const now=Date.now();const name='GameTrace '+new Date(now).toLocaleString();const item={id:String(now)+'-'+Math.random().toString(36).slice(2,8),name,created:now,duration:Math.max(0,Math.round((now-started)/1000)),type:data.type||'video/mp4',size:data.size,blob:data,exported:false};await put(item);return item}
 async function finishRecording(){const data=new Blob(chunks,{type:recorder?.mimeType||'video/mp4'});chunks=[];resetUI();if(!data.size){say('Recording failed: empty video');return}saving=true;say('Saving locally…');try{const item=await persistRecording(data);pending=null;say('✓ Saved locally ('+Math.round(item.size/1048576)+' MB)');refreshLibrary()}catch(e){pending={blob:data,duration:Math.round((Date.now()-started)/1000)};say('Save failed — video recovery available in My Recordings');refreshLibrary()}finally{saving=false}}
 record.addEventListener('click',async()=>{if(recording){if(recorder?.state==='recording'){record.disabled=true;recorder.stop();say('Finalizing recording…')}return}if(saving)return;if(pending){say('Save or export previous video in My Recordings first');return}
-try{const s=await setup();if(!window.MediaRecorder)throw Error('Recording unsupported');const options=['video/mp4;codecs=h264,aac','video/mp4','video/webm;codecs=vp9,opus','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));const portraitStream=makePortraitRecordingStream(s);recorder=new MediaRecorder(portraitStream,options?{mimeType:options}:undefined);chunks=[];
+try{const s=await setup();if(!window.MediaRecorder)throw Error('Recording unsupported');const options=['video/mp4;codecs=h264,aac','video/mp4','video/webm;codecs=vp9,opus','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));const portraitStream=await makePortraitRecordingStream(s);recorder=new MediaRecorder(portraitStream,options?{mimeType:options}:undefined);chunks=[];
 recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};
 recorder.onerror=()=>{resetUI();say('Recording error — check available storage')};
 recorder.onstop=()=>{record.disabled=false;finishRecording()};
