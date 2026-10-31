@@ -775,7 +775,21 @@ html[data-theme] #app.app.gt-app .reports-toolbar .report-tool{padding-left:8px;
 .reports-floating-header .reports-table{margin:0;table-layout:fixed}
 html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padding-top:10px;padding-bottom:10px;background:var(--gt-bg)}
 .reports-floating-header .reports-table th:first-child{position:sticky;left:0;z-index:2}
-</style><style>html[data-theme] #app.gt-app .sound-tone-field{display:block;margin-top:18px}html[data-theme] #app.gt-app .sound-tone-field select{width:100%;min-width:0;max-width:100%}</style></head><body>
+</style><style>html[data-theme] #app.gt-app .sound-tone-field{display:block;margin-top:18px}html[data-theme] #app.gt-app .sound-tone-field select{width:100%;min-width:0;max-width:100%}</style><style id="gt-camera-c16-style">
+#liveView{position:relative;isolation:isolate;min-height:calc(100svh - 90px);padding-bottom:82px}
+#gtCameraFeed{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;pointer-events:none;background:#20272b}
+#gtCameraFeed:not(.active){opacity:0}
+#gtCameraBar{position:absolute;bottom:12px;left:0;right:0;min-height:68px;z-index:5;pointer-events:none}
+#gtCameraRecord{position:absolute;left:50%;top:4px;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;border:4px solid #fff;background:#eb3847;box-shadow:inset 0 0 0 4px #eb3847,inset 0 0 0 7px #fff;pointer-events:auto;touch-action:manipulation}
+#gtCameraRecord[data-recording="true"]::after{content:"";position:absolute;inset:17px;background:#fff;border-radius:3px}
+#gtCameraZoom{position:absolute;left:calc(50% + 37px);right:9px;top:6px;display:flex;flex-direction:column;gap:2px;align-items:center;font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px #000;pointer-events:auto}
+#gtCameraZoom input{width:100%;accent-color:#a3ff26;min-height:26px}
+#gtCameraStatus{position:absolute;left:8px;top:14px;max-width:calc(50% - 45px);font-size:10px;color:white;background:#111c;padding:5px 7px;border-radius:7px}
+#gtCameraSave{position:absolute;left:8px;top:39px;border:1px solid #a3ff26;border-radius:7px;background:#182a1f;color:white;font-size:10px;padding:4px 7px;pointer-events:auto}
+#gtCameraRecord:focus-visible,#gtCameraSave:focus-visible{outline:3px solid #a3ff26;outline-offset:3px}
+#liveView .controller-stage{position:relative;z-index:1}
+@media(min-width:600px){#gtCameraZoom{right:18%;left:calc(50% + 55px)}}
+</style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -916,6 +930,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 -->
+<video id="gtCameraFeed" autoplay playsinline muted aria-label="Live camera preview"></video>
+<div id="gtCameraBar" aria-label="Independent camera controls">
+<span id="gtCameraStatus" aria-live="polite">Tap Record to enable camera</span>
+<button id="gtCameraRecord" type="button" aria-label="Start recording" data-recording="false"></button>
+<label id="gtCameraZoom"><span id="gtCameraZoomText">1.0× ZOOM</span><input type="range" id="gtCameraZoomInput" min="1" max="1" step="0.1" value="1" disabled aria-label="Camera zoom"></label>
+<button id="gtCameraSave" type="button" hidden>Save video</button>
+</div>
 <section class="controller-stage" aria-label="Game controller"><div class="visual"><svg viewBox="-10 55 450 456" aria-label="GameTrace Championship controller: touch at 2 o’clock and pass at 6 o’clock" role="group">
 <defs><linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#334053"/><stop offset=".4" stop-color="#151f2c"/><stop offset="1" stop-color="#070d17"/></linearGradient><linearGradient id="segmentGrad" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#35455c"/><stop offset=".3" stop-color="#1b2c41"/><stop offset="1" stop-color="#111b2b"/></linearGradient><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe7a3"/><stop offset=".35" stop-color="#936221"/><stop offset=".65" stop-color="#f0c773"/><stop offset="1" stop-color="#7a562b"/></linearGradient><radialGradient id="coreGrad"><stop stop-color="#1b2c42"/><stop offset="1" stop-color="#070d17"/></radialGradient><linearGradient id="wingGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6b5737"/><stop offset=".35" stop-color="#313445"/><stop offset="1" stop-color="#0d1b31"/></linearGradient><filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-opacity=".6"/></filter></defs>
 <!-- No external housing: circular control and standalone right-triangle TOUCH/PASS only. -->
@@ -1618,4 +1639,23 @@ play.addEventListener('click',()=>{if(playing){playing=false;cancelAnimationFram
 })();
 </script>
 
-</body></html>
+<script id="gt-camera-c16-script">
+(()=>{const video=document.getElementById('gtCameraFeed'),record=document.getElementById('gtCameraRecord'),slider=document.getElementById('gtCameraZoomInput'),zoomLabel=document.getElementById('gtCameraZoomText'),status=document.getElementById('gtCameraStatus'),save=document.getElementById('gtCameraSave');if(!video||!record)return;
+let stream=null,recorder=null,chunks=[],blob=null,url=null,started=0,timer=null,recording=false;
+const info=t=>{status.textContent=t};
+async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and a supported browser');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}
+const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||0.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
+slider.addEventListener('input',async()=>{zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM';try{await stream?.getVideoTracks()[0].applyConstraints({advanced:[{zoom:Number(slider.value)}]})}catch{info('Camera zoom not supported')}});
+function finish(){recording=false;record.dataset.recording='false';record.setAttribute('aria-label','Start recording');clearInterval(timer);timer=null}
+function releaseBlob(){if(url)URL.revokeObjectURL(url);url=null;blob=null;save.hidden=true}
+record.addEventListener('click',async()=>{if(recording){if(recorder?.state==='recording'){recorder.stop();info('Preparing video…')}return}try{
+if(blob&&!confirm('A previous recording is ready to save. Start a new recording and discard it?'))return;
+releaseBlob();const s=await setup();if(typeof MediaRecorder==='undefined')throw Error('Video recording is unavailable in this browser');
+const types=['video/mp4;codecs=h264,aac','video/mp4','video/webm;codecs=vp9,opus','video/webm'];const mime=types.find(t=>MediaRecorder.isTypeSupported(t));recorder=new MediaRecorder(s,mime?{mimeType:mime}:undefined);chunks=[];
+recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};recorder.onerror=()=>{finish();info('Recording error — check storage')};recorder.onstop=()=>{finish();if(!chunks.length){info('No video captured');return}blob=new Blob(chunks,{type:recorder.mimeType||'video/mp4'});url=URL.createObjectURL(blob);save.hidden=false;info('Recording ready — tap Save video')};
+recorder.start(1000);recording=true;record.dataset.recording='true';record.setAttribute('aria-label','Stop recording');started=Date.now();info('● REC 00:00');timer=setInterval(()=>{const elapsed=Math.floor((Date.now()-started)/1000);info('● REC '+String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(elapsed%60).padStart(2,'0'))},1000);
+}catch(e){finish();info(e.message||'Camera permission or recording failed')}});
+save.addEventListener('click',async()=>{if(!blob)return;const ext=blob.type.includes('webm')?'webm':'mp4';const file=new File([blob],'GameTrace-'+new Date().toISOString().replace(/[:.]/g,'-')+'.'+ext,{type:blob.type});try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'GameTrace recording'});return}}catch(e){if(e.name==='AbortError')return}const a=document.createElement('a');a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();info('Video download started — save to Photos if needed')});
+window.addEventListener('pagehide',()=>{if(recording)return;stream?.getTracks().forEach(t=>t.stop());stream=null});
+})();
+</script></body></html>
