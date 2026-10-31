@@ -806,6 +806,19 @@ html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padd
 #gtRecordingLibrary .gt-video-actions{display:flex;flex-wrap:wrap;gap:8px}
 #gtRecordingLibrary .gt-video-actions button{flex:1;min-width:65px}
 #gtRecordingLibrary video{width:100%;max-height:340px;background:#111;border-radius:9px}
+</style><style id="gt-camera-c110-style">
+/* C1.10 portrait Full HD target, iPhone-inspired camera interaction */
+#gtCameraBar{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:50}
+#gtCameraRecord{width:76px;height:76px;top:0;border:4px solid #353a3dcf;background:#e84049;box-shadow:inset 0 0 0 6px #f4f4f4,0 0 0 2px #ffffff46;transition:background .18s ease,box-shadow .18s ease}
+#gtCameraRecord[data-recording="true"]{background:#292e31;box-shadow:inset 0 0 0 4px #292e31,0 0 0 2px #ffffff55}
+#gtCameraRecord[data-recording="true"]::after{content:"";position:absolute;inset:22px;background:#f43c45;border-radius:7px;transition:inset .18s ease,border-radius .18s ease}
+#gtCameraZoom{left:calc(50% + 49px);right:12px;top:15px}
+#gtCameraStatus{top:17px}
+#gtCameraTimer{position:fixed;top:calc(env(safe-area-inset-top,0px) + 22px);left:50%;transform:translateX(-50%);background:#f43c45;color:#fff;padding:7px 12px;border-radius:9px;font:700 18px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.8px;z-index:1000;pointer-events:none}
+#gtCameraTimer[hidden]{display:none!important}
+#app.gt-camera-recording #gtCameraFeed{position:fixed;inset:0;height:100dvh;width:100vw;object-fit:contain;background:#111;z-index:2}
+#app.gt-camera-recording #liveView .controller-stage{z-index:3}
+@media(prefers-reduced-motion:reduce){#gtCameraRecord,#gtCameraRecord[data-recording="true"]::after{transition:none}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -949,7 +962,7 @@ SOFTWARE.
 -->
 <video id="gtCameraFeed" autoplay playsinline muted aria-label="Live camera preview"></video>
 <div id="gtCameraBar" aria-label="Independent camera controls">
-<span id="gtCameraStatus" aria-live="polite">Tap Record to enable camera</span>
+<span id="gtCameraStatus" aria-live="polite">Tap Record to enable camera</span><span id="gtCameraTimer" aria-live="off" hidden>00:00:00</span>
 <button id="gtCameraRecord" type="button" aria-label="Start recording" data-recording="false"></button>
 <label id="gtCameraZoom"><span id="gtCameraZoomText">1.0× ZOOM</span><input type="range" id="gtCameraZoomInput" min="1" max="1" step="0.1" value="1" disabled aria-label="Camera zoom"></label>
 <button id="gtCameraSave" type="button" hidden>Save video</button>
@@ -1658,7 +1671,7 @@ play.addEventListener('click',()=>{if(playing){playing=false;cancelAnimationFram
 
 <script id="gt-camera-c18-script">
 (()=>{
-const video=document.getElementById('gtCameraFeed'),record=document.getElementById('gtCameraRecord'),slider=document.getElementById('gtCameraZoomInput'),zoomLabel=document.getElementById('gtCameraZoomText'),status=document.getElementById('gtCameraStatus'),app=document.getElementById('app');
+const video=document.getElementById('gtCameraFeed'),record=document.getElementById('gtCameraRecord'),clock=document.getElementById('gtCameraTimer'),slider=document.getElementById('gtCameraZoomInput'),zoomLabel=document.getElementById('gtCameraZoomText'),status=document.getElementById('gtCameraStatus'),app=document.getElementById('app');
 if(!video||!record||!app)return;
 const DB_NAME='gametrace-video-library-v1',STORE='recordings';
 let stream=null,recorder=null,chunks=[],recording=false,saving=false,started=0,timer=null,pending=null,libraryURL=null;
@@ -1668,8 +1681,8 @@ async function transact(mode,work){const db=await openDB();return new Promise((r
 const list=()=>transact('readonly',store=>store.getAll());
 const put=data=>transact('readwrite',store=>store.put(data));
 const remove=id=>transact('readwrite',store=>store.delete(id));
-function resetUI(){recording=false;record.dataset.recording='false';record.setAttribute('aria-label','Start recording');app.classList.remove('gt-camera-recording');video.classList.remove('active');clearInterval(timer);timer=null;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null}
-async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and Safari permission');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
+function resetUI(){recording=false;record.dataset.recording='false';record.setAttribute('aria-label','Start recording');app.classList.remove('gt-camera-recording');video.classList.remove('active');clearInterval(timer);timer=null;clock.hidden=true;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null}
+async function setup(){if(stream)return stream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera requires HTTPS and Safari permission');stream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'},width:{ideal:1080},height:{ideal:1920},aspectRatio:{ideal:9/16}}});video.srcObject=stream;video.classList.add('active');try{await video.play()}catch{}const track=stream.getVideoTracks()[0],cap=track.getCapabilities?.();if(cap?.zoom){slider.min=String(cap.zoom.min);slider.max=String(cap.zoom.max);slider.step=String(cap.zoom.step||.1);slider.value=String(track.getSettings?.().zoom||cap.zoom.min);slider.disabled=false;zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM'}else{slider.disabled=true;zoomLabel.textContent='ZOOM UNAVAILABLE'}return stream}
 slider.addEventListener('input',async()=>{zoomLabel.textContent=Number(slider.value).toFixed(1)+'× ZOOM';try{await stream?.getVideoTracks()[0].applyConstraints({advanced:[{zoom:Number(slider.value)}]})}catch{say('Zoom not supported')}});
 async function persistRecording(data){const now=Date.now();const name='GameTrace '+new Date(now).toLocaleString();const item={id:String(now)+'-'+Math.random().toString(36).slice(2,8),name,created:now,duration:Math.max(0,Math.round((now-started)/1000)),type:data.type||'video/mp4',size:data.size,blob:data,exported:false};await put(item);return item}
 async function finishRecording(){const data=new Blob(chunks,{type:recorder?.mimeType||'video/mp4'});chunks=[];resetUI();if(!data.size){say('Recording failed: empty video');return}saving=true;say('Saving locally…');try{const item=await persistRecording(data);pending=null;say('✓ Saved locally ('+Math.round(item.size/1048576)+' MB)');refreshLibrary()}catch(e){pending={blob:data,duration:Math.round((Date.now()-started)/1000)};say('Save failed — video recovery available in My Recordings');refreshLibrary()}finally{saving=false}}
@@ -1678,7 +1691,7 @@ try{const s=await setup();if(!window.MediaRecorder)throw Error('Recording unsupp
 recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};
 recorder.onerror=()=>{resetUI();say('Recording error — check available storage')};
 recorder.onstop=()=>{record.disabled=false;finishRecording()};
-recorder.start(1000);started=Date.now();recording=true;record.dataset.recording='true';record.setAttribute('aria-label','Stop recording');app.classList.add('gt-camera-recording');say('● REC 00:00');timer=setInterval(()=>{const d=Math.floor((Date.now()-started)/1000);say('● REC '+String(Math.floor(d/60)).padStart(2,'0')+':'+String(d%60).padStart(2,'0'))},1000);
+recorder.start(1000);started=Date.now();recording=true;clock.hidden=false;clock.textContent='00:00:00';record.dataset.recording='true';record.setAttribute('aria-label','Stop recording');app.classList.add('gt-camera-recording');say('● REC 00:00');timer=setInterval(()=>{const d=Math.floor((Date.now()-started)/1000);clock.textContent=String(Math.floor(d/3600)).padStart(2,'0')+':'+String(Math.floor(d/60)%60).padStart(2,'0')+':'+String(d%60).padStart(2,'0');say('● Recording')},1000);
 }catch(e){resetUI();say(e.message||'Camera access failed')}});
 async function exportItem(item){const ext=item.type.includes('webm')?'webm':'mp4',file=new File([item.blob],(item.name||'GameTrace').replace(/[^a-z0-9 _-]/gi,'_')+'.'+ext,{type:item.type});try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:item.name});return true}}catch(e){if(e.name==='AbortError')return false}
 const u=URL.createObjectURL(item.blob);const a=document.createElement('a');a.href=u;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);return true}
