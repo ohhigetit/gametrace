@@ -1,9 +1,11 @@
 # GameTrace development
 
-Current approved development release: V26 — Nine Sound Tones. URL: https://development--game-trace.netlify.app/ . Root index.html is the approved standalone. Production is served from main and remains unchanged.
+Approved for development deployment November 2, 2026: V27 Training and Family, built on C1.10.3 camera. Development URL: https://development--game-trace.netlify.app/ . Production/main is outside this release.
 
-Settings offers nine synthesized tones, preview while Sound is off, saved selection and independent recording sound on/off. Digital tick remains the default. The approved V24 charcoal cover, controller, reports, V12 data, icons, manifest, manual test data and /legacy/ are preserved. No demo records are added automatically.
+Adds completed training/camp sessions, total hours, hour rings, weekly streaks, weekly/cumulative graph, session reflections and game feedback. Report swipes work across the page. The approved controller/camera pixels are preserved. No demo records are automatically added.
 
-Build: python3 source/v26/build_v26.py. It consumes source/v24/GameTrace_V24_Cinematic_Cover.html and source/v26/gametrace_v26_tones.js. V24/V22 source remains for rollback. Current standards: docs/GameTrace_Approved_Design_and_Development.md. Templates: templates/v26/README.md and templates/release-checklist.md.
+The family connection is configured with the GameTrace Supabase project URL and public publishable key. The owner installed the SQL and received success. Public settings respond and anonymous shared-record reads are denied. Actual user sign-up, email confirmation, family creation, cross-account access and clip uploads still need live acceptance testing. Recordings are limited to 50 MB each for the selected free plan.
 
-Validation: nine actual audio renders and tone-setting checks, both theme phone layouts, approved cover checks and 22 game-flow regressions. Actual device audio settings apply; physical iPhone review remains a follow-up. No production promotion without authorization.
+Build: python3 source/v27/build.py. Validation: node tests/training.cjs; node tests/family-sync.cjs; node tests/core-regression.cjs. 58 automated checks passed. Source and limits: source/v27/README.md and cloud/SETUP.md.
+
+Later discussion of extra categories, session trophies and a separate Goals section is not implemented in this candidate.

@@ -1,5 +1,19 @@
 # GameTrace — approved design and development
 
+## V27 — training and family integration candidate · November 2, 2026
+
+Mike authorized implementation of completed Trainings and Camps, game reflections, full-page report navigation and shared family data/recordings. This section records the new scope; prior manual-only storage decisions are superseded for the optional family connection. Cloud use has not been activated.
+
+- Report navigation: left swipe moves to next report; right to previous across the page, including summary surfaces. Preserve vertical scroll, taps, editors, drag handles and endpoints.
+- Player Feedback is optional free text: What went well? What was challenging? What will I focus on next game? Editable on Game Details and the report.
+- Completed Trainings/Camps record name, date and active duration in whole hours/minutes. Coach, organization/location, player, multiple focus tags, reflections, progress notes and clip link are optional. Repeat copies session details/focus but clears duration, evidence and reflections. Multi-day camps are entered by day.
+- One overall power-up illustration uses combined hours. Candidate ring thresholds are 5/10/25/50/100 hours. Graph has weekly bars and cumulative line with explicit different axes; 4/12/all-time windows, week selection and carry-in cumulative hours.
+- Candidate streak definition: at least one completed session per Monday–Sunday week. An open current week retains the prior streak; a missed completed week resets it. Best streak persists by calculation. Edits and restored/soft-deleted sessions recalculate derived progress.
+- Optional family connection uses individual sign-ins, invitation code and equal family edit access. Device-first saves, expected cloud versions and explicit conflict review preserve competing edits; cloud history and recovered device copies support recovery. Private clips stay local until configured and uploaded. Wi-Fi-only auto-upload waits if the browser cannot identify the connection. App-open upload/retry and retained local originals; no background/resumable or Photos auto-save claim.
+- V12 backup envelope gains trainingSessions and game feedback; JSON includes both, CSV adds training export. Device preferences/auth/video bytes are excluded from sharing. Older builds can drop new fields; all participating devices must use V27.
+
+Source: source/v27/. Backend setup and live acceptance checklist: cloud/SETUP.md. Automated and local-browser checks are documented in the candidate README. Live backend policies, two-account access control, real-device uploads and iPhone Safari gestures require configured-project/device validation. Candidate only; no production promotion.
+
 ## Current approved baseline — October 30, 2026
 
 **V26 — Nine Sound Tones is approved for development deployment.** This supersedes V25 candidate status and V24 as the development app. Root index.html must match GameTrace_V26_Nine_Sound_Tones.html, SHA-256 `84b4ae0d0fb4f1778af3865c08b6437ec1ada2726602baa6739889f6668434ff`. V24 remains the rollback baseline; its exact charcoal cover is preserved. Production/main remain unchanged. Current source/build/tests: source/v26/.

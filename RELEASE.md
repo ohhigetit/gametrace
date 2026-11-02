@@ -1,7 +1,9 @@
-# GameTrace V26 — development release
+# GameTrace V27 — training and family review candidate
 
-Mike approved development deployment and saving all current standards/templates. Adds six tones to the existing three: Court tap, Net swish, Scoreboard beep, Sneaker squeak, Soft pop, Double tick. Existing Soft click, Digital tick and Basketball bounce remain. Preview and persisted selection are available in Settings; sound on/off is independent.
+Adds completed training/camp logging, hour achievements, weekly streaks, a weekly/cumulative progress graph, optional player reflections on games and sessions, and whole-page report navigation. Built on C1.10.3 from development, preserving its camera frame path and controller SVG.
 
-Exact root HTML SHA256: 84b4ae0d0fb4f1778af3865c08b6437ec1ada2726602baa6739889f6668434ff.
+Optional family integration includes individual sign-in, family invites/equal editing, local-first version-checked sync, conflict recovery/history and private video uploads. The owner has installed the backend SQL, and the project connection is prefilled. Authenticated family flows remain unverified. See cloud/SETUP.md for activation and required real-backend/device checks.
 
-All nine audio graphs and actual offline audio rendering passed, plus preference/reload/backup/save failure checks, both themes at phone widths, cover checks and 22 game-flow regressions. The exact approved charcoal cover and existing V12 game data are preserved. Existing manifest/icons/legacy/test-data remain. Source and reproducible builder: source/v26/. Production is unchanged.
+Validation: 13 training/backup/preservation checks, 8 simulated sync checks and 37 existing core checks passed. Local-browser checks covered training/camp save and repeat, 5-hour achievement, weekly streak, game-feedback persistence, report navigation in both directions and unconfigured cloud behavior. No user records were injected; test records exist only in the isolated preview browser.
+
+Status: authorized for development deployment November 2, 2026. Production/main promotion is excluded. Verify the hosted HTML and family sign-in screen after deployment.
