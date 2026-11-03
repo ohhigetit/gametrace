@@ -1,42 +1,43 @@
-# Family Cloud activation
+# GameTrace Family Cloud v2
 
-Status: integration candidate. No cloud account, live tables, bucket, family or credentials have been provisioned. Existing device data remains local until connection and sign-in. No video has been uploaded during development.
+## Existing GameTrace project: upgrade
 
-## Activation
+Run `migrations/002_family_workflow.sql` once in the existing Supabase SQL Editor. Do **not** rerun schema.sql over existing tables. `family-upgrade.html` provides a mobile copy button with the exact migration; regenerate it with `python cloud/build-upgrade.py` if the SQL changes.
 
-1. Create or choose a Supabase project you own. Check its database, storage, upload-size and bandwidth limits and billing before using it for video.
-2. Run `schema.sql` in that project's SQL editor once. It creates family membership, versioned records/history and the **private** `gametrace-clips` bucket with family membership policies. Do not use a public video bucket.
-3. Enable email/password Auth. Configure email confirmation and Site URL for the chosen HTTPS GameTrace test origin. Confirm emails before signing in if confirmation is enabled.
-4. In GameTrace → Family Cloud → Cloud setup, enter the project URL and **publishable** key (or legacy anon key). Never enter a service-role or secret key. The same public project connection must be entered on each family device.
-5. Create your individual account, sign in, then Create family. Creating or joining a family shares that device's games and training records with that family. Keep an export backup first.
-6. Share the invitation code privately with the intended family. Each member creates their own account, signs in, then joins using the code. All members have equal editing access. Regenerating the code invalidates the old code.
-7. Run the live acceptance checks below before using shared data or uploading real clips.
+The transaction preserves existing records, promotes the family creator to Owner and expires legacy invitation codes. New codes expire in seven days. It safely stops with no changes if an account has multiple existing memberships or a family creator is missing from membership. Resolve those memberships deliberately in the dashboard before retrying; do not delete family data. Re-running after success preserves transferred ownership and current roles.
 
-## Sync and recovery
+Configure Auth → URL Configuration to allow the exact application redirect:
+`https://development--game-trace.netlify.app/?family_auth=1`
+Use that URL for this development deployment's confirmation and reset flows. Add production only when production is separately approved. The default Supabase email templates must retain `ConfirmationURL` so Supabase verifies the email token and returns a URL-fragment session. Custom templates / PKCE callbacks need separate integration; this static app uses implicit recovery. No anonymous sign-in is required.
 
-Changes are saved on the device first and synced while GameTrace is open. Reconnect, sign in again if necessary, then use Sync now. Competing changes to the same whole game/session are held for explicit review. Choosing the family copy retains the unsynced device copy in Cloud history for JSON export. Saved cloud versions remain in gt_history; restore uses the same expected-version guard.
+The app's separate Sign in, Create account and Forgot password forms use Supabase Auth. Confirmation/reset links validate the returned session via `/auth/v1/user`, remove tokens from the URL, and show the reset form for recovery sessions. Sync is paused until password reset finishes or is cancelled. Password reset returns to sign-in. Minimum client password length is eight characters; any stronger server policy also applies.
 
-Local appearance/sound preferences, active-game selection and authentication are not shared. Cloud sign-in/config and video bytes are excluded from JSON backups. JSON includes game feedback, training sessions, session reflections, notes and clip links. Older app versions can drop these added fields when saving: do not switch between old and V27 builds on the same origin after recording V27 data.
+## New projects
 
-Sessions use soft deletion with restore. Removing a shared clip hides its metadata but retains its private file and local copy for recovery. It **does not free cloud storage**. Permanent storage cleanup and member removal are administration tasks for the project owner in this candidate. History retention is not automatically pruned; account storage and history growth need monitoring.
+Run schema.sql first, then migrations/002_family_workflow.sql. Enable email/password auth. Use the public/publishable project key in the client, never a service-role key. The deployed development app contains the owner's public GameTrace project connection already.
 
-## Video behavior and limits
+## Account, family and sharing
 
-Camera capture remains the approved C1.10.3 portrait 1080×1920 canvas path. Local video saves finish before uploads. Upload selected clips from Family Cloud or My Recordings, or enable automatic uploads. Local copies are never removed by upload.
+One membership per account is enforced by a database unique constraint and locked create/join RPCs. The creator is Owner, who may appoint Admins and transfer ownership. Owner/Admins rotate codes and remove Members. Only the Owner manages Admin roles or removes an Admin. Members can edit all shared records. The Owner must transfer before leaving. Shared records and history stay with the family when a member leaves or is removed; removal invalidates the current invitation. An already issued signed video URL may work until its ten-minute expiry. Downloaded/device copies cannot be recalled remotely.
 
-Automatic Wi-Fi-only uploads wait when the browser cannot identify network type (including browsers that do not expose navigator.connection.type). A manual Upload clip is the explicit override. The app must stay open for uploads; background/resumable upload is not claimed. A failed upload restarts on retry and may re-transfer the entire clip. The app limit is 500 MB per clip; the project may impose a lower limit. The app reports provider upload failures and keeps the local original.
+Roles are stored in gt_members and never trusted from auth user metadata. Direct table writes are denied. The profile setter exposes only display names to fellow members, not private email addresses.
 
-Videos are stored privately and played using short-lived signed URLs. Editing recording details can attach a clip to a game or training session. New live recordings default to the selected game. Sign out revokes the current session remotely when connected; device records remain locally available.
+A signed-in account discovers its sole family automatically. The family name, role, members, last successful sync, record changes pending and recordings awaiting upload are shown in Family Cloud. First connection reviews unshared existing device records before any upload. Choosing Keep on this device excludes those IDs from uploading and from applying a same-ID cloud record until re-reviewed in Manage family. New records then sync normally. Same-ID competing edits require explicit resolution; device copies are preserved before applying the cloud version. Existing baselines retain prior, already approved synchronization.
 
-## Required live acceptance checks
+If the account belongs to a different family from this device's library, synchronization is blocked until an explicit connection step archives the prior DB and sync metadata locally and starts a separate library. The archive can be exported from Family Cloud. Old family records never automatically upload to a new family. Device video files remain local and require explicit upload to another family.
 
-- Two independent accounts join the same family and both edit a session and a game.
-- An unrelated authenticated account and anonymous requests cannot list family records, history or private videos, or write records through RPC/storage.
-- Invite rotation invalidates the old code; expired auth refresh and sign-out work.
-- Offline edits survive reload, reconnect, failed local saves and competing changes on two devices.
-- Competing edits preserve both copies and the history recovery path works.
-- A real iPhone recording uploads, plays from a second family account and remains locally exportable.
-- Upload interruption, insufficient provider space, expired sign-in and oversized clip failure retain the original; retry works.
-- Verify real iPhone Home Screen/Safari background behavior and network identification.
+## Recovery and recordings
 
-References: https://supabase.com/docs/guides/database/secure-data and https://supabase.com/docs/guides/storage/security/access-control .
+Training sessions, deleted plays and local/shared recordings have restore controls. Local recording soft deletion retains bytes and does not free space. Deleted plays travel in their game's `deletedEvents` through JSON backup/sync. Cloud history retains previous saved versions; restoring creates a new version with an expected-version guard.
+
+Records save locally and sync while GameTrace stays open. Sync now retries immediately. Conflicts and pending writes do not advance the last fully successful sync time. Sync pauses during editing, account operations, uploads and recovery. Sign-out revokes the current refresh session; cached device copies remain. Other signed-in devices are not signed out.
+
+Capture remains the approved C1.10.3 portrait 1080×1920 path. Clip limit: **50 MB**. Files are private. Local save completes first. Manual upload is available; automatic uploads apply only to recordings created after enabling that option, not the existing backlog. Wi-Fi-only automatic uploads wait if connection type cannot be detected. Keep the app open; interrupted uploads retry the full clip. Upload preserves the local original. Removing a shared clip retains the file, so it does not free cloud storage.
+
+## Verification
+
+`node tests/training.cjs`, `node tests/core-regression.cjs`, `node tests/family-sync.cjs` cover app and sync behavior. Additional tests use npm dev-only dependencies @electric-sql/pglite and jsdom; install them into an external directory and set GAMETRACE_TEST_MODULES to its node_modules path. Run `node tests/family-database.mjs` and `node tests/family-workflow.cjs`. PGlite runs actual PostgreSQL/PLpgSQL with Supabase auth/storage scaffolding; it does not access the live project.
+
+Still required in the actual project: apply migration, verify email redirect configuration, reset via a real email, two real accounts with different roles, invitation join, member removal, and a real iPhone video upload/playback from a second device. Live project changes and user sessions are not accessible from the source checkout.
+
+Auth references: https://supabase.com/docs/guides/auth/passwords and https://supabase.github.io/auth/ .

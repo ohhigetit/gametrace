@@ -13,6 +13,14 @@ replace("for(const name of ['home','live','stats','history','menu','setup','sett
 replace("if(ui.screen==='menu')renderMenu();","if(ui.screen==='training')renderTraining();if(ui.screen==='family')renderFamily();if(ui.screen==='menu')renderMenu();")
 replace("['Backup & Export','archive','backup',()=>navigate('backup')]","['Trainings and Camps','layers','training',()=>navigate('training')],['Family Cloud','archive','family',()=>navigate('family')],['Backup & Export','archive','backup',()=>navigate('backup')]",2)
 replace("if(ui.scoreDraft?.id===id)target.finalScore=ui.scoreDraft.score;","if(ui.scoreDraft?.id===id)target.finalScore=ui.scoreDraft.score;if(ui.feedbackDraft?.id===id)target.feedback=ui.feedbackDraft.feedback;")
+# Keep deleted plays in the shared game so any family device can restore them.
+replace('id:text(g.id,120,true),status:g.status','id:text(g.id,120,true),deletedEvents:Array.isArray(g.deletedEvents)?g.deletedEvents.map(validEvent):[],status:g.status')
+replace('fn(target,candidate);target.updatedAt=C.now();','fn(target,candidate);preserveDeletedPlays(before.games.find(g=>g.id===id),target);target.updatedAt=C.now();')
+replace('function commit(fn,touchId=null){fn();','function commit(fn,touchId=null){const beforeGame=touchId?C.clone(db.games.find(g=>g.id===touchId)):null;fn();if(touchId)preserveDeletedPlays(beforeGame,db.games.find(g=>g.id===touchId));')
+# Local recording deletion is recoverable; no video bytes are removed.
+replace("const rows=(await list()).sort((a,b)=>b.created-a.created);", "const allRows=await list(),rows=allRows.filter(item=>!item.deletedAt).sort((a,b)=>b.created-a.created);const removed=allRows.filter(item=>item.deletedAt);")
+replace("target.append(note);", "target.append(note);if(removed.length){const trash=document.createElement('details'),title=document.createElement('summary');title.textContent='Recently deleted recordings ('+removed.length+')';trash.append(title);for(const item of removed){const restore=document.createElement('button');restore.textContent='Restore '+item.name;restore.onclick=async()=>{item.deletedAt=null;await put(item);refreshLibrary()};trash.append(restore)}target.append(trash)}")
+replace("if(!confirm('Permanently delete this recording from GameTrace?'))return;await remove(item.id);", "if(!confirm('Move this recording to Recently deleted? You can restore it in My Recordings. This does not free device storage.'))return;item.deletedAt=Date.now();await put(item);")
 replace('function addSummaryFields(id){','function addSummaryFields(id){appendGameFeedbackFields(id);')
 # Replace old content-only swipe with whole-page recognizer in the extension.
 a=s.index("let reportSwipe=null;const swipeRoot=$('statsContent');")
