@@ -19,3 +19,12 @@ GAMETRACE_TEST_MODULES=/tmp/gametrace-db-test/node_modules node tests/family-dat
 ```
 
 The database suite uses actual PostgreSQL with pgcrypto, PL/pgSQL and RLS, plus local scaffolding for Supabase auth/storage. It exercises the exact schema and upgrade SQL; no live accounts, user records or cloud storage are touched. The DOM suite mocks network responses and tests real family rendering/actions. Real email redirects and iPhone recording behavior still require live acceptance after project-owner activation.
+
+V28 additions:
+
+```
+node tests/journey.cjs
+GAMETRACE_TEST_MODULES=/tmp/gametrace-test/node_modules node tests/journey-ui.cjs
+```
+
+The full-app DOM suite loads the actual generated HTML and exercises manual start, timeout/resume, bench scoring, custom skills, goal creation/progress/priorities, and trophy preview. Browser-native media is stubbed only in this isolated test. The existing PostgreSQL and sync suites also test migration 003, goal/order isolation, version conflicts and capability fallback.

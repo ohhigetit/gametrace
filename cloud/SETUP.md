@@ -41,3 +41,9 @@ Capture remains the approved C1.10.3 portrait 1080×1920 path. Clip limit: **50 
 Still required in the actual project: apply migration, verify email redirect configuration, reset via a real email, two real accounts with different roles, invitation join, member removal, and a real iPhone video upload/playback from a second device. Live project changes and user sessions are not accessible from the source checkout.
 
 Auth references: https://supabase.com/docs/guides/auth/passwords and https://supabase.github.io/auth/ .
+
+## V28 Goals extension
+
+Family Cloud setup has been confirmed working by the owner. Keep that family and its accounts. Apply `migrations/003_goals.sql` once to add goal/goal_order kinds. `goals-update.html` provides a copy button (regenerate with `python cloud/build-goals-update.py`). This migration does not reset invitations, change roles or remove existing records. Refresh every family device to V28 before sharing Goals. Goals remain locally usable before the migration; existing game/training sync continues. The client reports Goals waiting for cloud setup until authenticated feature discovery returns version 3.
+
+Trophies derive from shared training sessions and goal records. Source fields, including custom skills, surprise-eligibility/context, progress ratings and deleted records, are included in JSON backups. The local list of already-revealed animation IDs is device-specific. Syncing existing source records never starts an unsolicited celebration.
