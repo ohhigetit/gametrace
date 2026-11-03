@@ -1,0 +1,9 @@
+
+/* Solid controller color preview — approved hit geometry preserved. */
+html[data-theme] #app.gt-app .visual{--controller-fill:#19C66A;--controller-active:#F58A28;--controller-ink:#101211}
+html[data-theme] #app.gt-app .visual :is(.sector-shape,.wing-face,.core-face){fill:var(--controller-fill)!important;stroke:var(--controller-fill)!important;filter:none!important}
+html[data-theme] #app.gt-app .visual :is(.sector-label,.wingLabel,.core-text,.core-top,.gt-shot-value){fill:var(--controller-ink)!important}
+html[data-theme] #app.gt-app .visual .gt-icon-box{color:var(--controller-ink)!important}
+html[data-theme] #app.gt-app .visual :is(.pictogram,.wing-mark){stroke:var(--controller-ink)!important}
+html[data-theme] #app.gt-app .visual .action[aria-disabled=false]:is(:active,.just-tapped,.controller-selected,.holding,.hold-ready) :is(.sector-shape,.wing-face,.core-face){fill:var(--controller-active)!important;stroke:var(--controller-active)!important}
+html[data-theme] #app.gt-app .visual .action:focus-visible :is(.sector-shape,.wing-face,.core-face){stroke:var(--controller-ink)!important;stroke-width:3.5!important}

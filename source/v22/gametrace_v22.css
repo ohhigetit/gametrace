@@ -1,0 +1,10 @@
+html[data-theme] #app.app.gt-app .reports-toolbar button.aggregate-toggle{display:inline-flex;align-items:center;justify-content:center;width:auto;min-height:44px;padding:7px 8px;border:1px solid var(--gt-edge);border-radius:9px;font-size:11px;white-space:nowrap;flex:0 0 auto}
+html[data-theme] #app.app.gt-app .reports-toolbar button.aggregate-toggle.is-active{background:color-mix(in srgb,var(--gt-accent) 10%,var(--gt-bg));border-color:var(--gt-accent)}
+.reports-toolbar [data-compare-count]{font-size:11px}
+.reports-toolbar{gap:5px}
+html[data-theme] #app.app.gt-app .reports-toolbar .report-tool{padding-left:8px;padding-right:8px;font-size:11px}
+.reports-floating-header{position:fixed;top:env(safe-area-inset-top,0px);z-index:12;overflow:hidden;background:var(--gt-bg);box-shadow:0 3px 6px #0002;isolation:isolate}
+.reports-floating-header[hidden]{display:none}
+.reports-floating-header .reports-table{margin:0;table-layout:fixed}
+html[data-theme] #app.app.gt-app .reports-floating-header .reports-table th{padding-top:10px;padding-bottom:10px;background:var(--gt-bg)}
+.reports-floating-header .reports-table th:first-child{position:sticky;left:0;z-index:2}

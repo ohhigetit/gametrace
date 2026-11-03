@@ -1,0 +1,4 @@
+const fs=require('fs'),Module=require('module'),path=require('path'),vm=require('vm'),T=require('../source/v27/training-core.js');
+const html=fs.readFileSync('index.html','utf8'),core=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)][1][1];
+global.GameTraceAwards=require('../source/v30/awards-core.js');global.GameTraceTraining=T;const coreModule=new Module(path.resolve('tests/inline-core.cjs'),module);coreModule._compile(core,coreModule.id);const C=coreModule.exports;
+for(const name of ['test_v16_core.cjs','test_v16_core_regression.cjs']){const file=path.resolve('source/v16',name),m=new Module(file,module);m.filename=file;m.paths=module.paths;const originalRequire=m.require.bind(m);m.require=function(id){if(id==='./gametrace_core_v16.cjs')return C;return originalRequire(id)};m._compile(fs.readFileSync(file,'utf8'),file)}
