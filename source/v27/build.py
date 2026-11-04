@@ -120,6 +120,12 @@ s=s.replace("button('Family Cloud',()=>navigate('family')", "button('Family Hudd
 s=s.replace("'View '+(a.sourceKind==='goal'?'goal':'session')", "'View '+(a.sourceKind==='goal'?'step':'session')")
 replace('</head>', '<style>\n'+(p.parent/'v34/navigation.css').read_text()+'\n</style></head>')
 replace('GameTrace V33 — Game deletion restored','GameTrace V34 — Home Court')
+# V35: visible session feedback and optional Playbook activity references.
+replace("const detail=el('details',{},el('summary',{},'Session reflections'));", "const detail=el('section',{class:'training-reflections','data-training-feedback':''},el('h4',{},'Player Feedback'));")
+replace("const reflections=el('details',{},el('summary',{},'Player reflections · optional'))", "const reflections=el('section',{class:'training-reflections','data-training-feedback':''},el('h2',{},'Player Feedback · optional'))")
+replace((p.parent/'v34/navigation.js').read_text()+"\nload();", (p.parent/'v34/navigation.js').read_text()+'\n'+(p.parent/'v35/playbook.js').read_text()+"\nload();")
+replace('</head>', '<style>\n'+(p.parent/'v35/refinements.css').read_text()+'\n</style></head>')
+replace('GameTrace V34 — Home Court','GameTrace V35 — Connected Playbook')
 (p/'GameTrace_V27_Training_Family.html').write_text(s)
 (p.parents[1]/'index.html').write_text(s)
-print('Built V34 local Home Court candidate on retained camera/controller baseline')
+print('Built V35 on retained camera/controller baseline')

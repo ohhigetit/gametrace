@@ -4,6 +4,7 @@ Run relevant checks from the repository root. Expand testing only when the chang
 
 | Area | Required behavior | Existing checks |
 | --- | --- | --- |
+| V35 visible feedback and activity links | Current session feedback always visible; same-player references; no automatic rating/award; safe unlink; retained missing sources; stale/failed-save rollback; backup/cloud transport | `node tests/playbook-links-ui.cjs`, `node tests/family-sync.cjs` |
 | Home Court/navigation (V34 local) | Cover/brand entry; exact menu order; no rendering writes; per-player summaries; priority and record drill-downs; deleted exclusion; draft guards; manual game start retained | `node tests/home-court-ui.cjs`; phone layout QA at 320/390/440px in both themes |
 | Baseline/data | Generated files match; scripts parse; old backups and IDs survive; controller/portrait pipeline retained | `node tests/training.cjs`, `node tests/core-regression.cjs` |
 | Live flow | Create stays unstarted; explicit Start; bench lock; period boundaries; timeout/resume; distinct player/team/opponent scores | `node tests/journey.cjs`, `node tests/journey-ui.cjs` |

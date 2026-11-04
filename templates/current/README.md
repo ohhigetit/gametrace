@@ -1,5 +1,7 @@
 # Current GameTrace application template — V34 development / V33 production
 
+V35 is approved for production deployment. Start from the current source through `source/v35/`, which adds visible session feedback and optional activity links on Playbook records. Preserve references through validation and backups; never infer ratings or awards from a link. Refresh family devices before editing steps.
+
 V34 Home Court/navigation and account-flow refinements are deployed to **development only**. Production remains V33. Keep the environment-specific release identities in release-manifest.json distinct. See [V34 notes](../../source/v34/README.md).
 
 Start from the current canonical repository, never from an older standalone or an isolated demo. See [standards](../../docs/GameTrace_Approved_Design_and_Development.md) and [release manifest](release-manifest.json).

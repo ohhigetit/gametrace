@@ -1,0 +1,10 @@
+html[data-theme] #app.gt-app .training-reflections{margin:18px 0;padding:14px 0;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.gt-app .training-reflections :is(h2,h4){margin:0 0 12px;font-size:15px;font-weight:650}
+html[data-theme] #app.gt-app .training-reflections .feedback-answer{white-space:pre-wrap;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app :is(.activity-playbook,.playbook-activities){margin:16px 0;padding:12px 0;border-top:1px solid var(--gt-edge);overflow-wrap:anywhere}
+html[data-theme] #app.gt-app :is(.activity-playbook,.playbook-activities) h3{margin:0 0 8px;font-size:14px}
+html[data-theme] #app.gt-app .activity-playbook>.family-link{display:block;text-align:left;min-height:44px;white-space:normal}
+html[data-theme] #app.gt-app .playbook-link-choice{display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 0;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app .playbook-link-choice input{width:22px;height:22px;flex:0 0 22px;accent-color:var(--gt-accent)}
+html[data-theme] #app.gt-app .playbook-activity-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:8px 0;border-bottom:1px solid var(--gt-edge)}
+html[data-theme] #app.gt-app .playbook-activity-row>.family-link{white-space:normal;text-align:left;min-height:44px;overflow-wrap:anywhere}

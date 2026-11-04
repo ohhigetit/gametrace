@@ -54,3 +54,7 @@ Standards and templates now designate V33 as current, retain historical releases
 ## V34 local candidate — November 4, 2026
 
 Home Court, approved basketball section names/order, two quick actions, record-linked overview and selected-player summaries are implemented locally. Explicit user instruction: no deployment. No remote branch update, data reset, SQL change or production promotion. V33 remains deployed. Details/verification: source/v34/README.md.
+
+## V35 — approved for production deployment · November 4, 2026
+
+Always-visible training/camp feedback, optional bidirectional Playbook activity navigation, V34 Home Court and account refinements. Preserve all user records. No reset or SQL migration. Live password reset is user-confirmed; email-confirmation inbox acceptance remains. See source/v35/README.md.

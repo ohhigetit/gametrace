@@ -25,5 +25,11 @@
   "standards": "docs/GameTrace_Approved_Design_and_Development.md",
   "checklist": "templates/release-checklist.md",
   "regression_matrix": "templates/current/regression-matrix.md",
-  "note": "Top-level build identity is the current V34 development application. Production remains the explicit V33 identity below. Documentation-only commits retain application bytes; no reset or real-email acceptance is implied."
+  "note": "Top-level build identity is the current V34 development application. Production remains the explicit V33 identity below. Documentation-only commits retain application bytes; no reset or real-email acceptance is implied.",
+  "approved_candidate": {
+    "application_version": "V35",
+    "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
+    "status": "approved for production deployment",
+    "notes": "source/v35/README.md"
+  }
 }

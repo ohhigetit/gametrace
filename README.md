@@ -1,5 +1,7 @@
 # GameTrace
 
+**Approved release candidate: V35** — always-visible training feedback and optional Playbook activity links, including V34 Home Court/navigation. See [V35 notes](source/v35/README.md). Deployment verification will be recorded after publication.
+
 **Follow the Play. The Game. The Journey.**
 
 GameTrace is a basketball game action tracker with live recording, game review, history, and performance insights.
@@ -22,4 +24,4 @@ GameTrace development proceeds on `development` before promotion to `main`.
 - [Verification matrix](templates/current/regression-matrix.md)
 - [Application release manifest](templates/current/release-manifest.json)
 
-Build from the repository root with `python3 source/v27/build.py`; the retained v27 filename composes the current local source through v34. The app remains a self-contained HTML build. Test-only copies are isolated and are not the deployed app. Standards/template updates do not authorize runtime changes or data resets.
+Build from the repository root with `python3 source/v27/build.py`; the retained v27 filename composes the current local source through v35. The app remains a self-contained HTML build. Test-only copies are isolated and are not the deployed app. Standards/template updates do not authorize runtime changes or data resets.
