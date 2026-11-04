@@ -27,3 +27,16 @@ Camera recording/zoom and circular SVG geometry are retained. Short screens can 
 Cloud prerequisite: the owner runs `cloud/migrations/004_family_trophies.sql` using `/cloud/trophies-update.html`. It includes the Goals capability from 003 and preserves existing records. The app gates custom trophy creation until capability v4 is detected. This repository does not have Supabase administrative credentials, so this migration is supplied for the owner to run; it is not automatically applied by deployment. Do not rerun 003 after 004.
 
 Build: `python3 source/v27/build.py`; migration page: `python3 cloud/build-trophies-update.py`. Validate core, journey, training, journey UI, V30 UI, family sync and real PostgreSQL role/record tests. Development only; sample QA pages are ignored and are not deployed.
+
+## V31 production release / Fresh Start
+
+User approved production deployment and requested training/trophy reset. Added explicit Settings/Family Cloud reset action. Deployment and installing `005_fresh_start.sql` do not clear any data. The signed-in Owner/Admin must run Reset trainings and trophies in the app. Shared resets are atomic, family-scoped, repeat-safe, and archive previous session/award versions; old session uploads are tombstoned to prevent stale devices resurrecting reset records. Reset markers sync to other devices, clear derived trophies and allow fresh milestones. Games, Next Steps, recording files and reusable custom trophy definitions remain. The app retains a pre-reset JSON recovery copy for reference/export. Cloud reset requires the one-time `/cloud/fresh-start.html` setup; this includes 003/004 and preserves data until the action is run.
+
+
+## November 3: V32 — Score Journey and See more. Become more.
+
+Finalized for the development branch after local HTML acceptance. Includes independent editable Score Journey accordion, original-source player basket editing, paired timeout/correction period and time controls, matching thin timeline paths and event marks, period zoom, consistent Live Game controls, and dedicated camera-row spacing. Locked reflection questions apply to games, training and camps, with original earlier answers preserved under their original prompts. The deployed app uses existing device data and Family Cloud; it does not include Test navigation, isolated storage, or sample records from the downloadable test copy.
+
+V32 requires no database migration for score/feedback edits. Existing optional Family Trophies and Fresh Start capabilities remain gated by their server version; no SQL or reset is executed during deployment. Refresh family devices before editing new reflection fields. Production/main is unchanged.
+
+Validation: V32 UI (9), training/preservation (14), core regression, journey, established Live UI, family workflow and sync suites passed. Browser QA checked 390px layout and Score Journey placement. Live iPhone camera testing remains a device acceptance check.
