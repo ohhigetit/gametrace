@@ -40,3 +40,10 @@ Finalized for the development branch after local HTML acceptance. Includes indep
 V32 requires no database migration for score/feedback edits. Existing optional Family Trophies and Fresh Start capabilities remain gated by their server version; no SQL or reset is executed during deployment. Refresh family devices before editing new reflection fields. Production/main is unchanged.
 
 Validation: V32 UI (9), training/preservation (14), core regression, journey, established Live UI, family workflow and sync suites passed. Browser QA checked 390px layout and Score Journey placement. Live iPhone camera testing remains a device acceptance check.
+
+
+## V33 — whole-game deletion regression fix
+
+Restore Delete game on Game Report, Game details and Current Game with confirmation. Games move to Recently deleted on Your Games; Restore preserves IDs, plays and reflections. A validated game deletion marker is retained through device storage, JSON backup and the existing Family Cloud record. Reports, active-game selection, navigation and CSV totals omit deleted games. Recordings and training remain untouched. No database migration or automatic deletion/reset. Refresh all family devices before editing shared games.
+
+Validated: six deletion/recovery UI cases, V32 UI, training/preservation, core regression, journey UI, V30 UI, account/workflow and family sync.
