@@ -28,3 +28,12 @@ GAMETRACE_TEST_MODULES=/tmp/gametrace-test/node_modules node tests/journey-ui.cj
 ```
 
 The full-app DOM suite loads the actual generated HTML and exercises manual start, timeout/resume, bench scoring, custom skills, goal creation/progress/priorities, and trophy preview. Browser-native media is stubbed only in this isolated test. The existing PostgreSQL and sync suites also test migration 003, goal/order isolation, version conflicts and capability fallback.
+
+V32 local-only update:
+
+```
+node tests/v32-ui.cjs
+python3 source/v32/build-test.py
+```
+
+V32 exercises independent Score Journey accordion rendering, score/source-play edits, paired timeout moves, invalid and stale draft rejection, exact reflection questions across games and sessions, prior-answer preservation, and backup round trips. The downloadable test build uses its own local-data and media namespaces with Family Cloud disabled.

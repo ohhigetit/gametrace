@@ -1,0 +1,51 @@
+/* Local test: the full controller and the camera row each own their space. */
+html[data-theme] #app.gt-app[data-screen=live]{height:100svh;height:100dvh;min-height:0;box-sizing:border-box;padding-top:calc(env(safe-area-inset-top,0px) + 8px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 6px);display:flex;flex-direction:column}
+html[data-theme] #app.gt-app[data-screen=live]>.top{flex:0 0 44px;min-height:44px;padding-bottom:4px;gap:8px}
+html[data-theme] #app.gt-app #liveView{display:flex;flex-direction:column;flex:1 1 0;min-height:0;padding:0!important;overflow:hidden}
+#liveView[hidden]{display:none!important}
+html[data-theme] #app.gt-app #liveView .live-info{order:1;padding-top:0;flex:0 0 auto}
+html[data-theme] #app.gt-app #liveView .player{margin:0;padding:5px 0 4px}
+html[data-theme] #app.gt-app #liveView .player strong{font-size:21px;line-height:1.1}
+html[data-theme] #app.gt-app #liveView .live-kicker{font-size:9px;margin:0 0 4px;line-height:1.2}
+html[data-theme] #app.gt-app #liveScoreboard{gap:6px;margin:4px 0}
+html[data-theme] #app.gt-app .live-compact-score-tile{min-height:58px;padding:5px 8px;gap:1px;border-radius:14px}
+html[data-theme] #app.gt-app .live-compact-score-tile>strong{font-size:28px;line-height:1}
+.live-compact-score-tile small,.live-compact-side{font-size:9px!important}
+html[data-theme] #app.gt-app .live-compact-score-help{grid-column:1/-1;min-height:26px;font-size:9px;margin:0}
+html[data-theme] #app.gt-app .live-compact-text-button{min-height:26px;font-size:10px;padding:2px 0}
+html[data-theme] #app.gt-app #liveStatsToggle{min-height:50px;margin:2px 0;padding:3px;gap:1px}
+html[data-theme] #app.gt-app #liveStatsToggle b{font-size:20px;line-height:1}
+html[data-theme] #app.gt-app #lastAction{min-height:30px;margin:1px 0;padding:4px 0;font-size:11px}
+html[data-theme] #app.gt-app #liveSecondary{max-height:90px}
+html[data-theme] #app.gt-app #liveView .court-feedback{order:2;flex:0 0 auto;min-height:0;padding:6px 0 0;margin:0}
+html[data-theme] #app.gt-app #liveGameStatus{font-size:10px;line-height:1.2;margin:0 0 3px}
+html[data-theme] #app.gt-app #courtStatus{font-size:8px;line-height:1.2;margin:0}
+html[data-theme] #app.gt-app #liveView .controller-stage{order:3;display:grid;grid-template-columns:78px minmax(0,1fr);gap:6px;flex:1 1 0;min-height:0;width:100%;padding:12px 0 0!important;margin:0!important;align-items:center}
+html[data-theme] #app.gt-app #liveView .controller-stage .visual{height:100%;width:100%!important;max-width:none!important;min-height:0;margin:0!important;overflow:hidden}
+html[data-theme] #app.gt-app #liveView .controller-stage .visual>svg{width:100%!important;height:100%!important;max-height:none;display:block}
+html[data-theme] #app.gt-app #liveGameRail{gap:10px;align-self:center;justify-self:center;width:78px}
+html[data-theme] #app.gt-app .game-period-circle{width:72px;height:72px;min-height:72px;min-width:0;padding:5px;background:#19c66a!important;color:#101211!important;border:2px solid #19c66a!important}
+.game-period-circle strong{font-size:22px!important}.game-period-circle small{font-size:9px!important}.game-period-dots{top:-13px;gap:5px}.game-period-dots i{width:5px;height:5px}
+html[data-theme] #app.gt-app .game-action-wedge{width:78px;min-height:72px!important;height:72px;padding:10px 3px 7px;clip-path:none!important;border:0!important;background:transparent!important;position:relative;isolation:isolate;gap:3px;color:#101211!important}
+.game-action-wedge::before,.game-action-wedge::after{display:none!important}
+.game-action-wedge .refined-wedge-face{position:absolute;inset:0;width:100%;height:100%;z-index:-1;fill:#19c66a!important;stroke:none!important}
+.game-action-wedge.is-timeout .refined-wedge-face{fill:#ffc24a!important}
+.game-action-wedge>svg:not(.refined-wedge-face){width:20px;height:20px;flex-shrink:0}
+.game-action-wedge>span{font-size:10px!important;font-weight:700;line-height:1.2}
+.game-rail-note{font-size:8px;line-height:1.4;margin:0;text-wrap:balance}
+html[data-theme] #app.gt-app #gtCameraBar{order:4;position:relative!important;inset:auto!important;left:auto!important;right:auto!important;bottom:auto!important;flex:0 0 86px;height:86px;min-height:86px;width:100%;margin-top:8px;border-top:1px solid var(--gt-edge);box-sizing:border-box}
+html[data-theme] #app.gt-app #gtCameraRecord{position:absolute;top:12px!important;left:50%!important;transform:translateX(-50%)!important;width:64px!important;height:64px!important;min-height:64px!important;margin:0!important}
+html[data-theme] #app.gt-app #gtCameraStatus{position:absolute;left:2px!important;top:24px!important;bottom:auto!important;max-width:calc(50% - 43px);font-size:9px;line-height:1.5;white-space:normal;background:none;padding:0}
+html[data-theme] #app.gt-app #gtCameraZoom{position:absolute;left:calc(50% + 43px)!important;right:2px!important;top:20px!important;bottom:auto!important;font-size:9px;width:auto!important;gap:4px}
+html[data-theme] #app.gt-app #gtCameraZoomText{font-size:9px!important}#gtCameraZoomInput{min-height:32px!important;width:100%}
+html[data-theme] #app.gt-app #gtCameraTimer{position:absolute!important;transform:none!important;top:7px!important;left:2px!important;font-size:10px;padding:2px 4px}#gtCameraSave{position:absolute;left:0;bottom:0;font-size:10px;min-height:28px}
+.timeline-focus{display:flex;align-items:center;gap:8px;font-size:12px;margin:6px 0}.timeline-focus select{width:auto;min-height:44px;max-width:180px}
+.score-journey-chart{overflow:hidden!important;padding:4px 0!important}.score-journey-chart svg{width:100%;min-width:0!important;height:auto!important;max-height:none!important}
+.score-line,.score-player-event{stroke-width:3!important;vector-effect:non-scaling-stroke;stroke-linecap:butt}.score-dot{stroke-width:1.5!important;vector-effect:non-scaling-stroke}.score-axis{font-size:10px}.score-period{font-size:12px}.score-timeout-band{fill:#ef9e37;opacity:.13}.score-boundary{stroke-dasharray:none;stroke-width:1;vector-effect:non-scaling-stroke;opacity:.4}
+html[data-theme] #app.gt-app .score-journey-filters{gap:3px 12px}.journey-key.player{width:3px;height:12px}.journey-key{height:3px}
+@media(max-height:670px){html[data-theme] #app.gt-app #liveView{overflow-y:auto}html[data-theme] #app.gt-app #liveView .controller-stage{flex:1 0 220px}html[data-theme] #app.gt-app #liveView .controller-stage .visual{height:220px}html[data-theme] #app.gt-app #liveView .live-kicker{display:none}}
+html[data-theme] #app.gt-app .timeline-focus select{background:var(--gt-surface);color:var(--gt-ink);border:1px solid var(--gt-edge);border-radius:10px;padding:8px 12px;font:inherit}
+.reflection-principle{font-weight:650;color:var(--gt-accent);font-size:14px;margin:12px 0}.reflection-help{color:var(--gt-muted);font-size:12px;line-height:1.5;margin:-5px 0 18px}.feedback-answer{white-space:pre-wrap;overflow-wrap:anywhere}.earlier-reflection{margin-top:16px;border-top:1px solid var(--gt-edge);padding-top:8px}.earlier-reflection>summary{font-size:12px;color:var(--gt-muted);cursor:pointer;min-height:44px;display:flex;align-items:center}
+html[data-theme] #app.gt-app .score-journey-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:64px;background:none;border:0;border-radius:0;padding:10px 0;color:var(--gt-ink);text-align:left}
+.score-journey-row .report-play-label{flex:1;min-width:0}.score-journey-row .report-play-label strong{font-size:17px}.score-journey-row .report-play-label small{font-size:11px;line-height:1.5}.score-journey-row .score-journey-edit{font-size:12px;color:var(--gt-accent);padding:8px}.score-journey-section .report-play{border-bottom:1px solid var(--gt-edge)}
+.score-journey-section .report-period-heading{margin-top:12px}.score-journey-section .report-period-heading:first-child{margin-top:0}.score-journey-section>details>summary{list-style:none}.score-journey-section>details>summary::-webkit-details-marker{display:none}
