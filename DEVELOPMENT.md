@@ -1,5 +1,10 @@
 # GameTrace development
 
+Current development is V34, approved and byte-verified November 4, 2026. Production remains V33. See source/v34/README.md and templates/current/release-manifest.json; older release-status paragraphs below are historical.
+
+
+> Current application: V33, approved and verified on both development and production November 3, 2026. Earlier destination/candidate statements below are release history. Authoritative behavior: docs/GameTrace_Approved_Design_and_Development.md; reusable baseline: templates/current/.
+
 Approved for development deployment November 2, 2026: V27 Training and Family, built on C1.10.3 camera. Development URL: https://development--game-trace.netlify.app/ . Production/main is outside this release.
 
 Adds completed training/camp sessions, total hours, hour rings, weekly streaks, weekly/cumulative graph, session reflections and game feedback. Report swipes work across the page. The approved controller/camera pixels are preserved. No demo records are automatically added.

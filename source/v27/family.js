@@ -48,15 +48,16 @@ function familyPasswords(password,confirmation){if(password.length<8)throw Error
 async function signOutFamily(message='Signed out · device copies retained'){
  if(familyBusy||familyClipUploading)return announce('Please wait for the current sync or upload to finish.');
  try{await familyFetch('/auth/v1/logout?scope=local',{method:'POST'})}catch{}
- familyAuth=null;familyAccess=false;familyContext=null;familyChoices=[];familyMembershipChecked=false;localStorage.removeItem(FA_KEY);sessionStorage.removeItem('gametrace_password_recovery');familyUI.recovery=false;familyUI.authView='signin';familyUI.authDraft={};familyUI.view='overview';familyInvite='';familyStatus=message;
+ familyAuth=null;familyAccess=false;familyContext=null;familyChoices=[];familyMembershipChecked=false;localStorage.removeItem(FA_KEY);sessionStorage.removeItem('gametrace_password_recovery');familyUI.recovery=false;familyUI.authView='signin';familyUI.authDraft={};familyUI.view='overview';familyUI.notice='';familyInvite='';familyStatus=message;
 }
 async function handleFamilyAuthCallback(){
  const params=new URLSearchParams(location.hash.slice(1));if(!params.has('access_token')&&!params.has('error_description'))return false;
  const type=params.get('type'),token=params.get('access_token'),refresh=params.get('refresh_token');
+ familyError='';familyUI.notice='';
  history.replaceState(null,'',location.pathname+location.search.replace(/([?&])family_auth=1(&|$)/,'$1').replace(/[?&]$/,''));
  try{if(params.has('error_description'))throw Error('This email link has expired or is invalid. Request a new link.');if(!token||!refresh||!['recovery','signup','invite','magiclink'].includes(type))throw Error('Invalid account link.');
  const response=await fetch(familyConfig.url+'/auth/v1/user',{headers:{apikey:familyConfig.key,Authorization:'Bearer '+token}});if(!response.ok)throw Error('This email link has expired. Request a new link.');const user=await response.json();
- storeFamilyAuth({access_token:token,refresh_token:refresh,expires_in:Number(params.get('expires_in')||3600),user});familyUI.recovery=type==='recovery';if(familyUI.recovery)sessionStorage.setItem('gametrace_password_recovery','1');familyUI.authView=familyUI.recovery?'reset':'signin';familyStatus=familyUI.recovery?'Choose a new password':'Email confirmed';if(!familyUI.recovery)scheduleFamily();
+ storeFamilyAuth({access_token:token,refresh_token:refresh,expires_in:Number(params.get('expires_in')||3600),user});familyUI.recovery=type==='recovery';if(familyUI.recovery)sessionStorage.setItem('gametrace_password_recovery','1');else sessionStorage.removeItem('gametrace_password_recovery');familyUI.authView=familyUI.recovery?'reset':'signin';familyStatus=familyUI.recovery?'Choose a new password':'Email confirmed';familyUI.notice=type==='signup'?'Email confirmed. You’re signed in.':'';if(!familyUI.recovery)scheduleFamily();
  }catch(e){familyError=e.message;familyStatus='Account link needs attention';}navigate('family');return true;
 }
 function renderFamilyAuth(root){

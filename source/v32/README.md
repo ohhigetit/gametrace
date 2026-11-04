@@ -1,6 +1,6 @@
 # V32 — Score Journey and See more. Become more.
 
-Finalized for development deployment; production and data reset are outside this release.
+V32 was approved and promoted to production on November 3, 2026, then superseded by V33 whole-game deletion recovery. Its layout, Score Journey and reflection behavior remain current. See ../../templates/current/README.md for the current build; no data reset was performed by deployment.
 
 - Live Game layout refinements from the earlier HTML test are integrated without changing physical controller hit geometry or the portrait recording pipeline. The progress circle and rounded action wedge share controller fill/ink; the camera row owns space below the full SVG including PASS. Short viewports can scroll rather than overlap controls.
 - Timeline score paths and player marks use the same 3 CSS-pixel stroke, small score dots, restored event heights, enlarged invisible hit targets, elapsed-time period zoom, carried scores and shaded timeout intervals. Timestamps are not compressed or moved for display.

@@ -36,3 +36,20 @@ Release: __________  Approved baseline: __________  Requested destination: _____
 - [ ] Update the intended branch with expected old head, without force.
 - [ ] Verify live exact bytes and availability; production remains unchanged for a dev-only release.
 - [ ] Save current standards/templates and release notes without silently promoting the app.
+
+## Current V33 baseline and compatibility
+
+- [ ] Use templates/current/release-manifest.json and the authoritative current standards; historical template status is not the current baseline.
+- [ ] Build via source/v27/build.py; verify both generated application outputs match. Never deploy an isolated test HTML, Test menu or sample-data hooks.
+- [ ] Create Game stays unstarted until Start Game; player points and other-player/opponent scoring remain distinct.
+- [ ] Keep PTS/REB/AST/STL visible, progress/timeout controls consistent, and record/zoom below PASS with safe-area clearance.
+- [ ] Timeline checkboxes are independent; score paths and event marks match thickness; period zoom carries the entering score without changing timestamps.
+- [ ] Score Journey is outside Timeline, collapsed with count, editable, and independent of graph filters. Player baskets edit original plays.
+- [ ] Game/training/camp questions exactly match See more. Become more.; legacy answers retain original prompts and survive edit, repeat, backup and family validation.
+- [ ] Whole-game Delete game exists on Game Report, Game details and Current Game; Cancel, confirmation and Recently deleted → Restore work.
+- [ ] Deleting a game releases New Game and removes it from reports/averages/navigation/CSV while preserving recoverable IDs, plays and feedback in backup/cloud.
+- [ ] Family identity, one-family rule, separate auth forms, manager invitations, expected-version conflicts, history and private clips remain intact.
+- [ ] New persisted fields survive all validators, reload, JSON/CSV and shared payloads; refresh participating family devices before mixed-version edits.
+- [ ] Next Steps priorities/five progress points and explicit achievement remain; trophy edits/sync/restore do not reroll rewards.
+- [ ] No deployment or documentation sync executes SQL, resets training/trophies or deletes records. Fresh Start remains explicit and permission/capability gated.
+- [ ] For documentation-only sync, changed files are documentation/template metadata only and the built application hash is unchanged on both hosted targets.

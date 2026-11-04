@@ -1,0 +1,38 @@
+/* Scoped to the overview/menu; controller, timeline and camera layout are untouched. */
+html[data-theme] #app.gt-app .court-title{margin-bottom:18px}
+html[data-theme] #app.gt-app .court-title .training-kicker{font-size:10px;letter-spacing:1.3px;margin:0 0 9px}
+html[data-theme] #app.gt-app .court-title h1{margin:0 0 8px;font-size:32px;letter-spacing:-1px}
+html[data-theme] #app.gt-app .court-title .view-note{margin:0;line-height:1.5}
+html[data-theme] #app.gt-app .court-quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 22px}
+html[data-theme] #app.gt-app .court-quick-actions button{min-height:48px;border-radius:13px;padding:12px 8px;font-size:13px;font-weight:650;margin:0;width:100%}
+html[data-theme] #app.gt-app .court-quick-actions .primary,html[data-theme] #app.gt-app .court-card>button.primary{background:var(--gt-accent-fill);border:1px solid var(--gt-accent-fill);color:var(--gt-on-accent)}
+html[data-theme] #app.gt-app .court-secondary{background:var(--gt-surface);border:1px solid var(--gt-edge);color:var(--gt-ink);border-radius:12px;min-height:44px;padding:10px 14px;font-size:13px}
+html[data-theme] #app.gt-app .court-player{display:flex;align-items:center;justify-content:space-between;gap:14px;color:var(--gt-muted);font-size:12px}
+html[data-theme] #app.gt-app .court-player select{width:auto;max-width:75%;min-width:150px;min-height:44px;border:1px solid var(--gt-edge);background:var(--gt-surface);color:var(--gt-ink);border-radius:10px;padding:8px 10px;font:inherit;font-size:16px}
+html[data-theme] #app.gt-app .court-idle{color:var(--gt-muted);font-size:12px;line-height:1.6;margin:0 0 20px}
+html[data-theme] #app.gt-app .court-card{border:1px solid var(--gt-edge);background:var(--gt-surface);border-radius:17px;padding:17px;margin-bottom:14px;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app .court-card[data-court-section=current]{border-color:var(--gt-accent);border-left-width:3px}
+html[data-theme] #app.gt-app .court-card h3{font-size:19px;line-height:1.4;margin:8px 0 14px;letter-spacing:-.3px}
+html[data-theme] #app.gt-app .court-section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+html[data-theme] #app.gt-app .court-section-heading h2{font-size:15px;margin:0;font-weight:700}
+html[data-theme] #app.gt-app .court-link{color:var(--gt-accent);background:none;border:0;min-height:44px;padding:5px 0 5px 8px;font-size:12px;white-space:nowrap;flex-shrink:0}
+html[data-theme] #app.gt-app .court-work-summary{display:flex;align-items:center;gap:18px;width:100%;text-align:left;background:none;border:0;color:var(--gt-ink);padding:0;min-height:100px}
+html[data-theme] #app.gt-app .court-work-summary .training-power{width:108px;height:108px;flex:0 0 108px}
+html[data-theme] #app.gt-app .court-work-numbers{display:grid;gap:6px;font-size:12px;line-height:1.4;min-width:0}
+html[data-theme] #app.gt-app .court-work-numbers strong{font-size:29px;letter-spacing:-.8px}
+html[data-theme] #app.gt-app .court-work-numbers small{color:var(--gt-muted);font-size:12px}
+html[data-theme] #app.gt-app .court-card .training-help{font-size:12px;line-height:1.65;margin:8px 0 0}
+html[data-theme] #app.gt-app .court-activity{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:58px;width:100%;padding:12px 0;background:none;border:0;border-top:1px solid var(--gt-edge);color:var(--gt-ink);text-align:left}
+html[data-theme] #app.gt-app .court-activity>span:first-child{display:grid;gap:5px;min-width:0}
+html[data-theme] #app.gt-app .court-activity strong{font-size:14px;line-height:1.4;font-weight:650}
+html[data-theme] #app.gt-app .court-activity small{font-size:11px;color:var(--gt-muted);line-height:1.5}
+html[data-theme] #app.gt-app .court-progress-points{display:flex;gap:5px;margin-top:3px}
+html[data-theme] #app.gt-app .court-progress-points i{width:9px;height:9px;border:1.5px solid var(--gt-muted);border-radius:50%}
+html[data-theme] #app.gt-app .court-progress-points i.filled{background:var(--gt-accent);border-color:var(--gt-accent)}
+html[data-theme] #app.gt-app .court-explore{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0 4px}
+html[data-theme] #app.gt-app .court-explore-link{display:flex;align-items:center;gap:9px;text-align:left;min-height:52px;padding:10px;border:1px solid var(--gt-edge);border-radius:12px;background:none;color:var(--gt-ink);font-size:12px}
+html[data-theme] #app.gt-app .court-explore-link>span:last-child{margin-left:auto}
+html[data-theme] #app.gt-app .court-explore-link .menu-icon{width:19px;height:19px;flex:0 0 19px}
+html[data-theme] #app.gt-app .main-navigation .court-support-start{border-top:1px solid var(--gt-edge);border-radius:0;margin-top:18px;padding-top:18px}
+html[data-theme] #app.gt-app :is(.court-card,.court-explore,.court-quick-actions) button:focus-visible{outline:2px solid var(--gt-accent);outline-offset:3px}
+@media(max-width:360px){html[data-theme] #app.gt-app .court-card{padding:13px}html[data-theme] #app.gt-app .court-work-summary{gap:10px}html[data-theme] #app.gt-app .court-work-summary .training-power{width:88px;height:88px;flex-basis:88px}html[data-theme] #app.gt-app .court-quick-actions button{font-size:12px}}
