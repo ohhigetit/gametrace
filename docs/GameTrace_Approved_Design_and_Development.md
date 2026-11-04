@@ -1,8 +1,8 @@
 # GameTrace — approved design and development
 
-## V34 local implementation — November 4, 2026 · not deployed
+## Current development — V34 · deployed November 4, 2026
 
-Mike approved implementation with **no deployment**. The source/build now includes V34; development and production remain on the V33 application baseline below. Do not push runtime changes or deploy under the earlier standards-sync authorization.
+Mike subsequently approved deployment to **development only**. V34 is live at https://development--game-trace.netlify.app/ and was verified byte-for-byte. Application release commit `60e186522329a91c30e25d3d9187650793415940`, tree `9217d4bfeeec27d17706f7e0d3132435375f439c`, HTML SHA-256 `18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10`. Production remains V33; its main branch and application bytes were verified unchanged. No account emails, SQL updates or data resets were performed.
 
 The locked menu order is **Home Court → Games → Scoreboard → Gym → Playbook → Wall → Family Huddle**. Reports is now Scoreboard; Trainings and Camps is Gym; Next Steps is Playbook; Trophy Cabinet is Wall; Family Cloud's section heading is Family Huddle. Keep clear task names inside each section. Backup & Export and Settings sit below a divider; New Game and Record Training are prominent quick actions. Use dedicated, consistent line icons.
 
@@ -14,9 +14,9 @@ Auth verification: successful email confirmation keeps a separate notice visible
 
 Source and implementation notes: `source/v34/README.md`. Test: `node tests/home-court-ui.cjs`. The standalone test build uses separate sample storage/media, blocks cloud calls, and must never replace the deployable HTML. No data reset or backend change is included.
 
-## Current approved baseline — V33 · November 3, 2026
+## V33 production baseline and prior release snapshot · November 3, 2026
 
-This section is authoritative for current behavior. All release-status statements below the Historical decision record heading describe their original date. Preserve earlier releases as rollback references; do not apply their superseded behavior to current work.
+V33 remains production. The V34 section above supersedes navigation/auth and development status in this prior snapshot; other locked behavior remains. Preserve release history and rollback references.
 
 - Canonical repository: https://github.com/ohhigetit/gametrace. Development: https://development--game-trace.netlify.app/ (`development`). Production: https://game-trace.netlify.app/ (`main`). Both serve V33, verified byte-for-byte after approval. Application HTML SHA-256: `bc12b41965f18975e214644f49e30a94052bd6c864be9db61cbf4226c7a6ccc1`.
 - V33 application release tree: `98d308ef2692715248edda29f2aefde578febb84`; development release commit `0776b2c7e6a2d30b4403005b9de9584ee46dfb6a`; production release commit `d0e8c2f08c1d549e6476ba78d055781bba732da1`. Later documentation commits need not share this tree, but must leave the application hash unchanged.

@@ -12,9 +12,9 @@ GameTrace development proceeds on `development` before promotion to `main`.
 
 ## Current baseline
 
-**Local candidate: V34 — Home Court and navigation**, implemented for local review only. See [V34 notes](source/v34/README.md). No deployment or repository push is included in this request.
+**Development: V34 — Home Court and navigation**, deployed and byte-verified November 4, 2026. See [V34 notes](source/v34/README.md). Production remains V33.
 
-V33 is deployed to [development](https://development--game-trace.netlify.app/) and [production](https://game-trace.netlify.app/). It includes optional Family Cloud, training/camps, Next Steps, trophies, editable Score Journey, the locked See more. Become more. reflections, and recoverable whole-game deletion.
+[Development](https://development--game-trace.netlify.app/) serves V34; [production](https://game-trace.netlify.app/) serves V33. The V33 baseline includes optional Family Cloud, training/camps, Next Steps, trophies, editable Score Journey, the locked See more. Become more. reflections, and recoverable whole-game deletion.
 
 - [Approved standards](docs/GameTrace_Approved_Design_and_Development.md)
 - [Current templates](templates/current/README.md)

@@ -1,6 +1,6 @@
-# Current GameTrace application template — V33 deployed / V34 local candidate
+# Current GameTrace application template — V34 development / V33 production
 
-The local working source includes the approved V34 Home Court/navigation implementation, which is **not deployed**. Keep the V33 release identities in release-manifest.json separate from its local_candidate entry. See [V34 notes](../../source/v34/README.md).
+V34 Home Court/navigation and account-flow refinements are deployed to **development only**. Production remains V33. Keep the environment-specific release identities in release-manifest.json distinct. See [V34 notes](../../source/v34/README.md).
 
 Start from the current canonical repository, never from an older standalone or an isolated demo. See [standards](../../docs/GameTrace_Approved_Design_and_Development.md) and [release manifest](release-manifest.json).
 

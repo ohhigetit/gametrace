@@ -1,6 +1,6 @@
-# V34 — Home Court and connected navigation (local candidate)
+# V34 — Home Court and connected navigation (development)
 
-Implemented for local review only on November 4, 2026. No repository push or deployment is authorized by this implementation request. V33 remains the deployed baseline.
+Initially implemented locally; Mike subsequently authorized development deployment on November 4, 2026. Development release `60e186522329a91c30e25d3d9187650793415940` is byte-verified at https://development--game-trace.netlify.app/ with SHA-256 `18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10`. Production remains V33. No data reset, SQL change or account email was performed.
 
 Menu order: Home Court, Games, Scoreboard, Gym, Playbook, Wall, Family Huddle. New Game and Record Training are quick actions. Backup & Export and Settings follow a divider. Existing routes and stored field names remain compatible: `court` is the new overview; `home` remains the Games library; reports/training/goals/trophies/family retain their internal route IDs.
 
@@ -14,4 +14,4 @@ Focused regression: `node tests/home-court-ui.cjs`. Also run journey-ui, game-de
 
 Validation completed locally: Home Court UI 8 checks, isolated preview 3 checks, journey UI 10, V32 UI 9, V30 UI 6, game deletion UI 6, family workflow 20, family sync 22, training 14, journey rules 18, and core regression (12 flow checks plus 25 core checks) passed. Browser preview reviewed at 320/390/440px across Day/Courtside themes, including no horizontal overflow and matching 48px quick-action heights. These checks do not certify real iPhone camera or live family services.
 
-Auth verification refinement: successful signup callbacks retain a separate confirmation notice while sync status changes; non-recovery callbacks clear an earlier recovery marker; sign-out clears stale confirmation feedback. The public auth configuration requires confirmation. Actual inbox delivery and private redirect/template settings are not verified. See cloud/SETUP.md. No deployment.
+Auth verification refinement: successful signup callbacks retain a separate confirmation notice while sync status changes; non-recovery callbacks clear an earlier recovery marker; sign-out clears stale confirmation feedback. The public auth configuration requires confirmation. Actual inbox delivery and private redirect/template settings are not verified. See cloud/SETUP.md. Deployed to development only after explicit approval.
