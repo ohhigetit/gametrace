@@ -1,0 +1,17 @@
+# V34 — Home Court and connected navigation (local candidate)
+
+Implemented for local review only on November 4, 2026. No repository push or deployment is authorized by this implementation request. V33 remains the deployed baseline.
+
+Menu order: Home Court, Games, Scoreboard, Gym, Playbook, Wall, Family Huddle. New Game and Record Training are quick actions. Backup & Export and Settings follow a divider. Existing routes and stored field names remain compatible: `court` is the new overview; `home` remains the Games library; reports/training/goals/trophies/family retain their internal route IDs.
+
+Home Court opens after the retained cover and from the brand button. It derives the current game, recent games/completed sessions, training hours/rings/streak, each player's top priority, latest progress and recognition from existing records. All-players totals are explicitly combined; choosing a player scopes the summaries and subsequent destination links. Current game stays reachable even if another player is selected. Opening an unstarted game does not start it. Rendering never writes records, generates awards, or starts sync uploads.
+
+Card links open the existing game, session, Playbook card or Wall; they do not duplicate records. Deleted records are excluded. Existing game filters, delete/restore, score/timeout/controller/camera, award logic, five-point self-ratings, reflection questions and Family Cloud behavior are preserved. The Wall continues to include both milestones and encouragements. New freeform recognition types and manual game/session-to-Playbook relationships remain outside this candidate.
+
+Build: `python3 source/v27/build.py` (composes current source through v34). Preview: `python3 source/v34/build-test.py`; output is an isolated standalone HTML with sample records, separate storage/media keys, blocked cloud fetches and no automatic family boot. Test controls exist only in the preview. The deployable root build contains no sample initializer or preview controls.
+
+Focused regression: `node tests/home-court-ui.cjs`. Also run journey-ui, game-deletion-ui, v32-ui, v30-ui, training, journey, core-regression, family-sync and family-workflow as documented in templates/current/regression-matrix.md. Browser layout checks complement mocked UI tests; actual iPhone recording/cloud behavior needs device acceptance.
+
+Validation completed locally: Home Court UI 8 checks, isolated preview 3 checks, journey UI 10, V32 UI 9, V30 UI 6, game deletion UI 6, family workflow 20, family sync 22, training 14, journey rules 18, and core regression (12 flow checks plus 25 core checks) passed. Browser preview reviewed at 320/390/440px across Day/Courtside themes, including no horizontal overflow and matching 48px quick-action heights. These checks do not certify real iPhone camera or live family services.
+
+Auth verification refinement: successful signup callbacks retain a separate confirmation notice while sync status changes; non-recovery callbacks clear an earlier recovery marker; sign-out clears stale confirmation feedback. The public auth configuration requires confirmation. Actual inbox delivery and private redirect/template settings are not verified. See cloud/SETUP.md. No deployment.

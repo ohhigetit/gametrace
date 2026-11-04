@@ -1,0 +1,32 @@
+{
+  "application_version": "V33",
+  "release_date": "2026-11-03",
+  "repository": "ohhigetit/gametrace",
+  "build_command": "python3 source/v27/build.py",
+  "application_file": "index.html",
+  "matching_generated_file": "source/v27/GameTrace_V27_Training_Family.html",
+  "application_sha256": "bc12b41965f18975e214644f49e30a94052bd6c864be9db61cbf4226c7a6ccc1",
+  "application_release_tree": "98d308ef2692715248edda29f2aefde578febb84",
+  "development": {
+    "branch": "development",
+    "url": "https://development--game-trace.netlify.app/",
+    "application_release_commit": "0776b2c7e6a2d30b4403005b9de9584ee46dfb6a"
+  },
+  "production": {
+    "branch": "main",
+    "url": "https://game-trace.netlify.app/",
+    "application_release_commit": "d0e8c2f08c1d549e6476ba78d055781bba732da1"
+  },
+  "standards": "docs/GameTrace_Approved_Design_and_Development.md",
+  "checklist": "templates/release-checklist.md",
+  "regression_matrix": "templates/current/regression-matrix.md",
+  "note": "Release commits identify the deployed application source. Later standards-only commits may change repository metadata while retaining these exact application bytes.",
+  "local_candidate": {
+    "application_version": "V34",
+    "status": "implemented locally; not deployed or pushed",
+    "date": "2026-11-04",
+    "application_sha256": "18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10",
+    "notes": "source/v34/README.md",
+    "preview_command": "python3 source/v34/build-test.py"
+  }
+}

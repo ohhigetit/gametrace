@@ -1,5 +1,7 @@
 # GameTrace V27 — Training and Family candidate
 
+> Current build routing: this retained builder now composes the approved source through V33. See [current templates](../../templates/current/README.md) and [standards](../../docs/GameTrace_Approved_Design_and_Development.md). The candidate/activation statements below are the original V27 release record, not current deployment status.
+
 Built on development commit `8f063b25af4c77ecc3308dac7cd92851bf02d6e4` (C1.10.3 camera). `baseline-camera.html` is its unchanged root HTML. Existing branding, controller geometry, reporting circles and camera frame conversion are retained.
 
 Build: `python3 source/v27/build.py`. The builder creates `index.html` and the standalone `source/v27/GameTrace_V27_Training_Family.html`.

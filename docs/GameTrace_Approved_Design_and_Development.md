@@ -1,5 +1,80 @@
 # GameTrace — approved design and development
 
+## V34 local implementation — November 4, 2026 · not deployed
+
+Mike approved implementation with **no deployment**. The source/build now includes V34; development and production remain on the V33 application baseline below. Do not push runtime changes or deploy under the earlier standards-sync authorization.
+
+The locked menu order is **Home Court → Games → Scoreboard → Gym → Playbook → Wall → Family Huddle**. Reports is now Scoreboard; Trainings and Camps is Gym; Next Steps is Playbook; Trophy Cabinet is Wall; Family Cloud's section heading is Family Huddle. Keep clear task names inside each section. Backup & Export and Settings sit below a divider; New Game and Record Training are prominent quick actions. Use dedicated, consistent line icons.
+
+Home Court is the main page after the unchanged cover, and the brand button returns there. Show the current game (including an unstarted setup), recent games/completed sessions, training hours and weekly streak, top-priority Playbook steps with five progress points, and latest recognition. Summaries open existing sections or records. Rendering creates no records, awards, or uploads. Select a player to scope summaries and drill-downs; clearly label combined all-player work/streaks. The single current game remains reachable even if a different player is selected. Opening it never implicitly starts it.
+
+Keep the Games library and its filters, game report/navigation, recording, score controls, delete/restore, reflection wording, trophy permissions and Family Cloud behavior. Preserve stored IDs/keys and internal route names (`court` adds the overview; `home` still means the Games library). Existing source-linked Wall awards remain; freeform recognition types and new manual Playbook/game/session relationships require separate definition.
+
+Auth verification: successful email confirmation keeps a separate notice visible while sync status updates; non-recovery callbacks clear stale recovery state; sign-out clears old confirmation feedback. The local auth suite covers 20 cases, including both return origins, invalid links, reset completion/retry/cancel/reload and sync suspension. Live public settings require confirmation; real inbox delivery and the private redirect allowlist remain unverified. No emails were sent.
+
+Source and implementation notes: `source/v34/README.md`. Test: `node tests/home-court-ui.cjs`. The standalone test build uses separate sample storage/media, blocks cloud calls, and must never replace the deployable HTML. No data reset or backend change is included.
+
+## Current approved baseline — V33 · November 3, 2026
+
+This section is authoritative for current behavior. All release-status statements below the Historical decision record heading describe their original date. Preserve earlier releases as rollback references; do not apply their superseded behavior to current work.
+
+- Canonical repository: https://github.com/ohhigetit/gametrace. Development: https://development--game-trace.netlify.app/ (`development`). Production: https://game-trace.netlify.app/ (`main`). Both serve V33, verified byte-for-byte after approval. Application HTML SHA-256: `bc12b41965f18975e214644f49e30a94052bd6c864be9db61cbf4226c7a6ccc1`.
+- V33 application release tree: `98d308ef2692715248edda29f2aefde578febb84`; development release commit `0776b2c7e6a2d30b4403005b9de9584ee46dfb6a`; production release commit `d0e8c2f08c1d549e6476ba78d055781bba732da1`. Later documentation commits need not share this tree, but must leave the application hash unchanged.
+- Reproducible current build: `python3 source/v27/build.py`. Despite the retained v27 entry-point/output filename, it composes the current source through `source/v33/`. Root `index.html` and `source/v27/GameTrace_V27_Training_Family.html` must match exactly. Current reusable templates are under `templates/current/`; v24/v25/v26 templates are historical.
+- Preserve the approved branding, cover, controller SVG hit geometry, circle analytics, themes, sound choices, portrait recording pipeline, manifest/icons and legacy files. Layout changes must not alter controller action positions or recording orientation.
+
+### Live Game and score controls
+
+- Create Game saves an unstarted setup. Only the explicit Start Game action creates game/period start events; tracking is disabled before start. Keep the one-active-game guard and bench lock.
+- Keep player PTS/REB/AST/STL visible. Team/opponent score cards are compact and independently open a nearby, viewport-clamped +1/+2/+3 and −1/−2/−3 popover. Scores cannot become negative. Player baskets add to Team automatically; Team additions represent other players. Deductions use absolute score checkpoints and do not change individual statistics.
+- The left progress circle and rounded action wedge share the controller's flat fill/ink language. The wedge changes between Start, Timeout, Resume and next-period actions; period-ending actions retain confirmation. Timeout pauses playing time and disables live scoring/actions until resumed.
+- The entire controller, including PASS, owns space above a separate camera-control row. Keep record/zoom controls reachable with safe-area padding and no overlap. Short screens may scroll. The same controller remains available over the camera preview during recording. Preserve device-local recording recovery and the existing export workflow; do not promise Photos autosave or background uploads.
+
+### Game Report, Timeline and Score Journey
+
+- Preserve side arrows around the circle and whole-report swipe navigation, endpoint states, vertical scrolling and editing/drag guards.
+- Timeline is a graph section. Team score, Opponent score and Player events have independent checkboxes. Whole game fits its container; period zoom widens a chosen period without changing timestamps and carries its entering score. Use matching 3 CSS-pixel score paths/player bars, small score points, original event heights/colors, larger invisible touch targets, separate player-event lane, period dividers and timeout shading. Do not stack bars or invent scores for older games.
+- Score Journey is a sibling section immediately after Timeline, outside its accordion. Match Recorded Plays' collapsed title/count accordion, period headings and single-list row styling. Graph filters must never hide Score Journey.
+- Score Journey rows are editable. Player baskets open the original Recorded Plays event. Team/opponent rows retain that side's +1/+2/+3 options and editable period/time; score checkpoints edit both totals and period/time; timeout/resume boundaries stay paired. Recalculate derived totals and preserve event IDs, revision checks, timestamp validation and failed-save rollback.
+
+### Locked player reflection — games, trainings and camps
+
+Guiding principle: **See more. Become more.** All three responses are optional free text, up to 3,000 characters each. Exact wording:
+
+| Persisted key | Question | Supporting prompt |
+| --- | --- | --- |
+| `see` | What did I see? | A moment, opportunity, or pattern I noticed. |
+| `became` | How did I become more? | A small way I grew through this game/session. |
+| `more` | What do I want to become more of? | More confident, decisive, aware, resilient—or something I choose—and one action I’ll try next. |
+
+Use game/session wording appropriate to context. Retain earlier `well`, `challenge`, `next` answers under their original questions in Earlier reflection; never relabel old answers as responses to new questions. Edits must preserve them. Keep all fields through validation, device saves, JSON backups, training CSV and existing family game/session payloads. Repeating a session clears reflections and evidence. These reflections are unscored; do not add mandatory ratings, random replacement prompts, automatic goals or rewards merely for completing them without further approval.
+
+### Training, Next Steps and trophies
+
+- Completed trainings/camps use active whole-minute duration and hours for progress. Retain standard/custom reusable skill choices, daily entries for multi-day camps, repeat-session behavior, progress graph, hour rings and Monday–Sunday weekly streak logic. Preserve 5/10/25/50/100-hour milestones.
+- Next Steps is the visible name; internal goal/goal_order identifiers remain. Default collapsed cards show title and five progress points. Keep player priorities, editable progress notes, 1–5 self-ratings, graph and explicit Active/Achieved state. A rating of 5 does not automatically achieve the step.
+- Preserve separate Training/Camp milestone trophies, 70 deterministic occasional encouragements, creation-time award context, cabinet/replay, reveal animation and reduced motion. Editing, sync/import or restoring records must not reroll or mint awards.
+- Verified family Owner/Admin can create custom trophy definitions and issue/revoke awards. Server attribution, permissions and history remain authoritative. Ordinary members retain shared-record edit access, not administrative trophy privileges.
+
+### Family Cloud, data and deletion
+
+- Family Cloud is confirmed working by Mike. It is optional and device-first; individual accounts use separate Sign in, Create account and Forgot password forms. One connected family per account, visible family identity, Owner/Admin invitation management, membership verification and recovery handling remain required.
+- Preserve app-open game/event, session, Next Steps/order and recording-metadata sync; private clip upload remains separate. Keep expected-version conflicts, history and retained local originals. Device authentication, preferences and video bytes are not ordinary shared game data. Wi-Fi-only upload waits for manual action when the connection type is unavailable.
+- Whole-game Delete game must be available on Game Report, Game details and Current Game. Confirm the named game; use a recoverable, validated `deletedAt` marker in the existing game payload. Recently deleted games on Your Games restores IDs, plays and feedback. Exclude deleted games from active selection, reports/averages, filters, navigation and statistics CSV; retain them in full JSON backups and cloud sync. Deleting an unfinished setup must release New Game. Block deletion while recording or editing a play. A restore cannot create a second active game.
+- Preserve existing recoverable play, session and recording removal. No deployment or standards/template sync deletes user records. Do not substitute hard deletion for recovery. Keep version/stale-draft checks and failed-save rollback on every write.
+- Fresh Start is a separate explicit action, gated by family Owner/Admin and server capability v5 when shared. Installation/deployment never runs the reset. Its SQL setup and any actual reset are separate from this documentation sync. Preserve games, Next Steps, recordings and pre-reset recovery copies.
+- Storage/backup envelope remains V12 with backward-compatible extensions. Refresh all participating family devices before editing newly introduced fields. Keep old game/event IDs, V11 migration/rollback data and duplicate-import safeguards.
+
+### Verification and release workflow
+
+Use `templates/release-checklist.md` and `templates/current/regression-matrix.md`. Keep local HTML test copies isolated from real data/cloud/media and never publish their sample-data or Test-menu hooks as the deployed app. Separate automated/mock, desktop browser, live service and real iPhone evidence. V33 has automated regression coverage and exact live-build verification; physical-device camera behavior remains Mike's device acceptance check.
+
+Development changes go to `development`; production promotion requires the applicable user authorization. Read current remote branch heads, update with an expected head without force, and verify deployed exact bytes. Syncing standards/templates is a documentation task and must not introduce runtime changes, execute SQL, reset data or promote an unapproved application build.
+
+## Historical decision record
+
+The sections below are archived snapshots. Their references to “current,” “candidate,” “production unchanged,” manual-only sync or earlier reflection questions are historical, not the current specification.
+
 ## V27 — training and family integration candidate · November 2, 2026
 
 Mike authorized implementation of completed Trainings and Camps, game reflections, full-page report navigation and shared family data/recordings. This section records the new scope; prior manual-only storage decisions are superseded for the optional family connection. Cloud use has not been activated.
@@ -14,7 +89,7 @@ Mike authorized implementation of completed Trainings and Camps, game reflection
 
 Source: source/v27/. Backend setup and live acceptance checklist: cloud/SETUP.md. Automated and local-browser checks are documented in the candidate README. Live backend policies, two-account access control, real-device uploads and iPhone Safari gestures require configured-project/device validation. Candidate only; no production promotion.
 
-## Current approved baseline — October 30, 2026
+## Historical V26 approved baseline — October 30, 2026
 
 **V26 — Nine Sound Tones is approved for development deployment.** This supersedes V25 candidate status and V24 as the development app. Root index.html must match GameTrace_V26_Nine_Sound_Tones.html, SHA-256 `84b4ae0d0fb4f1778af3865c08b6437ec1ada2726602baa6739889f6668434ff`. V24 remains the rollback baseline; its exact charcoal cover is preserved. Production/main remain unchanged. Current source/build/tests: source/v26/.
 

@@ -7,3 +7,6 @@ Deletion is reversible: a validated `deletedAt` marker travels with the existing
 Writes use existing version checks, transactions and save rollback. Deletion is blocked during recording and an open play edit. An unfinished deleted game can only be restored when there is no other active game. No game is deleted automatically and no reset or database migration is executed.
 
 Validation: tests/game-deletion-ui.cjs covers Cancel, confirmation, report exclusion, preserved plays/reflection, backup/cloud tombstones, restore, New Game after deleting an unfinished setup, stale confirmation and failed-save rollback. Existing V32, core and family sync suites remain required.
+
+
+Approved and deployed November 3, 2026. Development application release `0776b2c7e6a2d30b4403005b9de9584ee46dfb6a`; production application release `d0e8c2f08c1d549e6476ba78d055781bba732da1`. Both serve SHA-256 `bc12b41965f18975e214644f49e30a94052bd6c864be9db61cbf4226c7a6ccc1`. Current standards/templates are under docs/ and templates/current/. Documentation-only commits do not change application bytes.

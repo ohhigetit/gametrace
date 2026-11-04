@@ -1,0 +1,16 @@
+/* Included only in the isolated HTML test copy, never in the application build. */
+window.GameTraceFamily.boot=()=>{};window.GameTraceFamily.schedule=()=>{};window.GameTraceFamily.connected=()=>false;
+window.fetch=async()=>{throw Error('Cloud access is disabled in this local test copy. Use the deployed app for Family Huddle sign-in.')};
+function resetHomeCourtSamples(empty=false){
+ const data=C.blankDB(),at=C.now(),today=localDate();
+ if(!empty){
+  const start=Date.now()-90*60000,time=s=>new Date(start+s*1000).toISOString(),g=C.prepareGame({player:'Georgina',number:'3',team:'Panthers',opponent:'Comets',date:today},C.defaults());C.startGame(g,time(0));C.appendEvent(g,'in',{at:time(5)});C.appendEvent(g,'2_make',{at:time(60)});C.appendEvent(g,'assist',{at:time(90)});C.appendEvent(g,'opponent_2',{at:time(110)});C.finishGame(g,{at:time(240)});g.feedback=T.feedback({see:'An opening when the defender closed out.',became:'I became more decisive with my first move.',more:'More confident attacking the space.'});
+  const ready=C.prepareGame({player:'Georgina',number:'3',team:'Panthers',opponent:'Falcons',date:today},C.defaults());data.games=[g,ready];data.activeGameId=g.id;
+  data.trainingSessions=[T.validSession({id:'home-court-sample-training',type:'training',name:'Skills and finishing',player:'Georgina',date:today,minutes:75,tags:['Finishing','Ball handling'],awardEligible:true,createdAt:at,updatedAt:at}),T.validSession({id:'home-court-sample-camp',type:'camp',name:'Shooting camp',player:'Georgina',date:today,minutes:120,tags:['Shooting'],awardEligible:true,createdAt:at,updatedAt:at})];
+  data.goals=T.validGoals([{id:'home-court-sample-step',title:'Attack the opening with confidence',player:'Georgina',status:'active',createdAt:at,updatedAt:at,entries:[{id:'home-court-sample-progress',date:today,note:'More balanced finishes at training.',rating:3,createdAt:at,updatedAt:at}]}]);
+ }
+ db=C.validDB(data);baseRevision=0;v34TestStorage.setItem(C.KEY,JSON.stringify(db));courtUI.player='';ui.screen='court';render();scrollTo(0,0);
+}
+const menuBeforeHomeCourtTest=renderMenu;
+renderMenu=function(){menuBeforeHomeCourtTest();$('menuContent').append(el('details',{class:'family-panel'},el('summary',{},'Local test controls'),el('p',{class:'training-help'},'Separate sample records. Cloud access is disabled. These controls never appear in the deployed app.'),button('Reload sample data',()=>resetHomeCourtSamples(),'court-secondary'),button('Try empty Home Court',()=>resetHomeCourtSamples(true),'court-secondary')))};
+if(!v34TestStorage.getItem(C.KEY))resetHomeCourtSamples();

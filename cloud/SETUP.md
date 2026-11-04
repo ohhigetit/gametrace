@@ -6,9 +6,14 @@ Run `migrations/002_family_workflow.sql` once in the existing Supabase SQL Edito
 
 The transaction preserves existing records, promotes the family creator to Owner and expires legacy invitation codes. New codes expire in seven days. It safely stops with no changes if an account has multiple existing memberships or a family creator is missing from membership. Resolve those memberships deliberately in the dashboard before retrying; do not delete family data. Re-running after success preserves transferred ownership and current roles.
 
-Configure Auth → URL Configuration to allow the exact application redirect:
-`https://development--game-trace.netlify.app/?family_auth=1`
-Use that URL for this development deployment's confirmation and reset flows. Add production only when production is separately approved. The default Supabase email templates must retain `ConfirmationURL` so Supabase verifies the email token and returns a URL-fragment session. Custom templates / PKCE callbacks need separate integration; this static app uses implicit recovery. No anonymous sign-in is required.
+Configure Auth → URL Configuration with Site URL `https://game-trace.netlify.app/` and both exact allowed redirects:
+
+- `https://game-trace.netlify.app/?family_auth=1`
+- `https://development--game-trace.netlify.app/?family_auth=1`
+
+Production was approved and deployed as V33; V34 is currently local only. Each app sends its own origin/path as the confirmation/reset destination. Supabase requires the redirect to be on the project's allowlist; otherwise the configured Site URL may be used. These are configuration requirements, not evidence that the private dashboard has been inspected or changed.
+
+The default email templates must retain `{{ .ConfirmationURL }}` so Supabase verifies the email token and returns a URL-fragment session. Custom templates / PKCE callbacks need separate integration; this static app uses implicit recovery. No anonymous sign-in is required.
 
 The app's separate Sign in, Create account and Forgot password forms use Supabase Auth. Confirmation/reset links validate the returned session via `/auth/v1/user`, remove tokens from the URL, and show the reset form for recovery sessions. Sync is paused until password reset finishes or is cancelled. Password reset returns to sign-in. Minimum client password length is eight characters; any stronger server policy also applies.
 
@@ -51,3 +56,9 @@ Trophies derive from shared training sessions and goal records. Source fields, i
 ## V30 Family Trophies
 
 Run `migrations/004_family_trophies.sql` after migration 002. This migration includes 003's Next Steps/Goals sync support, so a separate 003 run is unnecessary. Mobile copy page: `/cloud/trophies-update.html`. It preserves all records and roles. Refresh all family devices, then Sync now. Custom trophy creation is disabled until the server reports capability v4. Only Owner/Admin may create definitions, award or revoke; attribution and timestamps come from the server. All current members may read awards. Do not downgrade to migration 003 afterward.
+
+## Auth verification — November 4, 2026
+
+Read-only live `/auth/v1/settings` check confirmed email/password enabled, signup enabled and `mailer_autoconfirm: false` (email confirmation required). No accounts or project settings were changed and no email was sent. This endpoint does not establish the private redirect allowlist, Site URL, templates, SMTP delivery or inbox behavior.
+
+`tests/family-workflow.cjs` now has 20 checks including development/production redirects, confirmation callbacks, expired/incomplete/rejected links, successful reset and local sign-out, short/mismatched passwords, rejected-update retry drafts, recovery cancellation/reload, sync suspension and rate-limit feedback. Pending sync must not hide the separate confirmation notice; non-recovery callbacks clear stale recovery state. Changes are local only. Real emailed-link delivery/redirect acceptance remains unverified until an actual inbox test.

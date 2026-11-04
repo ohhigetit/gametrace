@@ -1,5 +1,7 @@
 # GameTrace V25 sound-tone template
 
+> Historical template snapshot. Its status and build instructions describe that release only. Use [the current template](../current/README.md) for new work.
+
 Status: implemented test candidate, not deployed. Development remains the approved V24 cover release; production remains V16.
 
 The template adds Soft click, Digital tick and Basketball bounce to Settings → Sound tone with Preview tone. Recording sound on/off stays independent. Preview is an explicit user action and works while Sound is off. Selection is persisted, defaults to Digital tick for older backups, and accepts only the three known identifiers. Invalid identifiers fall back to Digital tick. Keep preference changes transactional and retain the choice through JSON backup/restore and reload. Device sound and volume still apply.

@@ -1,5 +1,7 @@
 # GameTrace V24 reusable app and cover templates
 
+> Historical template snapshot. Its status and build instructions describe that release only. Use [the current template](../current/README.md) for new work.
+
 Approved baseline: October 30, 2026. Use the exact V24 standalone as the starting app and preserve the original logo assets. The current standards document is authoritative; earlier alternatives are historical.
 
 ## Included templates

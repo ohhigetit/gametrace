@@ -1,5 +1,7 @@
 # GameTrace V27 — training and family review candidate
 
+> Current application: V33, approved and verified on both development and production November 3, 2026. Earlier destination/candidate statements below are release history. Authoritative behavior: docs/GameTrace_Approved_Design_and_Development.md; reusable baseline: templates/current/.
+
 Adds completed training/camp logging, hour achievements, weekly streaks, a weekly/cumulative progress graph, optional player reflections on games and sessions, and whole-page report navigation. Built on C1.10.3 from development, preserving its camera frame path and controller SVG.
 
 Optional family integration includes individual sign-in, family invites/equal editing, local-first version-checked sync, conflict recovery/history and private video uploads. The owner has installed the backend SQL, and the project connection is prefilled. Authenticated family flows remain unverified. See cloud/SETUP.md for activation and required real-backend/device checks.
@@ -38,3 +40,14 @@ Validation: 14 training/preservation, 37 established core, 18 journey-core, 20 s
 ## V31 production — November 3, 2026
 
 User approved V30's completed Score Journey, anchored score adjustments, circle/wedge game controls, Next Steps accordions and Family Trophies for production. V31 adds an explicit training/trophy Fresh Start action. Cloud setup: `/cloud/fresh-start.html` (migration 005 includes 003/004). Installing it does not reset data; the signed-in family Owner/Admin runs the reset action afterward. Private family data has not been reset by the deployment process. Full source and tested operations: source/v31/README.md.
+
+
+## V33 production — November 3, 2026
+
+Whole-game deletion and recovery fix approved after implementation/validation. Application tree `98d308ef2692715248edda29f2aefde578febb84`; development application commit `0776b2c7e6a2d30b4403005b9de9584ee46dfb6a`; production application commit `d0e8c2f08c1d549e6476ba78d055781bba732da1`. Exact application SHA-256 `bc12b41965f18975e214644f49e30a94052bd6c864be9db61cbf4226c7a6ccc1` verified on both hosted targets. No actual user game was deleted during QA or deployment.
+
+Standards and templates now designate V33 as current, retain historical releases as archives, and require regression coverage for whole-game Delete/Restore, Score Journey edits and the locked game/session reflection questions. This standards sync changes documentation/template metadata only; no application rebuild change, SQL execution, sample import or data reset.
+
+## V34 local candidate — November 4, 2026
+
+Home Court, approved basketball section names/order, two quick actions, record-linked overview and selected-player summaries are implemented locally. Explicit user instruction: no deployment. No remote branch update, data reset, SQL change or production promotion. V33 remains deployed. Details/verification: source/v34/README.md.
