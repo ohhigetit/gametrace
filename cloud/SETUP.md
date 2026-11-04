@@ -11,7 +11,7 @@ Configure Auth → URL Configuration with Site URL `https://game-trace.netlify.a
 - `https://game-trace.netlify.app/?family_auth=1`
 - `https://development--game-trace.netlify.app/?family_auth=1`
 
-Production was approved and deployed as V33; V34 is currently local only. Each app sends its own origin/path as the confirmation/reset destination. Supabase requires the redirect to be on the project's allowlist; otherwise the configured Site URL may be used. These are configuration requirements, not evidence that the private dashboard has been inspected or changed.
+Both development and production now serve V35. Mike confirmed live password reset after correcting these return URL settings. Each app sends its own origin/path as the confirmation/reset destination. Supabase requires the redirect to be on the project's allowlist; otherwise the configured Site URL may be used. These are configuration requirements, not evidence that the private dashboard has been inspected or changed.
 
 The default email templates must retain `{{ .ConfirmationURL }}` so Supabase verifies the email token and returns a URL-fragment session. Custom templates / PKCE callbacks need separate integration; this static app uses implicit recovery. No anonymous sign-in is required.
 

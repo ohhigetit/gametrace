@@ -1,6 +1,6 @@
 # GameTrace
 
-**Approved release candidate: V35** — always-visible training feedback and optional Playbook activity links, including V34 Home Court/navigation. See [V35 notes](source/v35/README.md). Deployment verification will be recorded after publication.
+**Current release: V35**, deployed and byte-verified on [production](https://game-trace.netlify.app/) and [development](https://development--game-trace.netlify.app/). Includes visible training feedback, optional Playbook activity links, Home Court/navigation and account refinements. See [V35 notes](source/v35/README.md).
 
 **Follow the Play. The Game. The Journey.**
 
@@ -14,9 +14,7 @@ GameTrace development proceeds on `development` before promotion to `main`.
 
 ## Current baseline
 
-**Development: V34 — Home Court and navigation**, deployed and byte-verified November 4, 2026. See [V34 notes](source/v34/README.md). Production remains V33.
-
-[Development](https://development--game-trace.netlify.app/) serves V34; [production](https://game-trace.netlify.app/) serves V33. The V33 baseline includes optional Family Cloud, training/camps, Next Steps, trophies, editable Score Journey, the locked See more. Become more. reflections, and recoverable whole-game deletion.
+V35 retains existing games, sessions, reflections, trophies, family membership and recordings. No reset or database migration is part of the release. Refresh family devices before editing linked Playbook steps.
 
 - [Approved standards](docs/GameTrace_Approved_Design_and_Development.md)
 - [Current templates](templates/current/README.md)
