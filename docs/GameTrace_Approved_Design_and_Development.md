@@ -1,8 +1,8 @@
 # GameTrace — approved design and development
 
-## V35 — approved for production deployment · November 4, 2026
+## Current development and production — V35 · deployed November 4, 2026
 
-Mike approved implementing the pending training feedback and Playbook connections and deploying the resulting build to production. This includes the already approved V34 Home Court/menu/account changes. Deployment verification will be recorded after publication.
+Mike approved implementation and production deployment. Both environments now serve identical V35 bytes, verified at their actual Netlify URLs. SHA-256 `6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c`; source tree `4e4abc60dfe3fea3cd0636dc374b4c1e15b9d3c4`; development application commit `f2316bdee1cfbbc4d1fe12d8908226c4915be242`; production application commit `31bb1af8a56771475139ec773d6ae7e994cd0a11`. This includes V34 Home Court/menu/account changes. No data reset, backend migration or account email was performed.
 
 - Training/camp Player Feedback is always visible in forms and saved rows. Keep the existing three questions, optional answers and historical wording; do not shorten or replace them.
 - Saved games/sessions may link to existing Playbook steps for the same player. Step cards list and open original activities. Store bounded validated `links` references on goal records, through existing JSON backup and goal sync. No record duplication or SQL migration.
@@ -13,7 +13,7 @@ Mike approved implementing the pending training feedback and Playbook connection
 Implementation/validation: `source/v35/README.md`, `tests/playbook-links-ui.cjs`. The historical V34 section below describes the earlier development-only release.
 
 
-## Current development — V34 · deployed November 4, 2026
+## V34 earlier development release · November 4, 2026
 
 Mike subsequently approved deployment to **development only**. V34 is live at https://development--game-trace.netlify.app/ and was verified byte-for-byte. Application release commit `60e186522329a91c30e25d3d9187650793415940`, tree `9217d4bfeeec27d17706f7e0d3132435375f439c`, HTML SHA-256 `18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10`. Production remains V33; its main branch and application bytes were verified unchanged. No account emails, SQL updates or data resets were performed.
 

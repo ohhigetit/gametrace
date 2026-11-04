@@ -1,35 +1,30 @@
 {
-  "application_version": "V34",
+  "application_version": "V35",
   "release_date": "2026-11-04",
   "repository": "ohhigetit/gametrace",
   "build_command": "python3 source/v27/build.py",
   "application_file": "index.html",
   "matching_generated_file": "source/v27/GameTrace_V27_Training_Family.html",
-  "application_sha256": "18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10",
-  "application_release_tree": "9217d4bfeeec27d17706f7e0d3132435375f439c",
+  "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
+  "application_release_tree": "4e4abc60dfe3fea3cd0636dc374b4c1e15b9d3c4",
   "development": {
     "branch": "development",
     "url": "https://development--game-trace.netlify.app/",
-    "application_release_commit": "60e186522329a91c30e25d3d9187650793415940",
-    "application_version": "V34",
-    "application_sha256": "18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10",
-    "status": "deployed and verified"
+    "application_release_commit": "f2316bdee1cfbbc4d1fe12d8908226c4915be242",
+    "application_version": "V35",
+    "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
+    "status": "deployed and byte-verified"
   },
   "production": {
     "branch": "main",
     "url": "https://game-trace.netlify.app/",
-    "application_release_commit": "d0e8c2f08c1d549e6476ba78d055781bba732da1",
-    "application_version": "V33",
-    "application_sha256": "bc12b41965f18975e214644f49e30a94052bd6c864be9db61cbf4226c7a6ccc1"
+    "application_release_commit": "31bb1af8a56771475139ec773d6ae7e994cd0a11",
+    "application_version": "V35",
+    "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
+    "status": "deployed and byte-verified"
   },
   "standards": "docs/GameTrace_Approved_Design_and_Development.md",
   "checklist": "templates/release-checklist.md",
   "regression_matrix": "templates/current/regression-matrix.md",
-  "note": "Top-level build identity is the current V34 development application. Production remains the explicit V33 identity below. Documentation-only commits retain application bytes; no reset or real-email acceptance is implied.",
-  "approved_candidate": {
-    "application_version": "V35",
-    "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
-    "status": "approved for production deployment",
-    "notes": "source/v35/README.md"
-  }
+  "note": "Both environments serve the identical V35 runtime. Application release commits identify source; later documentation commits keep application bytes. No data reset or SQL migration. Password reset is user-confirmed; email-confirmation inbox acceptance remains."
 }

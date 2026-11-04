@@ -1,6 +1,8 @@
 # GameTrace V27 — training and family review candidate
 
-Current release split (November 4, 2026): **V34 development / V33 production**. Development application commit `60e186522329a91c30e25d3d9187650793415940`, SHA-256 `18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10`, verified at https://development--game-trace.netlify.app/. Production branch and V33 bytes remain unchanged. No data reset, backend migration or account email was performed. Email delivery and private auth redirect settings remain live acceptance items.
+**Current: V35 on both environments**, byte-verified SHA-256 `6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c`. Development application commit `f2316bdee1cfbbc4d1fe12d8908226c4915be242`; production application commit `31bb1af8a56771475139ec773d6ae7e994cd0a11`. No reset or SQL change. See source/v35/README.md.
+
+Earlier release split (November 4, 2026): **V34 development / V33 production**. Development application commit `60e186522329a91c30e25d3d9187650793415940`, SHA-256 `18a56f14d74e5499b402f4cf5ba7fb44878e7b51bcd984161922290d3b4c2a10`, verified at https://development--game-trace.netlify.app/. Production branch and V33 bytes remain unchanged. No data reset, backend migration or account email was performed. Email delivery and private auth redirect settings remain live acceptance items.
 
 
 > Current application: V33, approved and verified on both development and production November 3, 2026. Earlier destination/candidate statements below are release history. Authoritative behavior: docs/GameTrace_Approved_Design_and_Development.md; reusable baseline: templates/current/.
@@ -55,6 +57,6 @@ Standards and templates now designate V33 as current, retain historical releases
 
 Home Court, approved basketball section names/order, two quick actions, record-linked overview and selected-player summaries are implemented locally. Explicit user instruction: no deployment. No remote branch update, data reset, SQL change or production promotion. V33 remains deployed. Details/verification: source/v34/README.md.
 
-## V35 — approved for production deployment · November 4, 2026
+## V35 — deployed to development and production · November 4, 2026
 
 Always-visible training/camp feedback, optional bidirectional Playbook activity navigation, V34 Home Court and account refinements. Preserve all user records. No reset or SQL migration. Live password reset is user-confirmed; email-confirmation inbox acceptance remains. See source/v35/README.md.
