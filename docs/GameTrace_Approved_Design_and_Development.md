@@ -1,8 +1,8 @@
 # GameTrace — approved design and development
 
-## V38 — approved for development deployment
+## Current development — V38 · deployed and byte-verified
 
-Pending refinements are implemented: exact Previous Games row format for Session History/Schedule; Upcoming/Calendar with selected-day rows; per-activity Question 30% / Feedback 70% tables; separate Prayer/Commitment pages; Home Court upcoming events and scheduled Create Game; redundant Your games/New Game removed from its Games card. Preserve the main New Game action, manual Start and unfinished-game guard. Scheduled dates now persist through New Game. Details: source/v38/README.md. Production remains V36. Live cloud migration remains unapplied because no management/database access is available. A copy-SQL setup page is prepared for the family owner.
+Pending refinements are implemented: exact Previous Games row format for Session History/Schedule; Upcoming/Calendar with selected-day rows; per-activity Question 30% / Feedback 70% tables; separate Prayer/Commitment pages; Home Court upcoming events and scheduled Create Game; redundant Your games/New Game removed from its Games card. Preserve the main New Game action, manual Start and unfinished-game guard. Scheduled dates now persist through New Game. Details: source/v38/README.md. Development commit `489c3321f60d887e3daecf74faffe6a3361be33e`, HTML SHA-256 `91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf`, verified at https://development--game-trace.netlify.app/. Production remains V36. Live cloud migration remains unapplied because no management/database access is available. A copy-SQL setup page is prepared for the family owner.
 
 
 ## V37 — implemented locally; no deployment

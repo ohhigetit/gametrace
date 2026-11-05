@@ -1,8 +1,8 @@
 # GameTrace
 
-**Production: V36**, deployed and byte-verified at [GameTrace](https://game-trace.netlify.app/). Development remains V35. Adds session detail pages, quick logging with recoverable device-local drafts and presets, shared player selection, weekly review and a Day Game default. See [V36 notes](source/v36/README.md).
+**Production: V36**, deployed and byte-verified at [GameTrace](https://game-trace.netlify.app/). Development now serves V38. Adds session detail pages, quick logging with recoverable device-local drafts and presets, shared player selection, weekly review and a Day Game default. See [V36 notes](source/v36/README.md).
 
-**Development candidate: V38** — connected activity rows, Notebook feedback tables, dedicated personal pages and dashboard upcoming events. Approved for dev deployment; verification pending. See [V38 notes](source/v38/README.md).
+**Development: V38** — connected activity rows, Notebook feedback tables, dedicated personal pages and dashboard upcoming events. Deployed and byte-verified at https://development--game-trace.netlify.app/. See [V38 notes](source/v38/README.md).
 
 **Follow the Play. The Game. The Journey.**
 
