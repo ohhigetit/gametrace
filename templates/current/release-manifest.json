@@ -1,12 +1,12 @@
 {
-  "application_version": "V35",
+  "application_version": "V36",
   "release_date": "2026-11-04",
   "repository": "ohhigetit/gametrace",
   "build_command": "python3 source/v27/build.py",
   "application_file": "index.html",
   "matching_generated_file": "source/v27/GameTrace_V27_Training_Family.html",
-  "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
-  "application_release_tree": "4e4abc60dfe3fea3cd0636dc374b4c1e15b9d3c4",
+  "application_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
+  "application_release_tree": "ba20ade876767f81a4608ec13769fad017ce75ad",
   "development": {
     "branch": "development",
     "url": "https://development--game-trace.netlify.app/",
@@ -18,19 +18,13 @@
   "production": {
     "branch": "main",
     "url": "https://game-trace.netlify.app/",
-    "application_release_commit": "31bb1af8a56771475139ec773d6ae7e994cd0a11",
-    "application_version": "V35",
-    "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
+    "application_release_commit": "771a65867d389bdb77062ecd71ef5054eba539fe",
+    "application_version": "V36",
+    "application_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
     "status": "deployed and byte-verified"
   },
   "standards": "docs/GameTrace_Approved_Design_and_Development.md",
   "checklist": "templates/release-checklist.md",
   "regression_matrix": "templates/current/regression-matrix.md",
-  "note": "Both environments serve the identical V35 runtime. Application release commits identify source; later documentation commits keep application bytes. No data reset or SQL migration. Password reset is user-confirmed; email-confirmation inbox acceptance remains.",
-  "approved_candidate": {
-    "application_version": "V36",
-    "application_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
-    "status": "approved for production deployment",
-    "notes": "source/v36/README.md"
-  }
+  "note": "Production serves the verified V36 runtime; development remains V35. Drafts and presets stay device-local and account/family scoped. Saved appearance choices are retained; Day Game is the new-device default. No data reset or SQL migration."
 }

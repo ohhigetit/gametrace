@@ -1,6 +1,6 @@
-# V36 — the weekly journey (local review build)
+# V36 — the weekly journey
 
-Authorized scope: training/camp detail pages, quick logging with presets and recoverable drafts, consistent player selection, and a Home Court weekly review. Built November 4, 2026. **Approved for production deployment**; verification will be recorded after publication. Development remains V35. No reset, SQL migration, credential change, or email was performed.
+Authorized scope: training/camp detail pages, quick logging with presets and recoverable drafts, consistent player selection, and a Home Court weekly review. Built November 4, 2026. **Deployed and byte-verified on production**. Development remains V35. No reset, SQL migration, credential change, or email was performed.
 
 ## Behavior
 
@@ -21,3 +21,5 @@ The main data schema/storage key stays V12. Existing app-open family sync, confl
 `tests/session-workflow-ui.cjs` covers detail navigation, visible reflections, drafts, presets, stable record identity, legacy/award preservation, stale edits, failed persistence, shared player selection, account/family isolation and calendar boundaries. Existing Home Court/Playbook/journey/V32/V30 tests now exercise the new detail navigation and shared picker while retaining their data-integrity assertions. Browser QA covers 390px and 320px layouts and real reload recovery. Mocked family/auth tests do not establish physical iPhone recording, real inbox delivery or a live two-device sync acceptance test.
 
 Mike approved this build and requested production deployment, including the Day Game default. No additional implementation or reset is part of publication.
+
+Production verified November 4, 2026: https://game-trace.netlify.app/, source commit `771a65867d389bdb77062ecd71ef5054eba539fe`, tree `ba20ade876767f81a4608ec13769fad017ce75ad`, HTML SHA-256 `0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11`. Existing saved appearance preferences are retained; new devices start in Day Game. All regression suites passed before publication. No reset or SQL migration.

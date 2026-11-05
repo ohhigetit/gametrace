@@ -1,8 +1,6 @@
 # GameTrace
 
-**Current release: V35**, deployed and byte-verified on [production](https://game-trace.netlify.app/) and [development](https://development--game-trace.netlify.app/). Includes visible training feedback, optional Playbook activity links, Home Court/navigation and account refinements. See [V35 notes](source/v35/README.md).
-
-**Approved production candidate: V36**, deployment requested. Adds individual training/camp pages, quick logging with device-local drafts and presets, a shared player picker, and a Home Court weekly review. See [V36 notes](source/v36/README.md). No data reset or cloud migration.
+**Production: V36**, deployed and byte-verified at [GameTrace](https://game-trace.netlify.app/). Development remains V35. Adds session detail pages, quick logging with recoverable device-local drafts and presets, shared player selection, weekly review and a Day Game default. See [V36 notes](source/v36/README.md).
 
 **Follow the Play. The Game. The Journey.**
 

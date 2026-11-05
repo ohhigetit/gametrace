@@ -1,10 +1,10 @@
 {
   "version": "V36",
-  "status": "local_review_only",
+  "status": "production_byte_verified",
   "date": "2026-11-04",
   "html_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
   "generated_copies_identical": true,
-  "deployment_performed": false,
+  "deployment_performed": true,
   "data_reset_performed": false,
   "sql_migration_required": false,
   "passed_suites": [
@@ -38,5 +38,11 @@
     "Saved Courtside retained",
     "Saved Day Game retained",
     "Unavailable storage defaults to Day Game"
-  ]
+  ],
+  "production": {
+    "url": "https://game-trace.netlify.app/",
+    "application_commit": "771a65867d389bdb77062ecd71ef5054eba539fe",
+    "application_tree": "ba20ade876767f81a4608ec13769fad017ce75ad",
+    "html_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11"
+  }
 }
