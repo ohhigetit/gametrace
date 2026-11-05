@@ -1,0 +1,76 @@
+{
+  "version": "V37",
+  "status": "local_review_only",
+  "deployment_performed": false,
+  "live_sql_applied": false,
+  "html_sha256": "f1d707c338c7f0bed7f1cc2380ba08f11ce6d73a7ff73a45512eb7fa094043c2",
+  "suites": [
+    {
+      "suite": "training",
+      "passed": true
+    },
+    {
+      "suite": "journey",
+      "passed": true
+    },
+    {
+      "suite": "core-regression",
+      "passed": true
+    },
+    {
+      "suite": "home-court-ui",
+      "passed": true
+    },
+    {
+      "suite": "playbook-links-ui",
+      "passed": true
+    },
+    {
+      "suite": "session-workflow-ui",
+      "passed": true
+    },
+    {
+      "suite": "journey-ui",
+      "passed": true
+    },
+    {
+      "suite": "v32-ui",
+      "passed": true
+    },
+    {
+      "suite": "v30-ui",
+      "passed": true
+    },
+    {
+      "suite": "game-deletion-ui",
+      "passed": true
+    },
+    {
+      "suite": "family-sync",
+      "passed": true
+    },
+    {
+      "suite": "family-workflow",
+      "passed": true
+    },
+    {
+      "suite": "notebook-schedule",
+      "passed": true
+    },
+    {
+      "suite": "v37-ui",
+      "passed": true
+    }
+  ],
+  "postgresql_checks": 36,
+  "browser_checks": [
+    "320px Notebook reading/search and separate Prayer reader; no horizontal overflow",
+    "320px Schedule month calendar; no horizontal overflow",
+    "390px Home Court Games and expanded reading UI"
+  ],
+  "remaining_acceptance": [
+    "Physical iPhone recording and gestures",
+    "Provider-specific live feed CORS",
+    "Live two-device personal-record sync after applying migration 006"
+  ]
+}

@@ -1,18 +1,18 @@
 {
-  "application_version": "V36",
+  "application_version": "V38",
   "release_date": "2026-11-04",
   "repository": "ohhigetit/gametrace",
   "build_command": "python3 source/v27/build.py",
   "application_file": "index.html",
   "matching_generated_file": "source/v27/GameTrace_V27_Training_Family.html",
-  "application_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
-  "application_release_tree": "ba20ade876767f81a4608ec13769fad017ce75ad",
+  "application_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
+  "application_release_tree": "72357c8da8bb4e539a7bcf276e6f804bff87b4aa",
   "development": {
     "branch": "development",
     "url": "https://development--game-trace.netlify.app/",
-    "application_release_commit": "f2316bdee1cfbbc4d1fe12d8908226c4915be242",
-    "application_version": "V35",
-    "application_sha256": "6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c",
+    "application_release_commit": "489c3321f60d887e3daecf74faffe6a3361be33e",
+    "application_version": "V38",
+    "application_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
     "status": "deployed and byte-verified"
   },
   "production": {
@@ -26,5 +26,5 @@
   "standards": "docs/GameTrace_Approved_Design_and_Development.md",
   "checklist": "templates/release-checklist.md",
   "regression_matrix": "templates/current/regression-matrix.md",
-  "note": "Production serves the verified V36 runtime; development remains V35. Drafts and presets stay device-local and account/family scoped. Saved appearance choices are retained; Day Game is the new-device default. No data reset or SQL migration."
+  "note": "Development serves V38; production remains V36. Notebook/Schedule migration 006 is prepared but not applied. Use updated dev on every participating device before testing new shared records."
 }

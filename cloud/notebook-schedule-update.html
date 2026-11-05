@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GameTrace — Enable Notebook and Schedule sync</title><style>body{margin:0;background:#101410;color:#edf2ed;font:16px/1.65 system-ui}main{max-width:650px;margin:auto;padding:28px 22px}h1{font-size:28px;line-height:1.2}a{color:#20d476}button{width:100%;min-height:48px;padding:12px;border:1px solid #20d476;border-radius:12px;background:#19241b;color:#fff;font:inherit}textarea{box-sizing:border-box;width:100%;height:240px;margin:16px 0;background:#0c100c;color:#d7ded7;border:1px solid #475247;border-radius:8px;padding:12px;font:12px/1.5 monospace}li{margin:14px 0}#status{color:#20d476}</style><main><a href="/">← GameTrace</a><h1>Enable Notebook and Schedule family sync</h1><p>This small update allows Prayer, Commitment and Schedule to sync with your existing family. Existing games, training, videos, memberships and invitation codes are preserved.</p><ol><li>Tap <strong>Copy setup SQL</strong>.</li><li>Open your existing <strong>GameTrace</strong> project in Supabase → <strong>SQL Editor → New query</strong>. Paste and <strong>Run</strong>.</li><li>After “Success. No rows returned,” open the updated V38 development build on each participating family device and use <strong>Family Huddle → Sync now</strong>.</li></ol><p>During dev testing, use the updated development build on every participating family device. Older versions do not understand the new shared record type.</p><p>Until this update is installed, Prayer, Commitment and Schedule stay saved on this device. Games and training keep syncing. Do not rerun the original family setup or reset query.</p><button id="copy">Copy setup SQL</button><p id="status" role="status"></p><details><summary>Show SQL / manual copy</summary><label for="sql">Notebook/Schedule migration</label><textarea id="sql" readonly>-- V37 Notebook/Schedule. Apply after 005. No reset or deletion.
+-- GameTrace V31. Apply after 002. Includes 003/004. Installs reset support; does not reset any data.
+begin;
+alter table public.gt_records drop constraint if exists gt_records_kind_check;
+alter table public.gt_records add constraint gt_records_kind_check
+ check(kind in (&#x27;game&#x27;,&#x27;session&#x27;,&#x27;clip&#x27;,&#x27;goal&#x27;,&#x27;goal_order&#x27;,&#x27;trophy_definition&#x27;,&#x27;family_award&#x27;,&#x27;journey_reset&#x27;,&#x27;personal&#x27;));
+create or replace function public.gt_save_record(fid uuid,record_kind text,rid text,body jsonb,expected_version bigint) returns jsonb language plpgsql security definer set search_path=&#x27;&#x27; as $$declare r public.gt_records;d public.gt_records;actor_name text;reset_time timestamptz;begin
+if not public.gt_is_member(fid) then raise exception &#x27;Family access required&#x27;;end if;
+if record_kind not in (&#x27;game&#x27;,&#x27;session&#x27;,&#x27;clip&#x27;,&#x27;goal&#x27;,&#x27;goal_order&#x27;,&#x27;trophy_definition&#x27;,&#x27;family_award&#x27;,&#x27;personal&#x27;) or rid is null or length(rid) not between 1 and 120 or body is null or jsonb_typeof(body) &lt;&gt; &#x27;object&#x27; or body-&gt;&gt;&#x27;id&#x27; is distinct from rid then raise exception &#x27;Invalid record&#x27;;end if;
+if record_kind=&#x27;personal&#x27; and (coalesce(body-&gt;&gt;&#x27;type&#x27;,&#x27;&#x27;) not in (&#x27;prayer&#x27;,&#x27;commitment&#x27;,&#x27;schedule&#x27;) or length(trim(coalesce(body-&gt;&gt;&#x27;player&#x27;,&#x27;&#x27;))) not between 1 and 100 or length(coalesce(body-&gt;&gt;&#x27;body&#x27;,&#x27;&#x27;))&gt;6000) then raise exception &#x27;Invalid Notebook/Schedule record&#x27;;end if;
+if record_kind in (&#x27;trophy_definition&#x27;,&#x27;family_award&#x27;) then perform public.gt_require_manager(fid);end if;
+perform pg_advisory_xact_lock(hashtextextended(&#x27;gt-family-write:&#x27;||fid::text,0));
+perform pg_advisory_xact_lock(hashtextextended(fid::text||record_kind||rid,0));
+select * into r from public.gt_records where family_id=fid and kind=record_kind and record_id=rid for update;
+if coalesce(r.version,0)&lt;&gt;expected_version then return jsonb_build_object(&#x27;conflict&#x27;,true,&#x27;record&#x27;,to_jsonb(r));end if;
+if record_kind=&#x27;session&#x27; then
+ select max((payload-&gt;&gt;&#x27;cutoff&#x27;)::timestamptz) into reset_time from public.gt_records where family_id=fid and kind=&#x27;journey_reset&#x27;;
+ if reset_time is not null and (body-&gt;&gt;&#x27;createdAt&#x27;)::timestamptz&lt;=reset_time then body:=body||jsonb_build_object(&#x27;deletedAt&#x27;,reset_time,&#x27;updatedAt&#x27;,reset_time);end if;
+end if;
+if record_kind in (&#x27;trophy_definition&#x27;,&#x27;family_award&#x27;) then
+ perform public.gt_require_manager(fid);
+ select coalesce(nullif(trim(display_name),&#x27;&#x27;),&#x27;Family admin&#x27;) into actor_name from public.gt_profiles where user_id=auth.uid();
+ actor_name:=coalesce(actor_name,&#x27;Family admin&#x27;);
+ if record_kind=&#x27;trophy_definition&#x27; then
+  if length(trim(coalesce(body-&gt;&gt;&#x27;name&#x27;,&#x27;&#x27;))) not between 1 and 100 or length(coalesce(body-&gt;&gt;&#x27;description&#x27;,&#x27;&#x27;))&gt;500 then raise exception &#x27;Invalid trophy definition&#x27;;end if;
+  body:=jsonb_build_object(&#x27;id&#x27;,rid,&#x27;familyId&#x27;,fid,&#x27;name&#x27;,trim(body-&gt;&gt;&#x27;name&#x27;),&#x27;description&#x27;,coalesce(body-&gt;&gt;&#x27;description&#x27;,&#x27;&#x27;),&#x27;createdBy&#x27;,coalesce(r.payload-&gt;&gt;&#x27;createdBy&#x27;,auth.uid()::text),&#x27;createdByName&#x27;,coalesce(r.payload-&gt;&gt;&#x27;createdByName&#x27;,actor_name),&#x27;createdAt&#x27;,coalesce(r.payload-&gt;&gt;&#x27;createdAt&#x27;,now()::text),&#x27;updatedAt&#x27;,now(),&#x27;deletedAt&#x27;,case when body-&gt;&gt;&#x27;deletedAt&#x27; is null then null else now() end);
+ else
+  if r.version is null then
+   select * into d from public.gt_records where family_id=fid and kind=&#x27;trophy_definition&#x27; and record_id=body-&gt;&gt;&#x27;definitionId&#x27;;
+   if d.version is null or d.payload-&gt;&gt;&#x27;deletedAt&#x27; is not null then raise exception &#x27;Trophy definition unavailable&#x27;;end if;
+   if length(trim(coalesce(body-&gt;&gt;&#x27;player&#x27;,&#x27;&#x27;))) not between 1 and 100 or length(trim(coalesce(body-&gt;&gt;&#x27;reason&#x27;,&#x27;&#x27;))) not between 1 and 1000 then raise exception &#x27;Player and award reason required&#x27;;end if;
+   body:=jsonb_build_object(&#x27;id&#x27;,rid,&#x27;familyId&#x27;,fid,&#x27;definitionId&#x27;,d.record_id,&#x27;name&#x27;,d.payload-&gt;&gt;&#x27;name&#x27;,&#x27;player&#x27;,trim(body-&gt;&gt;&#x27;player&#x27;),&#x27;reason&#x27;,trim(body-&gt;&gt;&#x27;reason&#x27;),&#x27;awardedBy&#x27;,auth.uid(),&#x27;awardedByName&#x27;,actor_name,&#x27;awardedAt&#x27;,now(),&#x27;revokedAt&#x27;,null,&#x27;revokedBy&#x27;,null);
+  else
+   if body-&gt;&gt;&#x27;revokedAt&#x27; is null or r.payload-&gt;&gt;&#x27;revokedAt&#x27; is not null then raise exception &#x27;An issued award can only be revoked once&#x27;;end if;
+   body:=r.payload||jsonb_build_object(&#x27;revokedAt&#x27;,now(),&#x27;revokedBy&#x27;,auth.uid());
+  end if;
+ end if;
+end if;
+if r.version is not null then insert into public.gt_history(family_id,kind,record_id,payload,version,updated_by,updated_at) values(r.family_id,r.kind,r.record_id,r.payload,r.version,r.updated_by,r.updated_at);end if;
+insert into public.gt_records values(fid,record_kind,rid,body,coalesce(r.version,0)+1,auth.uid(),now()) on conflict(family_id,kind,record_id) do update set payload=excluded.payload,version=excluded.version,updated_by=excluded.updated_by,updated_at=excluded.updated_at returning * into r;
+return jsonb_build_object(&#x27;conflict&#x27;,false,&#x27;record&#x27;,to_jsonb(r));end$$;
+create or replace function public.gt_cloud_features() returns jsonb language sql stable security definer set search_path=&#x27;&#x27; as $$select jsonb_build_object(&#x27;version&#x27;,6)$$;
+revoke all on function public.gt_cloud_features() from public,anon;
+grant execute on function public.gt_cloud_features() to authenticated;
+
+create or replace function public.gt_reset_training_journey(fid uuid,request_id text) returns jsonb language plpgsql security definer set search_path=&#x27;&#x27; as $$
+declare r public.gt_records;marker public.gt_records;stamp timestamptz;ns integer:=0;na integer:=0;rows jsonb:=&#x27;[]&#x27;::jsonb;next_body jsonb;
+begin
+ perform public.gt_require_manager(fid);
+ if request_id is null or length(request_id) not between 1 and 120 then raise exception &#x27;Invalid reset request&#x27;;end if;
+ perform pg_advisory_xact_lock(hashtextextended(&#x27;gt-family-write:&#x27;||fid::text,0));
+ select * into marker from public.gt_records where family_id=fid and kind=&#x27;journey_reset&#x27; and record_id=request_id;
+ if marker.version is not null then return jsonb_build_object(&#x27;records&#x27;,jsonb_build_array(to_jsonb(marker)),&#x27;already_applied&#x27;,true);end if;
+ stamp:=clock_timestamp();
+ for r in select * from public.gt_records where family_id=fid and ((kind=&#x27;session&#x27; and payload-&gt;&gt;&#x27;deletedAt&#x27; is null) or (kind=&#x27;family_award&#x27; and payload-&gt;&gt;&#x27;revokedAt&#x27; is null)) for update loop
+  insert into public.gt_history(family_id,kind,record_id,payload,version,updated_by,updated_at) values(r.family_id,r.kind,r.record_id,r.payload,r.version,r.updated_by,r.updated_at);
+  if r.kind=&#x27;session&#x27; then next_body:=r.payload||jsonb_build_object(&#x27;deletedAt&#x27;,stamp,&#x27;updatedAt&#x27;,stamp);ns:=ns+1;
+  else next_body:=r.payload||jsonb_build_object(&#x27;revokedAt&#x27;,stamp,&#x27;revokedBy&#x27;,auth.uid());na:=na+1;end if;
+  update public.gt_records set payload=next_body,version=version+1,updated_by=auth.uid(),updated_at=stamp where family_id=fid and kind=r.kind and record_id=r.record_id returning * into r;
+  rows:=rows||jsonb_build_array(to_jsonb(r));
+ end loop;
+ insert into public.gt_records(family_id,kind,record_id,payload,version,updated_by,updated_at) values(fid,&#x27;journey_reset&#x27;,request_id,jsonb_build_object(&#x27;id&#x27;,request_id,&#x27;familyId&#x27;,fid,&#x27;cutoff&#x27;,stamp,&#x27;createdBy&#x27;,auth.uid(),&#x27;trainingCount&#x27;,ns,&#x27;awardCount&#x27;,na),1,auth.uid(),stamp) returning * into marker;
+ return jsonb_build_object(&#x27;records&#x27;,rows||jsonb_build_array(to_jsonb(marker)),&#x27;already_applied&#x27;,false);
+end$$;
+revoke all on function public.gt_reset_training_journey(uuid,text) from public,anon;
+grant execute on function public.gt_reset_training_journey(uuid,text) to authenticated;
+commit;
+</textarea></details><script>document.getElementById('copy').onclick=async()=>{const t=document.getElementById('sql');try{await navigator.clipboard.writeText(t.value);document.getElementById('status').textContent='Copied. Paste into a new Supabase SQL query.'}catch{document.querySelector('details').open=true;t.focus();t.select();document.getElementById('status').textContent='SQL selected. Use Select All → Copy.'}};</script></main></html>

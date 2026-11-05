@@ -1,6 +1,8 @@
 # GameTrace
 
-**Production: V36**, deployed and byte-verified at [GameTrace](https://game-trace.netlify.app/). Development remains V35. Adds session detail pages, quick logging with recoverable device-local drafts and presets, shared player selection, weekly review and a Day Game default. See [V36 notes](source/v36/README.md).
+**Production: V36**, deployed and byte-verified at [GameTrace](https://game-trace.netlify.app/). Development now serves V38. Adds session detail pages, quick logging with recoverable device-local drafts and presets, shared player selection, weekly review and a Day Game default. See [V36 notes](source/v36/README.md).
+
+**Development: V38** — connected activity rows, Notebook feedback tables, dedicated personal pages and dashboard upcoming events. Deployed and byte-verified at https://development--game-trace.netlify.app/. See [V38 notes](source/v38/README.md).
 
 **Follow the Play. The Game. The Journey.**
 
@@ -22,4 +24,4 @@ V35 retains existing games, sessions, reflections, trophies, family membership a
 - [Verification matrix](templates/current/regression-matrix.md)
 - [Application release manifest](templates/current/release-manifest.json)
 
-Build from the repository root with `python3 source/v27/build.py`; the retained v27 filename composes the current local source through v36. The app remains a self-contained HTML build. Test-only copies are isolated and are not the deployed app. Standards/template updates do not authorize runtime changes or data resets.
+Build from the repository root with `python3 source/v27/build.py`; the retained v27 filename composes the current local source through v38. The app remains a self-contained HTML build. Test-only copies are isolated and are not the deployed app. Standards/template updates do not authorize runtime changes or data resets.

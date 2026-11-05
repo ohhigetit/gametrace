@@ -1,4 +1,8 @@
-# Current GameTrace application template — V36 production / V35 development
+# Current GameTrace application template — V38 development / V36 production
+
+The latest source composes through V38, deployed and byte-verified on development. Reuse `activityListRow` for game-style session/schedule rows, preserve 30/70 Notebook tables and dedicated personal pages, and keep pending-start semantics for scheduled game creation. See source/v38/README.md.
+
+Local review source now composes through V37. See source/v37/README.md for approved refinements and the unapplied cloud prerequisite. Production release identity below remains V36; do not publish test sample data or execute SQL as a side effect of deployment.
 
 Production V36 is deployed and byte-verified. Start new work from source through `source/v36/`. Preserve the Day Game default and existing appearance choices; keep session feedback visible on detail pages; drafts and presets remain device-local and never count as completed work. Player choice is family/account scoped, and weekly review derives only recorded work. Release identities: release-manifest.json.
 
