@@ -26,5 +26,11 @@
   "standards": "docs/GameTrace_Approved_Design_and_Development.md",
   "checklist": "templates/release-checklist.md",
   "regression_matrix": "templates/current/regression-matrix.md",
-  "note": "Both environments serve the identical V35 runtime. Application release commits identify source; later documentation commits keep application bytes. No data reset or SQL migration. Password reset is user-confirmed; email-confirmation inbox acceptance remains."
+  "note": "Both environments serve the identical V35 runtime. Application release commits identify source; later documentation commits keep application bytes. No data reset or SQL migration. Password reset is user-confirmed; email-confirmation inbox acceptance remains.",
+  "approved_candidate": {
+    "application_version": "V36",
+    "application_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
+    "status": "approved for production deployment",
+    "notes": "source/v36/README.md"
+  }
 }

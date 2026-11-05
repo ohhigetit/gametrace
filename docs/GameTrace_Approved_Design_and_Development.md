@@ -1,5 +1,11 @@
 # GameTrace — approved design and development
 
+## Local review build — V36 · not deployed
+
+Mike approved the suggested next build: training/camp detail pages, quick logging with recoverable drafts and presets, consistent player selection, and a weekly Home Court review. Implemented locally November 4, 2026. Details and validation are in `source/v36/README.md` and `tests/session-workflow-ui.cjs`. V35 remains the verified deployed release. No reset or migration is authorized by this build.
+
+Completed sessions remain shared records. Drafts/presets are device-local conveniences, isolated by family and signed-in account; they must never count as work or enter sync payloads. Session pages retain visible optional reflection questions and historical answers. All players is explicitly combined; priorities remain per player. Weekly reviews describe recorded work and self-ratings without inferring development or awarding extra trophies.
+
 ## Current development and production — V35 · deployed November 4, 2026
 
 Mike approved implementation and production deployment. Both environments now serve identical V35 bytes, verified at their actual Netlify URLs. SHA-256 `6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c`; source tree `4e4abc60dfe3fea3cd0636dc374b4c1e15b9d3c4`; development application commit `f2316bdee1cfbbc4d1fe12d8908226c4915be242`; production application commit `31bb1af8a56771475139ec773d6ae7e994cd0a11`. This includes V34 Home Court/menu/account changes. No data reset, backend migration or account email was performed.
