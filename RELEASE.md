@@ -1,5 +1,7 @@
 # GameTrace V27 — training and family review candidate
 
+**Current production and development: V38.** Production promotion was byte-verified November 5, 2026. See source/v38/README.md; earlier release labels below are historical. No reset or SQL execution.
+
 **Current development: V38; production: V36.** Development is byte-verified at https://development--game-trace.netlify.app/. Cloud migration 006 is prepared but unapplied. See source/v38/README.md; earlier release statements below are historical.
 
 **Current production: V36; development: V35.** Production was byte-verified November 4, 2026. See source/v36/README.md. Earlier release labels below are history.

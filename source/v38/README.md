@@ -1,6 +1,6 @@
 # V38 — connected activity review
 
-Approved scope: complete the pending refinements and deploy to development. Production remains V36. No user-data reset or live SQL execution.
+Approved scope: complete the pending refinements and deploy to development. Production and development now serve V38. No user-data reset or live SQL execution.
 
 - Session History and Schedule use the same `games-list-row` component, text structure, arrow and theme rules as Previous Games. Session actions remain on the session detail page; schedule actions move to an event detail page. Read-only feed events stay read-only.
 - Upcoming / Calendar switches share the same event list. Marked month dates select a day and display only its events below the calendar; Show whole month clears the selection.
@@ -16,3 +16,5 @@ Calendar feeds use actual network access in the development runtime, while isola
 Build: `python3 source/v27/build.py`. Isolated preview: `python3 source/v38/build-preview.py`. Runtime copies must match. Validation includes `tests/v38-ui.cjs` plus existing V37/core/game/family regressions. Physical iPhone recording, provider feed access and real two-account sync remain live acceptance checks.
 
 Development deployed and byte-verified November 4, 2026: https://development--game-trace.netlify.app/. Application commit `489c3321f60d887e3daecf74faffe6a3361be33e`, tree `72357c8da8bb4e539a7bcf276e6f804bff87b4aa`, HTML SHA-256 `91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf`. Cloud setup page is reachable at https://development--game-trace.netlify.app/cloud/notebook-schedule-update.html. Production main and V36 runtime were verified unchanged. The SQL update remains unapplied.
+
+Production deployed and byte-verified November 5, 2026: https://game-trace.netlify.app/. Application commit `6f4e42f34d9686fad0d7fc75a0b3e63e54ac96d2`, promoted tree `325d780bcab68f058f147433d6e0cf9bc4cae4b4`, HTML SHA-256 `91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf`. Promoted the exact tested runtime without feature changes. No reset or live SQL execution. Cloud setup is reachable at https://game-trace.netlify.app/cloud/notebook-schedule-update.html.

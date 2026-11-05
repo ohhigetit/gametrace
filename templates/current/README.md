@@ -1,6 +1,6 @@
-# Current GameTrace application template — V38 development / V36 production
+# Current GameTrace application template — V38 development and production
 
-The latest source composes through V38, deployed and byte-verified on development. Reuse `activityListRow` for game-style session/schedule rows, preserve 30/70 Notebook tables and dedicated personal pages, and keep pending-start semantics for scheduled game creation. See source/v38/README.md.
+The latest source composes through V38, deployed and byte-verified on development and production. Reuse `activityListRow` for game-style session/schedule rows, preserve 30/70 Notebook tables and dedicated personal pages, and keep pending-start semantics for scheduled game creation. See source/v38/README.md.
 
 Local review source now composes through V37. See source/v37/README.md for approved refinements and the unapplied cloud prerequisite. Production release identity below remains V36; do not publish test sample data or execute SQL as a side effect of deployment.
 

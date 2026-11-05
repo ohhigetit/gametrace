@@ -1,8 +1,8 @@
 {
   "version": "V38",
-  "status": "development_byte_verified",
+  "status": "production_and_development_byte_verified",
   "html_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
-  "production_changed": false,
+  "production_changed": true,
   "live_sql_applied": false,
   "suites": [
     {
@@ -81,5 +81,12 @@
     "application_tree": "72357c8da8bb4e539a7bcf276e6f804bff87b4aa",
     "html_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf"
   },
-  "cloud_setup_page_verified": true
+  "cloud_setup_page_verified": true,
+  "production": {
+    "url": "https://game-trace.netlify.app/",
+    "application_commit": "6f4e42f34d9686fad0d7fc75a0b3e63e54ac96d2",
+    "application_tree": "325d780bcab68f058f147433d6e0cf9bc4cae4b4",
+    "html_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
+    "verified_on": "2026-11-05"
+  }
 }

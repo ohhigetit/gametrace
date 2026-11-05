@@ -1,5 +1,9 @@
 # GameTrace — approved design and development
 
+## Current production and development — V38 · production verified November 5, 2026
+
+Mike authorized production deployment. The exact tested development runtime is now served at https://game-trace.netlify.app/. Production application commit `6f4e42f34d9686fad0d7fc75a0b3e63e54ac96d2`, tree `325d780bcab68f058f147433d6e0cf9bc4cae4b4`, HTML SHA-256 `91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf`. No feature changes, user-data reset or SQL execution were part of promotion. Cloud migration 006 is a separate owner setup step if not already installed. See source/v38/README.md. Earlier destination statements below are release history.
+
 ## Current development — V38 · deployed and byte-verified
 
 Pending refinements are implemented: exact Previous Games row format for Session History/Schedule; Upcoming/Calendar with selected-day rows; per-activity Question 30% / Feedback 70% tables; separate Prayer/Commitment pages; Home Court upcoming events and scheduled Create Game; redundant Your games/New Game removed from its Games card. Preserve the main New Game action, manual Start and unfinished-game guard. Scheduled dates now persist through New Game. Details: source/v38/README.md. Development commit `489c3321f60d887e3daecf74faffe6a3361be33e`, HTML SHA-256 `91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf`, verified at https://development--game-trace.netlify.app/. Production remains V36. Live cloud migration remains unapplied because no management/database access is available. A copy-SQL setup page is prepared for the family owner.
