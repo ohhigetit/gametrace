@@ -1,0 +1,25 @@
+# V36 — the weekly journey
+
+Authorized scope: training/camp detail pages, quick logging with presets and recoverable drafts, consistent player selection, and a Home Court weekly review. Built November 4, 2026. **Deployed and byte-verified on production**. Development remains V35. No reset, SQL migration, credential change, or email was performed.
+
+## Behavior
+
+- Day Game is the default appearance for a new device or unavailable preference storage. An existing Day Game or Courtside selection is preserved.
+- Gym history opens an individual training/camp page. Home Court, Playbook activity references and Wall session trophies open that same original record. The page retains all three optional reflection questions, earlier answers under their original wording, skills, notes, clip links and Playbook connections. Editing preserves identity and award context; repeating starts with a new identity, blank duration, feedback and evidence, and no inherited Playbook references. Missing/deleted links remain recoverable. Returning to Gym preserves the selected week.
+- Quick logging has name, player suggestions, date and whole-hour/minute duration, plus optional details. Save is available before optional feedback and at the end. Existing validators and atomic persistence remain authoritative.
+- Partial forms autosave separately on this device, scoped by family ID and signed-in user ID (or device/guest). They are not completed records: they earn no hours, rings or trophies, do not enter JSON/CSV exports or family payloads, and do not sync. Leaving flushes the draft; storage failure keeps the editor open unless the user explicitly chooses to leave. Background redraws retain an open editor. Discard is explicit. Drafts are removed only after successful completion; a stable result ID prevents accidental creation of the same completed session again. An edit draft captures its original source fingerprint and cannot overwrite a newer version.
+- Optional saved presets contain only session name/type/player/skills/coach/location. Every use starts with today's date and blank duration/reflections/notes/clip. Presets can be removed independently of saved sessions.
+- One player picker serves Home Court, Games, Scoreboard, Gym, Playbook, Wall and Menu. The device remembers the selection separately for each family/account. Existing case/spacing-equivalent names are suggested consistently; no record IDs or names are migrated. All players remains an explicit combined view. Playbook's combined view opens each player's own priority list, including players with only recoverable steps. Player changes clear an old comparison selection; Clear filters retains the chosen player while clearing game-specific filters. An active game belonging to another player remains accessible and identified.
+- Home Court's Monday–Sunday review shows completed training hours/sessions, completed games, recorded Playbook updates, skills, optional reflection excerpts and dated recognition. Previous weeks can be reviewed. It uses recorded activity dates and self-ratings as entered, excludes deleted/future records and drafts, and generates no inferred ratings or awards. All players is clearly combined.
+
+The main data schema/storage key stays V12. Existing app-open family sync, conflict handling, recoverable deletion, game/controller/camera and password flows remain in place. Draft/preset recovery requires the same device, browser and account/family context; clearing browser storage removes these local conveniences.
+
+## Build and verification
+
+`python3 source/v27/build.py` composes sources through V36 and writes identical `index.html` and `source/v27/GameTrace_V27_Training_Family.html`. `python3 source/v36/build-preview.py` produces an ignored standalone `preview/index.html` with isolated storage/media and blocked network requests. Preview sample controls are excluded from the runtime app.
+
+`tests/session-workflow-ui.cjs` covers detail navigation, visible reflections, drafts, presets, stable record identity, legacy/award preservation, stale edits, failed persistence, shared player selection, account/family isolation and calendar boundaries. Existing Home Court/Playbook/journey/V32/V30 tests now exercise the new detail navigation and shared picker while retaining their data-integrity assertions. Browser QA covers 390px and 320px layouts and real reload recovery. Mocked family/auth tests do not establish physical iPhone recording, real inbox delivery or a live two-device sync acceptance test.
+
+Mike approved this build and requested production deployment, including the Day Game default. No additional implementation or reset is part of publication.
+
+Production verified November 4, 2026: https://game-trace.netlify.app/, source commit `771a65867d389bdb77062ecd71ef5054eba539fe`, tree `ba20ade876767f81a4608ec13769fad017ce75ad`, HTML SHA-256 `0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11`. Existing saved appearance preferences are retained; new devices start in Day Game. All regression suites passed before publication. No reset or SQL migration.

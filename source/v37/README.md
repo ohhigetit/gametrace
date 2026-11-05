@@ -1,0 +1,21 @@
+# V37 — Notebook, Schedule and review refinements
+
+Local implementation for review. No deployment, live SQL execution, account email or data reset. Production remains the verified V36 release; development remains V35.
+
+Implemented the approved larger typography/Day contrast, 2–5-game comparison, dedicated Home Court Games section, Team vs Opponent titles, Scoreboard return link, Score Journey immediately after Recorded Plays, Quick Log removal, seven-day training graph, simplified session rows, expanded session notes, game progress notes, Notebook, separate Prayer/Commitment and Schedule.
+
+Notebook reads original game/session feedback and notes; it does not generate summaries or copy source text. Entries are expanded, grouped by Monday week, newest first. Empty answers are omitted. Search highlights matching words; activity/date/month filters are available behind a compact disclosure. Prayer and Commitment are separate player-written records read through quick links only in Notebook. Each opens a focused reader with an edit action. They are not linked from Live Game or session pages.
+
+Schedule supports manual editing, recoverable removal, Upcoming and Month calendar views, read-only HTTPS/webcal feeds and ICS file imports. Import requires review and never starts a game, logs work or awards hours/trophies. Prepare game prefills player/team/opponent while retaining manual start; Log completed session is offered only after the scheduled start. Session date is prefilled. Feed refresh uses stable source/UID/occurrence IDs, updates rather than duplicates, and soft-removes missing source events only when parsing completed without warnings. Feed URLs stay in device/account/family-scoped local settings; imported event records can sync.
+
+ICS supports UTC, floating local times, IANA TZID, all-day dates, folded/escaped text, DAILY/WEEKLY recurrence, interval/count/until, BYDAY and EXDATE with DST handling. Unsupported rules (including monthly/yearly, ordinal BYDAY and moved-occurrence exceptions) warn and require an expanded export. Unbounded recurring series use a two-year horizon and bounded output. Direct feeds depend on the provider allowing browser access; blocked feeds have an ICS-file fallback. Refresh is manual; there is no calendar write-back or unattended background refresh.
+
+`personalRecords` extends the existing V12 database/JSON backup with validated Prayer, Commitment and Schedule entities. Game `progressNotes` travels in the existing game payload. Current feedback wording and historical prompts remain unchanged. Import adds only new IDs or uses the existing explicit full-restore flow. Notebook/Schedule CSV includes original feedback and notes with spreadsheet-formula protection. Older presets/drafts are retained; Quick Log and preset controls are removed. Recoverable drafts remain accessible in Backup & Export.
+
+## Cloud prerequisite
+
+`cloud/migrations/006_notebook_schedule.sql` extends generic family records with kind `personal`, using existing member permissions, expected-version conflicts and history. Capability version 6 gates uploads; without it new records stay local with an explicit notice, while games/sessions keep syncing. Apply after the existing family setup/005, then refresh all family devices to V37 before editing new fields. This implementation does not apply the migration or alter live data. Keep older app versions from editing backups containing new fields.
+
+Build: `python3 source/v27/build.py`. Both generated runtime HTML files must match. Isolated test: `python3 source/v37/build-preview.py`; separate sample storage/media, blocked cloud and test-only controls. The local test copy intentionally disables remote feeds; exercise ICS file import there and live feeds after an authorized dev deployment.
+
+Verification: `tests/v37-ui.cjs`, `tests/notebook-schedule.cjs`, existing core/training/game/score/journey/account/family suites and `tests/family-database.mjs` (PostgreSQL/PGlite). SQL checks cover repeatable installation, retained records, membership isolation, conflict/history and invalid personal types. Browser QA at 320/390px uses sample data. Physical iPhone recording, provider feed CORS and live two-device acceptance remain device/service checks.

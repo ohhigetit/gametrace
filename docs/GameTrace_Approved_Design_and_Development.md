@@ -1,6 +1,26 @@
 # GameTrace — approved design and development
 
-## Current development and production — V35 · deployed November 4, 2026
+## V38 — approved for development deployment
+
+Pending refinements are implemented: exact Previous Games row format for Session History/Schedule; Upcoming/Calendar with selected-day rows; per-activity Question 30% / Feedback 70% tables; separate Prayer/Commitment pages; Home Court upcoming events and scheduled Create Game; redundant Your games/New Game removed from its Games card. Preserve the main New Game action, manual Start and unfinished-game guard. Scheduled dates now persist through New Game. Details: source/v38/README.md. Production remains V36. Live cloud migration remains unapplied because no management/database access is available. A copy-SQL setup page is prepared for the family owner.
+
+
+## V37 — implemented locally; no deployment
+
+Approved scope: larger fonts/contrast, up-to-five comparison, dedicated Home Court Games, Team vs Opponent titles, Scoreboard report shortcut, Score Journey after Recorded Plays, Quick Log removal, daily one-week training progress, session rows matching Games, expanded notes on sessions and games, Notebook with separate Prayer/Commitment readers, and manual/feed Schedule. Details and limits: source/v37/README.md.
+
+This supersedes the earlier requirement to expose Quick Log/preset shortcuts and the previous Score Journey position. Keep existing drafts and presets; draft recovery belongs in Backup & Export. Notebook quick links for Prayer and Commitment appear only in Notebook. Preserve original source words and original historical reflection prompts. Scheduling does not count as work or start games. Feed events are read-only; no write-back. New personal records need cloud capability 6, supplied in 006_notebook_schedule.sql, with existing membership/conflict/history safeguards. SQL is prepared only; it has not run on the live project.
+
+Production remains V36 and development V35. No data reset, deployment or live migration was performed.
+
+
+## Current production — V36 · deployed November 4, 2026
+
+Mike approved the suggested next build: training/camp detail pages, quick logging with recoverable drafts and presets, consistent player selection, and a weekly Home Court review. Implemented and deployed to production November 4, 2026, including Day Game as the default when no appearance has been saved. Details and validation are in `source/v36/README.md` and `tests/session-workflow-ui.cjs`. Production is byte-verified at https://game-trace.netlify.app/. Commit `771a65867d389bdb77062ecd71ef5054eba539fe`, tree `ba20ade876767f81a4608ec13769fad017ce75ad`, HTML SHA-256 `0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11`. Development remains V35. No reset or migration was performed.
+
+Completed sessions remain shared records. Drafts/presets are device-local conveniences, isolated by family and signed-in account; they must never count as work or enter sync payloads. Session pages retain visible optional reflection questions and historical answers. All players is explicitly combined; priorities remain per player. Weekly reviews describe recorded work and self-ratings without inferring development or awarding extra trophies.
+
+## V35 earlier release · development remains V35
 
 Mike approved implementation and production deployment. Both environments now serve identical V35 bytes, verified at their actual Netlify URLs. SHA-256 `6d75610c3baabd499fa7870b8a7fbbde33c80f662f950df50373deded6ad546c`; source tree `4e4abc60dfe3fea3cd0636dc374b4c1e15b9d3c4`; development application commit `f2316bdee1cfbbc4d1fe12d8908226c4915be242`; production application commit `31bb1af8a56771475139ec773d6ae7e994cd0a11`. This includes V34 Home Court/menu/account changes. No data reset, backend migration or account email was performed.
 

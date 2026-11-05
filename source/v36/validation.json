@@ -1,0 +1,48 @@
+{
+  "version": "V36",
+  "status": "production_byte_verified",
+  "date": "2026-11-04",
+  "html_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11",
+  "generated_copies_identical": true,
+  "deployment_performed": true,
+  "data_reset_performed": false,
+  "sql_migration_required": false,
+  "passed_suites": [
+    "training.cjs",
+    "journey.cjs",
+    "core-regression.cjs",
+    "home-court-ui.cjs",
+    "playbook-links-ui.cjs",
+    "session-workflow-ui.cjs",
+    "journey-ui.cjs",
+    "v32-ui.cjs",
+    "v30-ui.cjs",
+    "game-deletion-ui.cjs",
+    "family-sync.cjs",
+    "family-workflow.cjs"
+  ],
+  "jsdom_module_path": "/tmp/gametrace-test/node_modules",
+  "browser_checks": [
+    "390px Home Court and individual session pages",
+    "320px quick log and two-button footer",
+    "Draft title and duration recover after reload"
+  ],
+  "acceptance_limits": [
+    "Family/auth regression tests use mocked network responses",
+    "No live two-device sync acceptance performed",
+    "No physical iPhone camera or recording acceptance performed",
+    "No real confirmation email sent"
+  ],
+  "appearance_checks": [
+    "New device defaults to Day Game",
+    "Saved Courtside retained",
+    "Saved Day Game retained",
+    "Unavailable storage defaults to Day Game"
+  ],
+  "production": {
+    "url": "https://game-trace.netlify.app/",
+    "application_commit": "771a65867d389bdb77062ecd71ef5054eba539fe",
+    "application_tree": "ba20ade876767f81a4608ec13769fad017ce75ad",
+    "html_sha256": "0667bafa816493fe432c046803e381a15753060a05e393bcfa9e27253b8aca11"
+  }
+}

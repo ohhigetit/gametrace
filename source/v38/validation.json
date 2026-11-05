@@ -1,0 +1,78 @@
+{
+  "version": "V38",
+  "status": "approved_dev_candidate",
+  "html_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
+  "production_changed": false,
+  "live_sql_applied": false,
+  "suites": [
+    {
+      "suite": "training",
+      "passed": true
+    },
+    {
+      "suite": "journey",
+      "passed": true
+    },
+    {
+      "suite": "core-regression",
+      "passed": true
+    },
+    {
+      "suite": "home-court-ui",
+      "passed": true
+    },
+    {
+      "suite": "playbook-links-ui",
+      "passed": true
+    },
+    {
+      "suite": "session-workflow-ui",
+      "passed": true
+    },
+    {
+      "suite": "journey-ui",
+      "passed": true
+    },
+    {
+      "suite": "v32-ui",
+      "passed": true
+    },
+    {
+      "suite": "v30-ui",
+      "passed": true
+    },
+    {
+      "suite": "game-deletion-ui",
+      "passed": true
+    },
+    {
+      "suite": "family-sync",
+      "passed": true
+    },
+    {
+      "suite": "family-workflow",
+      "passed": true
+    },
+    {
+      "suite": "notebook-schedule",
+      "passed": true
+    },
+    {
+      "suite": "v37-ui",
+      "passed": true
+    },
+    {
+      "suite": "v38-ui",
+      "passed": true
+    }
+  ],
+  "browser_checks": [
+    "320px Notebook table fits without horizontal overflow",
+    "Dedicated Prayer page with selected player and saved sample words"
+  ],
+  "remaining_acceptance": [
+    "Provider-specific calendar feed access on dev",
+    "Physical iPhone recording",
+    "Live cross-device sync after family owner applies cloud update"
+  ]
+}

@@ -1,5 +1,7 @@
 # GameTrace development
 
+**Current production: V36; development: V35.** Production was byte-verified November 4, 2026. See source/v36/README.md. Earlier release labels below are history.
+
 **Current development and production: V35**, verified November 4, 2026. See source/v35/README.md. All earlier current-release labels below are historical.
 
 Current development is V34, approved and byte-verified November 4, 2026. Production remains V33. See source/v34/README.md and templates/current/release-manifest.json; older release-status paragraphs below are historical.
