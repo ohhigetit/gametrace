@@ -1328,6 +1328,20 @@ html[data-theme] dialog#sheet.v42-left-thumb .choices{display:flex!important;fle
 
 html[data-theme] #app.app.gt-app #liveFeedContent .form-field{display:flex;flex-direction:column;gap:8px;min-width:0;margin:0 0 20px}html[data-theme] #app.app.gt-app #liveFeedContent .form-field select{box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;font:inherit;padding:12px;border:1px solid var(--gt-edge);border-radius:10px;background:var(--gt-surface,#fff);color:var(--gt-ink)}
 
+
+/* Compact all-visible scoreboard. Never clip a data value; the games table below retains its own scroll. */
+html[data-theme] #app.app.gt-app .v43-scoreboard-all{padding:clamp(10px,2vw,18px)!important;margin:10px 0 14px!important}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading{gap:8px!important;flex-wrap:wrap}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading h2{font-size:clamp(16px,4vw,22px)!important}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading .row-actions{margin:0!important;gap:6px;display:flex;flex-wrap:wrap}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading .row-actions button{min-height:34px!important;padding:5px 10px!important}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .review-meta{margin:5px 0 9px!important;font-size:11px!important}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;margin:6px 0!important}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics>.v43-score-metric{display:flex!important;flex-direction:column;justify-content:center;align-items:center;gap:2px;min-width:0;min-height:58px;padding:5px 2px!important;text-align:center;border:1px solid var(--gt-edge);border-radius:8px;background:var(--gt-surface)}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .v43-score-metric strong{font-size:clamp(11px,3vw,21px)!important;line-height:1.15!important;letter-spacing:-.3px;overflow-wrap:anywhere;max-width:100%;font-variant-numeric:tabular-nums}
+html[data-theme] #app.app.gt-app .v43-scoreboard-all .v43-score-metric small{font-size:clamp(9px,2.25vw,11px)!important;line-height:1.1!important;letter-spacing:.2px;text-transform:uppercase;font-weight:700}
+@media(max-width:360px){html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics>.v43-score-metric{min-height:53px!important;padding:4px 1px!important}}
+
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -3632,6 +3646,41 @@ const sessionBefore44=renderSessionDetail;renderSessionDetail=function(){session
 const gameFormBefore44=gameForm;gameForm=function(...args){const r=gameFormBefore44(...args);if(ui.screen==='setup'){const form=$('gameForm'),player=[...form?.querySelectorAll('input')||[]].find(n=>n.closest('label')?.firstChild?.textContent==='Player name');if(player&&!player.value)player.value=playerContext.player||'Georgina';stylePage43($('setupContent'),'setup')}return r};
 
 const verifyBefore42=verifyFamilyMembership;verifyFamilyMembership=async function(){const ok=await verifyBefore42();if(ok)try{const feature=await familyRpc('gt_cloud_features',{});scheduleCloud41=feature?.version>=7}catch{}return ok};
+
+
+/* Scoreboard: all aggregate statistics stay expanded and readable in one compact panel.
+ * Formatting is presentation-only; stored values retain their original precision.
+ */
+function integerDisplay43(value){
+  return String(value ?? '—').replace(/-?\d+\.\d+(?=%|\b)/g,token=>{
+    const number=Number(token);
+    return Number.isFinite(number)?String(Math.round(number)):token;
+  });
+}
+function compactScoreboard43(){
+  const root=$('reportsContent');if(!root || ui.screen!=='reports')return;
+  const banner=root.querySelector('.scoreboard-banner'),details=banner?.querySelector('[data-summary-all-stats]');
+  if(!banner||!details)return;
+  const rows=[...details.querySelectorAll('tbody tr')];
+  if(!rows.length)return;
+  const metrics=banner.querySelector('.scoreboard-banner-metrics');
+  if(!metrics)return;
+  metrics.replaceChildren(...rows.map(row=>{
+    const label=row.querySelector('th')?.textContent.trim()||'Stat';
+    const raw=row.querySelector('td')?.textContent.trim()||'—';
+    const value=raw.split(' · ').map(integerDisplay43).join(' · ');
+    return el('div',{class:'v43-score-metric', 'aria-label':label+': '+value},
+      el('strong',{},value),el('small',{},label));
+  }));
+  banner.classList.add('v43-scoreboard-all');
+  details.remove();
+  for(const cell of root.querySelectorAll('.reports-table tbody td,.reports-table tfoot td')){
+    if(cell.children.length===0)cell.textContent=integerDisplay43(cell.textContent.trim());
+    else for(const n of cell.querySelectorAll('small,span'))if(n.children.length===0)n.textContent=integerDisplay43(n.textContent.trim());
+  }
+}
+const renderReportsBefore43=renderReports;
+renderReports=function(){renderReportsBefore43();compactScoreboard43()};
 
 /* Family-scoped viewer uses authenticated reads; it never writes or replaces tracker records. */
 const feed42={scope:'',selected:null,records:[],busy:false,error:'',lastRead:null,filter:'all',request:0};
