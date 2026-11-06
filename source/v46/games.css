@@ -1,0 +1,42 @@
+/* V46 Games — isolate new styles from V45 */
+#homeContent .gt46-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin:0 0 16px}
+#homeContent .gt46-heading h1{font-size:25px;margin:0}
+#homeContent .gt46-heading p,#homeContent .gt46-recent-head p{font-size:11px;line-height:1.4;margin:4px 0 0;color:var(--gt-muted,#66736b)}
+#homeContent .gt46-filter{border:0;background:transparent;color:inherit;padding:9px 0;font-size:12px;font-weight:800;white-space:nowrap}
+#homeContent .gt46-feature{background:linear-gradient(120deg,#eaf5ed,#f6faf7);color:#26392d;border:1px solid #d1ddd3;border-radius:17px;padding:17px;margin:0 0 22px;min-height:130px}
+#homeContent .gt46-feature small{font-size:10px;font-weight:850;letter-spacing:.1em;color:#58745f}
+#homeContent .gt46-feature h2{font-size:20px;margin:8px 0 4px;line-height:1.25}
+#homeContent .gt46-feature p{font-size:11px;margin:0 0 12px;color:#5d7063}
+#homeContent .gt46-feature-actions{display:flex;gap:9px;align-items:center}
+#homeContent .gt46-primary,#homeContent .gt46-secondary{min-height:42px;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800}
+#homeContent .gt46-primary{background:#26392d;border:1px solid #26392d;color:white}
+#homeContent .gt46-secondary{background:white;border:1px solid #b5c8b9;color:#26392d}
+#homeContent .gt46-recent-head{margin-bottom:12px}
+#homeContent .gt46-recent-head h2{margin:0;font-size:19px}
+#homeContent .gt46-game-row{width:100%;display:flex;align-items:center;gap:12px;border:1px solid #dce7dd;border-radius:11px;background:var(--gt-surface,#fff);color:inherit;padding:12px;margin:0 0 9px;text-align:left}
+#homeContent .gt46-game-desc{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+#homeContent .gt46-game-desc strong{font-size:13px}
+#homeContent .gt46-game-desc small{font-size:11px;color:var(--gt-muted,#67746c)}
+#homeContent .gt46-result{min-width:44px;min-height:44px;padding:10px 6px;border-radius:9px;background:#e5f1e7;color:#2a643d;text-align:center;font-size:15px;font-weight:850}
+#homeContent .gt46-result[data-result=L]{background:#ffefed;color:#ad443d}
+#homeContent .gt46-result[data-result="—"]{background:#edf1ee;color:#66746a}
+#homeContent .gt46-empty{padding:18px;border:1px dashed #d4dfd7;border-radius:12px;font-size:12px}
+.gt46-overlay{position:fixed;inset:0;z-index:99999;background:rgba(8,20,12,.5);display:flex;justify-content:center;align-items:flex-end}
+.gt46-sheet{display:flex;flex-direction:column;overflow:hidden;width:100%;max-width:500px;max-height:90dvh;background:#fff;color:#253429;border-radius:22px 22px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+.gt46-handle{height:5px;width:44px;background:#d7e0d8;border-radius:5px;margin:10px auto}
+.gt46-modal-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2eae3;padding:9px 17px}
+.gt46-modal-head h2{font-size:20px;margin:0}
+.gt46-modal-head button{border:0;background:transparent;color:#4b6050;min-height:42px;font-weight:800}
+.gt46-modal-body{padding:8px 17px 20px;overflow:auto;overscroll-behavior:contain}
+.gt46-group{padding:12px 0;border-bottom:1px solid #e7eee8}
+.gt46-group h3{font-size:13px;margin:0 0 10px}
+.gt46-choices{display:flex;gap:8px;flex-wrap:wrap}
+.gt46-choice{min-height:42px;padding:9px 11px;border:1px solid #d7e1d9;border-radius:9px;font-size:12px;font-weight:700;background:#fff;color:#33483a}
+.gt46-choice[aria-pressed=true]{background:#e5f2e7;border-color:#4a8459;color:#275435}
+.gt46-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gt46-dates label{min-width:0;font-size:11px}
+.gt46-dates input{display:block;box-sizing:border-box;width:100%;min-width:0;margin-top:5px;padding:10px;border-radius:9px;border:1px solid #cbd7cc;background:#fff;color:#29392e;font-size:16px}
+.gt46-modal-foot{display:grid;grid-template-columns:1fr 1.3fr;gap:10px;padding:13px 17px;border-top:1px solid #e0e8e1}
+.gt46-modal-foot button{min-height:46px;border:1px solid #cbd9cd;border-radius:10px;background:#fff;color:#25372b;font-size:12px;font-weight:800}
+.gt46-modal-foot button:last-child{background:#26392d;border-color:#26392d;color:#fff}
+@media(min-width:700px){.gt46-overlay{align-items:center}.gt46-sheet{border-radius:20px;max-height:85dvh}}

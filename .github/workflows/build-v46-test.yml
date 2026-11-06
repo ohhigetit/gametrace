@@ -1,0 +1,46 @@
+name: Build GameTrace V46 integrated test
+on:
+  push:
+    branches:
+      - integration/v46-from-v45
+    paths:
+      - source/v46/**
+      - .github/workflows/build-v46-test.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build-v46:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: integration/v46-from-v45
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build V46 integrated single HTML
+        run: python source/v46/build.py
+      - name: Check embedded JS parses
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path('GameTrace_V46_Integrated_TEST.html').read_text()
+          scripts=re.findall(r'<script[^>]*>(.*?)</script>',html,re.S)
+          Path('/tmp/game-trace-inline.js').write_text(chr(10).join(scripts))
+          PY
+          node --check /tmp/game-trace-inline.js
+      - name: Commit the integrated test artifact to this testing branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add GameTrace_V46_Integrated_TEST.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Build complete V46 integrated test HTML from V45 baseline"
+            git push origin HEAD:integration/v46-from-v45
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GameTrace_V46_Integrated_TEST
+          path: GameTrace_V46_Integrated_TEST.html
