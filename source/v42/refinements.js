@@ -114,7 +114,10 @@ function scoreboardCompactTable43(){
   }
   // Recreate the optional sticky header after changing table geometry.
   if(typeof reportsStickyCleanup==='function'){reportsStickyCleanup();reportsStickyCleanup=null;}
-  if(typeof installReportsHeader==='function')reportsStickyCleanup=installReportsHeader(root);
+  if(typeof installReportsHeader==='function'){
+    reportsStickyCleanup=installReportsHeader(root);
+    root.querySelector('.reports-floating-header .reports-table')?.classList.add('v43-full-width-table');
+  }
 }
 const reportsBeforeScoreboard43=renderReports;
 renderReports=function(){reportsBeforeScoreboard43();scoreboardCompactTable43()};
