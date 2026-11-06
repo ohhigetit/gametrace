@@ -101,6 +101,8 @@ function columnControls44(){
     reportsState.filtersOpen=true;
     scoreboardVisible44=normalizeColumns44(cols);
     saveScoreboardChoice44(scoreboardColumnsKey44,scoreboardVisible44);
+    const sortLabel={date:'Game',pts:'PTS',fg:'FG%',reb:'REB',ast:'AST',stl:'STL',to:'TO',pf:'PF',min:'MIN'}[reportsState.sort];
+    if(sortLabel&&!scoreboardVisible44.includes(sortLabel)){reportsState.sort='date';reportsState.descending=true;}
     renderReports();
   };
   actions.append(
