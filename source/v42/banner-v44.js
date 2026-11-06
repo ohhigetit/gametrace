@@ -73,7 +73,8 @@ function updateScoreboardBanner44(){
     ['Rebounds','Offensive rebounds',metric('oreb')],['Rebounds','Defensive rebounds',metric('dreb')],
     ['Defense','Blocks',metric('blk')],['Defense','Deflections',metric('deflection')],['Defense','Defensive stops',metric('defstop')],
     ['Defense','Box outs',metric('boxout')],['Activity','Touches',metric('touch')],['Activity','Passes',metric('pass')],['Activity','Drives',metric('drive')],
-    ['Other','Turnovers',metric('to')],['Other','Personal fouls',metric('pf')]
+    ['Other','Turnovers',metric('to')],['Other','Personal fouls',metric('pf')],
+    ...[['Bad pass turnovers','bad_pass'],['Ball handling turnovers','ball_handling'],['Violation turnovers','violation'],['Offensive foul turnovers','offensive_foul'],['Other turnovers','unspecified']].map(([label,key])=>['Turnover details',label,average?(n?whole44(rows.reduce((acc,r)=>acc+(r.t.turnovers?.[key]||0),0)/n):'—'):whole44(rows.reduce((acc,r)=>acc+(r.t.turnovers?.[key]||0),0))])
   ];
   const tm=known.reduce((sec,r)=>sec+r.time.courtSeconds,0);
   entries.push(['Other','Minutes played',known.length?elapsedText(tm/(average?known.length:1)):'—']);
@@ -97,6 +98,7 @@ function columnControls44(){
   section.append(el('p',{class:'v44-column-help'},'Choose the statistics in the table. Game stays visible.'));
   const actions=el('div',{class:'v44-column-actions'});
   const choose=cols=>{
+    reportsState.filtersOpen=true;
     scoreboardVisible44=normalizeColumns44(cols);
     saveScoreboardChoice44(scoreboardColumnsKey44,scoreboardVisible44);
     renderReports();
@@ -189,8 +191,6 @@ function enhanceGymBanner44(){
     el('span',{class:'v44-kicker'},'Total Training'),
     el('strong',{class:'v44-banner-big'},whole44(minutes()/60),el('span',{class:'v44-banner-unit'},'HRS')),
     el('small',{class:'v44-banner-note'},weeks===null?'All completed work':sessions.length+' '+(sessions.length===1?'session':'sessions')+' in selected range'));
-  const weekStart=T.week(localDate());
-  const thisWeek=all.filter(s=>s.date>=weekStart).length;
   const side=el('div',{class:'v44-banner-side'},
     metric44('Sessions',sessions.length),metric44('Training HRS',whole44(minutes('training')/60)),
     metric44('Camp HRS',whole44(minutes('camp')/60)),metric44('Week Streak',summary.current));
