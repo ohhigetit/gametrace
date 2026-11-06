@@ -37,16 +37,57 @@ html[data-theme] dialog#sheet.v42-left-thumb .choices{display:flex!important;fle
 
 html[data-theme] #app.app.gt-app #liveFeedContent .form-field{display:flex;flex-direction:column;gap:8px;min-width:0;margin:0 0 20px}html[data-theme] #app.app.gt-app #liveFeedContent .form-field select{box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;font:inherit;padding:12px;border:1px solid var(--gt-edge);border-radius:10px;background:var(--gt-surface,#fff);color:var(--gt-ink)}
 
-
-/* Compact all-visible scoreboard. Never clip a data value; the games table below retains its own scroll. */
-html[data-theme] #app.app.gt-app .v43-scoreboard-all{padding:clamp(10px,2vw,18px)!important;margin:10px 0 14px!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading{gap:8px!important;flex-wrap:wrap}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading h2{font-size:clamp(16px,4vw,22px)!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading .row-actions{margin:0!important;gap:6px;display:flex;flex-wrap:wrap}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading .row-actions button{min-height:34px!important;padding:5px 10px!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .review-meta{margin:5px 0 9px!important;font-size:11px!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;margin:6px 0!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics>.v43-score-metric{display:flex!important;flex-direction:column;justify-content:center;align-items:center;gap:2px;min-width:0;min-height:58px;padding:5px 2px!important;text-align:center;border:1px solid var(--gt-edge);border-radius:8px;background:var(--gt-surface)}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .v43-score-metric strong{font-size:clamp(11px,3vw,21px)!important;line-height:1.15!important;letter-spacing:-.3px;overflow-wrap:anywhere;max-width:100%;font-variant-numeric:tabular-nums}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .v43-score-metric small{font-size:clamp(9px,2.25vw,11px)!important;line-height:1.1!important;letter-spacing:.2px;text-transform:uppercase;font-weight:700}
-@media(max-width:360px){html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics>.v43-score-metric{min-height:53px!important;padding:4px 1px!important}}
+/* Scoreboard Option 1 — all 12 game-table columns visible on iPhone portrait.
+   The original Your Games summary and collapsed statistics are untouched. */
+html[data-theme] #app.gt-app #reportsContent .reports-table-scroll.v43-no-side-scroll{
+  width:100%!important;max-width:100%!important;overflow-x:hidden!important;
+}
+html[data-theme] #app.gt-app #reportsContent .reports-table.v43-full-width-table,
+html[data-theme] #app.gt-app #reportsContent .reports-table-scroll>.reports-table.v43-full-width-table{
+  width:100%!important;min-width:0!important;max-width:100%!important;table-layout:fixed!important;
+  font-size:clamp(7px,1.85vw,10px)!important;font-variant-numeric:tabular-nums;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table :is(th,td){
+  box-sizing:border-box!important;width:auto!important;min-width:0!important;max-width:none!important;
+  padding:8px 1px!important;text-align:center!important;vertical-align:middle!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  font-size:inherit!important;line-height:1.28!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table th{position:relative!important}\nhtml[data-theme] #app.gt-app #reportsContent .v43-full-width-table td{position:static!important}\nhtml[data-theme] #app.gt-app #reportsContent .v43-full-width-table :is(th,td):first-child{
+  text-align:left!important;padding:9px 3px 9px 2px!important;
+  border-right:1px solid var(--gt-edge)!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link{
+  display:block!important;width:100%!important;max-width:100%!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;text-align:left!important;
+  padding:0!important;min-height:44px;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link strong{
+  font-size:clamp(9px,2.45vw,12px)!important;line-height:1.25!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link .scoreboard-game-date{
+  font-size:clamp(8px,2.1vw,10px)!important;line-height:1.25!important;margin-top:3px!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-sort{
+  font-size:clamp(6px,1.65vw,9px)!important;line-height:1.1!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;
+  min-height:40px!important;padding:2px 0!important;width:100%!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-shooting :is(span,small){
+  display:block!important;font-size:inherit!important;line-height:1.2!important;
+  overflow-wrap:anywhere!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-cell{
+  display:block!important;width:100%!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent .reports-floating-header{
+  max-width:100%!important;overflow:hidden!important;
+}
+html[data-theme] #app.gt-app #reportsContent .reports-floating-header .reports-table{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+}
+@media(max-width:360px){
+  html[data-theme] #app.gt-app #reportsContent .v43-full-width-table :is(th,td){padding-inline:0!important}
+  html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link strong{font-size:8px!important}
+}

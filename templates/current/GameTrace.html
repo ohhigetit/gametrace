@@ -1328,19 +1328,60 @@ html[data-theme] dialog#sheet.v42-left-thumb .choices{display:flex!important;fle
 
 html[data-theme] #app.app.gt-app #liveFeedContent .form-field{display:flex;flex-direction:column;gap:8px;min-width:0;margin:0 0 20px}html[data-theme] #app.app.gt-app #liveFeedContent .form-field select{box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;font:inherit;padding:12px;border:1px solid var(--gt-edge);border-radius:10px;background:var(--gt-surface,#fff);color:var(--gt-ink)}
 
-
-/* Compact all-visible scoreboard. Never clip a data value; the games table below retains its own scroll. */
-html[data-theme] #app.app.gt-app .v43-scoreboard-all{padding:clamp(10px,2vw,18px)!important;margin:10px 0 14px!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading{gap:8px!important;flex-wrap:wrap}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading h2{font-size:clamp(16px,4vw,22px)!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading .row-actions{margin:0!important;gap:6px;display:flex;flex-wrap:wrap}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-heading .row-actions button{min-height:34px!important;padding:5px 10px!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .review-meta{margin:5px 0 9px!important;font-size:11px!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;margin:6px 0!important}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics>.v43-score-metric{display:flex!important;flex-direction:column;justify-content:center;align-items:center;gap:2px;min-width:0;min-height:58px;padding:5px 2px!important;text-align:center;border:1px solid var(--gt-edge);border-radius:8px;background:var(--gt-surface)}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .v43-score-metric strong{font-size:clamp(11px,3vw,21px)!important;line-height:1.15!important;letter-spacing:-.3px;overflow-wrap:anywhere;max-width:100%;font-variant-numeric:tabular-nums}
-html[data-theme] #app.app.gt-app .v43-scoreboard-all .v43-score-metric small{font-size:clamp(9px,2.25vw,11px)!important;line-height:1.1!important;letter-spacing:.2px;text-transform:uppercase;font-weight:700}
-@media(max-width:360px){html[data-theme] #app.app.gt-app .v43-scoreboard-all .scoreboard-banner-metrics>.v43-score-metric{min-height:53px!important;padding:4px 1px!important}}
+/* Scoreboard Option 1 — all 12 game-table columns visible on iPhone portrait.
+   The original Your Games summary and collapsed statistics are untouched. */
+html[data-theme] #app.gt-app #reportsContent .reports-table-scroll.v43-no-side-scroll{
+  width:100%!important;max-width:100%!important;overflow-x:hidden!important;
+}
+html[data-theme] #app.gt-app #reportsContent .reports-table.v43-full-width-table,
+html[data-theme] #app.gt-app #reportsContent .reports-table-scroll>.reports-table.v43-full-width-table{
+  width:100%!important;min-width:0!important;max-width:100%!important;table-layout:fixed!important;
+  font-size:clamp(7px,1.85vw,10px)!important;font-variant-numeric:tabular-nums;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table :is(th,td){
+  box-sizing:border-box!important;width:auto!important;min-width:0!important;max-width:none!important;
+  padding:8px 1px!important;text-align:center!important;vertical-align:middle!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  font-size:inherit!important;line-height:1.28!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table th{position:relative!important}\nhtml[data-theme] #app.gt-app #reportsContent .v43-full-width-table td{position:static!important}\nhtml[data-theme] #app.gt-app #reportsContent .v43-full-width-table :is(th,td):first-child{
+  text-align:left!important;padding:9px 3px 9px 2px!important;
+  border-right:1px solid var(--gt-edge)!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link{
+  display:block!important;width:100%!important;max-width:100%!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;text-align:left!important;
+  padding:0!important;min-height:44px;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link strong{
+  font-size:clamp(9px,2.45vw,12px)!important;line-height:1.25!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link .scoreboard-game-date{
+  font-size:clamp(8px,2.1vw,10px)!important;line-height:1.25!important;margin-top:3px!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-sort{
+  font-size:clamp(6px,1.65vw,9px)!important;line-height:1.1!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;
+  min-height:40px!important;padding:2px 0!important;width:100%!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-shooting :is(span,small){
+  display:block!important;font-size:inherit!important;line-height:1.2!important;
+  overflow-wrap:anywhere!important;
+}
+html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-cell{
+  display:block!important;width:100%!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent .reports-floating-header{
+  max-width:100%!important;overflow:hidden!important;
+}
+html[data-theme] #app.gt-app #reportsContent .reports-floating-header .reports-table{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+}
+@media(max-width:360px){
+  html[data-theme] #app.gt-app #reportsContent .v43-full-width-table :is(th,td){padding-inline:0!important}
+  html[data-theme] #app.gt-app #reportsContent .v43-full-width-table .reports-game-link strong{font-size:8px!important}
+}
 
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
@@ -3648,44 +3689,68 @@ const gameFormBefore44=gameForm;gameForm=function(...args){const r=gameFormBefor
 const verifyBefore42=verifyFamilyMembership;verifyFamilyMembership=async function(){const ok=await verifyBefore42();if(ok)try{const feature=await familyRpc('gt_cloud_features',{});scheduleCloud41=feature?.version>=7}catch{}return ok};
 
 
-/* Scoreboard: all aggregate statistics stay expanded and readable in one compact panel.
- * Formatting is presentation-only; stored values retain their original precision.
+/* Scoreboard Option 1: restore the V42 Your Games summary and keep every
+ * game-table statistic in one fixed-width, no-sideways-scroll table.
+ * Display formatting does not modify game/event storage or calculations.
  */
-function integerDisplay43(value){
+function scoreboardWhole43(value){
   return String(value ?? '—').replace(/-?\d+\.\d+(?=%|\b)/g,token=>{
     const number=Number(token);
     return Number.isFinite(number)?String(Math.round(number)):token;
   });
 }
-function compactScoreboard43(){
-  const root=$('reportsContent');if(!root || ui.screen!=='reports')return;
-  const banner=root.querySelector('.scoreboard-banner'),details=banner?.querySelector('[data-summary-all-stats]');
-  if(!banner||!details)return;
-  const rows=[...details.querySelectorAll('tbody tr')];
-  if(!rows.length)return;
-  const metrics=banner.querySelector('.scoreboard-banner-metrics');
-  if(!metrics)return;
-  metrics.replaceChildren(...rows.map(row=>{
-    const label=row.querySelector('th')?.textContent.trim()||'Stat';
-    const raw=row.querySelector('td')?.textContent.trim()||'—';
-    const value=raw.split(' · ').map(integerDisplay43).join(' · ');
-    return el('div',{class:'v43-score-metric', 'aria-label':label+': '+value},
-      el('strong',{},value),el('small',{},label));
-  }));
-  banner.classList.add('v43-scoreboard-all');
-  details.remove();
-  for(const toggle of banner.querySelectorAll('.scoreboard-banner-heading [data-mode]')){
-    if(toggle.dataset.v43Attached)continue;
-    toggle.dataset.v43Attached='yes';
-    toggle.addEventListener('click',()=>queueMicrotask(compactScoreboard43));
+function scoreboardCompactTable43(){
+  if(ui.screen!=='reports')return;
+  const root=$('reportsContent'),table=root?.querySelector('.reports-table');
+  if(!table||!table.tHead?.rows?.length)return;
+  const header=table.tHead.rows[0],count=header.cells.length;
+  const width=count===12
+    ? [27,7,7,7,7,7,6,6,6,6,6,8]
+    : [Math.max(24,100-(count-1)*7),...Array(count-1).fill(Math.min(7,76/(count-1)))];
+  const sum=width.reduce((a,b)=>a+b,0);
+  // Colgroup is the single source of truth for header and row alignment.
+  const cols=document.createElement('colgroup');
+  width.forEach(n=>cols.append(el('col',{style:'width:'+(n/sum*100).toFixed(3)+'%'})));
+  table.querySelector('colgroup')?.remove();
+  table.prepend(cols);
+  table.classList.add('v43-full-width-table');
+  table.closest('.reports-table-scroll')?.classList.add('v43-no-side-scroll');
+  // Tighten only the player table; summary design, buttons and collapsed stats stay intact.
+  for(const row of table.querySelectorAll('tbody tr,tfoot tr')){
+    for(const cell of row.cells){
+      if(cell.cellIndex===0)continue;
+      const leaves=cell.querySelectorAll('span,small');
+      if(leaves.length){
+        for(const node of leaves)if(!node.children.length)node.textContent=scoreboardWhole43(node.textContent.trim());
+      }else if(!cell.children.length)cell.textContent=scoreboardWhole43(cell.textContent.trim());
+    }
   }
-  for(const cell of root.querySelectorAll('.reports-table tbody td,.reports-table tfoot td')){
-    if(cell.children.length===0)cell.textContent=integerDisplay43(cell.textContent.trim());
-    else for(const n of cell.querySelectorAll('small,span'))if(n.children.length===0)n.textContent=integerDisplay43(n.textContent.trim());
+  const banner=root.querySelector('.scoreboard-banner');
+  if(banner){
+    banner.classList.remove('v43-scoreboard-all');
+    for(const node of banner.querySelectorAll('.scoreboard-banner-metrics strong,[data-summary-all-stats] td'))
+      if(!node.children.length)node.textContent=scoreboardWhole43(node.textContent.trim());
+    // Totals/Average redraw the original summary; preserve its exact structure and collapse state.
+    for(const toggle of banner.querySelectorAll('[data-mode]')){
+      if(toggle.dataset.scoreboardInteger43)continue;
+      toggle.dataset.scoreboardInteger43='yes';
+      toggle.addEventListener('click',()=>{
+        queueMicrotask(()=>{
+          for(const node of banner.querySelectorAll('.scoreboard-banner-metrics strong,[data-summary-all-stats] td'))
+            if(!node.children.length)node.textContent=scoreboardWhole43(node.textContent.trim());
+        });
+      });
+    }
+  }
+  // Recreate the optional sticky header after changing table geometry.
+  if(typeof reportsStickyCleanup==='function'){reportsStickyCleanup();reportsStickyCleanup=null;}
+  if(typeof installReportsHeader==='function'){
+    reportsStickyCleanup=installReportsHeader(root);
+    root.querySelector('.reports-floating-header .reports-table')?.classList.add('v43-full-width-table');
   }
 }
-const renderReportsBefore43=renderReports;
-renderReports=function(){renderReportsBefore43();compactScoreboard43()};
+const reportsBeforeScoreboard43=renderReports;
+renderReports=function(){reportsBeforeScoreboard43();scoreboardCompactTable43()};
 
 /* Family-scoped viewer uses authenticated reads; it never writes or replaces tracker records. */
 const feed42={scope:'',selected:null,records:[],busy:false,error:'',lastRead:null,filter:'all',request:0};
