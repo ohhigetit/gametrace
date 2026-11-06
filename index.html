@@ -3431,21 +3431,73 @@ function homeCourtListRow(title,details,open,attrs={},date=false){
  const row=button('',open,'hc-list-row'+(date?' hc-date-row':''),attrs);row.append(el('span',{class:'hc-row-title'},title),el('span',{class:'hc-row-details'},...details.filter(Boolean).map((t,i)=>el(i===0?'strong':'span',{},t))));return row;
 }
 renderHomeCourt=function(){
- syncPlayerScope();const root=$('courtContent'),player=playerContext.player;root.replaceChildren(el('div',{class:'view-title hc-title'},el('h1',{},player?player+'’s Home Court':'Family Home Court'),el('p',{class:'hc-intro'},'Keep showing up. Your work adds up.')),homeCourtQuickActions());
+ syncPlayerScope();
+ const root=$('courtContent'), active=liveGame(), player=courtUI.player, matches=p=>!player||T.playerKey(p)===T.playerKey(player);
+ const games=db.games.filter(g=>!g.deletedAt&&matches(g.player)), played=games.filter(g=>g.status==='completed').sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.updatedAt).localeCompare(String(a.updatedAt)));
+ const sessions=db.trainingSessions.filter(s=>!s.deletedAt&&matches(s.player)), training=T.summarize(sessions), completed=[...training.sessions].sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.updatedAt).localeCompare(String(a.updatedAt)));
+ const notes=db.personalRecords.filter(r=>r.type==='note'&&!r.deletedAt&&matches(r.player)).sort((a,b)=>Number(!!b.pinned)-Number(!!a.pinned)||String(b.date).localeCompare(String(a.date)));
+ const achievements=[...T.trophies(db.trainingSessions,db.goals,player),...customFamilyAwards(player)].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ const goalPlayers=player?[player]:courtPlayers(), goals=goalPlayers.flatMap(p=>T.goalOrder(db.goals,db.goalOrders,p)).filter(g=>!g.deletedAt&&g.status!=='achieved');
+ const achieved=db.goals.filter(g=>!g.deletedAt&&g.status==='achieved'&&matches(g.player));
+ const upcoming=db.personalRecords.filter(r=>r.type==='schedule'&&!r.deletedAt&&matches(r.player)&&Number.isFinite(Date.parse(r.start))&&Date.parse(r.end||r.start)>=Date.now()).sort((a,b)=>a.start.localeCompare(b.start)).slice(0,3);
+ const go=(target)=>courtOpen(target);
+ const heading=(title,subtitle,action,target)=>el('header',{class:'hc45-head'},el('div',{},el('h2',{},title),el('p',{},subtitle)),button(action+' →',()=>go(target),'hc45-link'));
+ const panel=(title,subtitle,action,target,key)=>el('section',{class:'hc45-list','data-court-section':key},heading(title,subtitle,action,target));
+ const line=(title,detail,meta,icon,onClick,attrs={})=>{
+  const b=button('',onClick,'hc45-row',attrs),badge=el('span',{class:'hc45-badge'});
+  if(icon==='date'){const d=new Date(attrs['data-start']);badge.classList.add('hc45-date');badge.append(el('small',{},d.toLocaleString(undefined,{month:'short'}).toUpperCase()),el('strong',{},String(d.getDate()).padStart(2,'0')),el('small',{},d.toLocaleString(undefined,{weekday:'short'}).toUpperCase()))}
+  else badge.append(el('span',{class:'hc45-icon','aria-hidden':'true'},icon));
+  b.append(badge,el('span',{class:'hc45-copy'},el('strong',{},title),el('span',{},detail||''),el('small',{},meta||'')),el('span',{class:'hc45-arrow','aria-hidden':'true'},'›'));return b;
+ };
+ const empty=(section,msg)=>section.append(el('p',{class:'hc45-empty'},msg));
+ const fmtDate=(v)=>v?friendlyDate(String(v).slice(0,10)):'';
+ root.replaceChildren(el('div',{class:'view-title court-title'},el('p',{class:'training-kicker'},'Follow the Play. The Game. The Journey.'),el('h1',{},player?player+"'s Home Court":'Home Court'),el('p',{class:'view-note'},'Your game. Your growth. Your journey.')));
  if(recoveryRaw)root.append(el('div',{class:'notice error-notice'},el('p',{},saveError),button('Download recovery copy',()=>download(recoveryRaw,'GameTrace_recovery.txt','text/plain'))));
- root.append(homeCourtWork());
- const upcoming=homeCourtSection('Coming Up','court','Schedule','schedule','upcoming'),events=db.personalRecords.filter(r=>r.type==='schedule'&&!r.deletedAt&&r.start>=C.now()&&courtMatches(r.player)).sort((a,b)=>a.start.localeCompare(b.start)).slice(0,3);
- for(const r of events){const date=new Date(r.start),item=el('div',{class:'hc-upcoming-item'});item.append(homeCourtListRow(date.toLocaleDateString([],{month:'short',day:'numeric'}),[r.title,date.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})+(r.location?' · '+r.location:''),r.player+' · '+(r.activity==='game'?'Game':r.activity==='camp'?'Camp':'Training')],()=>openScheduleEvent(r.id,'court'),{'data-schedule-id':r.id},true));if(r.activity==='game'){const cta=scheduleCTA(r);if(cta)item.append(cta)}upcoming.append(item)}
- if(!events.length)upcoming.append(el('p',{class:'hc-meta'},'No upcoming events yet.'),button('Add Event',()=>scheduleForm(),'hc-link'));root.append(upcoming);
- const focus=homeCourtSection('Playbook','playbook','Open','goals','focus'),priorities=homeCourtData().priorities;
- if(priorities.length)focus.append(homeCourtPriority(priorities[0]));else focus.append(el('p',{class:'hc-meta'},'Choose your first priority in Playbook.'));root.append(focus);
- const games=homeCourtSection('Recent Games','circle-play','All Games','home','games'),completed=db.games.filter(g=>!g.deletedAt&&g.status==='completed'&&g.date<=localDate()&&courtMatches(g.player)).sort((a,b)=>b.date.localeCompare(a.date)||b.updatedAt.localeCompare(a.updatedAt));
- for(const g of completed.slice(0,3)){const t=C.totals(g.events),s=g.finalScore,result=s?s.team+'–'+s.opponent+' · '+(s.team===s.opponent?'Draw':s.team>s.opponent?'Win':'Loss'):'Score not recorded';games.append(homeCourtListRow(gameTitle(g),[result,friendlyDate(g.date)+' · '+g.player,t.pts+' PTS · '+t.reb+' REB · '+t.ast+' AST'],()=>chooseGame(g.id,'stats'),{'data-court-game':g.id}))}if(!completed.length)games.append(el('p',{class:'hc-meta'},'Completed games will appear here.'));root.append(games);
- const recent=homeCourtSection('Recent Sessions','gym','Gym','training','recent'),sessions=db.trainingSessions.filter(s=>!s.deletedAt&&s.date<=localDate()&&courtMatches(s.player)).sort((a,b)=>b.date.localeCompare(a.date)||b.updatedAt.localeCompare(a.updatedAt));
- for(const s of sessions.slice(0,3))recent.append(homeCourtListRow(s.name,[trainingDuration(s.minutes),friendlyDate(s.date)+' · '+s.player,(s.type==='camp'?'Camp':'Training')+(s.tags.length?' · '+s.tags.join(' · '):'')],()=>openSession(s.id,'court'),{'data-court-activity':s.id}));if(!sessions.length)recent.append(el('p',{class:'hc-meta'},'Completed training and camps will appear here.'));root.append(recent);
- const wall=homeCourtSection('On the Wall','wall','View Wall','trophies','wall'),awards=[...T.trophies(db.trainingSessions,db.goals,player),...customFamilyAwards(player)].sort((a,b)=>b.date.localeCompare(a.date)||a.id.localeCompare(b.id)),latest=awards[0];
- if(latest){const b=button('',()=>{setPlayerContext(latest.player);courtOpen('trophies')},'hc-recognition',{'data-court-award':latest.id});b.append(menuIcon('wall'),el('span',{},el('strong',{},latest.name),el('span',{class:'hc-meta'},latest.player+' · '+friendlyDate(latest.date)),el('span',{class:'hc-meta'},latest.reason)));wall.append(b)}else wall.append(el('p',{class:'hc-meta'},'Effort, small breakthroughs and milestones belong here.'));root.append(wall);
-};
+ const quick=el('div',{class:'hc45-quick'});
+ if(!active)quick.append(button('＋ New Game',()=>gameForm(),'primary',{'aria-label':'New Game'}));
+ quick.append(button('＋ Add Training',recordTrainingFromCourt,'court-secondary',{'aria-label':'Add Training'}),button('＋ Add Note',()=>{navigate('notebook');noteForm40()},'court-secondary',{'aria-label':'Add Note'}));root.append(quick);
+ if(active){
+  const card=el('section',{class:'hc45-banner','data-court-section':'current'},el('div',{class:'hc45-bannerhead'},el('div',{},el('h2',{},'Current Game'),el('p',{},active.pendingStart?'Ready for tip-off.':'The game in progress.')),button('Your Games ↗',()=>go('home'),'hc45-link')));
+  const score=C.scoreAt(active),scoreText=Math.round(score.team)+' – '+Math.round(score.opponent);
+  const status=active.pendingStart?'Not Started':C.paused(active)?'Timeout':'In Progress';
+  card.append(el('div',{class:'hc45-scoregrid'},el('div',{class:'hc45-mainmetric'},el('span',{class:'hc45-label'},'GAME SCORE'),el('strong',{},scoreText),el('span',{},(active.team||'Your Team')+' vs '+(active.opponent||'Opponent')),el('small',{},active.player+' · '+fmtDate(active.date))),el('div',{class:'hc45-sidemetrics'},el('div',{},el('span',{class:'hc45-label'},'PERIOD'),el('strong',{},C.label(active.settings.format,active.settings.current))),el('div',{},el('span',{class:'hc45-label'},'STATUS'),el('strong',{},status)))));
+  card.append(button(active.pendingStart?'Open Game →':'Resume Tracking →',()=>chooseGame(active.id,'live'),'hc45-resume',{'data-court-resume':active.id}));root.append(card);
+ }
+ const journey=el('section',{class:'hc45-banner','data-court-section':'journey'},el('div',{class:'hc45-bannerhead'},el('div',{},el('h2',{},'Your Journey'),el('p',{},'Every practice. Every game. Every step forward.'))));
+ const tile=(eyebrow,big,label,detail,cb)=>el('button',{type:'button',class:'hc45-tile'},el('span',{class:'hc45-label'},eyebrow+' ↗'),el('strong',{class:'hc45-number'},big),el('span',{class:'hc45-tilelabel'},label),el('small',{},detail));
+ const row1=el('div',{class:'hc45-pair'});
+ const workTile=tile('THE WORK BEHIND IT',Math.round(training.totalMinutes/60)+' HRS','Training & Camps',training.sessions.length+' sessions · '+training.current+'-week streak');workTile.addEventListener('click',()=>go('training'));
+ const gameTile=tile('WHERE IT COUNTS',String(played.length),'Games Played',played.filter(g=>g.finalScore&&Number(g.finalScore.team)>Number(g.finalScore.opponent)).length+' Wins · '+played.filter(g=>g.finalScore&&Number(g.finalScore.team)<Number(g.finalScore.opponent)).length+' Losses');gameTile.addEventListener('click',()=>go('home'));
+ row1.append(workTile,gameTile);journey.append(row1);
+ const progress=g=>(g.entries||[]).filter(e=>!e.deletedAt).sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.createdAt).localeCompare(String(a.createdAt)))[0]?.rating||0;
+ const dots=g=>{const value=Math.min(5,Math.max(0,Number(progress(g))||0)),r=el('span',{class:'hc45-dots','aria-label':value+' of 5'});for(let i=1;i<=5;i++)r.append(el('i',{class:i<=value?'on':''}));r.append(el('small',{},value+' / 5'));return r};
+ const goalBox=button('' ,()=>{if(goals[0])openPlaybookStep(goals[0].id);else go('goals')},'hc45-journeygoal');
+ goalBox.append(el('span',{class:'hc45-label'},"WHAT'S NEXT ↗"),el('div',{class:'hc45-goalcounts'},el('span',{},el('strong',{},String(goals.length)),' Active goals'),el('span',{},el('strong',{},String(achieved.length)),' Achieved')));
+ const focus=el('div',{class:'hc45-focus'},el('small',{},'TOP PRIORITY'),el('strong',{},goals[0]?.title||'Set a goal in your Playbook'));if(goals[0])focus.append(dots(goals[0]));goalBox.append(focus);journey.append(goalBox);
+ const bottom=el('div',{class:'hc45-pair hc45-bottom'});
+ const noteTile=el('button',{type:'button',class:'hc45-tile'},el('span',{class:'hc45-label'},'WORDS TO REMEMBER ↗'));noteTile.addEventListener('click',()=>go('notebook'));for(const n of notes.slice(0,2))noteTile.append(el('span',{class:'hc45-mini'},el('strong',{},n.title||'Note'),el('small',{},String(n.body||'').slice(0,85))));if(!notes.length)noteTile.append(el('small',{},'Your notes will appear here.'));
+ const trophyTile=el('button',{type:'button',class:'hc45-tile'},el('span',{class:'hc45-label'},'MOMENTS THAT MATTER ↗'));trophyTile.addEventListener('click',()=>go('trophies'));for(const a of achievements.slice(0,2))trophyTile.append(el('span',{class:'hc45-mini'},el('strong',{},'🏆 '+a.name),el('small',{},fmtDate(a.date))));if(!achievements.length)trophyTile.append(el('small',{},'Achievements will appear here.'));
+ bottom.append(noteTile,trophyTile);journey.append(bottom);root.append(journey);
+ const future=panel('Coming Up','The next moments on your calendar.','Schedule','schedule','coming');
+ if(!upcoming.length)empty(future,'No upcoming events on your schedule.');
+ for(const r of upcoming){const detail=r.allDay?'All day':new Date(r.start).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});future.append(line(r.title,detail+' · '+(r.activity||'Event'),(r.location||r.player||''),'date',()=>openScheduleEvent(r.id,'court'),{'data-court-event':r.id,'data-start':r.start}))}root.append(future);
+ const recentGames=panel('Recent Games','Every game adds to the story.','View All','home','games');
+ if(!played.length)empty(recentGames,'Completed games will appear here.');
+ for(const g of played.slice(0,2)){const f=g.finalScore;const result=f&&Number.isFinite(Number(f.team))&&Number.isFinite(Number(f.opponent))?(Number(f.team)>Number(f.opponent)?'W':Number(f.team)<Number(f.opponent)?'L':'T'):'—';const t=C.totals(C.filtered(g));recentGames.append(line((g.team||'Your Team')+' vs '+g.opponent,Math.round(t.pts)+' PTS · '+Math.round(t.reb)+' REB · '+Math.round(t.ast)+' AST',fmtDate(g.date)+' · '+result,'🏀',()=>chooseGame(g.id,'stats'),{'data-hc45-game':g.id}))}root.append(recentGames);
+ const recentTraining=panel('Recent Trainings','The work behind the progress.','View All','training','training');
+ if(!completed.length)empty(recentTraining,'Completed trainings and camps will appear here.');
+ for(const s of completed.slice(0,2))recentTraining.append(line(s.name,trainingDuration(s.minutes)+' · '+(s.type==='camp'?'Camp':s.name.toLowerCase().includes('shoot')?'Shooting / Skills':'Training'),fmtDate(s.date),s.name.toLowerCase().includes('shoot')?'◎':'↗',()=>openSession(s.id,'court'),{'data-court-training':s.id}));root.append(recentTraining);
+ const recentNotes=panel('Words to Remember','Thoughts worth carrying into the next game.','View All','notebook','notes');
+ if(!notes.length)empty(recentNotes,'Add a note to capture a thought or reminder.');
+ for(const n of notes.slice(0,2))recentNotes.append(line(n.title||'Note',String(n.body||'').slice(0,135),fmtDate(n.date),'▤',()=>noteForm40(n.id),{'data-court-note':n.id}));root.append(recentNotes);
+ const recentAwards=panel('Moments That Matter','Every milestone tells a story.','View All','trophies','achievements');
+ if(!achievements.length)empty(recentAwards,'Your earned achievements will appear here.');
+ for(const a of achievements.slice(0,2))recentAwards.append(line(a.name,a.reason||'Achievement earned',fmtDate(a.date),'🏆',()=>{trophyUI.player=a.player;trophyUI.category='all';navigate('trophies')},{'data-court-award':a.id}));root.append(recentAwards);
+ const recentGoals=panel("What's Next",'Small steps. Bigger goals.','View All','goals','goals');
+ if(!goals.length)empty(recentGoals,'Add a goal in Playbook to track what comes next.');
+ for(const g of goals.slice(0,2)){const item=line(g.title,'Progress: '+progress(g)+' of 5',g.player,'◎',()=>openPlaybookStep(g.id),{'data-court-goal':g.id});item.querySelector('.hc45-copy').append(dots(g));recentGoals.append(item)}root.append(recentGoals);
+}
+;
 renderMenu=function(){
  syncPlayerScope();const root=$('menuContent');root.replaceChildren(el('div',{class:'view-title'},el('h1',{},'Menu')));attachPlayerPicker(root);root.append(homeCourtQuickActions(true));
  const nav=el('nav',{class:'main-navigation','aria-label':'Main navigation'}),current=['live','stats','history','setup'].includes(ui.menuReturn)?'home':ui.menuReturn;
