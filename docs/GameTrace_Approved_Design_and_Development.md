@@ -1,4 +1,12 @@
+# Current release: V42
+
+The approved V42 behavior in [source/v42/README.md](/source/v42/README.md) and templates/current/ is authoritative. Build with `python3 source/v42/build.py`; earlier release/build/layout statements below are historical. Preserve all records and family permissions. Live Feed is authenticated, viewer-only, family-scoped; no migration is needed for game feeds. Optional note/Schedule cloud setup and email delivery are separate prerequisites. Deployment does not reset data or execute SQL.
+
 # GameTrace — approved design and development
+
+## Current production and development — V38 · production verified November 5, 2026
+
+Mike authorized production deployment. The exact tested development runtime is now served at https://game-trace.netlify.app/. Production application commit `6f4e42f34d9686fad0d7fc75a0b3e63e54ac96d2`, tree `325d780bcab68f058f147433d6e0cf9bc4cae4b4`, HTML SHA-256 `91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf`. No feature changes, user-data reset or SQL execution were part of promotion. Cloud migration 006 is a separate owner setup step if not already installed. See source/v38/README.md. Earlier destination statements below are release history.
 
 ## Current development — V38 · deployed and byte-verified
 

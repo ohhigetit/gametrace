@@ -1,3 +1,7 @@
+# V42 regression additions
+
+Run `node tests/v42-ui.cjs` for title actions/subtitles, player metadata omission, Current Game and Performance banners, record tabs/tap editing/drag handles, Schedule filters and read-only feed polling, corrections, offline retention and revoked access. Run the existing core, training, journey, family-sync and PostgreSQL/RLS suites. `tests/family-database.mjs` also covers migration 007 and family isolation. UI rules in V42 supersede earlier Calendar view/search/Delete-on-banner expectations below.
+
 # Current GameTrace regression matrix
 
 Run relevant checks from the repository root. Expand testing only when the changed behavior or a failure warrants it. UI tests use jsdom installed outside the repository and mock browser media/network; they do not establish actual iPhone recording or live two-account behavior.
