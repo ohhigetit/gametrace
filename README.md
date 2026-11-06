@@ -1,25 +1,13 @@
 # GameTrace
 
-**Production and development: V38**, deployed and byte-verified at [GameTrace](https://game-trace.netlify.app/) and [development](https://development--game-trace.netlify.app/). Includes connected activity rows, Notebook feedback tables, dedicated Prayer/Commitment pages and dashboard upcoming events. See [V38 notes](source/v38/README.md). Cloud SQL setup remains a separate family-owner step if not already installed.
+**V42 release** — approved Home Court visual standard, consistent game/session/schedule rows, improved review controls, and authenticated family Live Game Feed.
 
 **Follow the Play. The Game. The Journey.**
 
-GameTrace is a basketball game action tracker with live recording, game review, history, and performance insights.
+Production: https://game-trace.netlify.app/ · Development: https://development--game-trace.netlify.app/
 
-## Branches
-- `main`: production-ready releases
-- `development`: active development and preview testing
+Build: `python3 source/v42/build.py`. Netlify serves root `index.html` with no build command. Work is validated on `development`, then the identical application tree is promoted to `main` with expected-head checks and no force push.
 
-GameTrace development proceeds on `development` before promotion to `main`.
+See [release notes](source/v42/README.md), [approved standards](docs/GameTrace_Approved_Design_and_Development.md), [current template](templates/current/README.md) and [release manifest](templates/current/release-manifest.json).
 
-## Current baseline
-
-V35 retains existing games, sessions, reflections, trophies, family membership and recordings. No reset or database migration is part of the release. Refresh family devices before editing linked Playbook steps.
-
-- [Approved standards](docs/GameTrace_Approved_Design_and_Development.md)
-- [Current templates](templates/current/README.md)
-- [Release checklist](templates/release-checklist.md)
-- [Verification matrix](templates/current/regression-matrix.md)
-- [Application release manifest](templates/current/release-manifest.json)
-
-Build from the repository root with `python3 source/v27/build.py`; the retained v27 filename composes the current local source through v38. The app remains a self-contained HTML build. Test-only copies are isolated and are not the deployed app. Standards/template updates do not authorize runtime changes or data resets.
+The app retains browser records, family sharing/conflict handling and camera/recording storage. No sample records, reset, account changes or SQL execution are part of deployment. Live Feed uses existing private family game sync; optional note/Schedule cloud setup is documented in the release notes.

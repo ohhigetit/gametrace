@@ -1,3 +1,7 @@
+# Current release: V42
+
+The approved V42 behavior in [source/v42/README.md](/source/v42/README.md) and templates/current/ is authoritative. Build with `python3 source/v42/build.py`; earlier release/build/layout statements below are historical. Preserve all records and family permissions. Live Feed is authenticated, viewer-only, family-scoped; no migration is needed for game feeds. Optional note/Schedule cloud setup and email delivery are separate prerequisites. Deployment does not reset data or execute SQL.
+
 # GameTrace — approved design and development
 
 ## Current production and development — V38 · production verified November 5, 2026

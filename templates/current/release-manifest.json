@@ -1,30 +1,27 @@
 {
-  "application_version": "V38",
+  "application_version": "V42",
   "release_date": "2026-11-05",
   "repository": "ohhigetit/gametrace",
-  "build_command": "python3 source/v27/build.py",
+  "build_command": "python3 source/v42/build.py",
   "application_file": "index.html",
-  "matching_generated_file": "source/v27/GameTrace_V27_Training_Family.html",
-  "application_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
-  "application_release_tree": "325d780bcab68f058f147433d6e0cf9bc4cae4b4",
+  "matching_generated_file": "source/v42/GameTrace_V42.html",
+  "application_sha256": "fa08a9fda8bfedbed57e505ecc8fb838dab855674047a65d43c07d81ba5360e0",
   "development": {
     "branch": "development",
     "url": "https://development--game-trace.netlify.app/",
-    "application_release_commit": "489c3321f60d887e3daecf74faffe6a3361be33e",
-    "application_version": "V38",
-    "application_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
-    "status": "deployed and byte-verified"
+    "application_version": "V42",
+    "application_sha256": "fa08a9fda8bfedbed57e505ecc8fb838dab855674047a65d43c07d81ba5360e0",
+    "status": "prepared; deployment verification pending"
   },
   "production": {
     "branch": "main",
     "url": "https://game-trace.netlify.app/",
-    "application_release_commit": "6f4e42f34d9686fad0d7fc75a0b3e63e54ac96d2",
-    "application_version": "V38",
-    "application_sha256": "91a5a32b17b0494555587660f95a41f6795d9641bbf81534ca870836af466dbf",
-    "status": "deployed and byte-verified"
+    "application_version": "V42",
+    "application_sha256": "fa08a9fda8bfedbed57e505ecc8fb838dab855674047a65d43c07d81ba5360e0",
+    "status": "prepared; deployment verification pending"
   },
   "standards": "docs/GameTrace_Approved_Design_and_Development.md",
   "checklist": "templates/release-checklist.md",
   "regression_matrix": "templates/current/regression-matrix.md",
-  "note": "Production and development serve the identical verified V38 runtime. No reset or SQL execution accompanied promotion. Notebook/Schedule migration 006 remains a separate owner setup step if not already applied. Use updated V38 on all participating devices."
+  "note": "V42 preserves existing device/family records and uses existing family game RLS for Live Feed. No live SQL or reset execution. Optional note/Schedule migration 007 and email service setup remain separate owner actions when not already installed."
 }
