@@ -85,6 +85,11 @@ function compactScoreboard43(){
   }));
   banner.classList.add('v43-scoreboard-all');
   details.remove();
+  for(const toggle of banner.querySelectorAll('.scoreboard-banner-heading [data-mode]')){
+    if(toggle.dataset.v43Attached)continue;
+    toggle.dataset.v43Attached='yes';
+    toggle.addEventListener('click',()=>queueMicrotask(compactScoreboard43));
+  }
   for(const cell of root.querySelectorAll('.reports-table tbody td,.reports-table tfoot td')){
     if(cell.children.length===0)cell.textContent=integerDisplay43(cell.textContent.trim());
     else for(const n of cell.querySelectorAll('small,span'))if(n.children.length===0)n.textContent=integerDisplay43(n.textContent.trim());
