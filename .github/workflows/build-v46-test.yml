@@ -27,8 +27,8 @@ jobs:
           from pathlib import Path
           import re
           html=Path('GameTrace_V46_Integrated_TEST.html').read_text()
-          scripts=re.findall(r'<script(?:\\s[^>]*)?>([\\s\\S]*?)</script>',html)
-          Path('/tmp/game-trace-inline.js').write_text('\\n'.join(scripts))
+          scripts=re.findall(r'<script[^>]*>(.*?)</script>',html,re.S)
+          Path('/tmp/game-trace-inline.js').write_text(chr(10).join(scripts))
           PY
           node --check /tmp/game-trace-inline.js
       - name: Commit the integrated test artifact to this testing branch only
