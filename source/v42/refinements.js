@@ -63,10 +63,10 @@ const verifyBefore42=verifyFamilyMembership;verifyFamilyMembership=async functio
  * Formatting is presentation-only; stored values retain their original precision.
  */
 function integerDisplay43(value){
-  return String(value ?? '—').replace(/-?\d+(?:\.\d+)?%|^-?\d+(?:\.\d+)?$/g,match=>{
-    const percent=match.endsWith('%'),number=Number(percent?match.slice(0,-1):match);
-    return Number.isFinite(number)?String(Math.round(number))+(percent?'%':''):match;
-  }).replace(/(\d+\.\d+)(?=%)/g,n=>String(Math.round(Number(n))));
+  return String(value ?? '—').replace(/-?\d+\.\d+(?=%|\b)/g,token=>{
+    const number=Number(token);
+    return Number.isFinite(number)?String(Math.round(number)):token;
+  });
 }
 function compactScoreboard43(){
   const root=$('reportsContent');if(!root || ui.screen!=='reports')return;
