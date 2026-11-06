@@ -4118,6 +4118,7 @@ const savedFilters45=readScoreboardChoice44(scoreFilterKey45,null);
 const f45={range:'last30',from:'',to:'',leagues:[],gameIds:[],openGroup:'games',openField:'',query:''};
 if(savedFilters45&&typeof savedFilters45==='object'){
  for(const key of ['range','from','to','openGroup'])if(typeof savedFilters45[key]==='string')f45[key]=savedFilters45[key];
+ for(const key of ['player','team','type'])if(typeof savedFilters45[key]==='string')reportsState[key]=savedFilters45[key];
  for(const key of ['leagues','gameIds'])if(Array.isArray(savedFilters45[key]))f45[key]=savedFilters45[key].filter(x=>typeof x==='string').slice(0,3000);
 }
 if(!scoreDateModes45.includes(f45.range))f45.range='last30';
@@ -4136,7 +4137,7 @@ function scoreDate45(){
  return [ago((base.getDay()+6)%7),today];
 }
 function persist45(){
- saveScoreboardChoice44(scoreFilterKey45,{range:f45.range,from:f45.from,to:f45.to,leagues:f45.leagues,gameIds:f45.gameIds,openGroup:f45.openGroup});
+ saveScoreboardChoice44(scoreFilterKey45,{range:f45.range,from:f45.from,to:f45.to,player:reportsState.player,team:reportsState.team,type:reportsState.type,leagues:f45.leagues,gameIds:f45.gameIds,openGroup:f45.openGroup});
 }
 function syncDate45(){const dates=scoreDate45();reportsState.from=dates[0];reportsState.to=dates[1];reportsState.league='';}
 syncDate45();
@@ -4301,7 +4302,7 @@ function drawDrawer45(keepField){
   colBody.append(grid);
  }
  interior.append(colSection);
- const foot=scoreNode45('div','gt45-footer',null);
+ const foot=scoreNode45('div','gt45-footer');
  foot.append(scoreButton45('Reset to Default',()=>{reportsState.player='';reportsState.team='';reportsState.type='';f45.range='last30';f45.from='';f45.to='';f45.leagues=[];f45.gameIds=[];f45.query='';chooseCols45(scoreCols45)},'gt45-reset'),
  scoreButton45('Done',closeDrawer45,'gt45-done'));
  sheet.append(heading,interior,foot);overlay.append(sheet);
