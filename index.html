@@ -612,6 +612,67 @@ html[data-theme] #app.app.gt-app .report-delete-confirm{background:var(--gt-surf
 html[data-theme] #app.app.gt-app .report-delete-confirm button{margin-right:8px;margin-top:8px}
 @media(max-width:360px){html[data-theme] #app.app.gt-app .report-score strong{font-size:23px}html[data-theme] #app.app.gt-app .report-stat strong{font-size:18px}html[data-theme] #app.app.gt-app .report-stat[data-report-stat=fg] strong{font-size:16px}html[data-theme] #app.app.gt-app .report-legend{gap:7px 11px}}
 
+
+/* Home Court V45: approved full-page layout */
+#courtContent .hc45-quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 17px}
+#courtContent .hc45-quick>button{width:100%;min-width:0;min-height:46px;padding:9px 3px;font-size:clamp(10px,2.8vw,13px);border-radius:10px;white-space:normal}
+#courtContent .hc45-quick:has(>button:first-child:nth-last-child(2)){grid-template-columns:repeat(2,minmax(0,1fr))}
+#courtContent .hc45-banner{--hc-ink:#202326;--hc-muted:#6b7273;--hc-divider:#cad4cd;color:var(--hc-ink);background:linear-gradient(135deg,#f3f7f4,#e6efe8);border:1px solid #cedbd2;border-radius:18px;padding:clamp(12px,3.8vw,18px);margin:14px 0 18px}
+#courtContent .hc45-bannerhead{display:flex;align-items:start;justify-content:space-between;gap:8px;margin-bottom:16px}
+#courtContent .hc45-bannerhead h2,#courtContent .hc45-head h2{font-size:19px;font-weight:800;line-height:1.25;margin:0}
+#courtContent .hc45-bannerhead p{font-size:10px;color:var(--hc-muted);margin:4px 0 0}
+#courtContent .hc45-banner .hc45-link{border:0;background:transparent;color:inherit;font-size:11px;white-space:nowrap;min-height:44px;padding:8px 0}
+#courtContent .hc45-scoregrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:12px}
+#courtContent .hc45-mainmetric{border-right:1px solid var(--hc-divider);display:flex;flex-direction:column;align-items:flex-start;padding:6px 9px 6px 0;min-width:0}
+#courtContent .hc45-label{font-size:9px;letter-spacing:.5px;font-weight:800;color:var(--hc-muted);line-height:1.4}
+#courtContent .hc45-mainmetric>strong{font-size:clamp(29px,9vw,49px);line-height:1.2;letter-spacing:-1px;margin:8px 0;font-weight:850;white-space:nowrap}
+#courtContent .hc45-mainmetric>span:not(.hc45-label){font-size:11px;font-weight:750}
+#courtContent .hc45-mainmetric>small{color:var(--hc-muted);font-size:10px;margin-top:5px}
+#courtContent .hc45-sidemetrics{display:flex;flex-direction:column;justify-content:space-around;gap:14px}
+#courtContent .hc45-sidemetrics>div{display:flex;flex-direction:column;gap:5px}
+#courtContent .hc45-sidemetrics strong{font-size:clamp(15px,4vw,21px);font-weight:800;line-height:1.3}
+#courtContent .hc45-resume{width:100%;margin-top:14px;min-height:48px;padding:12px 0 0;text-align:left;border:0;border-top:1px solid var(--hc-divider);background:transparent;font-weight:800;color:inherit}
+#courtContent .hc45-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#courtContent .hc45-tile{min-width:0;text-align:left;display:flex;flex-direction:column;align-items:flex-start;background:transparent;color:inherit;border:0;padding:8px 12px 15px 0}
+#courtContent .hc45-pair .hc45-tile+ .hc45-tile{border-left:1px solid var(--hc-divider);padding-left:15px;padding-right:0}
+#courtContent .hc45-number{font-size:clamp(31px,9vw,46px);font-weight:850;line-height:1.15;letter-spacing:-1.4px;margin:9px 0 4px}
+#courtContent .hc45-tilelabel{font-size:12px;font-weight:750}
+#courtContent .hc45-tile>small,#courtContent .hc45-mini small{font-size:10px;color:var(--hc-muted);line-height:1.45;margin-top:4px}
+#courtContent .hc45-journeygoal{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--hc-divider);border-bottom:1px solid var(--hc-divider);background:transparent;color:inherit;padding:15px 0}
+#courtContent .hc45-goalcounts{display:flex;gap:23px;margin:12px 0;align-items:baseline}
+#courtContent .hc45-goalcounts span{font-size:11px;color:var(--hc-muted);font-weight:700}
+#courtContent .hc45-goalcounts strong{font-size:29px;color:var(--hc-ink);margin-right:5px}
+#courtContent .hc45-focus{border:1px solid var(--hc-divider);border-radius:10px;padding:11px 12px;background:rgba(255,255,255,.25);display:flex;align-items:flex-start;flex-direction:column;gap:5px}
+#courtContent .hc45-focus>small{font-size:9px;font-weight:800;color:var(--hc-muted)}
+#courtContent .hc45-focus>strong{font-size:12px;line-height:1.4}
+#courtContent .hc45-dots{display:flex;align-items:center;gap:6px;margin-top:8px}
+#courtContent .hc45-dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid #879b8d}
+#courtContent .hc45-dots i.on{background:#648773;border-color:#648773}
+#courtContent .hc45-dots small{font-size:10px;color:var(--hc-muted);margin-left:5px}
+#courtContent .hc45-bottom{padding-top:12px}
+#courtContent .hc45-mini{display:flex;flex-direction:column;gap:3px;margin-top:12px;min-width:0}
+#courtContent .hc45-mini strong{font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+#courtContent .hc45-list{border-top:1px solid var(--gt-edge);padding-top:20px;margin-top:22px}
+#courtContent .hc45-head{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:10px}
+#courtContent .hc45-head p{font-size:11px;margin:5px 0 0;color:var(--gt-muted)}
+#courtContent .hc45-head button{min-height:44px;background:transparent;border:0;color:inherit;font-size:12px;font-weight:750;white-space:nowrap}
+#courtContent .hc45-row{width:100%;display:flex;align-items:center;min-height:88px;gap:12px;text-align:left;border:0;background:transparent;color:inherit;padding:10px 0}
+#courtContent .hc45-row+.hc45-row{border-top:1px solid var(--gt-edge)}
+#courtContent .hc45-badge{width:60px;min-width:60px;height:68px;border:1px solid var(--gt-edge);border-radius:11px;background:var(--gt-surface);display:flex;flex-direction:column;align-items:center;justify-content:center}
+#courtContent .hc45-icon{font-size:27px;line-height:1}
+#courtContent .hc45-date small{font-size:10px;font-weight:800;color:var(--gt-muted)}
+#courtContent .hc45-date strong{font-size:27px;font-weight:850;line-height:1.1;margin:3px 0}
+#courtContent .hc45-copy{display:flex;min-width:0;flex:1;flex-direction:column;gap:4px}
+#courtContent .hc45-copy>strong{font-size:13px;font-weight:750;line-height:1.4;overflow-wrap:anywhere}
+#courtContent .hc45-copy>span:not(.hc45-dots){font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+#courtContent .hc45-copy>small{font-size:10px;color:var(--gt-muted)}
+#courtContent .hc45-arrow{font-size:23px;color:var(--gt-muted);flex:none}
+#courtContent .hc45-empty{padding:12px 0;color:var(--gt-muted);font-size:12px}
+#courtContent .hc45-row:focus-visible,#courtContent .hc45-tile:focus-visible,#courtContent .hc45-journeygoal:focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+html[data-theme=courtside] #courtContent .hc45-banner{--hc-ink:#f0f2f0;--hc-muted:#adb7b1;--hc-divider:#41554c;background:linear-gradient(135deg,#27352e,#202c26);border-color:#455a4d}
+html[data-theme=courtside] #courtContent .hc45-focus{background:rgba(255,255,255,.04)}
+@media(max-width:350px){#courtContent .hc45-row{gap:8px}#courtContent .hc45-badge{width:54px;min-width:54px;height:64px}#courtContent .hc45-label{font-size:8px;letter-spacing:0}#courtContent .hc45-head h2{font-size:17px}#courtContent .hc45-pair .hc45-tile+.hc45-tile{padding-left:9px}}
+
 </style><style>
 /* Solid controller color preview — approved hit geometry preserved. */
 html[data-theme] #app.gt-app .visual{--controller-fill:#19C66A;--controller-active:#F58A28;--controller-ink:#101211}
@@ -3000,40 +3061,70 @@ function courtActivityRow(title,meta,fn,attrs={}){
  b.append(el('span',{},el('strong',{},title),el('small',{},meta)),el('span',{'aria-hidden':'true'},'›'));return b;
 }
 function renderHomeCourt(){
- const root=$('courtContent'),players=courtPlayers();
- // Player selection is retained while shared records are loading.
- root.replaceChildren(el('div',{class:'view-title court-title'},el('p',{class:'training-kicker'},'Follow the Play. The Game. The Journey.'),el('h1',{},'Home Court'),el('p',{class:'view-note'},'Your work. Your growth. Your basketball journey.')));
- if(players.length){const select=el('select',{'aria-label':'Home Court player'});select.append(el('option',{value:''},'All players'));for(const p of players)select.append(el('option',{value:p},p));select.value=courtUI.player;select.addEventListener('change',()=>{courtUI.player=select.value;renderHomeCourt()});root.append(el('label',{class:'court-player'},'Player',select))}
+ const root=$('courtContent'), active=liveGame(), player=courtUI.player, matches=p=>!player||T.playerKey(p)===T.playerKey(player);
+ const games=db.games.filter(g=>!g.deletedAt&&matches(g.player)), played=games.filter(g=>g.status==='completed').sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.updatedAt).localeCompare(String(a.updatedAt)));
+ const sessions=db.trainingSessions.filter(s=>!s.deletedAt&&matches(s.player)), training=T.summarize(sessions), completed=[...training.sessions].sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.updatedAt).localeCompare(String(a.updatedAt)));
+ const notes=db.personalRecords.filter(r=>r.type==='note'&&!r.deletedAt&&matches(r.player)).sort((a,b)=>Number(!!b.pinned)-Number(!!a.pinned)||String(b.date).localeCompare(String(a.date)));
+ const achievements=[...T.trophies(db.trainingSessions,db.goals,player),...customFamilyAwards(player)].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ const goalPlayers=player?[player]:courtPlayers(), goals=goalPlayers.flatMap(p=>T.goalOrder(db.goals,db.goalOrders,p)).filter(g=>!g.deletedAt&&g.status!=='achieved');
+ const achieved=db.goals.filter(g=>!g.deletedAt&&g.status==='achieved'&&matches(g.player));
+ const upcoming=db.personalRecords.filter(r=>r.type==='schedule'&&!r.deletedAt&&matches(r.player)&&Number.isFinite(Date.parse(r.start))&&Date.parse(r.end||r.start)>=Date.now()).sort((a,b)=>a.start.localeCompare(b.start)).slice(0,3);
+ const go=(target)=>courtOpen(target);
+ const heading=(title,subtitle,action,target)=>el('header',{class:'hc45-head'},el('div',{},el('h2',{},title),el('p',{},subtitle)),button(action+' →',()=>go(target),'hc45-link'));
+ const panel=(title,subtitle,action,target,key)=>el('section',{class:'hc45-list','data-court-section':key},heading(title,subtitle,action,target));
+ const line=(title,detail,meta,icon,onClick,attrs={})=>{
+  const b=button('',onClick,'hc45-row',attrs),badge=el('span',{class:'hc45-badge'});
+  if(icon==='date'){const d=new Date(attrs['data-start']);badge.classList.add('hc45-date');badge.append(el('small',{},d.toLocaleString(undefined,{month:'short'}).toUpperCase()),el('strong',{},String(d.getDate()).padStart(2,'0')),el('small',{},d.toLocaleString(undefined,{weekday:'short'}).toUpperCase()))}
+  else badge.append(el('span',{class:'hc45-icon','aria-hidden':'true'},icon));
+  b.append(badge,el('span',{class:'hc45-copy'},el('strong',{},title),el('span',{},detail||''),el('small',{},meta||'')),el('span',{class:'hc45-arrow','aria-hidden':'true'},'›'));return b;
+ };
+ const empty=(section,msg)=>section.append(el('p',{class:'hc45-empty'},msg));
+ const fmtDate=(v)=>v?friendlyDate(String(v).slice(0,10)):'';
+ root.replaceChildren(el('div',{class:'view-title court-title'},el('p',{class:'training-kicker'},'Follow the Play. The Game. The Journey.'),el('h1',{},player?player+"'s Home Court":'Home Court'),el('p',{class:'view-note'},'Your game. Your growth. Your journey.')));
  if(recoveryRaw)root.append(el('div',{class:'notice error-notice'},el('p',{},saveError),button('Download recovery copy',()=>download(recoveryRaw,'GameTrace_recovery.txt','text/plain'))));
- const quick=el('div',{class:'court-quick-actions'},button('＋ New Game',()=>gameForm(),'primary',{'aria-label':'New Game'}),button('＋ Record Training',recordTrainingFromCourt,'court-secondary',{'aria-label':'Record Training'}));root.append(quick);
- const active=liveGame();
- if(active){const selected=courtMatches(active.player),box=courtSection('Current game','Your games','home','current');box.append(el('p',{class:'training-kicker'},active.pendingStart?'Ready · not started':C.paused(active)?'Timeout · playing time paused':'In progress'),el('h3',{},(active.team?active.team+' vs ':'vs ')+active.opponent+' · '+active.player));if(!selected)box.append(el('p',{class:'training-help'},'This active game belongs to another player.'));
- box.append(button(active.pendingStart?'Open game':'Resume tracking',()=>chooseGame(active.id,'live'),'primary',{'data-court-resume':active.id}));root.append(box)}
- else root.append(el('p',{class:'court-idle'},'No active game. Record a completed session or create a game when you’re ready.'));
- const sessions=db.trainingSessions.filter(s=>courtMatches(s.player)),summary=T.summarize(sessions),work=courtSection('Work and progress','Gym','training','work');
- const metric=button('',()=>courtOpen('training'),'court-work-summary');metric.append(trainingPower(summary),el('span',{class:'court-work-numbers'},el('strong',{},trainingHours(summary.totalMinutes)+' hrs'),el('span',{},'Completed training and camps'),el('small',{},summary.sessions.length+' sessions · '+summary.current+'-week streak')));work.append(metric);
- work.append(el('p',{class:'training-help'},!summary.sessions.length?'Every completed session starts building your journey.':summary.next?trainingDuration(Math.max(0,summary.next*60-summary.totalMinutes))+' to the '+summary.next+'-hour ring.':'100 hours and counting. Keep building.'));
- if(!courtUI.player&&players.length>1)work.append(el('p',{class:'training-help'},'Combined hours and streak across all players. Select a player for their own progress.'));
- root.append(work);
- const focus=courtSection('Your focus','Playbook','goals','focus'),focusPlayers=courtUI.player?[courtUI.player]:players;
- const topSteps=focusPlayers.map(p=>T.goalOrder(db.goals,db.goalOrders,p)[0]).filter(Boolean);
- if(!topSteps.length)focus.append(el('p',{class:'training-help'},'Choose a next step in your Playbook to give your work a direction.'),button('Open Playbook',()=>courtOpen('goals'),'court-secondary'));
- for(const g of topSteps.slice(0,3)){
-  const last=g.entries.filter(e=>!e.deletedAt).sort((a,b)=>a.date.localeCompare(b.date)||a.createdAt.localeCompare(b.createdAt)).at(-1);
-  const row=courtActivityRow(g.title,g.player+' · '+(last?'Self-rated progress '+last.rating+' of 5':'No progress update yet'),()=>{journeyUI.player=g.player;navigate('goals');const card=[...$('goalsContent').querySelectorAll('[data-goal-id]')].find(n=>n.dataset.goalId===g.id);if(card){card.open=true;card.scrollIntoView({block:'center'})}},{'data-court-goal':g.id});
-  const points=el('span',{class:'court-progress-points','aria-hidden':'true'});for(let i=1;i<=5;i++)points.append(el('i',{class:last&&i<=last.rating?'filled':''}));row.firstElementChild.append(points);focus.append(row);
+ const quick=el('div',{class:'hc45-quick'});
+ if(!active)quick.append(button('＋ New Game',()=>gameForm(),'primary',{'aria-label':'New Game'}));
+ quick.append(button('＋ Add Training',recordTrainingFromCourt,'court-secondary',{'aria-label':'Add Training'}),button('＋ Add Note',()=>{navigate('notebook');noteForm40()},'court-secondary',{'aria-label':'Add Note'}));root.append(quick);
+ if(active){
+  const card=el('section',{class:'hc45-banner','data-court-section':'current'},el('div',{class:'hc45-bannerhead'},el('div',{},el('h2',{},'Current Game'),el('p',{},active.pendingStart?'Ready for tip-off.':'The game in progress.')),button('Your Games ↗',()=>go('home'),'hc45-link')));
+  const score=active.finalScore,scoreText=score&&Number.isFinite(Number(score.team))&&Number.isFinite(Number(score.opponent))?Math.round(Number(score.team))+' – '+Math.round(Number(score.opponent)):'— – —';
+  const status=active.pendingStart?'Not Started':C.paused(active)?'Timeout':'In Progress';
+  card.append(el('div',{class:'hc45-scoregrid'},el('div',{class:'hc45-mainmetric'},el('span',{class:'hc45-label'},'GAME SCORE'),el('strong',{},scoreText),el('span',{},(active.team||'Your Team')+' vs '+(active.opponent||'Opponent')),el('small',{},active.player+' · '+fmtDate(active.date))),el('div',{class:'hc45-sidemetrics'},el('div',{},el('span',{class:'hc45-label'},'PERIOD'),el('strong',{},C.label(active.settings.format,active.settings.current))),el('div',{},el('span',{class:'hc45-label'},'STATUS'),el('strong',{},status)))));
+  card.append(button(active.pendingStart?'Open Game →':'Resume Tracking →',()=>chooseGame(active.id,'live'),'hc45-resume',{'data-court-resume':active.id}));root.append(card);
  }
- if(topSteps.length>3)focus.append(el('p',{class:'training-help'},'Open Playbook to see every player’s next steps.'));root.append(focus);
- const recent=courtSection('Recent sessions','Gym','training','recent');
- const activity=[...summary.sessions.map(s=>({id:s.id,date:s.date,updated:s.updatedAt,title:s.name,meta:s.player+' · '+(s.type==='camp'?'Camp':'Training')+' · '+trainingDuration(s.minutes),open:()=>openSession(s.id,'court')}))].sort((a,b)=>b.date.localeCompare(a.date)||b.updated.localeCompare(a.updated)||a.id.localeCompare(b.id));
- if(!activity.length)recent.append(el('p',{class:'training-help'},'Your games and completed sessions will appear here.'));
- for(const a of activity.slice(0,4))recent.append(courtActivityRow(a.title,a.meta+' · '+friendlyDate(a.date),a.open,{'data-court-activity':a.id}));root.append(recent);
- const wall=courtSection('Worth recognizing','Wall','trophies','wall'),awards=[...T.trophies(db.trainingSessions,db.goals,courtUI.player),...customFamilyAwards(courtUI.player)].sort((a,b)=>b.date.localeCompare(a.date)||a.id.localeCompare(b.id)),latest=awards[0];
- if(latest)wall.append(courtActivityRow(latest.name,latest.player+' · '+friendlyDate(latest.date)+' · '+latest.reason,()=>{trophyUI.player=latest.player;trophyUI.category='all';navigate('trophies')},{'data-court-award':latest.id}));
- else wall.append(el('p',{class:'training-help'},'Effort, little breakthroughs and milestones all belong on your Wall. Keep putting in the work.'));
- root.append(wall);
- const explore=el('nav',{class:'court-explore','aria-label':'Explore GameTrace'});
- for(const[title,icon,target]of HOME_SECTIONS.slice(1)){const b=button('',()=>courtOpen(target),'court-explore-link',{'data-court-destination':target});b.append(menuIcon(icon),el('span',{},title),el('span',{'aria-hidden':'true'},'›'));explore.append(b)}root.append(explore);
+ const journey=el('section',{class:'hc45-banner','data-court-section':'journey'},el('div',{class:'hc45-bannerhead'},el('div',{},el('h2',{},'Your Journey'),el('p',{},'Every practice. Every game. Every step forward.'))));
+ const tile=(eyebrow,big,label,detail,cb)=>el('button',{type:'button',class:'hc45-tile'},el('span',{class:'hc45-label'},eyebrow+' ↗'),el('strong',{class:'hc45-number'},big),el('span',{class:'hc45-tilelabel'},label),el('small',{},detail));
+ const row1=el('div',{class:'hc45-pair'});
+ const workTile=tile('THE WORK BEHIND IT',Math.round(training.totalMinutes/60)+' HRS','Training & Camps',training.sessions.length+' sessions · '+training.current+'-week streak');workTile.addEventListener('click',()=>go('training'));
+ const gameTile=tile('WHERE IT COUNTS',String(played.length),'Games Played',played.filter(g=>g.finalScore&&Number(g.finalScore.team)>Number(g.finalScore.opponent)).length+' Wins · '+played.filter(g=>g.finalScore&&Number(g.finalScore.team)<Number(g.finalScore.opponent)).length+' Losses');gameTile.addEventListener('click',()=>go('home'));
+ row1.append(workTile,gameTile);journey.append(row1);
+ const progress=g=>(g.entries||[]).filter(e=>!e.deletedAt).sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.createdAt).localeCompare(String(a.createdAt)))[0]?.rating||0;
+ const dots=g=>{const value=Math.min(5,Math.max(0,Number(progress(g))||0)),r=el('span',{class:'hc45-dots','aria-label':value+' of 5'});for(let i=1;i<=5;i++)r.append(el('i',{class:i<=value?'on':''}));r.append(el('small',{},value+' / 5'));return r};
+ const goalBox=button('' ,()=>{if(goals[0])openPlaybookStep(goals[0].id);else go('goals')},'hc45-journeygoal');
+ goalBox.append(el('span',{class:'hc45-label'},"WHAT'S NEXT ↗"),el('div',{class:'hc45-goalcounts'},el('span',{},el('strong',{},String(goals.length)),' Active goals'),el('span',{},el('strong',{},String(achieved.length)),' Achieved')));
+ const focus=el('div',{class:'hc45-focus'},el('small',{},'TOP PRIORITY'),el('strong',{},goals[0]?.title||'Set a goal in your Playbook'));if(goals[0])focus.append(dots(goals[0]));goalBox.append(focus);journey.append(goalBox);
+ const bottom=el('div',{class:'hc45-pair hc45-bottom'});
+ const noteTile=el('button',{type:'button',class:'hc45-tile'},el('span',{class:'hc45-label'},'WORDS TO REMEMBER ↗'));noteTile.addEventListener('click',()=>go('notebook'));for(const n of notes.slice(0,2))noteTile.append(el('span',{class:'hc45-mini'},el('strong',{},n.title||'Note'),el('small',{},String(n.body||'').slice(0,85))));if(!notes.length)noteTile.append(el('small',{},'Your notes will appear here.'));
+ const trophyTile=el('button',{type:'button',class:'hc45-tile'},el('span',{class:'hc45-label'},'MOMENTS THAT MATTER ↗'));trophyTile.addEventListener('click',()=>go('trophies'));for(const a of achievements.slice(0,2))trophyTile.append(el('span',{class:'hc45-mini'},el('strong',{},'🏆 '+a.name),el('small',{},fmtDate(a.date))));if(!achievements.length)trophyTile.append(el('small',{},'Achievements will appear here.'));
+ bottom.append(noteTile,trophyTile);journey.append(bottom);root.append(journey);
+ const future=panel('Coming Up','The next moments on your calendar.','Schedule','schedule','coming');
+ if(!upcoming.length)empty(future,'No upcoming events on your schedule.');
+ for(const r of upcoming){const detail=r.allDay?'All day':new Date(r.start).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});future.append(line(r.title,detail+' · '+(r.activity||'Event'),(r.location||r.player||''),'date',()=>openScheduleEvent(r.id,'court'),{'data-court-event':r.id,'data-start':r.start}))}root.append(future);
+ const recentGames=panel('Recent Games','Every game adds to the story.','View All','home','games');
+ if(!played.length)empty(recentGames,'Completed games will appear here.');
+ for(const g of played.slice(0,2)){const f=g.finalScore;const result=f&&Number.isFinite(Number(f.team))&&Number.isFinite(Number(f.opponent))?(Number(f.team)>Number(f.opponent)?'Win':Number(f.team)<Number(f.opponent)?'Loss':'Tie'):'Completed';recentGames.append(line((g.team||'Your Team')+' vs '+g.opponent,result,fmtDate(g.date),'🏀',()=>chooseGame(g.id,'stats'),{'data-court-game':g.id}))}root.append(recentGames);
+ const recentTraining=panel('Recent Trainings','The work behind the progress.','View All','training','training');
+ if(!completed.length)empty(recentTraining,'Completed trainings and camps will appear here.');
+ for(const s of completed.slice(0,2))recentTraining.append(line(s.name,trainingDuration(s.minutes)+' · '+(s.type==='camp'?'Camp':s.name.toLowerCase().includes('shoot')?'Shooting / Skills':'Training'),fmtDate(s.date),s.name.toLowerCase().includes('shoot')?'◎':'↗',()=>openSession(s.id,'court'),{'data-court-training':s.id}));root.append(recentTraining);
+ const recentNotes=panel('Words to Remember','Thoughts worth carrying into the next game.','View All','notebook','notes');
+ if(!notes.length)empty(recentNotes,'Add a note to capture a thought or reminder.');
+ for(const n of notes.slice(0,2))recentNotes.append(line(n.title||'Note',String(n.body||'').slice(0,135),fmtDate(n.date),'▤',()=>noteForm40(n.id),{'data-court-note':n.id}));root.append(recentNotes);
+ const recentAwards=panel('Moments That Matter','Every milestone tells a story.','View All','trophies','achievements');
+ if(!achievements.length)empty(recentAwards,'Your earned achievements will appear here.');
+ for(const a of achievements.slice(0,2))recentAwards.append(line(a.name,a.reason||'Achievement earned',fmtDate(a.date),'🏆',()=>{trophyUI.player=a.player;trophyUI.category='all';navigate('trophies')},{'data-court-award':a.id}));root.append(recentAwards);
+ const recentGoals=panel("What's Next",'Small steps. Bigger goals.','View All','goals','goals');
+ if(!goals.length)empty(recentGoals,'Add a goal in Playbook to track what comes next.');
+ for(const g of goals.slice(0,2)){const item=line(g.title,'Progress: '+progress(g)+' of 5',g.player,'◎',()=>openPlaybookStep(g.id),{'data-court-goal':g.id});item.querySelector('.hc45-copy').append(dots(g));recentGoals.append(item)}root.append(recentGoals);
 }
 
 /* Optional evidence references live on Playbook records and use existing goal sync/backups. */
