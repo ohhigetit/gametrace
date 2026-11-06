@@ -57,3 +57,38 @@ const sessionBefore44=renderSessionDetail;renderSessionDetail=function(){session
 const gameFormBefore44=gameForm;gameForm=function(...args){const r=gameFormBefore44(...args);if(ui.screen==='setup'){const form=$('gameForm'),player=[...form?.querySelectorAll('input')||[]].find(n=>n.closest('label')?.firstChild?.textContent==='Player name');if(player&&!player.value)player.value=playerContext.player||'Georgina';stylePage43($('setupContent'),'setup')}return r};
 
 const verifyBefore42=verifyFamilyMembership;verifyFamilyMembership=async function(){const ok=await verifyBefore42();if(ok)try{const feature=await familyRpc('gt_cloud_features',{});scheduleCloud41=feature?.version>=7}catch{}return ok};
+
+
+/* Scoreboard: all aggregate statistics stay expanded and readable in one compact panel.
+ * Formatting is presentation-only; stored values retain their original precision.
+ */
+function integerDisplay43(value){
+  return String(value ?? '—').replace(/-?\d+(?:\.\d+)?%|^-?\d+(?:\.\d+)?$/g,match=>{
+    const percent=match.endsWith('%'),number=Number(percent?match.slice(0,-1):match);
+    return Number.isFinite(number)?String(Math.round(number))+(percent?'%':''):match;
+  }).replace(/(\d+\.\d+)(?=%)/g,n=>String(Math.round(Number(n))));
+}
+function compactScoreboard43(){
+  const root=$('reportsContent');if(!root || ui.screen!=='reports')return;
+  const banner=root.querySelector('.scoreboard-banner'),details=banner?.querySelector('[data-summary-all-stats]');
+  if(!banner||!details)return;
+  const rows=[...details.querySelectorAll('tbody tr')];
+  if(!rows.length)return;
+  const metrics=banner.querySelector('.scoreboard-banner-metrics');
+  if(!metrics)return;
+  metrics.replaceChildren(...rows.map(row=>{
+    const label=row.querySelector('th')?.textContent.trim()||'Stat';
+    const raw=row.querySelector('td')?.textContent.trim()||'—';
+    const value=raw.split(' · ').map(integerDisplay43).join(' · ');
+    return el('div',{class:'v43-score-metric', 'aria-label':label+': '+value},
+      el('strong',{},value),el('small',{},label));
+  }));
+  banner.classList.add('v43-scoreboard-all');
+  details.remove();
+  for(const cell of root.querySelectorAll('.reports-table tbody td,.reports-table tfoot td')){
+    if(cell.children.length===0)cell.textContent=integerDisplay43(cell.textContent.trim());
+    else for(const n of cell.querySelectorAll('small,span'))if(n.children.length===0)n.textContent=integerDisplay43(n.textContent.trim());
+  }
+}
+const renderReportsBefore43=renderReports;
+renderReports=function(){renderReportsBefore43();compactScoreboard43()};
