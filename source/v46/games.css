@@ -40,3 +40,27 @@
 .gt46-modal-foot button{min-height:46px;border:1px solid #cbd9cd;border-radius:10px;background:#fff;color:#25372b;font-size:12px;font-weight:800}
 .gt46-modal-foot button:last-child{background:#26392d;border-color:#26392d;color:#fff}
 @media(min-width:700px){.gt46-overlay{align-items:center}.gt46-sheet{border-radius:20px;max-height:85dvh}}
+
+/* V46 preview correction: Home Court upcoming date badges on iPhone.
+   Keep month/day/weekday fully inside a stable three-row calendar card. */
+html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date{
+  box-sizing:border-box;width:60px;min-width:60px;height:74px;min-height:74px;
+  padding:5px 2px;display:grid;grid-template-rows:13px 30px 13px;
+  place-items:center;align-content:center;gap:2px;overflow:visible;
+  border-radius:11px;flex:none;
+}
+html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date small{
+  display:block;position:static;line-height:13px;font-size:10px;font-weight:800;
+  letter-spacing:.35px;margin:0;padding:0;white-space:nowrap;text-align:center;
+  height:auto;min-height:0;width:auto;overflow:visible;
+}
+html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date strong{
+  display:block;position:static;line-height:30px;font-size:27px;font-weight:850;
+  margin:0;padding:0;white-space:nowrap;text-align:center;
+  height:auto;min-height:0;width:auto;overflow:visible;font-variant-numeric:tabular-nums;
+}
+@media(max-width:350px){
+  html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date{
+    width:56px;min-width:56px;height:72px;min-height:72px;
+  }
+}
