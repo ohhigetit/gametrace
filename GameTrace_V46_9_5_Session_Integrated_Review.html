@@ -6429,7 +6429,7 @@ function gt495SessionLayout(ctx){
   original.classList.add('f-control');
   return wrapper;
  };
- const section=(title,content)=>el('section',{class:'form-section'},el('h2',{},title),content);
+ const section=(title,...content)=>el('section',{class:'form-section'},el('h2',{},title),...content);
  const stack=()=>el('div',{class:'session-stack'});
  const layout=el('div',{class:'gt495-layout'});
  // 1. Player Information — same approved field component and editable existing value.
@@ -6504,7 +6504,7 @@ function gt495SessionLayout(ctx){
   const title=oldPageHead.querySelector('h1');
   if(title)title.textContent=mode==='edit'?'Edit Session':'New Session';
   if(!oldPageHead.querySelector('.gt495-title-icon')){
-   const icon=el('span',{class:'gt495-title-icon','aria-hidden':'true'},'◉');
+   const icon=el('span',{class:'gt495-title-icon','aria-hidden':'true'},'⊕');
    if(title)title.before(icon);
   }
   if(title)title.classList.add('gt495-title');
