@@ -703,19 +703,33 @@ html[data-theme=courtside] #courtContent .hc45-focus{background:rgba(255,255,255
 
 
 /* V46.9.5 approved Session Form: scoped implementation of V46.9.1 parent + V46.9.2/3 cards. */
+
+/* Reference alignment: approved V46.9.5 preview typography and parent-page header. */
+#trainingContent .gt495-form .gt495-card{background:#eff6f1!important;border:1px solid #cbdbcf!important;border-radius:21px!important;padding:20px!important;max-width:100%;box-sizing:border-box;min-width:0}
+#trainingContent .gt495-form .gt495-card .gt495-field{margin:0!important;gap:9px!important}
+#trainingContent .gt495-form .gt495-card .gt495-field>span.gt495-label{font-size:14px!important}
+#trainingContent .gt495-form .gt495-chip-list>label{padding:10px 14px;border-radius:100px;min-height:42px}
+#trainingContent .gt495-form .gt495-actions{gap:13px}
+#trainingContent .gt495-form .gt495-actions button{font-size:17px;min-height:52px}
+#trainingContent .gt495-form .gt495-aux{margin:0;background:#fff}
+#trainingContent .gt495-title-icon{font-size:25px;line-height:1.2;color:#253d2e}
+#trainingContent .gt495-title{font-size:32px;font-weight:800;letter-spacing:-1.25px}
+#trainingContent .gt495-subtitle{font-size:17px;color:#73857a;margin:8px 0 24px 48px}
+@media(max-width:370px){#trainingContent .gt495-form .gt495-card{padding:16px!important}#trainingContent .gt495-title{font-size:27px}}
+
 #trainingContent .gt495-form{max-width:740px;margin:0 auto;padding:0 2px 0;min-width:0}
 #trainingContent .gt495-layout{display:flex;flex-direction:column;gap:16px;min-width:0}
 #trainingContent .gt495-card{background:#eff6f1;border:1px solid #cbd8ce;border-radius:20px;padding:19px;min-width:0;box-sizing:border-box}
-#trainingContent .gt495-card>h2{font-size:20px;font-weight:800;letter-spacing:-.4px;line-height:1.3;margin:0 0 17px;color:#192b20}
+#trainingContent .gt495-card>h2{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.3;margin:0 0 23px;color:#172920}
 #trainingContent .gt495-field{display:flex;flex-direction:column;gap:7px;min-width:0;margin:0}
 #trainingContent .gt495-field[hidden]{display:none!important}
-#trainingContent .gt495-label{font-size:13px;color:#43564b;font-weight:750;line-height:1.3}
-#trainingContent .gt495-field :is(input:not([type=checkbox]),select,textarea){box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:48px;border-radius:12px;border:1px solid #c5d5c9;background:#fff;color:#192b20;padding:11px 12px;font-size:16px;margin:0}
+#trainingContent .gt495-label{font-size:14px;color:#465d50;font-weight:700;line-height:1.3}
+#trainingContent .gt495-field :is(input:not([type=checkbox]),select,textarea){box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:52px;border-radius:13px;border:1px solid #c5d7ca;background:#fff;color:#172920;padding:14px 15px;font-size:16px;margin:0}
 #trainingContent .gt495-field textarea{min-height:92px;resize:vertical}
-#trainingContent .gt495-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:17px}
-#trainingContent .gt495-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;min-width:0}
+#trainingContent .gt495-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:19px}
+#trainingContent .gt495-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 14px;min-width:0}
 #trainingContent .gt495-grid>*{min-width:0}
-#trainingContent .gt495-date-shell{position:relative;isolation:isolate;box-sizing:border-box;overflow:hidden;width:100%;max-width:100%;min-width:0;min-height:48px;border:1px solid #c5d5c9;border-radius:12px;background:#fff;display:flex;align-items:center;padding:11px 12px}
+#trainingContent .gt495-date-shell{position:relative;isolation:isolate;box-sizing:border-box;overflow:hidden;width:100%;max-width:100%;min-width:0;min-height:52px;border:1px solid #c5d7ca;border-radius:13px;background:#fff;display:flex;align-items:center;padding:14px 15px}
 #trainingContent .gt495-date-face{pointer-events:none;font-size:16px;color:#192b20;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #trainingContent .gt495-date-native{position:absolute;inset:0;width:100%!important;max-width:100%!important;min-width:0!important;height:100%;border:0!important;opacity:.015;z-index:2;padding:0!important;margin:0!important;cursor:pointer;-webkit-appearance:none;appearance:none}
 #trainingContent .gt495-date-native::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
@@ -6412,6 +6426,8 @@ function gt495SessionLayout(ctx){
  const pageHeader=root.querySelector('.page-heading');
  if(pageHeader){
   const h=pageHeader.querySelector('h1');if(h)h.textContent=mode==='edit'?'Edit Session':'New Session';
+  const icon=el('span',{class:'gt495-title-icon','aria-hidden':'true'},'◉');
+  const title=pageHeader.querySelector('h1');if(title){title.before(icon);title.classList.add('gt495-title')}
   const sub=el('p',{class:'gt495-subtitle'},mode==='edit'?'Update your session details.':'Log the work behind the game.');
   pageHeader.after(sub);
  }
