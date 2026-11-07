@@ -13,7 +13,7 @@ w.confirm=()=>true;w.fetch=async()=>{throw Error('Unexpected network request')};
 }});
 const w=dom.window,d=w.document,wait=()=>new Promise(r=>setTimeout(r,70));
 const run=code=>w.__qa.run(code);
-function input(name){return [...d.querySelectorAll('#trainingContent form.gt495-form input,#trainingContent form.gt495-form textarea,#trainingContent form.gt495-form select')].find(x=>x.getAttribute('aria-label')===name||x.closest('label')?.textContent.trim().startsWith(name))}
+function input(name){return [...d.querySelectorAll('#trainingContent form.gt495-form input,#trainingContent form.gt495-form textarea,#trainingContent form.gt495-form select')].find(x=>x.getAttribute('aria-label')===name||x.closest('label')?.textContent.trim().toLowerCase().startsWith(name.toLowerCase()))}
 function set(name,value){const x=input(name);assert(x,'Missing field '+name);x.value=value;x.dispatchEvent(new w.Event('input',{bubbles:true}));x.dispatchEvent(new w.Event('change',{bubbles:true}));return x}
 function save(){const b=d.querySelector('#trainingContent [data-save-session]');assert(b,'Save action missing');b.click()}
 function check(condition,message){assert(condition,message)}
