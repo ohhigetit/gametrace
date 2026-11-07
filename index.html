@@ -6291,6 +6291,54 @@ for(const b of document.querySelectorAll('.visual .action'))b.addEventListener('
  clear();b.classList.add('controller-selected');
  setTimeout(()=>{if(!sheet.open)clear()},0);
 },true);
+/* V46.9.5 — Session pages only; native saves, drafts and cloud sync remain authoritative. */
+// Hide legacy draft/preset shortcuts without deleting previously saved device data.
+const gt495PreviousTrainingRender=renderTraining;
+renderTraining=function(...args){
+ const result=gt495PreviousTrainingRender(...args);
+ $('trainingContent')?.querySelectorAll('.quick-log-panel').forEach(el=>el.remove());
+ return result;
+};
+const gt495OriginalEditor=buildSessionEditor;
+buildSessionEditor=function(opts){
+ gt495OriginalEditor(opts);
+ const root=$('trainingContent'),form=root?.querySelector('form.training-form');
+ if(!form||form.dataset.gt495)return;
+ form.dataset.gt495='true';form.classList.add('gt495-form');
+ const heading=root.querySelector(':scope>.page-heading');if(heading){heading.classList.add('gt495-header');const h=heading.querySelector('h1');if(h)h.textContent=opts.original&&!opts.repeat?'Edit Session':'New Session';}
+ const card=t=>el('section',{class:'gt495-card'},el('h2',{},t)),grid=()=>el('div',{class:'gt495-fields'});
+ const field=(input,label)=>{if(!input)return null;let l=input.closest('label');if(!l)l=el('label',{},input);l.classList.add('gt495-field');for(const n of [...l.childNodes])if(n.nodeType===3)n.remove();l.prepend(el('span',{},label));return l};
+ const fInput=t=>[...form.querySelectorAll('label')].find(l=>[...l.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().toLowerCase()===t.toLowerCase()))?.querySelector('input,select,textarea');
+ const p=card('Player Information'),pg=grid();pg.append(field(fInput('Player'),'Player Name *'));p.append(pg);
+ const info=card('Session Information'),ig=grid(),type=form.querySelector('select[aria-label="Session type"]'),custom=form.querySelector('input[aria-label="Custom Session Type"]');
+ ig.append(field(type,'Session Type *'));const cw=field(custom,'Custom Session Type *');ig.append(cw);cw.hidden=type.value!=='custom';type.addEventListener('change',()=>{cw.hidden=type.value!=='custom'});
+ ig.append(field(fInput('Session name'),'Session Name *'),field(form.querySelector('input[type=date]'),'Date *'));
+ const hours=form.querySelector('input[type=number][max="24"]'),minutes=form.querySelector('input[type=number][max="59"]'),dur=el('div',{class:'gt495-hours'});
+ dur.append(field(hours,'Hours'),field(minutes,'Minutes'));ig.append(dur,field(fInput('Coach / organization'),'Coach / Organization'),field(fInput('Location'),'Location'));info.append(ig);
+ const focus=card('Skills & Focus'),fg=grid(),chips=el('div',{class:'gt495-chips'});
+ const checks=[...form.querySelectorAll('.training-tags input[type=checkbox]')];const nativeCustom=[...form.querySelectorAll('input')].find(x=>x.closest('fieldset')?.querySelector('legend')?.textContent==='Skills worked on'&&x.type!=='checkbox');
+ const selections=()=>String(nativeCustom?.value||'').split(',').map(v=>v.trim()).filter(Boolean);
+ const known=new Map();checks.forEach(c=>{let n=c.getAttribute('aria-label')||c.closest('label')?.textContent.trim();if(n)known.set(n.toLowerCase(),{name:n,check:c})});
+ selections().forEach(n=>{if(!known.has(n.toLowerCase()))known.set(n.toLowerCase(),{name:n})});
+ const render=()=>{chips.replaceChildren();for(const entry of known.values()){const on=entry.check?entry.check.checked:selections().some(x=>x.toLowerCase()===entry.name.toLowerCase()),b=el('button',{class:'gt495-chip',type:'button','aria-pressed':String(on)},(on?'✓ ':'')+entry.name);
+ b.addEventListener('click',()=>{if(entry.check)entry.check.checked=!entry.check.checked;else nativeCustom.value=selections().filter(x=>x.toLowerCase()!==entry.name.toLowerCase()).join(', ');form.dispatchEvent(new Event('input',{bubbles:true}));render()});chips.append(b)}};render();
+ fg.append(el('span',{},'Skills Worked On'),chips,el('p',{},'Select all that apply.'));
+ const newSkill=el('input',{type:'text',maxlength:100,placeholder:'Type a skill and press Add','aria-label':'Custom Skills'}),add=button('＋ Add Skill',()=>{const n=newSkill.value.trim();if(!n)return;const k=n.toLowerCase(),match=known.get(k);if(match?.check)match.check.checked=true;else if(!selections().some(x=>x.toLowerCase()===k))nativeCustom.value=[...selections(),match?.name||n].join(', ');if(!match)known.set(k,{name:n});newSkill.value='';form.dispatchEvent(new Event('input',{bubbles:true}));render()},'gt495-chip',{type:'button'});
+ newSkill.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();add.click()}});fg.append(field(newSkill,'Custom Skills'),add);focus.append(fg);
+ const nativeReflection=form.querySelector('[data-training-feedback]'),reflection=card("Player's Feedback"),rg=grid();
+ const qs=[['What did I see?','What I Saw'],['How did I become more?','What I Became'],['What do I want to become more of?','What I Want to Become More']];
+ qs.forEach(([a,b])=>{const t=nativeReflection.querySelector('textarea[aria-label="'+a+'"]');if(t)rg.append(field(t,b))});
+ const additional=el('textarea',{rows:3,maxlength:3000,'aria-label':'Additional Feedback'});additional.value=opts.resume?.fields?.feedback?.additional||opts.original?.feedback?.additional||'';rg.append(field(additional,'Additional Feedback'));reflection.append(rg);
+ // Keep native form closures and all fields alive: detached inputs retain values and listeners.
+ const save=form.querySelector('[data-save-session]'),cancel=[...form.querySelectorAll('button')].find(b=>b.textContent.trim()==='Cancel'),actions=el('div',{class:'gt495-actions'});
+ if(!save||!cancel)throw Error('Session actions unavailable');
+ save.textContent=opts.original&&!opts.repeat?'Save Changes':'Log Session';save.classList.add('gt495-save');
+ actions.append(button('Cancel',()=>cancel.click(),'gt495-cancel',{type:'button'}),save);
+ const error=form.querySelector('.setup-error');
+ form.replaceChildren(...(error?[error]:[]),p,info,focus,reflection,actions);
+ // Native readFeedback serializes the additional response with both drafts and saved sessions.
+};
+
 })();
 </script><script>
 (()=>{
@@ -6424,52 +6472,6 @@ box.append(name,meta,actions);target.append(box)}
 function ensureLibrary(){const root=document.getElementById('settingsContent');if(!root||root.closest('[hidden]'))return;if(root.querySelector('#gtRecordingLibrary'))return;const block=document.createElement('section');block.id='gtRecordingLibrary';root.append(block);refreshLibrary()}
 const observer=new MutationObserver(()=>{if(document.getElementById('settingsView')?.hidden===false)queueMicrotask(ensureLibrary)});observer.observe(document.getElementById('settingsView'),{attributes:true,attributeFilter:['hidden']});observer.observe(document.getElementById('settingsContent'),{childList:true});ensureLibrary();
 window.addEventListener('pagehide',()=>{if(recording)return;stream?.getTracks().forEach(t=>t.stop());stream=null});
-/* V46.9.5 — Session pages only; native saves, drafts and cloud sync remain authoritative. */
-// Hide legacy draft/preset shortcuts without deleting previously saved device data.
-const gt495PreviousTrainingRender=renderTraining;
-renderTraining=function(...args){
- const result=gt495PreviousTrainingRender(...args);
- $('trainingContent')?.querySelectorAll('.quick-log-panel').forEach(el=>el.remove());
- return result;
-};
-const gt495OriginalEditor=buildSessionEditor;
-buildSessionEditor=function(opts){
- gt495OriginalEditor(opts);
- const root=$('trainingContent'),form=root?.querySelector('form.training-form');
- if(!form||form.dataset.gt495)return;
- form.dataset.gt495='true';form.classList.add('gt495-form');
- const heading=root.querySelector(':scope>.page-heading');if(heading){heading.classList.add('gt495-header');const h=heading.querySelector('h1');if(h)h.textContent=opts.original&&!opts.repeat?'Edit Session':'New Session';}
- const card=t=>el('section',{class:'gt495-card'},el('h2',{},t)),grid=()=>el('div',{class:'gt495-fields'});
- const field=(input,label)=>{if(!input)return null;let l=input.closest('label');if(!l)l=el('label',{},input);l.classList.add('gt495-field');for(const n of [...l.childNodes])if(n.nodeType===3)n.remove();l.prepend(el('span',{},label));return l};
- const fInput=t=>[...form.querySelectorAll('label')].find(l=>[...l.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().toLowerCase()===t.toLowerCase()))?.querySelector('input,select,textarea');
- const p=card('Player Information'),pg=grid();pg.append(field(fInput('Player'),'Player Name *'));p.append(pg);
- const info=card('Session Information'),ig=grid(),type=form.querySelector('select[aria-label="Session type"]'),custom=form.querySelector('input[aria-label="Custom Session Type"]');
- ig.append(field(type,'Session Type *'));const cw=field(custom,'Custom Session Type *');ig.append(cw);cw.hidden=type.value!=='custom';type.addEventListener('change',()=>{cw.hidden=type.value!=='custom'});
- ig.append(field(fInput('Session name'),'Session Name *'),field(form.querySelector('input[type=date]'),'Date *'));
- const hours=form.querySelector('input[type=number][max="24"]'),minutes=form.querySelector('input[type=number][max="59"]'),dur=el('div',{class:'gt495-hours'});
- dur.append(field(hours,'Hours'),field(minutes,'Minutes'));ig.append(dur,field(fInput('Coach / organization'),'Coach / Organization'),field(fInput('Location'),'Location'));info.append(ig);
- const focus=card('Skills & Focus'),fg=grid(),chips=el('div',{class:'gt495-chips'});
- const checks=[...form.querySelectorAll('.training-tags input[type=checkbox]')];const nativeCustom=[...form.querySelectorAll('input')].find(x=>x.closest('fieldset')?.querySelector('legend')?.textContent==='Skills worked on'&&x.type!=='checkbox');
- const selections=()=>String(nativeCustom?.value||'').split(',').map(v=>v.trim()).filter(Boolean);
- const known=new Map();checks.forEach(c=>{let n=c.getAttribute('aria-label')||c.closest('label')?.textContent.trim();if(n)known.set(n.toLowerCase(),{name:n,check:c})});
- selections().forEach(n=>{if(!known.has(n.toLowerCase()))known.set(n.toLowerCase(),{name:n})});
- const render=()=>{chips.replaceChildren();for(const entry of known.values()){const on=entry.check?entry.check.checked:selections().some(x=>x.toLowerCase()===entry.name.toLowerCase()),b=el('button',{class:'gt495-chip',type:'button','aria-pressed':String(on)},(on?'✓ ':'')+entry.name);
- b.addEventListener('click',()=>{if(entry.check)entry.check.checked=!entry.check.checked;else nativeCustom.value=selections().filter(x=>x.toLowerCase()!==entry.name.toLowerCase()).join(', ');form.dispatchEvent(new Event('input',{bubbles:true}));render()});chips.append(b)}};render();
- fg.append(el('span',{},'Skills Worked On'),chips,el('p',{},'Select all that apply.'));
- const newSkill=el('input',{type:'text',maxlength:100,placeholder:'Type a skill and press Add','aria-label':'Custom Skills'}),add=button('＋ Add Skill',()=>{const n=newSkill.value.trim();if(!n)return;const k=n.toLowerCase(),match=known.get(k);if(match?.check)match.check.checked=true;else if(!selections().some(x=>x.toLowerCase()===k))nativeCustom.value=[...selections(),match?.name||n].join(', ');if(!match)known.set(k,{name:n});newSkill.value='';form.dispatchEvent(new Event('input',{bubbles:true}));render()},'gt495-chip',{type:'button'});
- newSkill.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();add.click()}});fg.append(field(newSkill,'Custom Skills'),add);focus.append(fg);
- const nativeReflection=form.querySelector('[data-training-feedback]'),reflection=card("Player's Feedback"),rg=grid();
- const qs=[['What did I see?','What I Saw'],['How did I become more?','What I Became'],['What do I want to become more of?','What I Want to Become More']];
- qs.forEach(([a,b])=>{const t=nativeReflection.querySelector('textarea[aria-label="'+a+'"]');if(t)rg.append(field(t,b))});
- const additional=el('textarea',{rows:3,maxlength:3000,'aria-label':'Additional Feedback'});additional.value=opts.resume?.fields?.feedback?.additional||opts.original?.feedback?.additional||'';rg.append(field(additional,'Additional Feedback'));reflection.append(rg);
- // Keep native form closures and all fields alive: detached inputs retain values and listeners.
- const save=form.querySelector('[data-save-session]'),cancel=[...form.querySelectorAll('button')].find(b=>b.textContent.trim()==='Cancel'),actions=el('div',{class:'gt495-actions'});
- if(!save||!cancel)throw Error('Session actions unavailable');
- save.textContent=opts.original&&!opts.repeat?'Save Changes':'Log Session';save.classList.add('gt495-save');
- actions.append(button('Cancel',()=>cancel.click(),'gt495-cancel',{type:'button'}),save);
- const error=form.querySelector('.setup-error');
- form.replaceChildren(...(error?[error]:[]),p,info,focus,reflection,actions);
- // Native readFeedback serializes the additional response with both drafts and saved sessions.
-};
+
 })();
 </script></body></html>
