@@ -51,8 +51,14 @@ check(run('db.trainingSessions[0].feedback.additional')==='Confident and focused
 console.log('PASS Edit Session preserves IDs and feedback');
 run("navigate('training');trainingForm();");await wait();
 set('Session name','Unfinished practice');set('Player','Georgina');set('Hours','1');
-run("sessionUI.editor.flush()");check(run("readWork('drafts').some(d=>d.fields.name==='Unfinished practice')"),'Draft not stored');
-console.log('PASS local draft storage');
+check(!d.querySelector('#trainingContent [data-draft-status]'),'Draft status should not appear');
+check(![...d.querySelectorAll('#trainingContent button')].some(n=>/Save draft|Resume draft/i.test(n.textContent)),'Draft buttons still shown');
+const draftCount=run("readWork('drafts').length");
+const cancel=[...d.querySelectorAll('#trainingContent .gt495-actions button')].find(n=>n.textContent.trim()==='Cancel');
+check(cancel,'Cancel button missing');cancel.click();await wait();
+check(run("readWork('drafts').length")===draftCount,'Cancel should not write drafts');
+check(run('db.trainingSessions.length')===1,'Cancelled session must not be saved');
+console.log('PASS Cancel without draft saving or accidental completed records');
 check(errors.length===0,'Unexpected jsdom errors: '+errors.join('; '));
 console.log('PASS V46.9.5 targeted browser-model checks');
 dom.window.close();
