@@ -1644,6 +1644,497 @@ html[data-theme] #app.gt-app .gt45-footer{display:flex;gap:10px;padding:12px 16p
 html[data-theme] #app.gt-app .gt45-footer button{flex:1;min-height:44px;border-radius:11px;font-size:12px;font-weight:750;padding:9px}
 html[data-theme] #app.gt-app .gt45-reset{background:var(--gt-surface);border:1px solid var(--gt-edge);color:var(--gt-ink)}
 html[data-theme] #app.gt-app .gt45-done{background:var(--gt-ink);border:1px solid var(--gt-ink);color:var(--gt-bg)}
+</style><style data-gt="GT4694_CSS">/* Scope V46.9.4 to Game setup; other V46.8 pages remain unchanged. */
+#setupContent .gt4694-final{display:flex;flex-direction:column;gap:16px;min-width:0;margin-top:16px}
+#setupContent .gt4694-card{display:block;min-width:0;margin:0!important;padding:16px!important;background:#edf5ef!important;border:1px solid #d1ded4!important;border-radius:18px!important;box-sizing:border-box}
+#setupContent .gt4694-card>legend{float:left;width:100%;display:block;margin:0 0 16px!important;padding:0!important;font-size:19px;font-weight:750;color:#1b3021;line-height:1.3}
+#setupContent .gt4694-card>legend+*{clear:both}
+#setupContent .gt4694-final label{min-width:0;max-width:100%;font-size:13px;font-weight:650;line-height:1.4;color:#4a614f}
+#setupContent .gt4694-final input,#setupContent .gt4694-final select,#setupContent .gt4694-final textarea{box-sizing:border-box;max-width:100%;min-width:0;width:100%;min-height:44px;margin-top:7px;border:1px solid #c6d8ca;border-radius:11px;background:white;padding:9px 10px;font-size:16px;color:#152a1c}
+#setupContent .gt4694-final textarea{resize:vertical;min-height:85px}
+#setupContent .gt4694-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;min-width:0}
+#setupContent .gt4694-player{grid-template-columns:minmax(0,3fr) minmax(75px,1fr)}
+#setupContent .gt4694-info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 12px;min-width:0}
+#setupContent .gt4694-datetime{grid-column:1/-1;gap:14px;min-width:0}
+#setupContent .gt4694-datetime input[type=date],#setupContent .gt4694-datetime input[type=time]{min-width:0;width:100%;max-width:100%;font-size:16px}
+#setupContent .gt4694-score{margin:12px 0}
+#setupContent .gt4694-game-status,#setupContent .gt4694-outcome{margin:4px 0 12px;color:#436149;font-size:14px}
+#setupContent .gt4694-expand{margin:10px 0;border:1px solid #ccdccf;border-radius:12px;background:white;overflow:hidden}
+#setupContent .gt4694-expand>summary{padding:15px;font-size:15px;font-weight:700;cursor:pointer}
+#setupContent .gt4694-event-body{padding:0 12px 12px;display:grid;gap:7px}
+#setupContent .gt4694-event-row{display:flex;justify-content:space-between;gap:8px;align-items:center;min-width:0;padding:10px 4px;text-align:left;background:transparent;border:0;border-bottom:1px solid #e1eae3;color:#1e3525}
+#setupContent .gt4694-event-row span:first-child{display:flex;flex-direction:column;min-width:0}
+#setupContent .gt4694-event-row small{font-size:12px;color:#627765}
+#setupContent .gt4694-event-row span:last-child{flex-shrink:0;color:#326b46}
+#setupContent .gt4694-add-event{padding:12px;background:#ecf5ee;border:1px solid #c8dccc;border-radius:10px;font-weight:700;color:#255e3b}
+#setupContent .gt4694-muted{font-size:13px;color:#67786a}
+#setupContent .gt4694-final .ng-form-footer{order:90}
+#setupContent .gt4694-brand{border-top:1px solid #d7e1da;margin:24px 0 16px;padding:24px 8px 4px;text-align:center;color:#3b5846}
+#setupContent .gt4694-brand p{font-weight:650;line-height:1.6;margin:0 0 12px}
+#setupContent .gt4694-brand nav{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+#setupContent .gt4694-brand .gt4694-footer-link{background:transparent;border:0;padding:8px 2px;text-decoration:underline;font-size:13px;color:#326a47}
+#setupContent .gt4694-locked-header{margin-bottom:3px}
+#setupContent .gt4694-final .gt-feedback{order:5}
+@media(max-width:350px){#setupContent .gt4694-info{grid-template-columns:1fr}#setupContent .gt4694-datetime{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+#setupContent .gt4694-event-line{display:flex;align-items:center;gap:6px;border-bottom:1px solid #e4ede5}
+#setupContent .gt4694-event-line .gt4694-event-row{flex:1 1 auto;min-width:0;border-bottom:0}
+#setupContent .gt4694-row-controls{display:flex;flex:0 0 auto;gap:3px}
+#setupContent .gt4694-row-controls .gt4694-move{min-height:38px;min-width:35px;border:1px solid #d0dfd3;border-radius:8px;background:#f6faf6;font-size:18px;color:#376a4b}
+#setupContent .gt4694-row-controls .gt4694-move:disabled{opacity:.3}
+</style>
+<style data-gt="PATCH_CSS">/* V46 approved design: scoped to Games only; other V45 pages remain unchanged. */
+#homeContent{--gt46-ink:#243128;--gt46-muted:#6b7770;--gt46-line:#dbe2dd;--gt46-surface:#f8faf8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-text-size-adjust:100%;color:var(--gt46-ink)}
+#homeContent .gt46-approved-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+#homeContent .gt46-approved-header h1{font-size:24px;line-height:1.15;letter-spacing:-.5px;margin:0;font-weight:850}
+#homeContent .gt46-approved-header p{font-size:11px;line-height:1.5;color:var(--gt46-muted);margin:5px 0 0}
+#homeContent .gt46-approved-banner{background:linear-gradient(135deg,#f3f7f4,#e6efe8);border:1px solid #cedbd2;border-radius:18px;padding:16px;margin:19px 0 22px;color:#202b25}
+#homeContent .gt46-approved-banhead{display:flex;align-items:start;justify-content:space-between;gap:8px}
+#homeContent .gt46-approved-banhead h2{font-size:19px;line-height:1.2;letter-spacing:-.4px;margin:0;font-weight:800}
+#homeContent .gt46-approved-banhead p{font-size:10px;line-height:1.5;margin:5px 0 0;color:#66756a}
+#homeContent .gt46-approved-pill{border:1px solid #bfd1c3;background:#e1eee4;border-radius:7px;padding:5px 9px;font-size:10px;font-weight:850;white-space:nowrap}
+#homeContent .gt46-approved-pill.loss{background:#f2e7e7;border-color:#e0caca;color:#8a4747}
+#homeContent .gt46-approved-match{font-size:12px;font-weight:760;line-height:1.45;margin-top:17px}
+#homeContent .gt46-approved-meta{font-size:10px;color:#68776d;margin-top:4px}
+#homeContent .gt46-approved-score{font-size:clamp(37px,10vw,54px);line-height:1.15;letter-spacing:-1.8px;font-weight:850;margin:8px 0 13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+#homeContent .gt46-approved-figures{border-top:1px solid #cad4cd;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding-top:14px;gap:10px}
+#homeContent .gt46-approved-figures>div+div{border-left:1px solid #cad4cd;padding-left:13px}
+#homeContent .gt46-approved-figures strong{display:block;font-size:26px;font-weight:850;line-height:1.1}
+#homeContent .gt46-approved-figures small{display:block;margin-top:5px;font-size:9px;letter-spacing:.5px;font-weight:800;color:#68776d}
+#homeContent .gt46-approved-banneraction{display:flex;justify-content:space-between;align-items:center;width:100%;margin:13px 0 0;padding:12px 0 0;min-height:46px;border:0;border-top:1px solid #cad4cd;background:transparent;text-align:left;font-size:12px;font-weight:800;color:inherit}
+#homeContent .gt46-approved-recent{border-top:1px solid var(--gt46-line);padding-top:20px;margin-top:20px}
+#homeContent .gt46-approved-recenthead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px}
+#homeContent .gt46-approved-recenthead h2{font-size:19px;line-height:1.2;font-weight:800;margin:0}
+#homeContent .gt46-approved-recenthead p{font-size:11px;color:var(--gt46-muted);line-height:1.5;margin:5px 0 11px}
+#homeContent .gt46-approved-filter{background:transparent;border:0;color:inherit;font-size:12px;font-weight:750;min-height:44px;padding:8px 0 8px 8px;white-space:nowrap}
+#homeContent .gt46-approved-row{display:flex;align-items:center;gap:11px;min-height:95px;padding:10px 0;border:0;border-bottom:1px solid var(--gt46-line);background:transparent;text-align:left;width:100%;color:inherit}
+#homeContent .gt46-approved-ball{width:60px;height:68px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--gt46-surface);border:1px solid var(--gt46-line);border-radius:11px}
+#homeContent .gt46-approved-ball svg{width:31px;height:31px;stroke:currentColor;stroke-width:1.7;fill:none}
+#homeContent .gt46-approved-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+#homeContent .gt46-approved-copy strong{font-size:13px;font-weight:750;line-height:1.35;overflow-wrap:anywhere}
+#homeContent .gt46-approved-copy span{font-size:11px;line-height:1.4}
+#homeContent .gt46-approved-copy small{font-size:10px;line-height:1.4;color:var(--gt46-muted)}
+#homeContent .gt46-approved-result{border:1px solid var(--gt46-line);padding:5px 8px;border-radius:6px;font-size:11px;font-weight:850}
+#homeContent .gt46-approved-arrow{font-size:22px;color:var(--gt46-muted)}
+#homeContent .gt46-approved-empty{font-size:12px;line-height:1.5;color:var(--gt46-muted);padding:15px 0}
+/* Approved Scoreboard-style sheet: one expanded Filter Games accordion, all fields visible. */
+.gt46-approved-overlay{position:fixed;inset:0;background:rgba(24,37,29,.75);display:flex;align-items:flex-end;justify-content:center;z-index:99999}
+.gt46-approved-sheet{width:min(100%,620px);max-height:88dvh;border-radius:23px 23px 0 0;display:flex;flex-direction:column;background:#fbfcfb;color:#243128;overflow:hidden;box-shadow:0 -10px 50px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.gt46-approved-handle{width:38px;height:4px;flex-shrink:0;background:#cad6cc;border-radius:6px;margin:10px auto 5px}
+.gt46-approved-modal-heading{padding:10px 18px 13px;border-bottom:1px solid #dce4de;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.gt46-approved-modal-heading h2{font-size:17px;font-weight:800;margin:0}
+.gt46-approved-modal-heading button{background:transparent;border:0;font-size:11px;font-weight:750;padding:9px;color:#43584a;min-height:44px}
+.gt46-approved-modal-body{overflow-y:auto;overscroll-behavior:contain;min-height:0;flex:1;padding:13px 16px 25px}
+.gt46-approved-fine{color:#65746b;font-size:11px;line-height:1.5;margin:0 0 14px}
+.gt46-approved-accordion{background:#fff;border:1px solid #dce4de;border-radius:14px;overflow:hidden;margin-bottom:11px}
+.gt46-approved-accordion>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;list-style:none;padding:15px;font-size:13px;font-weight:800;cursor:pointer;min-height:49px}
+.gt46-approved-accordion>summary::-webkit-details-marker{display:none}
+.gt46-approved-hint{font-size:10px;color:#65746b;font-weight:500}
+.gt46-approved-fields{border-top:1px solid #dce4de;padding:13px}
+.gt46-approved-field{border-bottom:1px solid #edf0ed;padding:11px 0}
+.gt46-approved-field:last-child{border-bottom:0}
+.gt46-approved-fieldhead{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:12px;font-weight:750;margin-bottom:8px}
+.gt46-approved-fieldhead span{font-size:10px;font-weight:500;color:#65746b;text-align:right}
+.gt46-approved-chips{display:flex;flex-wrap:wrap;gap:7px}
+.gt46-approved-chip{border:1px solid #d0dad2;background:white;border-radius:10px;color:#38433b;font-size:11px;min-height:44px;padding:10px 11px;font-weight:650}
+.gt46-approved-chip.selected{background:#e5f3e8;border-color:#448563;color:#205938}
+.gt46-approved-chip.selected:before{content:'✓ ';font-weight:900}
+.gt46-approved-specificrow{display:flex;align-items:center;gap:10px;min-height:62px;border:1px solid #e1e7e2;border-radius:10px;padding:10px;margin:7px 0;background:white;font-size:11px}
+.gt46-approved-specificrow:has(input:checked){border-color:#5a936e;background:#f2faf3}
+.gt46-approved-specificrow input{width:19px;height:19px;accent-color:#33744c;flex-shrink:0}
+.gt46-approved-specificrow span{display:block;min-width:0;line-height:1.4}
+.gt46-approved-specificrow small{display:block;color:#65746b;font-size:10px;margin-top:3px}
+.gt46-approved-search{display:block;width:100%;border:1px solid #dce4de;border-radius:9px;padding:11px;font-size:16px;margin:10px 0;background:white;color:#202326}
+.gt46-approved-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.gt46-approved-dates label{min-width:0;font-size:11px;font-weight:650;color:#65746b}
+.gt46-approved-dates input{width:100%;min-width:0;display:block;border:1px solid #dce4de;border-radius:8px;padding:10px;margin-top:4px;font-size:16px}
+.gt46-approved-modal-footer{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #dce4de;flex-shrink:0}
+.gt46-approved-modal-footer button{min-height:46px;border-radius:11px;padding:11px;font-size:12px;font-weight:800;background:#fff;color:#34483a;border:1px solid #cad5cd}
+.gt46-approved-modal-footer button:last-child{background:#26342b;color:#fff;border-color:#26342b}
+/* Approved Home Court V45: only calendar badge fix and approved system typography. */
+html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date{width:62px!important;min-width:62px!important;height:76px!important;min-height:76px!important;display:grid!important;grid-template-rows:14px 32px 14px!important;align-content:center!important;justify-items:center!important;gap:1px!important;padding:5px 2px!important;box-sizing:border-box!important;overflow:hidden!important}
+html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date small{position:static!important;font-size:10px!important;line-height:14px!important;margin:0!important;padding:0!important;letter-spacing:.5px!important;height:auto!important;display:block!important}
+html[data-theme] #app.gt-app #courtContent .hc45-row .hc45-badge.hc45-date strong{position:static!important;font-size:27px!important;line-height:32px!important;margin:0!important;padding:0!important;font-weight:850!important;height:auto!important;display:block!important}
+@media(max-width:350px){#homeContent .gt46-approved-ball{width:54px;height:64px}#homeContent .gt46-approved-row{gap:8px}#homeContent .gt46-approved-result{padding:4px 5px}}
+@media(min-width:700px){.gt46-approved-overlay{align-items:center}.gt46-approved-sheet{border-radius:22px;max-height:85dvh}}
+
+/* Keep the approved system font throughout V45 without changing screen-specific scales. */
+html[data-theme] #app.gt-app{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
+</style>
+<style data-gt="BANNER_CSS">
+/* GameTrace V46.1 — approved banner-only typography standard.
+   V46 Home Court + Games design and all underlying functionality remain unchanged.
+   Scoreboard "In Action" is the reference: title 20/700, subtitle 13/400,
+   primary 22/700, secondary 16/600, label 12/500,
+   status 12/600, details 12/400. Only type properties; no grid/layout changes. */
+html[data-theme] #app.gt-app{
+  --gt-banner-title-size:20px;
+  --gt-banner-subtitle-size:13px;
+  --gt-banner-primary-size:22px;
+  --gt-banner-secondary-size:16px;
+  --gt-banner-label-size:12px;
+  --gt-banner-detail-size:12px;
+}
+/* Common banner headings. No page-title or control changes. */
+html[data-theme] #app.gt-app :is(
+  .scoreboard-banner-heading h2,
+  #courtContent .hc45-bannerhead h2,
+  #homeContent .gt46-approved-banhead h2,
+  #homeContent .gt46-approved-banner h2,
+  #homeContent .v42-banner-heading h2,
+  .v42-current-banner .v42-banner-heading h2,
+  .v42-performance > h2,
+  .report-performance > h2,
+  .training-hero h2,
+  .v44-banner-head h2,
+  .trophy-cabinet-hero h2,
+  .review-work-banner > h2,
+  .review-work-banner .review-section-title,
+  .reports-summary-heading h2
+){font-size:var(--gt-banner-title-size)!important;font-weight:700!important;line-height:1.25!important;letter-spacing:normal!important}
+/* Descriptive subtitles. */
+html[data-theme] #app.gt-app :is(
+  #courtContent .hc45-bannerhead p,
+  #homeContent .gt46-approved-banhead p,
+  #homeContent .gt46-approved-banner p,
+  .v44-banner-subtitle,
+  .training-hero > div > p,
+  .trophy-cabinet-hero p,
+  .review-work-banner > p
+){font-size:var(--gt-banner-subtitle-size)!important;font-weight:400!important;line-height:1.45!important}
+/* Primary numbers: keep deliberately oversized game scores and Live scoring legible. */
+html[data-theme] #app.gt-app :is(
+ .scoreboard-banner-metrics strong,
+ #courtContent .hc45-tile .hc45-number,
+ #homeContent .gt46-approved-figures strong,
+ .v44-banner-big,
+ .reports-summary-card .reports-summary-value
+){font-size:var(--gt-banner-primary-size)!important;font-weight:700!important;line-height:1.2!important}
+/* Secondary numerical information. */
+html[data-theme] #app.gt-app :is(
+ #courtContent .hc45-sidemetrics strong,
+ #courtContent .hc45-goalcounts strong,
+ #homeContent .gt46-approved-scoremini,
+ .v44-banner-details strong,
+ .training-hero .training-streak strong,
+ .review-work-banner .review-work-total strong
+){font-size:var(--gt-banner-secondary-size)!important;font-weight:600!important;line-height:1.3!important}
+/* Labels and eyebrows in banners; don't touch labels outside of banners. */
+html[data-theme] #app.gt-app :is(
+ .scoreboard-banner-metrics small,
+ #courtContent .hc45-banner .hc45-label,
+ #homeContent .gt46-approved-hero .gt46-approved-label,
+ #homeContent .gt46-approved-hero .gt46-approved-eyebrow,
+ .v44-banner .v44-kicker,
+ .training-hero .training-kicker,
+ .v42-current-banner .v42-banner-label,
+ .report-performance .report-stat > span,
+ .review-work-banner .review-work-label
+){font-size:var(--gt-banner-label-size)!important;font-weight:500!important;line-height:1.3!important;letter-spacing:normal!important}
+/* Status text is emphasized, but not enlarged. */
+html[data-theme] #app.gt-app :is(
+ .v42-current-banner .review-status,
+ #homeContent .gt46-approved-pill,
+ #courtContent .hc45-banner .hc45-status,
+ .review-work-banner .review-status
+){font-size:12px!important;font-weight:600!important;line-height:1.3!important}
+/* Supporting details. Preserve content and display behavior. */
+html[data-theme] #app.gt-app :is(
+ #courtContent .hc45-mainmetric > small,
+ #courtContent .hc45-tile > small,
+ #courtContent .hc45-focus > small,
+ #homeContent .gt46-approved-meta,
+ .v44-banner-note,
+ .trophy-cabinet-hero small,
+ .review-work-banner small
+){font-size:var(--gt-banner-detail-size)!important;font-weight:400!important;line-height:1.4!important}
+/* Live-game display is intentionally NOT normalized: its score and ergonomics
+   take precedence over visual consistency. */
+</style>
+<style data-gt="SECTION_CSS">/* GameTrace V46.2 Section List design — Home Court Coming Up is the ONLY
+ baseline. The same DOM structure + classes render Calendar and Activity. */
+html[data-theme] #app.gt-app{
+ --gt462-sl-leading:62px;--gt462-sl-height:76px;--gt462-sl-gap:12px;
+ --gt462-sl-edge:#dbe2dd;--gt462-sl-muted:#6b7770;
+}
+html[data-theme] #app.gt-app .gt462-sl-section{min-width:0}
+html[data-theme] #app.gt-app .gt462-sl-header{
+ display:flex;gap:12px;justify-content:space-between;align-items:center;
+ min-width:0;margin:0 0 10px;padding:0;
+}
+html[data-theme] #app.gt-app .gt462-sl-header-copy{min-width:0;flex:1 1 auto}
+html[data-theme] #app.gt-app .gt462-sl-header h2{
+ margin:0!important;font-size:20px!important;line-height:1.25!important;
+ font-weight:700!important;letter-spacing:normal!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-header p{
+ margin:4px 0 0!important;font-size:13px!important;line-height:1.45!important;
+ font-weight:400!important;color:var(--gt462-sl-muted)!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-header>button,
+html[data-theme] #app.gt-app .gt462-sl-header>details{
+ flex:0 0 auto;max-width:45%;align-self:center;
+}
+html[data-theme] #app.gt-app .gt462-sl-header>button{
+ font-size:14px!important;font-weight:700!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row{
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ gap:var(--gt462-sl-gap)!important;width:100%!important;min-width:0!important;
+ min-height:100px!important;height:auto!important;text-align:left!important;
+ padding:12px 0!important;margin:0!important;border:0!important;
+ border-bottom:1px solid var(--gt462-sl-edge)!important;border-radius:0!important;
+ background:transparent!important;box-shadow:none!important;overflow:visible!important;
+ font-family:inherit!important;cursor:pointer;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-visual{
+ box-sizing:border-box!important;flex:0 0 var(--gt462-sl-leading)!important;
+ width:var(--gt462-sl-leading)!important;min-width:var(--gt462-sl-leading)!important;
+ height:var(--gt462-sl-height)!important;min-height:var(--gt462-sl-height)!important;
+ padding:4px 2px!important;border-radius:15px!important;
+ border:1px solid var(--gt462-sl-edge)!important;background:var(--gt-surface,#fff)!important;
+ box-shadow:none!important;overflow:hidden!important;color:var(--gt-ink,#202326)!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-date{
+ display:grid!important;grid-template-rows:14px 32px 14px!important;
+ align-content:center!important;justify-items:center!important;gap:1px!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-date small{
+ font-size:10px!important;line-height:14px!important;font-weight:800!important;
+ letter-spacing:.5px!important;text-transform:uppercase!important;margin:0!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-date strong{
+ font-size:27px!important;line-height:32px!important;font-weight:800!important;margin:0!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-activity{
+ display:flex!important;justify-content:center!important;align-items:center!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-icon{
+ font-size:28px!important;line-height:1!important;font-weight:600!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-copy{
+ display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
+ gap:2px!important;min-width:0!important;overflow-wrap:anywhere!important;
+ text-align:left!important;align-items:flex-start!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-primary{
+ display:block!important;font-size:15px!important;line-height:1.3!important;
+ font-weight:700!important;letter-spacing:normal!important;color:var(--gt-ink,#202326)!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-secondary{
+ display:block!important;font-size:13px!important;line-height:1.45!important;
+ font-weight:600!important;letter-spacing:normal!important;color:var(--gt-ink,#202326)!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-tertiary{
+ display:block!important;font-size:13px!important;line-height:1.4!important;
+ font-weight:500!important;letter-spacing:normal!important;color:var(--gt462-sl-muted)!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-extra{
+ flex:0 0 auto;max-width:38px;font-size:12px;font-weight:700;
+}
+html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-chevron{
+ flex:0 0 18px!important;width:18px!important;max-width:18px!important;
+ margin-left:auto!important;text-align:right!important;
+ color:var(--gt462-sl-muted)!important;font-size:20px!important;line-height:1!important;
+}
+html[data-theme] #app.gt-app .gt462-sl-schedule-header .gt462-sl-header{margin:0}
+@media(max-width:350px){html[data-theme] #app.gt-app{
+ --gt462-sl-leading:58px;--gt462-sl-height:74px;--gt462-sl-gap:9px;
+}html[data-theme] #app.gt-app .gt462-sl-row .gt462-sl-extra{max-width:24px}}
+</style>
+<style data-gt="HEADER_CSS">/* GameTrace V46.4 — Option A shared PageHeader: Scoreboard typography baseline. */
+html[data-theme] #app.gt-app .content>.gt464-page-header,
+html[data-theme] #app.app.gt-app .content>.gt464-page-header{
+ display:flex!important;align-items:flex-start!important;gap:8px!important;
+ margin:0 0 18px!important;min-width:0!important;flex-wrap:nowrap!important;
+}
+html[data-theme] #app.gt-app .gt464-page-header>.page-back{
+ flex:0 0 44px!important;margin-top:0!important;align-self:flex-start!important;
+}
+html[data-theme] #app.gt-app .gt464-title-box{
+ flex:1 1 auto!important;min-width:0!important;display:flex!important;
+ flex-direction:column!important;gap:5px!important;
+}
+html[data-theme] #app.gt-app .gt464-title-line{
+ display:flex!important;align-items:center!important;min-width:0!important;gap:8px!important;
+}
+html[data-theme] #app.gt-app .gt464-page-icon,
+html[data-theme] #app.gt-app .gt464-title-line>[data-page-icon]{
+ flex:0 0 26px!important;width:26px!important;height:26px!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+}
+html[data-theme] #app.gt-app .gt464-page-icon svg{width:100%!important;height:100%!important;}
+html[data-theme] #app.gt-app .gt464-page-header .gt464-title-line h1{
+ margin:0!important;font-size:28px!important;line-height:1.16!important;
+ font-weight:700!important;letter-spacing:-.7px!important;
+ overflow-wrap:anywhere!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app .gt464-page-header .gt464-page-subtitle{
+ margin:0!important;padding:0!important;font-size:15px!important;
+ line-height:21px!important;font-weight:500!important;letter-spacing:0!important;
+ text-transform:none!important;color:var(--gt-muted)!important;
+ overflow-wrap:anywhere!important;
+}
+html[data-theme] #app.gt-app .gt464-page-header>.gt-header-action,
+html[data-theme] #app.gt-app .gt464-page-header>[data-header-action],
+html[data-theme] #app.gt-app .gt464-page-header>button:not(.page-back){
+ flex:0 0 auto!important;align-self:flex-start!important;
+}
+@media(max-width:380px){
+ html[data-theme] #app.gt-app .gt464-page-header .gt464-title-line h1{font-size:25px!important;}
+ html[data-theme] #app.gt-app .gt464-page-header .gt464-page-subtitle{font-size:15px!important;}
+}
+
+html[data-theme] #app.gt-app .gt464-title-box>.gt464-page-subtitle{padding-left:0!important;}
+</style>
+<style data-gt="CTA_CSS">/* GameTrace V46.5: shared full-width PageCTA */
+html[data-theme] #app.gt-app .gt465-page-cta{
+ display:flex!important;align-items:stretch;gap:10px;width:100%;max-width:100%;
+ margin:16px 0!important;padding:0!important;box-sizing:border-box;
+}
+html[data-theme] #app.gt-app .gt465-page-cta>.gt465-cta-button{
+ flex:1 1 0;min-width:0;min-height:48px;width:auto!important;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ white-space:normal;line-height:1.2;box-sizing:border-box;
+}
+html[data-theme] #app.gt-app .gt465-header-edit{
+ margin-left:auto;min-height:44px;min-width:44px;padding:0 12px;
+ align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;
+ font-size:14px;font-weight:650;white-space:nowrap;
+}
+html[data-theme] #app.gt-app .gt464-page-header>.gt465-header-edit{margin-left:auto}
+
+/* V46.5 quiet neutral CTA: matches established banner surface and respects themes. */
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-button{
+  height:48px!important;min-height:48px!important;max-height:none!important;
+  padding:10px 12px!important;border-radius:12px!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif!important;
+  font-size:15px!important;font-weight:600!important;line-height:20px!important;
+  letter-spacing:normal!important;box-shadow:none!important;text-transform:none!important;
+  gap:8px!important;transition:background-color .15s ease,border-color .15s ease,transform .12s ease!important;
+}
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-primary{
+  color:var(--gt-ink,#243128)!important;background:var(--gt-banner-fill,#f3f7f4)!important;
+  border:1px solid var(--gt-edge,#dbe2dd)!important;
+}
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-secondary{
+  color:var(--gt-ink,#243128)!important;background:var(--gt-surface,#ffffff)!important;
+  border:1px solid var(--gt-edge,#dbe2dd)!important;
+}
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-primary:active{
+  filter:brightness(.97);transform:scale(.99);
+}
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-secondary:active{
+  filter:brightness(.97);transform:scale(.99);
+}
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-button:focus-visible{
+  outline:2px solid var(--gt-accent,#44775a)!important;outline-offset:2px!important;
+}
+html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-button:disabled{
+  opacity:.48!important;cursor:not-allowed!important;
+}
+html[data-theme] #app.gt-app .gt465-page-cta .menu-icon,
+html[data-theme] #app.gt-app .gt465-page-cta .menu-icon svg{
+  display:inline-block!important;width:18px!important;height:18px!important;
+  flex-shrink:0;stroke:currentColor!important;
+}
+html[data-theme] #app.gt-app .gt465-page-cta .gt465-cta-label{
+  color:inherit!important;font-size:inherit!important;font-weight:inherit!important;
+}
+@media (prefers-reduced-motion:reduce){
+ html[data-theme] #app.gt-app .gt465-page-cta > .gt465-cta-button{transition:none!important}
+}
+</style>
+<style data-gt="FILTER_CSS">/* GameTrace V46.7 — Scoreboard-inspired shared filter modal */
+.gt467-trigger{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;min-height:44px;flex:0 0 auto;padding:8px 12px;border:1px solid #d9dfd9;border-radius:10px;background:#f5f7f5;color:#263b30;font:600 13px/1.3 -apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;white-space:nowrap}
+.gt467-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:flex-end;justify-content:center;background:rgba(13,27,21,.43);padding-top:env(safe-area-inset-top)}
+.gt467-sheet{width:min(100%,650px);max-height:min(90dvh,880px);display:flex;flex-direction:column;background:#f9fbf9;color:#20382c;border-radius:24px 24px 0 0;box-shadow:0 -14px 50px rgba(12,30,18,.22);outline:0;overflow:hidden}
+.gt467-handle{height:5px;width:42px;background:#d6ded7;border-radius:99px;margin:10px auto 4px;flex:0 0 auto}
+.gt467-modal-header{padding:12px 20px 16px;border-bottom:1px solid #e4e9e4;flex:0 0 auto}
+.gt467-modal-header h2{font:700 20px/1.3 -apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;margin:0;color:#1e3528}
+.gt467-modal-body{padding:12px 16px 18px;overflow:auto;overscroll-behavior:contain;min-height:0;flex:1}
+.gt467-group{margin-bottom:12px;border:1px solid #dde5de;border-radius:12px;background:white;overflow:hidden}
+.gt467-group summary{padding:15px;min-height:48px;display:flex;align-items:center;justify-content:space-between;font-size:15px;cursor:pointer;list-style:none}
+.gt467-group summary::-webkit-details-marker{display:none}.gt467-group summary>span{font-size:18px;color:#617366}.gt467-group[open] summary>span{transform:rotate(180deg)}
+.gt467-group-body{padding:4px 14px 16px;border-top:1px solid #edf0ed}.gt467-field{padding:12px 0}.gt467-field+.gt467-field{border-top:1px solid #edf1ee}.gt467-field-label{display:block;font-size:13px;font-weight:650;margin-bottom:11px}
+.gt467-options{display:flex;flex-wrap:wrap;gap:8px}.gt467-choice{font:500 13px/1.3 -apple-system,sans-serif;min-height:42px;border-radius:10px;padding:9px 12px;border:1px solid #d6dfd8;background:#f9fbf9;color:#34483a}
+.gt467-choice.selected{background:#eaf5eb;border-color:#85b593;color:#246538;font-weight:650}
+.gt467-game-picks{display:flex;flex-direction:column;gap:6px;margin-top:10px;max-height:180px;overflow:auto}.gt467-game-picks label{display:flex;align-items:center;gap:10px;min-height:42px;font-size:13px}
+.gt467-date-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gt467-date-pair label{font-size:12px;display:flex;flex-direction:column;gap:5px}.gt467-date-pair input{max-width:100%;min-height:42px;border:1px solid #ccd7ce;border-radius:9px;padding:6px;font-size:14px}
+.gt467-modal-footer{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e4eae5;flex:0 0 auto}
+.gt467-modal-footer button{min-height:48px;border-radius:12px;font:600 15px/1.2 -apple-system,sans-serif}.gt467-reset{background:#fff;color:#425649;border:1px solid #ccd8ce}.gt467-done{background:#e4f0e5;color:#216239;border:1px solid #a2c5aa}
+.gt467-modal-body :is(button,input):focus-visible,.gt467-trigger:focus-visible{outline:2px solid #257347;outline-offset:2px}
+/* Ensure legacy filters and rows hidden by the shared filter logic do not retain layout space. */
+#homeContent [hidden],#reportsContent [hidden],#scheduleContent [hidden],#trainingContent [hidden],#notebookContent [hidden],#trophiesContent [hidden]{display:none!important}
+
+/* V46.8.1 — shared compact filter icon; no competing legacy control */
+html[data-theme] #app.gt-app .gt468-icon-trigger{position:relative;flex:0 0 44px;width:44px!important;height:44px;min-height:44px;padding:10px!important;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation}
+html[data-theme] #app.gt-app .gt468-icon-trigger svg{width:23px;height:23px;display:block;pointer-events:none}
+.gt468-filter-active{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:#e47938;border:1px solid #fff;pointer-events:none}
+</style>
+<style data-gt="COURT_CSS">/* V46.8.3 — scoped Home Court responsive stabilization. */
+#courtContent.gt4683-court-stable{min-width:0;max-width:100%;overflow-x:clip}
+#courtContent.gt4683-court-stable .gt464-page-header,
+#courtContent.gt4683-court-stable .gt465-page-cta,
+#courtContent.gt4683-court-stable [data-court-section],
+#courtContent.gt4683-court-stable .gt462-sl-section{min-width:0;max-width:100%;box-sizing:border-box}
+#courtContent.gt4683-court-stable [data-court-section] .gt462-sl-row,
+#courtContent.gt4683-court-stable .gt462-sl-row{min-width:0;max-width:100%}
+#courtContent.gt4683-court-stable .gt464-page-header h1{min-width:0;overflow-wrap:anywhere}
+@media(max-width:430px){
+ #courtContent.gt4683-court-stable .gt464-page-header{max-width:100%}
+ #courtContent.gt4683-court-stable .gt465-page-cta{max-width:100%}
+}
+</style>
+<style data-gt="LIVE_BANNER_CSS">/* Banner parent tokens: shared across Home Court and Games. */
+.gt4684-banner{box-sizing:border-box;width:100%;min-width:0;padding:22px 20px;border:1px solid #cdded2;border-radius:20px;background:#edf5f0;color:#1b2721;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif}
+.gt4684-banner-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.gt4684-banner-head h2{margin:0 0 5px;font-size:25px;line-height:1.12;letter-spacing:-.035em;font-weight:800}
+.gt4684-banner-head p{margin:0 0 20px;color:#6b7d72;font-size:15px}
+.gt4684-status{white-space:nowrap;flex-shrink:0;padding:7px 11px;border:1px solid #b9d4c4;border-radius:9px;background:#dfeee4;color:#20352a;font-size:12px;font-weight:750}
+.gt4684-status-not-started{background:#edf0e8;color:#59675f;border-color:#ccd4ca}
+.gt4684-status-paused{background:#fff4dc;color:#75551c;border-color:#ecd49a}
+.gt4684-match{font-size:16px;font-weight:750;line-height:1.35;margin:3px 0 5px;overflow-wrap:anywhere}
+.gt4684-meta{font-size:14px;color:#6b7d72;margin:0 0 12px}
+.gt4684-score{font-size:48px;font-weight:800;letter-spacing:-.05em;line-height:1.15;margin:12px 0 18px;font-variant-numeric:tabular-nums}
+.gt4684-figures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #d1dfd5;padding-top:12px;margin-bottom:13px}
+.gt4684-figures>div{padding:0 10px;border-left:1px solid #ccd9d1;min-width:0}
+.gt4684-figures>div:first-child{border-left:0;padding-left:0}
+.gt4684-figures strong{display:block;font-size:23px;line-height:1.2;font-weight:800}
+.gt4684-figures small{display:block;color:#718379;font-size:12px;font-weight:700;letter-spacing:.01em;margin-top:4px}
+.gt4684-action{display:block;width:100%;padding:14px 0 4px;text-align:left;font-size:18px;font-weight:750;color:#1b2d22;background:transparent;border:0;border-top:1px solid #d0dfd4;cursor:pointer}
+@media(max-width:375px){.gt4684-banner{padding:18px 15px}.gt4684-score{font-size:43px}.gt4684-banner-head h2{font-size:23px}}
+</style><style data-review-v4694="true">
+#setupContent .gt493-form{margin:16px 0 0!important}
+#setupContent .gt493-layout{display:flex;flex-direction:column;gap:16px;min-width:0}
+#setupContent .gt493-card{display:block;min-width:0;border:1px solid #cbd8ce;border-radius:20px;background:#eff6f1;padding:19px;margin:0!important;box-sizing:border-box}
+#setupContent .gt493-card>h2{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 17px;color:#192b20}
+#setupContent .gt493-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 13px}
+#setupContent .gt493-player{grid-template-columns:minmax(0,3fr) minmax(82px,1fr)}
+#setupContent .gt493-wide{grid-column:1/-1;min-width:0}
+#setupContent .gt493-field{display:flex;flex-direction:column;gap:7px;min-width:0;color:#43564b;font-size:13px;font-weight:750}
+#setupContent .gt493-label{font-size:13px;color:#43564b;font-weight:760}
+#setupContent .gt493-form input,#setupContent .gt493-form select,#setupContent .gt493-form textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:49px;margin:0;border:1px solid #c5d5c9;border-radius:12px;background:white;color:#192b20;padding:10px 12px;font-size:16px}
+#setupContent .gt493-form textarea{min-height:90px;resize:vertical}
+#setupContent .gt493-datetime{column-gap:16px}
+#setupContent .gt493-datetime label{overflow:hidden}
+#setupContent .gt493-datetime input[type=date],#setupContent .gt493-datetime input[type=time]{height:49px;max-height:49px;appearance:none;-webkit-appearance:none;padding-inline:8px}
+#setupContent .gt493-scores{margin:15px 0}
+#setupContent .gt493-form .gt4694-expand{background:white;border-radius:13px;margin:11px 0}
+#setupContent .gt493-form .gt4694-expand summary{min-height:49px}
+#setupContent .gt493-form .gt-feedback{margin:0!important}
+/* Edit Game: feedback must precede the Save/Cancel actions even when legacy order rules apply. */
+#setupContent .gt493-layout > .gt-feedback{order:10!important}
+#setupContent .gt493-layout > .gt493-actions{order:100!important}
+#setupContent .gt493-form .gt-feedback legend{font-size:20px;font-weight:800}
+#setupContent .gt493-form .gt-feedback label{display:flex;flex-direction:column;gap:7px;margin:12px 0}
+#setupContent .gt493-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 26px}
+#setupContent .gt493-actions button{width:100%;min-height:51px;border-radius:13px;border:1px solid #c5d5c9;background:white;font-size:16px;font-weight:750}
+#setupContent .gt493-actions button:last-child{background:#dcefe3}
+#setupContent .gt493-advanced{margin:10px 0 0}
+#setupContent .gt493-advanced>summary{font-size:13px}
+#setupContent .gt493-advanced .ng-formats,#setupContent .gt493-advanced legend{display:none!important}
+#setupContent .gt493-advanced fieldset{border:0!important;background:transparent!important;padding:0!important;margin:0!important}
+@media(max-width:360px){#setupContent .gt493-card{padding:15px}#setupContent .gt493-grid{gap:11px}#setupContent .gt493-player{grid-template-columns:minmax(0,2fr) minmax(74px,1fr)}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -1917,7 +2408,7 @@ const MILESTONES=[5,10,25,50,100],TAGS=['Shooting','Ball handling','Finishing','
 const dateKey=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 function date(s){if(typeof s!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(s))throw Error('Enter a valid date.');const d=new Date(s+'T12:00:00');if(!Number.isFinite(+d)||dateKey(d)!==s)throw Error('Enter a valid date.');return d}
 function text(v,max=200){if(v==null)return '';if(typeof v!=='string'||v.length>max)throw Error('Text is too long or invalid.');return v.trim()}
-function feedback(v={}){return {well:text(v?.well,3000),challenge:text(v?.challenge,3000),next:text(v?.next,3000),see:text(v?.see,3000),became:text(v?.became,3000),more:text(v?.more,3000)}}
+function feedback(v={}){return {well:text(v?.well,3000),challenge:text(v?.challenge,3000),next:text(v?.next,3000),see:text(v?.see,3000),became:text(v?.became,3000),more:text(v?.more,3000),additional:text(v?.additional,3000)}}
 function validSession(s){if(!s||!['training','camp'].includes(s.type))throw Error('Choose Training or Camp.');const name=text(s.name);if(!name)throw Error('Enter a session name.');date(s.date);if(!Number.isInteger(s.minutes)||s.minutes<1||s.minutes>1440)throw Error('Enter a duration from 1 minute to 24 hours.');if(typeof s.id!=='string'||!s.id||s.id.length>120)throw Error('Invalid session ID.');for(const k of ['createdAt','updatedAt'])if(!Number.isFinite(Date.parse(s[k])))throw Error('Invalid session timestamp.');if(s.deletedAt&&!Number.isFinite(Date.parse(s.deletedAt)))throw Error('Invalid deletion timestamp.');return {id:s.id,type:s.type,name,date:s.date,minutes:s.minutes,player:text(s.player,100),coach:text(s.coach),location:text(s.location),tags:validTags(s.tags),awardEligible:s.awardEligible===true,awardContext:s.awardEligible?{type:['training','camp'].includes(s.awardContext?.type)?s.awardContext.type:s.type,hour:s.awardContext?s.awardContext.hour===true:s.minutes>=60,reflection:s.awardContext?s.awardContext.reflection===true:!!(s.notes||s.feedback?.well||s.feedback?.challenge||s.feedback?.next||s.feedback?.see||s.feedback?.became||s.feedback?.more)}:null,feedback:feedback(s.feedback),notes:text(s.notes,3000),clipLink:s.clipLink?link(s.clipLink):'',createdAt:s.createdAt,updatedAt:s.updatedAt,deletedAt:s.deletedAt||null}}
 function link(s){const u=new URL(s);if(!['https:','http:'].includes(u.protocol))throw Error('Use an http or https clip link.');return u.href}
 function validSessions(list=[]){if(!Array.isArray(list)||list.length>50000)throw Error('Invalid training records.');const result=list.map(validSession);if(new Set(result.map(s=>s.id)).size!==result.length)throw Error('Duplicate session IDs.');return result}
@@ -2032,7 +2523,7 @@ function validGame(g){
  const base=newGame({player:g.player,number:g.number||'',team:g.team||'',league:g.league||'',opponent:g.opponent,date:g.date,gameType:g.gameType},g.settings),events=g.events.map(validEvent);
  if(new Set(events.map(e=>e.id)).size!==events.length)fail('Duplicate play IDs in backup.');
  let finalScore=null;if(g.finalScore!==undefined&&g.finalScore!==null){if(!Number.isInteger(g.finalScore.team)||!Number.isInteger(g.finalScore.opponent)||g.finalScore.team<0||g.finalScore.opponent<0||g.finalScore.team>9999||g.finalScore.opponent>9999)fail('Invalid final score.');finalScore={team:g.finalScore.team,opponent:g.finalScore.opponent}}
- return{...base,progressNotes:text(g.progressNotes||'',3000),feedback:GameTraceTraining.feedback(g.feedback),id:text(g.id,120,true),pendingStart:g.pendingStart===true,scoreTracking:g.scoreTracking===true,deletedEvents:Array.isArray(g.deletedEvents)?g.deletedEvents.map(validEvent):[],status:g.status,createdAt:timestamp(g.createdAt),updatedAt:timestamp(g.updatedAt),deletedAt:g.deletedAt?timestamp(g.deletedAt):null,completedAt:g.completedAt?timestamp(g.completedAt):null,revision:Number.isInteger(g.revision)&&g.revision>=0?g.revision:0,settings:validSettings(g.settings),events,finalScore,timingVersion:g.timingVersion===1?1:0,autoEnded:g.autoEnded===true,...(g.legacy?{legacy:clone(g.legacy)}:{})};
+ return{...base,gameTime:typeof g.gameTime==='string'&&/^[0-2][0-9]:[0-5][0-9]$/.test(g.gameTime)?g.gameTime:'',progressNotes:text(g.progressNotes||'',3000),feedback:GameTraceTraining.feedback(g.feedback),id:text(g.id,120,true),pendingStart:g.pendingStart===true,scoreTracking:g.scoreTracking===true,deletedEvents:Array.isArray(g.deletedEvents)?g.deletedEvents.map(validEvent):[],status:g.status,createdAt:timestamp(g.createdAt),updatedAt:timestamp(g.updatedAt),deletedAt:g.deletedAt?timestamp(g.deletedAt):null,completedAt:g.completedAt?timestamp(g.completedAt):null,revision:Number.isInteger(g.revision)&&g.revision>=0?g.revision:0,settings:validSettings(g.settings),events,finalScore,timingVersion:g.timingVersion===1?1:0,autoEnded:g.autoEnded===true,...(g.legacy?{legacy:clone(g.legacy)}:{})};
 }
 function validDB(d){
  if(!d||![11,VERSION].includes(d.version)||!Array.isArray(d.games)||d.games.length>10000)fail('Unsupported or invalid saved library.');
@@ -2237,10 +2728,10 @@ function baseGameForm(id=null,periodOnly=false){
   e.preventDefault();error.textContent='';try{
    const settings=readPeriods(),current=id?db.games.find(g=>g.id===id):null;if(id&&(!current||current.revision!==openedRevision))throw Error('This game changed. Reopen its details before saving.');
    if(!periodOnly){if(!player.value.trim()){player.focus();throw Error('Enter the player name.')}if(!opponent.value.trim()){opponent.focus();throw Error('Enter the opponent name.')}}
-   const meta=periodOnly?null:{player:player.value.trim(),number:number.value.trim(),team:team.value.trim(),opponent:opponent.value.trim(),gameType:gameType.value,league:league.value.trim(),date:ui.editGameDate?.id===id?ui.editGameDate.value:existing?.date||ui.newGameDate||localDate()};
+   const meta=periodOnly?null:{player:player.value.trim(),number:number.value.trim(),team:team.value.trim(),opponent:opponent.value.trim(),gameType:gameType.value,league:league.value.trim(),date:ui.editGameDate?.id===id?ui.editGameDate.value:existing?.date||ui.newGameDate||localDate(),gameTime:ui.gt4694TimeDraft?.id===id?ui.gt4694TimeDraft.value:existing?.gameTime||''};
    if(meta)C.newGame(meta,settings);
    const before=db,candidate=C.clone(db);let created;
-   if(isNew){if(candidate.games.some(g=>!g.deletedAt&&g.status==='in_progress'))throw Error('Finish the current game before starting another.');created=C.prepareGame(meta,settings);created.progressNotes=ui.gameNotesDraft?.id===null?ui.gameNotesDraft.value:'';candidate.games.push(created);candidate.activeGameId=created.id}
+   if(isNew){if(candidate.games.some(g=>!g.deletedAt&&g.status==='in_progress'))throw Error('Finish the current game before starting another.');created=C.prepareGame(meta,settings);created.gameTime=meta.gameTime;created.progressNotes=ui.gameNotesDraft?.id===null?ui.gameNotesDraft.value:'';candidate.games.push(created);candidate.activeGameId=created.id}
    else if(id){const target=candidate.games.find(g=>g.id===id);if(meta)Object.assign(target,meta);if(ui.scoreDraft?.id===id)target.finalScore=ui.scoreDraft.score;if(ui.feedbackDraft?.id===id)target.feedback=ui.feedbackDraft.feedback;if(ui.gameNotesDraft?.id===id)target.progressNotes=ui.gameNotesDraft.value;if(target.timingVersion&&target.events.some(e=>!['game_start','period_start'].includes(e.code))&&settings.format!==target.settings.format)throw Error('This game already has recorded plays. Keep its format; period lengths remain editable.');target.settings=settings;target.updatedAt=C.now();target.revision++;candidate.activeGameId=id}
    candidate.prefs.periods={...C.clone(settings),current:0};db=candidate;
    if(!persist()){db=before;drawSave();error.textContent='The game was not '+(isNew?'saved':'updated')+'. '+saveError;return}
@@ -4548,6 +5039,1234 @@ window.addEventListener('online',()=>{if(ui.screen==='liveFeed')refreshLiveFeed4
 load();
 window.GameTraceFamily.boot();
 setInterval(expireSavedGames,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)expireSavedGames()});
+/* V46 Games: visual reference is GameTrace_Games_Filter_Preview_FRESH.html.
+   Runs inside the V45 main application scope, preserving data and navigation. */
+const gt46FilterDefaults=()=>({player:'',team:'',league:[],type:'',games:[],date:'30',from:'',to:''});
+let gt46Filters=gt46FilterDefaults();
+const gt46Games=()=>db.games.filter(g=>!g.deletedAt&&g.status==='completed').sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+const gt46Field=(g,key)=>key==='type'?String(g.gameType||g.type||'regular').toLowerCase():String(g[key]||'');
+const gt46DayOffset=n=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const gt46Today=()=>gt46DayOffset(0);
+function gt46Eligible(g,f){
+ if(f.player&&gt46Field(g,'player')!==f.player)return false;
+ if(f.team&&gt46Field(g,'team')!==f.team)return false;
+ if(f.type&&gt46Field(g,'type')!==f.type)return false;
+ if(f.league.length&&!f.league.includes(gt46Field(g,'league')))return false;
+ if(f.games.length&&!f.games.includes(g.id))return false;
+ const today=gt46Today(),now=new Date(),firstMonth=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-01';
+ let from='',to=today;
+ switch(f.date){case'all':to='9999-12-31';break;case'7':from=gt46DayOffset(6);break;case'30':from=gt46DayOffset(29);break;case'365':from=gt46DayOffset(364);break;case'week':{const day=now.getDay();from=gt46DayOffset(day);break}case'month':from=firstMonth;break;case'year':from=now.getFullYear()+'-01-01';break;case'custom':from=f.from||'';to=f.to||'9999-12-31';break;default:from=gt46DayOffset(29)}
+ return (!from||g.date>=from)&&(!to||g.date<=to)
+}
+function gt46Outcome(g){const f=g.finalScore; if(!f||f.team==null||f.opponent==null||f.team===''||f.opponent==='')return['—','—'];const a=Number(f.team),b=Number(f.opponent);if(!Number.isFinite(a)||!Number.isFinite(b))return['—','—'];return[a>b?'W':a<b?'L':'T',Math.round(a)+' – '+Math.round(b)]}
+function gt46Stats(g){try{const t=C.totals(C.filtered(g));return [Math.round(t.pts||0),Math.round(t.reb||0),Math.round(t.ast||0)]}catch{return[0,0,0]}}
+function gt46Ball(){const badge=el('span',{class:'gt46-approved-ball'});badge.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M5 16h22M16 5v22M8 9c7 3 9 11 0 14M24 9c-7 3-9 11 0 14"/></svg>';return badge}
+function gt46FilterModal(){
+ document.querySelector('.gt46-approved-overlay')?.remove();
+ const all=gt46Games(),draft={...gt46Filters,league:[...gt46Filters.league],games:[...gt46Filters.games]};
+ const overlay=el('div',{class:'gt46-approved-overlay'}),sheet=el('section',{class:'gt46-approved-sheet',role:'dialog','aria-modal':'true','aria-label':'Games filters'}),body=el('div',{class:'gt46-approved-modal-body'});
+ const close=()=>{overlay.remove();document.querySelector('#homeContent .gt46-approved-filter')?.focus()};
+ const heading=el('div',{class:'gt46-approved-modal-heading'},el('h2',{},'Filters'),button('Close ✕',close));
+ sheet.append(el('span',{class:'gt46-approved-handle'}),heading);body.append(el('p',{class:'gt46-approved-fine'},'Selections are applied when you tap Done.'));
+ const accordion=el('details',{class:'gt46-approved-accordion',open:''});
+ const summary=el('summary',{},el('span',{},'Filter Games'),el('span',{class:'gt46-approved-hint'},'All games ▾'));
+ const inside=el('div',{class:'gt46-approved-fields'});accordion.append(summary,inside);body.append(accordion);
+ function field(label,desc,renderField){const sec=el('div',{class:'gt46-approved-field'},el('div',{class:'gt46-approved-fieldhead'},el('strong',{},label),el('span',{},desc)));renderField(sec);inside.append(sec)}
+ function chips(container,options,key,multi=false){const grid=el('div',{class:'gt46-approved-chips'});for(const[value,label]of options){const selected=multi?(!value?!draft[key].length:draft[key].includes(value)):draft[key]===value;grid.append(button(label,()=>{if(multi){draft[key]=!value?[]:draft[key].includes(value)?draft[key].filter(x=>x!==value):[...draft[key],value]}else draft[key]=value;paint()},'gt46-approved-chip'+(selected?' selected':''),{'aria-pressed':selected}))}container.append(grid)}
+ const values=k=>[...new Set(all.map(g=>gt46Field(g,k)))].filter(Boolean).sort();
+ const rangePresets=[['all','All Time'],['week','This Week'],['month','This Month'],['year','This Year'],['7','Last 7 Days'],['30','Last 30 Days'],['365','Last 365 Days'],['custom','Custom Range']];
+ function paint(){inside.replaceChildren();const dirty=!!(draft.player||draft.team||draft.type||draft.league.length||draft.games.length||draft.date!=='30');summary.lastChild.textContent=dirty?'Filters selected ▾':'All games ▾';
+ field('Player',draft.player||'All players',a=>chips(a,[['','All Players'],...values('player').map(x=>[x,x])],'player'));
+ field('Team',draft.team||'All teams',a=>chips(a,[['','All Teams'],...values('team').map(x=>[x,x])],'team'));
+ field('League',draft.league.length?draft.league.length+' selected':'All leagues',a=>{chips(a,[['','All Leagues'],...values('league').map(x=>[x,x])],'league',true);a.append(el('p',{class:'gt46-approved-fine'},'Choose one or more leagues.'))});
+ field('Game Type',draft.type||'All types',a=>chips(a,[['','All Types'],['regular','Regular'],['playoffs','Playoffs'],['finals','Finals']],'type'));
+ field('Date Range',rangePresets.find(x=>x[0]===draft.date)?.[1]||'Last 30 Days',a=>{chips(a,rangePresets,'date');if(draft.date==='custom'){const pair=el('div',{class:'gt46-approved-dates'});for(const[k,label]of [['from','From'],['to','To']]){const input=el('input',{type:'date','aria-label':label});input.value=draft[k]||'';input.addEventListener('change',()=>{draft[k]=input.value});pair.append(el('label',{},label,input))}a.append(pair)}});
+ field('Specific Games',draft.games.length?draft.games.length+' selected':'All matching',a=>{a.append(el('p',{class:'gt46-approved-fine'},'Only games matching your Player, Team, League, Game Type and Date filters appear here.'));const search=el('input',{type:'search',class:'gt46-approved-search',placeholder:'Search game or opponent','aria-label':'Search available games'});a.append(search);const eligible=all.filter(g=>gt46Eligible(g,{...draft,games:[]}));const options=el('div',{class:'gt46-approved-chips'}),list=el('div',{class:'gt46-approved-specific'});options.append(button('Select All Available',()=>{draft.games=[...new Set([...draft.games,...eligible.map(g=>g.id)])];paint()},'gt46-approved-chip'),button('Clear Selection',()=>{draft.games=[];paint()},'gt46-approved-chip'));a.append(options,list);
+ const rows=()=>{list.replaceChildren();const q=search.value.trim().toLowerCase();const matched=eligible.filter(g=>((g.team||'')+' '+(g.opponent||'')+' '+(g.date||'')).toLowerCase().includes(q));if(!matched.length)list.append(el('p',{class:'gt46-approved-fine'},'No matching games.'));for(const g of matched){const input=el('input',{type:'checkbox'});input.checked=draft.games.includes(g.id);input.addEventListener('change',()=>{draft.games=input.checked?[...new Set([...draft.games,g.id])]:draft.games.filter(x=>x!==g.id)});list.append(el('label',{class:'gt46-approved-specificrow'},input,el('span',{},el('strong',{},(g.team||'Team')+' vs '+(g.opponent||'Opponent')),el('small',{},friendlyDate(g.date)+' · '+gt46Outcome(g)[1]))))}};search.addEventListener('input',rows);rows()});
+ }
+ paint();sheet.append(body,el('footer',{class:'gt46-approved-modal-footer'},button('Reset to Default',()=>{gt46Filters=gt46FilterDefaults();close();renderHome()}),button('Done',()=>{if(draft.date==='custom'&&draft.from&&draft.to&&draft.from>draft.to){alert('Please select a valid date range.');return}gt46Filters={...draft,league:[...draft.league],games:[...draft.games]};close();renderHome()},'primary')));
+ overlay.append(sheet);overlay.addEventListener('click',e=>{if(e.target===overlay)close()});overlay.addEventListener('keydown',e=>{if(e.key==='Escape')close()});document.body.append(overlay);heading.querySelector('button').focus();
+}
+function gt46ApprovedRenderHome(){
+ const root=$('homeContent'),active=liveGame(),all=gt46Games(),matching=all.filter(g=>gt46Eligible(g,gt46Filters));
+ const featured=active||matching[0]||null;
+ root.replaceChildren(el('div',{class:'view-title'},el('h1',{},'Games')));
+ if(recoveryRaw)root.append(el('div',{class:'notice error-notice'},el('p',{},saveError),button('Download recovery copy',()=>download(recoveryRaw,'GameTrace_recovery.txt','text/plain'))));
+ const ban=el('section',{class:'gt46-approved-banner'}),head=el('div',{class:'gt46-approved-banhead'}),intro=el('div');
+ intro.append(el('h2',{},active?'Current Game':featured?'Latest Game':all.length?'No Matching Games':'No Games Yet'),el('p',{},featured?friendlyDate(featured.date):all.length?'Try adjusting your filters.':'Your journey starts here.'));head.append(intro);
+ if(featured){const[r]=gt46Outcome(featured);const badge=active?'● LIVE':r==='W'?'WIN':r==='L'?'LOSS':r==='T'?'TIE':'GAME';head.append(el('span',{class:'gt46-approved-pill'+(badge==='LOSS'?' loss':'')},badge))}ban.append(head);
+ if(featured){const stats=gt46Stats(featured),score=active?C.scoreAt(active):null;
+ ban.append(el('div',{class:'gt46-approved-match'},(featured.team||'Your Team')+' vs '+(featured.opponent||'Opponent')),el('p',{class:'gt46-approved-meta'},[featured.player,featured.league,featured.gameType].filter(Boolean).join(' · ')),el('div',{class:'gt46-approved-score'},active?Math.round(score.team)+' – '+Math.round(score.opponent):gt46Outcome(featured)[1]));
+ const figs=el('div',{class:'gt46-approved-figures'});for(let i=0;i<3;i++)figs.append(el('div',{},el('strong',{},String(stats[i])),el('small',{},['POINTS','REBOUNDS','ASSISTS'][i])));ban.append(figs,button(active?'Resume Tracking →':'View Game Details →',()=>chooseGame(featured.id,active?'live':'stats'),'gt46-approved-banneraction'))
+ }else ban.append(button(all.length?'Change Filters →':'＋ New Game →',()=>all.length?gt46FilterModal():gameForm(),'gt46-approved-banneraction'));
+ root.append(ban);
+ const recent=el('section',{class:'gt46-approved-recent'},el('div',{class:'gt46-approved-recenthead'},el('div',{},el('h2',{},'Recent Games'),el('p',{},'Every game adds to the story.')),el('span',{class:'gt468-legacy-filter-removed',hidden:''}))),list=el('div',{class:'gt46-approved-rows'});
+ const remaining=matching.filter(g=>!featured||g.id!==featured.id);
+ if(!remaining.length)list.append(el('p',{class:'gt46-approved-empty'},!all.length?'No completed games yet.':matching.length?'No other matching games.':'No completed games match these filters.'));
+ for(const g of remaining){const res=gt46Outcome(g),stats=gt46Stats(g),row=button('',()=>chooseGame(g.id,'stats'),'gt46-approved-row',{'data-game-id':g.id,'aria-label':'View game vs '+(g.opponent||'Opponent')}),copy=el('span',{class:'gt46-approved-copy'});copy.append(el('strong',{},(g.team||'Your Team')+' vs '+(g.opponent||'Opponent')),el('span',{},stats.map((v,i)=>v+' '+['PTS','REB','AST'][i]).join(' · ')),el('small',{},friendlyDate(g.date)+' · '+(g.gameType||'Regular')+' · '+res[1]));row.append(gt46Ball(),copy,el('span',{class:'gt46-approved-result'},res[0]),el('span',{class:'gt46-approved-arrow'},'›'));list.append(row)}recent.append(list);root.append(recent);
+ for(const old of unfinishedGames().filter(g=>!active||g.id!==active.id))root.append(button('Resume unfinished game · vs '+(old.opponent||'Opponent'),()=>chooseGame(old.id,'live'),'games-legacy'));
+}
+
+renderHome=gt46ApprovedRenderHome;
+
+/* GameTrace V46.2 — ONE shared Section List architecture for Calendar + Activity.
+   Preserves V46.1 data, filtering and navigation; Home Court > Coming Up is baseline. */
+const gt462SLCfg={leading:62,height:76};
+function gt462DateBadge(dateValue){
+ const date=new Date(dateValue);
+ const valid=Number.isFinite(date.getTime());
+ const month=valid?date.toLocaleString(undefined,{month:'short'}).toUpperCase():'—';
+ const day=valid?String(date.getDate()).padStart(2,'0'):'—';
+ const weekday=valid?date.toLocaleString(undefined,{weekday:'short'}).toUpperCase():'—';
+ return el('span',{class:'gt462-sl-visual gt462-sl-date','aria-hidden':'true'},
+  el('small',{},month),el('strong',{},day),el('small',{},weekday));
+}
+function gt462ActivityBadge(icon='🏀'){
+ return el('span',{class:'gt462-sl-visual gt462-sl-activity','aria-hidden':'true'},
+  el('span',{class:'gt462-sl-icon'},icon));
+}
+function gt462SectionListRow(opts){
+ const {variant='activity',title='',secondary='',tertiary='',date='',icon='🏀',open,attrs={},extra=null}=opts;
+ const row=button('',typeof open==='function'?open:()=>{},'gt462-sl-row gt462-sl-'+variant,attrs);
+ const copy=el('span',{class:'gt462-sl-copy'});
+ copy.append(el('strong',{class:'gt462-sl-primary'},title||'Untitled'));
+ if(secondary)copy.append(el('span',{class:'gt462-sl-secondary'},secondary));
+ if(tertiary)copy.append(el('small',{class:'gt462-sl-tertiary'},tertiary));
+ row.append(variant==='calendar'?gt462DateBadge(date):gt462ActivityBadge(icon),copy);
+ if(extra)row.append(el('span',{class:'gt462-sl-extra'},extra));
+ row.append(el('span',{class:'gt462-sl-chevron','aria-hidden':'true'},'›'));
+ return row;
+}
+function gt462SectionHeader({title,subtitle='',action=null}){
+ const head=el('header',{class:'gt462-sl-header'}),text=el('div',{class:'gt462-sl-header-copy'},el('h2',{},title));
+ if(subtitle)text.append(el('p',{},subtitle));head.append(text);
+ if(action)head.append(action);
+ return head;
+}
+function gt462SectionList({title='',subtitle='',action=null,variant='activity',attrs={}}){
+ return el('section',{class:'gt462-sl-section gt462-sl-section-'+variant,...attrs},gt462SectionHeader({title,subtitle,action}),el('div',{class:'gt462-sl-items'}));
+}
+/* Wrap existing navigation callback (already bound to row) rather than
+   repeating game / record mutation business logic. Click handlers survive detachment. */
+function gt462FromLegacyRow(old,variant='activity',icon='🏀'){
+ if(!old||old.classList.contains('gt462-sl-row'))return old;
+ const isCourt=old.classList.contains('hc45-row');
+ const copy=isCourt?old.querySelector('.hc45-copy'):old.querySelector('.gt46-approved-copy');
+ if(!copy)return old;
+ const title=copy.querySelector('strong')?.textContent?.trim()||'';
+ const secondary=copy.querySelector(':scope > span')?.textContent?.trim()||'';
+ const tertiary=copy.querySelector(':scope > small')?.textContent?.trim()||'';
+ const attrs={};for(const [k,v] of Object.entries(old.dataset)){
+   const attr='data-'+k.replace(/[A-Z]/g,c=>'-'+c.toLowerCase());attrs[attr]=v;
+ }
+ attrs['aria-label']=old.getAttribute('aria-label')||'Open '+title;
+ const badge=old.querySelector('.hc45-date');
+ const row=gt462SectionListRow({variant,title,secondary,tertiary,
+  date:variant==='calendar'?(old.dataset.start||''):undefined,
+  icon:variant==='activity'?(isCourt?(old.querySelector('.hc45-icon')?.textContent||icon):icon):undefined,
+  open:()=>old.click(),attrs,
+  extra:!isCourt?old.querySelector('.gt46-approved-result')?.textContent?.trim():null
+ });
+ if(variant==='calendar'&&!old.dataset.start&&badge){
+  const newBadge=row.querySelector('.gt462-sl-date');
+  newBadge.replaceChildren(...[...badge.children].map(n=>n.cloneNode(true)));
+ }
+ return row;
+}
+/* Home Court: rebuild all three sections using the SAME row factory.
+   Keep other Home Court sections and all banners completely untouched. */
+const gt462CourtOriginal=renderHomeCourt;
+renderHomeCourt=function(){
+ gt462CourtOriginal();
+ const root=$('courtContent');if(!root)return;
+ for(const [key,variant,icon] of [['coming','calendar',''],['games','activity','🏀'],['training','activity','◎']]){
+  const section=root.querySelector('[data-court-section="'+key+'"]');if(!section)continue;
+  const oldHeader=section.querySelector('.hc45-head');
+  if(oldHeader){
+   const action=oldHeader.querySelector('button');
+   const h=gt462SectionHeader({title:oldHeader.querySelector('h2')?.textContent||'',
+      subtitle:oldHeader.querySelector('p')?.textContent||'',
+      action:action||null});
+   oldHeader.replaceWith(h);
+  }
+  for(const old of [...section.querySelectorAll('.hc45-row')])old.replaceWith(gt462FromLegacyRow(old,variant,icon));
+  section.classList.add('gt462-sl-section','gt462-sl-section-'+variant);
+ }
+};
+/* Games: preserve V46 featured banner, current/latest logic, filters and empty states. */
+const gt462GamesOriginal=renderHome;
+renderHome=function(){
+ gt462GamesOriginal();
+ const root=$('homeContent');if(!root)return;
+ const recent=root.querySelector('.gt46-approved-recent');if(!recent)return;
+ recent.classList.add('gt462-sl-section','gt462-sl-section-activity');
+ const oldHead=recent.querySelector('.gt46-approved-recenthead');
+ if(oldHead){const action=oldHead.querySelector('button');oldHead.replaceWith(gt462SectionHeader({title:'Recent Games',subtitle:'Every game adds to the story.',action}));}
+ for(const old of [...recent.querySelectorAll('.gt46-approved-row')])old.replaceWith(gt462FromLegacyRow(old,'activity','🏀'));
+};
+/* Schedule: replace the factory, not just a CSS class. All current/past rows
+   are created by this one function, with original filtering handled upstream. */
+scheduleRecordRow=function(record,returnTo='schedule'){
+ const d=new Date(record.start),time=record.allDay?'All day':Number.isFinite(d.getTime())?d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'Time unavailable';
+ const title=record.activity==='game'&&record.opponent?gameTitle(record):record.title;
+ return gt462SectionListRow({variant:'calendar',title,secondary:time,
+  tertiary:[record.player,record.activity==='game'?'Game':record.activity==='camp'?'Camp':record.activity==='training'?'Training':record.activity,record.location,record.cancelledAt?'Cancelled':''].filter(Boolean).join(' · '),
+  date:record.start,open:()=>openScheduleEvent(record.id,returnTo),
+  attrs:{'data-schedule-id':record.id,'aria-label':'Open '+(record.title||'event')}
+ });
+};
+const gt462ScheduleOriginal=renderSchedule;
+renderSchedule=function(){
+ gt462ScheduleOriginal();
+ const root=$('scheduleContent');if(!root)return;
+ /* Some historical render paths may inject native rows after the record factory.
+    Normalize them to the same factory after every schedule render. */
+ for(const old of [...root.querySelectorAll('[data-schedule-id]')]){
+  if(old.classList.contains('gt462-sl-row'))continue;
+  if(old.closest('.gt462-sl-row'))continue;
+  if(!old.matches('button,article,.gt-list-row'))continue;
+  const r=db.personalRecords.find(x=>x.id===old.dataset.scheduleId&&x.type==='schedule'&&!x.deletedAt);
+  if(r)old.replaceWith(scheduleRecordRow(r));
+ }
+ const upcoming=root.querySelector('.v42-section-row');
+ if(upcoming){
+  const title=upcoming.querySelector('h2');if(title){
+   const heading=gt462SectionHeader({title:title.textContent||'Upcoming',subtitle:'The next moments on your calendar.'});
+   title.replaceWith(heading);
+   upcoming.classList.add('gt462-sl-schedule-header');
+  }
+ }
+ for(const section of root.querySelectorAll('[data-past-events-list],.review-section')){
+   if(section.querySelector('.gt462-sl-calendar'))section.classList.add('gt462-sl-section');
+ }
+};
+/* Gym: replace native session factory with the identical Activity factory. */
+sessionListRow43=function(session,returnTo='training',attrs={}){
+ const type=session.type==='camp'?'Camp':'Training';
+ return gt462SectionListRow({variant:'activity',title:session.name,
+  secondary:friendlyDate(session.date)+' · '+trainingDuration(session.minutes),
+  tertiary:[session.player,type].filter(Boolean).join(' · '),icon:'◎',
+  open:()=>openSession(session.id,returnTo),attrs:{'data-session-id':session.id,'data-open-session':session.id,'aria-label':'Open '+session.name,...attrs}
+ });
+};
+const gt462TrainingOriginal=renderTraining;
+renderTraining=function(){
+ gt462TrainingOriginal();
+ const root=$('trainingContent');if(!root)return;
+ for(const old of [...root.querySelectorAll('[data-session-id]')]){
+  if(old.classList.contains('gt462-sl-row')||old.closest('.gt462-sl-row'))continue;
+  if(!old.matches('button,.gt-list-row'))continue;
+  const session=db.trainingSessions.find(x=>x.id===old.dataset.sessionId&&!x.deletedAt);
+  if(session)old.replaceWith(sessionListRow43(session));
+ }
+};
+
+/* GameTrace V46.3 — content contract for the LOCKED V46.3 standardized Section Lists.
+   All seven lists use the same formatters. No game/training/event mutations. */
+function gt463Date(value){
+ if(!value)return '';
+ const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(String(value));
+ const d=m?new Date(Number(m[1]),Number(m[2])-1,Number(m[3]),12):new Date(value);
+ return Number.isFinite(d.getTime())?d.toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'}):'';
+}
+function gt463Time(date,allDay){
+ if(allDay)return 'All day';
+ const d=new Date(date);
+ return Number.isFinite(d.getTime())?d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true}):'';
+}
+function gt463Number(n){return Number.isFinite(Number(n))?String(Math.round(Number(n))):'0'}
+function gt463Duration(minutes){
+ const n=Math.max(0,Math.round(Number(minutes)||0)),h=Math.floor(n/60),m=n%60;
+ return h?(h+' hr'+(m?' '+m+' min':'')):(m+' min');
+}
+function gt463CalendarItem(r){
+ const type=({game:'Game',training:'Training',camp:'Camp',event:'Event',practice:'Training'})[String(r.activity||'').toLowerCase()]||'Event';
+ const title=r.activity==='game'&&r.opponent?gameTitle(r):(r.title||'Untitled event');
+ const where=[r.location,r.team,r.sourceName,r.player].find(x=>typeof x==='string'&&x.trim())||'';
+ const state=r.cancelledAt?'Canceled':'';
+ return {title,secondary:[gt463Time(r.start,r.allDay),type,state].filter(Boolean).join(' · '),tertiary:where};
+}
+function gt463GameItem(g){
+ let total={pts:0,reb:0,ast:0};
+ try{total=C.totals(C.filtered(g))||total}catch(e){try{total=C.totals(g.events||[])||total}catch(_){}}
+ const score=g.finalScore||null;
+ const a=score?.team,b=score?.opponent;
+ const hasScore=a!==null&&a!==undefined&&a!==''&&b!==null&&b!==undefined&&b!==''&&Number.isFinite(Number(a))&&Number.isFinite(Number(b));
+ const outcome=hasScore?(Number(a)>Number(b)?'W':Number(a)<Number(b)?'L':'T'):'';
+ const final=hasScore?gt463Number(a)+'–'+gt463Number(b):'';
+ return {title:(g.team||'Your Team')+' vs '+(g.opponent||'Opponent'),
+  secondary:gt463Number(total.pts)+' PTS · '+gt463Number(total.reb)+' REB · '+gt463Number(total.ast)+' AST',
+  tertiary:[gt463Date(g.date),outcome,final].filter(Boolean).join(' · ')};
+}
+function gt463TrainingItem(s){
+ const type=s.type==='camp'?'Camp':'Training';
+ const when=gt463Date(s.date);
+ const detail=[s.coach,s.location].find(x=>typeof x==='string'&&x.trim())||'';
+ return {title:s.name||'Training session',secondary:[gt463Duration(s.minutes),type].join(' · '),tertiary:[when,detail].filter(Boolean).join(' · ')};
+}
+/* The existing V46.2 conversion wrapper is the shared entrypoint for Home Court
+   and Games. Resolve records by IDs, not DOM text, to guarantee identical content. */
+const gt463LegacyRow=gt462FromLegacyRow;
+gt462FromLegacyRow=function(old,variant='activity',icon='🏀'){
+ if(!old||old.classList.contains('gt462-sl-row'))return old;
+ const gid=old.dataset.gameId||old.dataset.courtGame;
+ const sid=old.dataset.sessionId||old.dataset.courtTraining||old.dataset.courtActivity;
+ const rid=old.dataset.courtEvent||old.dataset.scheduleId;
+ let item=null;
+ if(gid){const g=db.games.find(x=>x.id===gid&&!x.deletedAt);if(g)item=gt463GameItem(g)}
+ else if(sid){const s=db.trainingSessions.find(x=>x.id===sid&&!x.deletedAt);if(s)item=gt463TrainingItem(s)}
+ else if(rid){const r=db.personalRecords.find(x=>x.id===rid&&!x.deletedAt);if(r)item=gt463CalendarItem(r)}
+ const converted=gt463LegacyRow(old,variant,icon);
+ if(item&&converted?.classList.contains('gt462-sl-row')){
+  const primary=converted.querySelector('.gt462-sl-primary');if(primary)primary.textContent=item.title;
+  const secondary=converted.querySelector('.gt462-sl-secondary');
+  if(secondary)secondary.textContent=item.secondary;
+  else if(item.secondary)converted.querySelector('.gt462-sl-primary')?.after(el('span',{class:'gt462-sl-secondary'},item.secondary));
+  const tertiary=converted.querySelector('.gt462-sl-tertiary');
+  if(tertiary){if(item.tertiary)tertiary.textContent=item.tertiary;else tertiary.remove()}
+  else if(item.tertiary)converted.querySelector('.gt462-sl-copy')?.append(el('small',{class:'gt462-sl-tertiary'},item.tertiary));
+  converted.querySelector('.gt462-sl-extra')?.remove(); // result/score already in line 3
+ }
+ return converted;
+};
+/* Schedule Upcoming + Past Events: every row receives the calendar formatter. */
+scheduleRecordRow=function(record,returnTo='schedule'){
+ const content=gt463CalendarItem(record);
+ return gt462SectionListRow({variant:'calendar',...content,date:record.start,
+  open:()=>openScheduleEvent(record.id,returnTo),
+  attrs:{'data-schedule-id':record.id,'aria-label':'Open '+(record.title||'event')}});
+};
+/* Gym: every training/camp row receives the activity formatter. */
+sessionListRow43=function(session,returnTo='training',attrs={}){
+ const content=gt463TrainingItem(session);
+ return gt462SectionListRow({variant:'activity',...content,icon:'◎',
+  open:()=>openSession(session.id,returnTo),
+  attrs:{'data-session-id':session.id,'data-open-session':session.id,'aria-label':'Open '+(session.name||'session'),...attrs}});
+};
+/* Final pass for pages whose legacy renderer inserts rows after the original factory.
+   Preserve their existing click targets and full Section List layout. */
+function gt463NormalizeList(root){
+ if(!root)return;
+ for(const row of root.querySelectorAll('.gt462-sl-row')){
+  const id=row.dataset.gameId||row.dataset.courtGame||row.dataset.sessionId||row.dataset.courtTraining||row.dataset.courtActivity||row.dataset.scheduleId||row.dataset.courtEvent;
+  if(!id)continue;
+  let content;
+  const g=db.games.find(x=>x.id===id&&!x.deletedAt);
+  const t=g?null:db.trainingSessions.find(x=>x.id===id&&!x.deletedAt);
+  const r=g||t?null:db.personalRecords.find(x=>x.id===id&&!x.deletedAt);
+  if(g)content=gt463GameItem(g);else if(t)content=gt463TrainingItem(t);else if(r)content=gt463CalendarItem(r);
+  if(!content)continue;
+  const copy=row.querySelector('.gt462-sl-copy');if(!copy)continue;
+  copy.replaceChildren(el('strong',{class:'gt462-sl-primary'},content.title));
+  if(content.secondary)copy.append(el('span',{class:'gt462-sl-secondary'},content.secondary));
+  if(content.tertiary)copy.append(el('small',{class:'gt462-sl-tertiary'},content.tertiary));
+  row.querySelector('.gt462-sl-extra')?.remove();
+ }
+}
+const gt463Court=renderHomeCourt;renderHomeCourt=function(){gt463Court();gt463NormalizeList($('courtContent'))};
+const gt463Games=renderHome;renderHome=function(){gt463Games();gt463NormalizeList($('homeContent'))};
+const gt463Schedule=renderSchedule;renderSchedule=function(){gt463Schedule();gt463NormalizeList($('scheduleContent'))};
+const gt463Training=renderTraining;renderTraining=function(){gt463Training();gt463NormalizeList($('trainingContent'))};
+
+/* GameTrace V46.4 — shared PageHeader, Scoreboard visual baseline, Option A.
+   Content-only header normalization; no data writes or page behavior changes.
+   Runs after all existing V46.3 renderers. */
+MENU_ICON_DATA['gt-basketball']="<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9.5\"/><path d=\"M2.5 12h19M12 2.5v19M5.3 5.3c7.8 3.2 7.8 10.2 0 13.4M18.7 5.3c-7.8 3.2-7.8 10.2 0 13.4\"/></svg>";
+const gt464Pages={
+ court:['Home Court','Your game. Your growth. Your journey.'],
+ home:['Games','Every game adds to the story.'],
+ reports:['Scoreboard','See how your games add up.'],
+ schedule:['Schedule','Your games, training, and moments ahead.'],
+ training:['Gym','The work behind the game.'],
+ goals:['Playbook','Small steps. Bigger goals.'],
+ notebook:['Notebook','Your thoughts. Your growth. Your journey.'],
+ trophies:['Wall','Every milestone tells a story.'],
+ family:['Family Huddle','Following the journey, together.'],
+ settings:['Settings','Make GameTrace yours.'],
+ stats:['The Game','Every play tells the story.'],
+ live:['Live Game','Follow the play, as it happens.'],
+ liveFeed:['Live Feed','Follow the game, wherever you are.'],
+ session:['Training Details','The work behind every improvement.'],
+ prayer:['My Prayer','Faith before every step.'],
+ commitment:['My Commitment','The promise behind the work.'],
+ backup:['Backup & Restore','Keep your journey safe.'],
+ menu:['Menu','Explore your GameTrace journey.'],
+ scheduleDetail:['Event Details','Your next moment, all in one place.'],
+ setup:['New Game','Get ready for tip-off.'],
+ history:['Recorded Plays','Every moment, every play.']
+};
+function gt464PageHeader(screen){
+ const root=$(screen+'Content'),spec=gt464Pages[screen];
+ if(!root||!spec)return;
+ let header=[...root.children].find(n=>n.matches?.('.page-heading,.view-title'));
+ if(!header){
+   if(screen==='live')return; // Live controller has a specialized, fixed header.
+   return;
+ }
+ if(header.dataset.gt464Header==='1')return;
+ const heading=header.querySelector('h1');
+ if(!heading)return;
+ header.dataset.gt464Header='1';header.classList.add('gt464-page-header');
+ // Keep contextual naming of Home Court, but standardize all other page titles.
+ const pageTitle=screen==='court'&&/Home Court/i.test(heading.textContent)?heading.textContent.trim():spec[0];
+ let icon=heading.querySelector('[data-page-icon]');
+ // Games uses the same outlined SVG family as other page icons.
+ if(screen==='home'){icon=menuIcon('gt-basketball');icon.setAttribute('data-page-icon','')}
+ else if(!icon){icon=menuIcon(pageIcons43?.[screen]||'layers');icon.setAttribute('data-page-icon','')}
+ icon.classList.add('gt464-page-icon');
+ // Existing back buttons and actual action buttons are retained without recreating handlers.
+ const titleBox=el('div',{class:'gt464-title-box'}),titleLine=el('div',{class:'gt464-title-line'});
+ heading.replaceChildren(document.createTextNode(pageTitle));
+ titleLine.append(icon,heading);
+ const subtitle=el('p',{class:'gt464-page-subtitle'},spec[1]);
+ titleBox.append(titleLine,subtitle);
+ const existingBack=[...header.children].find(n=>n.matches?.('.page-back'));
+ const others=[...header.children].filter(n=>n!==heading&&n!==existingBack);
+ // Keep a previously inserted header action or filter exactly as-is.
+ const actions=others.filter(n=>n.matches?.('button,.gt-header-action,[data-header-action],.v42-schedule-filters'));
+ header.replaceChildren();if(existingBack)header.append(existingBack);
+ header.append(titleBox,...actions);
+ for(const other of others){
+   if(actions.includes(other))continue;
+   if(other.matches?.('.training-kicker')){header.before(other);continue}
+   // Avoid stray duplicate description immediately below the title.
+   if(other.matches?.('.view-note,.review-subtitle,.v42-subtitle'))continue;
+   if(other.tagName==='P'&&other.textContent?.trim()===spec[1])continue;
+   header.after(other);
+ }
+ // Legacy review helpers used to insert a second subtitle below the whole header.
+ const following=header.nextElementSibling;
+ if(following?.matches?.('.review-subtitle,.v42-subtitle'))following.remove();
+ // On title-bearing pages, an existing directly following subtitle should not duplicate Option A.
+ if(following?.matches?.('.view-note')&&following.textContent?.trim()===spec[1])following.remove();
+}
+const gt464GamesBeforeHeader=renderHome;
+renderHome=function(...args){
+ const result=gt464GamesBeforeHeader(...args);
+ gt464PageHeader('home');
+ return result;
+};
+const gt464BeforeRender=render;
+render=function(...args){
+ const out=gt464BeforeRender(...args);
+ try{gt464PageHeader(ui.screen)}catch(error){console.warn('GameTrace PageHeader refinement:',error)}
+ return out;
+};
+
+/* GameTrace V46.5: one shared full-width PageCTA and detail-page header actions.
+   Appended after locked V46.4 code; no database writes or navigation replacement. */
+Object.assign(gt464Pages,{
+ stats:['The Game','Every play tells the story.'],
+ session:['The Training','The work behind every improvement.'],
+ scheduleDetail:['The Event','Every moment is part of the journey.']
+});
+function gt465Action(label,handler){return button(label,handler,'gt465-cta-button primary')}
+function gt465Place(root,items){
+ if(!root)return;
+ root.querySelector(':scope > .gt465-page-cta')?.remove();
+ const available=items.filter(Boolean);if(!available.length)return;
+ const row=el('div',{class:'gt465-page-cta','data-component':'PageCTA',role:'group','aria-label':'Page actions'});
+ available.forEach(({label,handler,existing})=>{
+  const control=existing||gt465Action(label,handler);
+  control.classList.add('gt465-cta-button');control.classList.remove('court-secondary','journey-button','journey-primary','family-link','gt-cta-primary','gt-cta-secondary','primary','secondary');
+  // Standard PageCTA structure: preserve the original click handler but replace
+  // the visible label with one consistent SVG icon + label arrangement.
+  control.classList.remove('primary','secondary','gt-cta-primary','gt-cta-secondary','journey-primary','training-button','court-primary');
+  control.classList.toggle('gt465-cta-primary',row.children.length===0);
+  control.classList.toggle('gt465-cta-secondary',row.children.length>0);
+  control.replaceChildren(menuIcon('plus'),el('span',{class:'gt465-cta-label'},label.replace(/^[+＋]\s*/,'')));
+  row.append(control);
+ });
+ const header=root.querySelector(':scope > .gt464-page-header,:scope > .page-heading,:scope > .view-title');
+ if(header)header.after(row);else root.prepend(row);
+}
+function gt465RemoveDuplicate(root,expression){
+ for(const b of [...root.querySelectorAll('button')]){
+  if(b.closest('.gt465-page-cta,.gt464-page-header'))continue;
+  if(expression.test(b.textContent.trim()))b.remove();
+ }
+}
+function gt465TopHeader(screen){const root=$(screen+'Content');if(!root)return null;
+ gt464PageHeader(screen);return root.querySelector(':scope > .gt464-page-header,:scope > .page-heading,:scope > .view-title');
+}
+function gt465EditHeader(screen,handler,enabled=true){
+ const head=gt465TopHeader(screen);if(!head)return;
+ head.querySelector('.gt465-header-edit')?.remove();
+ if(enabled){const edit=button('Edit',handler,'gt465-header-edit',{'aria-label':'Edit '+(gt464Pages[screen]?.[0]||'details')});head.append(edit)}
+}
+// Preserve the original CTA callbacks by moving existing buttons where possible.
+const gt465CourtBase=renderHomeCourt;
+renderHomeCourt=function(...args){const result=gt465CourtBase(...args),root=$('courtContent');
+ const quick=root.querySelector('.court-quick-actions');
+ const session=quick?.querySelector('button[aria-label="Record Training"]');
+ quick?.remove();
+ gt465Place(root,[!liveGame()&&{label:'＋ New Game',handler:()=>gameForm()},
+  {label:'＋ Log Session',existing:session,handler:recordTrainingFromCourt}]);
+ return result;
+};
+const gt465GamesBase=renderHome;
+renderHome=function(...args){const result=gt465GamesBase(...args),root=$('homeContent');
+ const head=gt465TopHeader('home');
+ if(head&&!head.querySelector('.page-back'))head.prepend(button('←',()=>navigate('court'),'page-back',{'aria-label':'Back to Home Court'}));
+ gt465Place(root,[!liveGame()&&{label:'＋ New Game',handler:()=>gameForm()}]);
+ // Avoid showing a redundant New Game action inside the empty banner.
+ if(!liveGame())for(const b of root.querySelectorAll('.gt46-approved-banneraction')){
+  if(/new game/i.test(b.textContent))b.remove();
+ }
+ return result;
+};
+const gt465ScheduleBase=renderSchedule;
+renderSchedule=function(...args){const result=gt465ScheduleBase(...args);if(ui.screen==='scheduleDetail')return result;
+ const root=$('scheduleContent');const existing=[...root.querySelectorAll('button')].find(b=>/^(\+|＋)?\s*Add (schedule|event)$/i.test(b.textContent.trim()));
+ if(existing){const parent=existing.parentElement;gt465Place(root,[{label:'＋ Add Event',existing}]);if(parent?.classList.contains('row-actions')&&!parent.children.length)parent.remove()}
+ else gt465Place(root,[{label:'＋ Add Event',handler:()=>scheduleForm()}]);return result;
+};
+const gt465GymBase=renderTraining;
+renderTraining=function(...args){const result=gt465GymBase(...args);if(trainingUI.editing)return result;
+ const root=$('trainingContent');const existing=root.querySelector('[data-log-session]');
+ gt465Place(root,[{label:'＋ Log Session',existing,handler:()=>trainingForm()}]);
+ return result;
+};
+const gt465GoalsBase=renderGoals;
+renderGoals=function(...args){const result=gt465GoalsBase(...args),root=$('goalsContent');
+ if(journeyUI.editing)return result;
+ // Playbook uses '+ New goal' in the training toolbar.
+ const existing=root.querySelector('.training-toolbar button.journey-primary')||
+  [...root.querySelectorAll('.training-toolbar button')].find(b=>/new\s+goal|add\s+goal/i.test(b.textContent.trim()));
+ gt465Place(root,[{label:'＋ Add Goal',existing,handler:()=>goalForm()}]);return result;
+};
+const gt465NotebookBase=renderNotebook;
+renderNotebook=function(...args){const result=gt465NotebookBase(...args),root=$('notebookContent');
+ const existing=[...root.querySelectorAll('button')].find(b=>/^\+?\s*Add Note(s)?$/i.test(b.textContent.trim()));
+ gt465Place(root,[{label:'＋ Add Notes',existing,handler:()=>noteForm40()}]);return result;
+};
+// No PageCTA is added to any detail page. Edit lives at the far right of the title row.
+const gt465GameDetailBase=renderStats;
+renderStats=function(...args){const result=gt465GameDetailBase(...args),g=game();
+ if(g)gt465EditHeader('stats',()=>gameForm(g.id));return result;
+};
+const gt465TrainingDetailBase=renderSessionDetail;
+renderSessionDetail=function(...args){const result=gt465TrainingDetailBase(...args),root=$('sessionContent');
+ const s=db.trainingSessions.find(x=>x.id===sessionUI.id&&!x.deletedAt);
+ if(s){gt465RemoveDuplicate(root,/^Edit session$/i);gt465EditHeader('session',()=>{navigate('training');trainingForm(s.id)})}
+ return result;
+};
+const gt465EventDetailBase=renderScheduleDetail;
+renderScheduleDetail=function(...args){const result=gt465EventDetailBase(...args),root=$('scheduleDetailContent');
+ const record=db.personalRecords.find(r=>r.id===schedule38.id&&r.type==='schedule'&&!r.deletedAt);
+ if(record){gt465RemoveDuplicate(root,/^Edit event$/i);gt465EditHeader('scheduleDetail',()=>scheduleForm(record),!record.source)}
+ return result;
+};
+
+/* V46.6: remove promotional copy and redundant legacy page actions.
+   Runs after V46.5 shared PageCTA; preserve page header subtitle, actionable
+   instructions, user-entered content, and all underlying click handlers. */
+const gt466PromoPhrases=[
+ /^know what.s next[.!]?\s*show up ready[.!]?$/i,
+ /^notice it[.!]?\s*write it[.!]?\s*grow from it[.!]?$/i,
+ /^choose your focus[.!]?\s*take the next step[.!]?$/i,
+ /^put in the work[.!]?\s*build your game[.!]?$/i,
+ /^keep showing up[.!]?\s*your work adds up[.!]?$/i,
+ /^a little closer, every day[.!]?$/i,
+ /^the work deserves a little celebration[.!]?$/i,
+ /^follow the play[.!]?\s*the game[.!]?\s*the journey[.!]?$/i,
+ /^your work[.!]?\s*your growth[.!]?\s*your basketball journey[.!]?$/i,
+ /^look what you.re building[.!]?$/i,
+ /^real milestones[.!]?\s*little moments[.!]?/i,
+ /^one goal at a time[.!]?$/i,
+];
+function gt466PromoText(s){const t=String(s||'').replace(/\s+/g,' ').trim();return gt466PromoPhrases.some(pattern=>pattern.test(t))}
+function gt466CleanRoot(root,screen){
+ if(!root)return;
+ // Retain the ONE required approved page subtitle in the shared header.
+ for(const node of [...root.querySelectorAll('p,span,small,h2,h3,div')]){
+  if(node.closest('.gt464-page-header,.gt465-page-cta,dialog,[role="dialog"],form,.gt-list-row,.gt-section-list,[contenteditable="true"]'))continue;
+  if(node.children.length && [...node.children].some(c=>c.tagName==='BUTTON'||c.tagName==='INPUT'||c.tagName==='A'||c.tagName==='TEXTAREA'))continue;
+  if(gt466PromoText(node.textContent)&&!node.querySelector('button,a,input,textarea,select'))node.remove();
+ }
+ // Legacy standalone promotional kickers beside page headers only;
+ // functional context labels inside cards and records are retained.
+ for(const node of [...root.querySelectorAll(':scope > .training-kicker,:scope > .hc-intro,:scope > .review-subtitle,:scope > .view-note,:scope > .v42-subtitle,:scope > .training-help, :scope > .gt464-page-header + .training-kicker')]){
+  // Keep functional instructions and error notices; remove only nonessential intro slogans.
+  const t=node.textContent.trim();
+  if(gt466PromoText(t)||node.classList.contains('hc-intro')||node.classList.contains('review-subtitle'))node.remove();
+ }
+ // Preserve legitimate calendar settings and reminder dialogs; only the
+ // stray Schedule PAGE action in screenshot is a legacy duplicate.
+ if(screen==='schedule'){
+  for(const b of [...root.querySelectorAll('button')]){
+   if(b.closest('.gt465-page-cta,.gt464-page-header,dialog,[role="dialog"]'))continue;
+   if(/^email reminders$/i.test(b.textContent.trim()))b.remove();
+  }
+ }
+ const duplicateActions={
+  court:/^(?:\+|＋)?\s*(?:new game|log session|add training|add note)$/i,
+  home:/^(?:\+|＋)?\s*new game$/i,
+  schedule:/^(?:\+|＋)?\s*(?:add event|add schedule)$/i,
+  training:/^(?:\+|＋)?\s*(?:log session|add training)$/i,
+  goals:/^(?:\+|＋)?\s*(?:new goal|add goal)$/i,
+  notebook:/^(?:\+|＋)?\s*(?:add note|add notes|add training)$/i
+ };
+ const regex=duplicateActions[screen];
+ if(regex)for(const b of [...root.querySelectorAll('button')]){
+  if(b.closest('.gt465-page-cta,.gt464-page-header,dialog,[role="dialog"],form'))continue;
+  if(regex.test(b.textContent.trim()))b.remove();
+ }
+ // Remove empty leftover quick-action wrappers, without touching content areas.
+ for(const n of [...root.querySelectorAll('.training-toolbar,.notebook-quick,.court-quick-actions,.row-actions')]){
+  if(!n.children.length&&!n.textContent.trim())n.remove();
+ }
+}
+for(const [screen,renderName,id] of [
+ ['court','renderHomeCourt','courtContent'],['home','renderHome','homeContent'],
+ ['schedule','renderSchedule','scheduleContent'],['training','renderTraining','trainingContent'],
+ ['goals','renderGoals','goalsContent'],['notebook','renderNotebook','notebookContent'],
+ ['trophies','renderTrophies','trophiesContent'],['family','renderFamily','familyContent'],
+ ['reports','renderReports','reportsContent'],['stats','renderStats','statsContent'],
+ ['session','renderSessionDetail','sessionContent'],['scheduleDetail','renderScheduleDetail','scheduleDetailContent'],
+ ['settings','renderSettings','settingsContent']
+]){
+ try{
+  const original=eval(renderName);
+  if(typeof original!=='function')continue;
+  // Bind a new wrapper to the existing lexical function variable.
+  const wrapped=function(...args){const result=original.apply(this,args);gt466CleanRoot($(id),screen);return result};
+  eval(renderName+' = wrapped');
+ }catch(e){console.warn('V46.6 cleanup wrapper for '+screen,e)}
+}
+
+/* GameTrace V46.7 — one shared FilterTrigger + FilterModal.
+   Applied after V46.6 cleanup. UI-only state; no data mutations or deployments. */
+const gt467State={
+ home:{type:'',league:[],team:[],result:'',date:'30',from:'',to:'',opponent:[],games:[]},
+ reports:{type:'',league:[],team:[],result:'',date:'30',from:'',to:'',opponent:[],games:[],columnsPreset:'all',columns:[]},
+ schedule:{activity:[],calendar:[],date:'next30',from:'',to:'',source:'',status:''},
+ training:{kind:[],date:'30',from:'',to:'',coach:[],location:[]},
+ notebook:{kind:[],date:'30',from:'',to:'',relation:[]},
+ trophies:{category:[],date:'30',from:'',to:'',awarded:[]}
+};
+const gt467Clone=x=>JSON.parse(JSON.stringify(x));
+const gt467PageMap={home:'home',reports:'reports',schedule:'schedule',training:'training',notebook:'notebook',trophies:'trophies'};
+const gt467DateChoices=[['all','All Time'],['7','Last 7 Days'],['30','Last 30 Days'],['season','This Season'],['custom','Custom Range']];
+const gt467Unique=(arr)=>[...new Set(arr.map(x=>String(x??'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+const gt467Games=()=>db.games.filter(g=>!g.deletedAt&&g.status==='completed');
+const gt467DateMatches=(raw,d)=>{
+ if(d.date==='all')return true;
+ const iso=String(raw||'').slice(0,10);if(!iso)return false;
+ const now=new Date(),today=gt46Today();
+ if(d.date==='custom')return(!d.from||iso>=d.from)&&(!d.to||iso<=d.to);
+ if(d.date==='next30'){const end=new Date();end.setHours(12,0,0,0);end.setDate(end.getDate()+29);const endISO=end.getFullYear()+'-'+String(end.getMonth()+1).padStart(2,'0')+'-'+String(end.getDate()).padStart(2,'0');return iso>=today&&iso<=endISO;}
+ if(d.date==='season'){const y=now.getMonth()>=7?now.getFullYear():now.getFullYear()-1;return iso>=y+'-08-01'&&iso<=today}
+ return iso>=gt46DayOffset(Number(d.date)-1)&&iso<=today;
+};
+function gt467GameMatch(g,d,skipGameSelection=false){
+ if(d.type&&gt46Field(g,'type')!==d.type)return false;
+ if(d.league?.length&&!d.league.includes(String(g.league||'')))return false;
+ if(d.team?.length&&!d.team.includes(String(g.team||'')))return false;
+ if(d.opponent?.length&&!d.opponent.includes(String(g.opponent||'')))return false;
+ if(d.result&&gt46Outcome(g)[0]!==d.result)return false;
+ if(!gt467DateMatches(g.date,d))return false;
+ if(!skipGameSelection&&d.games?.length&&!d.games.includes(g.id))return false;
+ return true;
+}
+// Games' approved banner and shared SectionList keep their renderers; the filter
+// predicate gains Team, League, Result, Opponent and game selection support.
+const gt467EligiblePrior=gt46Eligible;
+gt46Eligible=function(g,f){return gt467GameMatch(g,gt467State.home)&&gt467EligiblePrior(g,{...f,player:'',team:'',type:'',league:[],games:[],date:'all'})};
+const gt467PeriodText=(d)=>d.date==='custom'?'Custom Range':gt467DateChoices.find(x=>x[0]===d.date)?.[1]||'All Time';
+function gt467Modal(screen){
+ const config=gt467State[screen];if(!config)return;
+ document.querySelector('.gt467-overlay')?.remove();
+ const draft=gt467Clone(config),over=el('div',{class:'gt467-overlay'}),sheet=el('section',{class:'gt467-sheet',role:'dialog','aria-modal':'true','aria-label':'Filters'});
+ const header=el('header',{class:'gt467-modal-header'},el('h2',{},'Filters'));
+ const content=el('div',{class:'gt467-modal-body'}),footer=el('footer',{class:'gt467-modal-footer'});
+ let close=()=>{over.remove();document.querySelector('#'+(screen==='home'?'home':screen==='trophies'?'trophies':screen)+'Content .gt467-trigger')?.focus()};
+ sheet.append(el('span',{class:'gt467-handle','aria-hidden':'true'}),header,content,footer);over.append(sheet);
+ function group(title,render){const box=el('details',{class:'gt467-group',open:''}),label=el('summary',{},el('strong',{},title),el('span',{'aria-hidden':'true'},'⌄')),body=el('div',{class:'gt467-group-body'});box.append(label,body);render(body);content.append(box)}
+ function options(body,key,label,values,multi=false){
+  const f=el('div',{class:'gt467-field'},el('strong',{class:'gt467-field-label'},label)),grid=el('div',{class:'gt467-options'});
+  for(const[value,text]of values){const selected=multi?(!value?!draft[key].length:draft[key].includes(value)):draft[key]===value;
+   const b=button(text,()=>{if(multi)draft[key]=!value?[]:draft[key].includes(value)?draft[key].filter(x=>x!==value):[...draft[key],value];else draft[key]=value;refresh()},'gt467-choice'+(selected?' selected':''),{'aria-pressed':String(selected)});
+   grid.append(b)}f.append(grid);body.append(f)
+ }
+ const choices=(vals,all)=>[['',all],...gt467Unique(vals).map(v=>[v,v])];
+ function date(body){options(body,'date','Date',screen==='schedule'?[['next30','Next 30 Days'],['all','All Time'],['7','Last 7 Days'],['30','Last 30 Days'],['custom','Custom Range']]:gt467DateChoices);if(draft.date==='custom'){
+ const row=el('div',{class:'gt467-date-pair'});for(const[k,title]of [['from','From'],['to','To']]){const inp=el('input',{type:'date','aria-label':title});inp.value=draft[k]||'';inp.addEventListener('change',()=>{draft[k]=inp.value});row.append(el('label',{},title,inp))}body.append(row)} }
+ const allGames=gt467Games();
+ function specificGames(body){
+  const f=el('div',{class:'gt467-field'},el('strong',{class:'gt467-field-label'},'Game Selection'));
+  const eligible=allGames.filter(g=>gt467GameMatch(g,draft,true));
+  f.append(button('All Games',()=>{draft.games=[];refresh()},'gt467-choice'+(!draft.games.length?' selected':'')));
+  const choices=el('div',{class:'gt467-game-picks'});
+  for(const g of eligible){const cb=el('input',{type:'checkbox'});cb.checked=draft.games.includes(g.id);cb.addEventListener('change',()=>{draft.games=cb.checked?[...new Set([...draft.games,g.id])]:draft.games.filter(v=>v!==g.id)});
+   choices.append(el('label',{},cb,el('span',{},(g.team||'Team')+' vs '+(g.opponent||'Opponent')+' · '+friendlyDate(g.date))))}
+  if(!eligible.length)choices.append(el('p',{},'No matching games.'));
+  f.append(choices);body.append(f);
+ }
+ function refresh(){content.replaceChildren();
+ if(screen==='home'||screen==='reports')group('Filter Games',body=>{
+  options(body,'type','Game Type',[['','All Types'],['regular','Regular'],['playoffs','Playoffs'],['finals','Finals']]);
+  options(body,'league','League',choices(allGames.map(g=>g.league),'All Leagues'),true);
+  options(body,'team','Team',choices(allGames.map(g=>g.team),'All Teams'),true);
+  options(body,'result','Result',[['','All Results'],['W','Win'],['L','Loss'],['T','Tie']]);
+  date(body);
+  options(body,'opponent','Opponent',choices(allGames.map(g=>g.opponent),'All Opponents'),true);
+  if(screen==='reports')specificGames(body);
+ });
+ if(screen==='reports')group('Display Columns',body=>{
+  options(body,'columnsPreset','Column Preset',[['all','All'],['scoring','Scoring'],['shooting','Shooting'],['defense','Defense'],['custom','Custom']]);
+  if(draft.columnsPreset==='custom'){
+   const available=gt467ReportColumns();
+   const chosen=draft.columns.length?draft.columns:available;
+   const section=el('div',{class:'gt467-game-picks'});
+   for(const name of available){const input=el('input',{type:'checkbox'});input.checked=name==='Game'||chosen.includes(name);input.disabled=name==='Game';input.addEventListener('change',()=>{
+    draft.columns=[...new Set(input.checked?[...chosen,name]:chosen.filter(n=>n!==name))];
+   });section.append(el('label',{},input,el('span',{},name)))}body.append(section)
+  }
+ });
+ if(screen==='schedule'){
+  const records=db.personalRecords.filter(r=>r.type==='schedule'&&!r.deletedAt);
+  group('Activity',body=>options(body,'activity','Activity Type',[['','All Activities'],['game','Games'],['training','Training'],['camp','Camps'],['other','Other']],true));
+  group('Calendar',body=>options(body,'calendar','Calendar',choices(records.map(r=>r.calendarName||r.calendar||r.sourceName),'All Calendars'),true));
+  group('Date',date);
+  group('Source & Status',body=>{options(body,'source','Event Source',[['','All'],['manual','Manual'],['subscribed','Subscribed']]);options(body,'status','Event Status',[['','All'],['scheduled','Scheduled'],['cancelled','Cancelled']])});
+ }
+ if(screen==='training'){
+  const sessions=db.trainingSessions.filter(s=>!s.deletedAt);
+  group('Training Type',body=>options(body,'kind','Activity Type',[['','All Types'],['training','Training'],['camp','Camp']],true));
+  group('Date',date);
+  group('Coach & Location',body=>{options(body,'coach','Coach / Trainer',choices(sessions.map(s=>s.coach||s.trainer),'All Coaches'),true);options(body,'location','Location',choices(sessions.map(s=>s.location),'All Locations'),true)});
+ }
+ if(screen==='notebook'){
+  group('Note Type',body=>options(body,'kind','Note Type',[['','All Types'],['game','Game Notes'],['training','Training Notes'],['camp','Camp Notes'],['general','General Notes']],true));
+  group('Related Activity',body=>options(body,'relation','Related Activity',[['','All'],['game','Games'],['training','Training'],['none','None']],true));
+  group('Date',date);
+ }
+ if(screen==='trophies'){
+  const awards=T.trophies(db.trainingSessions,db.goals,trophyUI.player);
+  group('Trophy Category',body=>options(body,'category','Category',choices(awards.map(a=>a.category),'All Categories'),true));
+  const issuers=gt467Unique(awards.map(a=>a.awardedBy||a.issuer));
+  if(issuers.length)group('Awarded By',body=>options(body,'awarded','Awarded By',choices(issuers,'All Issuers'),true));
+  group('Date',date);
+ }
+ }
+ function apply(){if(draft.date==='custom'&&draft.from&&draft.to&&draft.from>draft.to){alert('End date must not be before start date.');return}
+  gt467State[screen]=gt467Clone(draft);close();gt467RefreshPage(screen)}
+ footer.append(button('Reset to Default',()=>{Object.assign(draft,gt467Clone(gt467Defaults[screen]));refresh()},'gt467-reset'),button('Done',apply,'gt467-done'));
+ over.addEventListener('click',e=>{if(e.target===over)close()});over.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ document.body.append(over);refresh();sheet.tabIndex=-1;sheet.focus();
+}
+const gt467Defaults=gt467Clone(gt467State);
+function gt467ActiveCount(screen){return Object.entries(gt467State[screen]).filter(([k,v])=>Array.isArray(v)?v.length:k==='date'?v!==gt467Defaults[screen].date:k==='columnsPreset'?v!=='all':Boolean(v)).length}
+/* V46.8.1: Standard FilterTrigger is the only visible filter control.
+   Legacy UI is removed after its renderer runs, not merely hidden. */
+function gt468RemoveLegacyFilters(root){
+ if(!root)return;
+ // Remove legacy filter UI from page content, including older header buttons.
+ // Keep the new shared component, the page's other actions, and filter data state.
+ const legacySelectors=[
+  '.gt46-approved-filter','.gt46-approved-overlay',
+  '.v42-schedule-filters','.v42-schedule-filter',
+  '[data-game-filters]','[data-legacy-filter]','[data-filter-panel]',
+  '.notebook-filters','.notebook-filter-disclosure',
+  '.reports-filters','.report-filters','.scoreboard-filters',
+  '.schedule-filters','.training-filters','.trophy-filters',
+  '.filter-accordion','.filter-disclosure'
+ ];
+ for(const selector of legacySelectors){
+  for(const node of [...root.querySelectorAll(selector)]){
+   if(node.closest('.gt467-overlay,.gt467-sheet,[data-component="FilterTrigger"]'))continue;
+   if(node.querySelector('.gt-section-list,.gt-list-row,.gt465-page-cta'))continue;
+   node.remove();
+  }
+ }
+ // Old controls have several generations of markup and may be in page headers.
+ for(const control of [...root.querySelectorAll('button,[role="button"],summary')]){
+  if(!control.isConnected||control.closest('.gt467-overlay,.gt467-sheet,[data-component="FilterTrigger"]'))continue;
+  if(control.closest('form,[role="dialog"],.gt465-page-cta'))continue;
+  const label=(control.getAttribute('aria-label')||control.getAttribute('title')||control.textContent||'').replace(/[▾⌄▼≡☰⚙]/g,'').trim();
+  const filterOnly=/^(?:show|open|view|select|game|schedule|report|scoreboard|training|notebook|trophy|trophies)?\s*filters?(?:\s*\(\d+\s*(?:active)?\))?$/i.test(label);
+  const classLooksOld=/\b(?:v42|legacy)[-_].*filter|filter[-_](?:toggle|trigger|btn|button)|filters[-_]btn/i.test(String(control.className||''));
+  if(filterOnly||classLooksOld)control.remove();
+ }
+ // Remove filter-only disclosures after their old trigger has been removed.
+ for(const detail of [...root.querySelectorAll('details')]){
+  if(detail.closest('.gt467-overlay,.gt467-sheet'))continue;
+  const sum=detail.querySelector(':scope > summary');
+  if(sum&&/^(?:show\s+)?filters?(?:\s*[▾⌄▼])?$/i.test(sum.textContent.trim()))detail.remove();
+ }
+}
+
+/* V46.8.1 Scoreboard-specific legacy filter removal.
+   Legacy Scoreboard filters also appeared as a toolbar of dropdown selectors,
+   not as a button named "Filters". Remove the toolbar after each render. */
+function gt468RemoveScoreboardLegacyFilters(root){
+ if(!root)return;
+ // Do not touch the shared modal or the actual scoreboard statistics/table.
+ const protectedNode=node=>Boolean(node.closest('.gt467-overlay,.gt467-sheet,[data-component="FilterTrigger"]'));
+ const candidates=[
+  '[id*="report"][id*="filter"]','[id*="scoreboard"][id*="filter"]',
+  '[class*="report"][class*="filter"]','[class*="scoreboard"][class*="filter"]',
+  '[id*="filter"][id*="report"]','[class*="filter"][class*="report"]',
+  '.reports-controls','.report-controls','.scoreboard-controls',
+  '.reports-toolbar','.report-toolbar','.scoreboard-toolbar'
+ ];
+ for(const selector of candidates)for(const node of [...root.querySelectorAll(selector)]){
+  if(!node.isConnected||protectedNode(node)||node.querySelector('table,.reports-table,.gt467-trigger,[data-component="FilterTrigger"]'))continue;
+  const isControls=node.matches('select,button,details,form')||Boolean(node.querySelector('select,input[type="date"],input[type="checkbox"],button'));
+  if(isControls)node.remove();
+ }
+ // Old Scoreboard uses inline Show/Game selectors even when no filter class exists.
+ // Remove only a compact control group, never a wrapper with metrics or results.
+ for(const select of [...root.querySelectorAll('select')]){
+  if(!select.isConnected||protectedNode(select))continue;
+  const ref=[select.id,select.name,select.getAttribute('aria-label'),select.previousElementSibling?.textContent,select.parentElement?.textContent].filter(Boolean).join(' ').trim();
+  const options=[...select.options].map(x=>x.textContent.trim()).join(' ');
+  const filterSelect=/filter|select game|game selection|date range|show games|game type|opponent|league|last 30|all games|this month|this year|custom range/i.test(ref+' '+options);
+  if(!filterSelect)continue;
+  let wrapper=select.closest('label')||select.parentElement;
+  for(let p=wrapper,i=0;p&&p!==root&&i<3;i++,p=p.parentElement){
+   if(p.querySelector('table,.reports-table,canvas,.gt467-trigger,[data-component="FilterTrigger"]'))break;
+   const controls=p.querySelectorAll('select,input,button').length;
+   const length=p.textContent.trim().length;
+   if(controls>0&&controls<=8&&length<340)wrapper=p;
+  }
+  if(wrapper&&!protectedNode(wrapper)&&!wrapper.querySelector('table,.reports-table'))wrapper.remove();
+ }
+ // Legacy "Filter"/"Show" disclosures whose content is exclusively filter inputs.
+ for(const node of [...root.querySelectorAll('details,fieldset')]){
+  if(!node.isConnected||protectedNode(node)||node.querySelector('table,.reports-table'))continue;
+  const title=node.querySelector('summary,legend')?.textContent||'';
+  if(/filters?|show|select game|date range/i.test(title)&&node.querySelector('select,input,button'))node.remove();
+ }
+}
+
+/* Screenshot-confirmed legacy Scoreboard header control: "Filters · 2 ▾".
+   Remove this exact older textual trigger before inserting the approved icon.
+   This does NOT remove the new icon (.gt468-icon-trigger). */
+function gt468RemoveTextFilterTrigger(root){
+ if(!root)return;
+ const controls=root.querySelectorAll('button,[role="button"],a,summary');
+ for(const node of [...controls]){
+  if(!node.isConnected||node.closest('.gt467-overlay,.gt467-sheet')||node.classList.contains('gt468-icon-trigger'))continue;
+  const label=(node.textContent||'').replace(/\s+/g,' ').trim();
+  const aria=(node.getAttribute('aria-label')||'').trim();
+  // The legacy counter is shown as "Filters · 2 ▾"; include other active counts.
+  if(/^Filters?\s*[·•]\s*\d+\s*[▾▼⌄]?$/.test(label) ||
+     /^Filters?\s*[·•]\s*\d+\s*[▾▼⌄]?$/.test(aria) ||
+     /^Filters?\s*[▾▼⌄]$/.test(label)) node.remove();
+ }
+}
+function gt467Trigger(screen){
+ const root=$(screen+'Content');if(!root)return;
+ const head=root.querySelector(':scope > .gt464-page-header,:scope > .page-heading,:scope > .view-title');
+ // Strip obsolete controls even if the page header has not been constructed.
+ gt468RemoveLegacyFilters(root);
+ if(screen==='reports'){gt468RemoveScoreboardLegacyFilters(root);gt468RemoveTextFilterTrigger(root);}
+ if(!head)return;
+ for(const old of [...root.querySelectorAll('.gt467-trigger,[data-component="FilterTrigger"]')])old.remove();
+ const count=gt467ActiveCount(screen);
+ const b=button('',()=>gt467Modal(screen),'gt467-trigger gt468-icon-trigger',{
+  'type':'button','aria-label':'Open filters'+(count?' ('+count+' active)':''),
+  'title':'Filters','data-component':'FilterTrigger','data-filter-screen':screen
+ });
+ const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ for(const [key,value] of Object.entries({'viewBox':'0 0 24 24','fill':'none','stroke':'currentColor','stroke-width':'1.8','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'}))icon.setAttribute(key,value);
+ for(const d of ['M4 7h16','M7 12h10','M10 17h4']){
+  const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);icon.appendChild(p);
+ }
+ b.appendChild(icon);
+ if(count)b.append(el('span',{class:'gt468-filter-active','aria-hidden':'true'}));
+ head.append(b);
+ if(screen==='reports')gt468RemoveTextFilterTrigger(root);
+}
+
+gt46FilterModal=function(){gt467Modal('home')};
+function gt467ReportColumns(){const header=$('reportsContent')?.querySelector('.reports-table thead tr:first-child');return header?[...header.cells].map(n=>n.textContent.trim()):['Game','PTS','FG%','3PT','2PT','FT','REB','AST','STL','TOV','PF','MIN','W/L','Final score']}
+function gt467ApplyColumns(){const table=$('reportsContent')?.querySelector('.reports-table');if(!table)return;
+ const state=gt467State.reports,cols=[...table.tHead.rows[0].cells].map(x=>x.textContent.trim());
+ const presets={scoring:['Game','PTS','REB','AST','W/L','Final score'],shooting:['Game','PTS','FG%','3PT','2PT','FT','W/L','Final score'],defense:['Game','REB','STL','TOV','PF','Blocks','Def Stops','W/L','Final score']};
+ const selected=state.columnsPreset==='custom'?(state.columns.length?state.columns:cols):(presets[state.columnsPreset]||cols);
+ const hide=cols.map((x,i)=>i!==0&&!selected.includes(x));
+ for(const row of table.querySelectorAll('tr')){
+  if(row.cells.length!==cols.length)continue;
+  [...row.cells].forEach((c,i)=>{c.hidden=hide[i];c.style.display=hide[i]?'none':''})
+ }
+}
+function gt467RefreshPage(screen){const names={home:'renderHome',reports:'renderReports',schedule:'renderSchedule',training:'renderTraining',notebook:'renderNotebook',trophies:'renderTrophies'};const f=eval(names[screen]);if(typeof f==='function')f()}
+function gt467ApplyRows(screen){const root=$(screen+'Content'),f=gt467State[screen];if(!root)return;
+ if(screen==='reports'){gt467ApplyColumns();return;}
+ if(screen==='schedule')for(const row of root.querySelectorAll('[data-schedule-id]')){
+  const r=db.personalRecords.find(x=>x.id===row.dataset.scheduleId);if(!r)continue;
+  const src=r.source?'subscribed':'manual',category=String(r.activity||'other').toLowerCase(),calendar=String(r.calendarName||r.calendar||r.sourceName||'');
+  row.hidden=!!((f.activity.length&&!f.activity.includes(category))||(f.calendar.length&&!f.calendar.includes(calendar))||(f.source&&f.source!==src)||(f.status&&f.status!==(r.cancelledAt?'cancelled':'scheduled'))||!gt467DateMatches(r.start,f));
+ }
+ if(screen==='training')for(const row of root.querySelectorAll('[data-session-id]')){
+  const r=db.trainingSessions.find(x=>x.id===row.dataset.sessionId);if(!r)continue;
+  row.hidden=!!((f.kind.length&&!f.kind.includes(String(r.type||'training').toLowerCase()))||(f.coach.length&&!f.coach.includes(String(r.coach||r.trainer||'')))||(f.location.length&&!f.location.includes(String(r.location||'')))||!gt467DateMatches(r.date,f));
+ }
+ if(screen==='notebook'){
+  const records=new Map(notebookEntries().map(r=>[r.kind+':'+r.id,r]));
+  for(const row of root.querySelectorAll('[data-notebook-source]')){
+   const r=records.get(row.dataset.notebookSource);if(!r)continue;
+   const kind=r.kind,relation=kind==='game'?'game':kind==='training'||kind==='camp'?'training':'none';
+   row.hidden=!!((f.kind.length&&!f.kind.includes(kind))||(f.relation.length&&!f.relation.includes(relation))||!gt467DateMatches(r.date,f));
+  }
+ }
+ if(screen==='trophies'){
+  const awards=new Map(T.trophies(db.trainingSessions,db.goals,trophyUI.player).map(a=>[a.id,a]));
+  for(const row of root.querySelectorAll('[data-award-id]')){
+   const a=awards.get(row.dataset.awardId);if(!a)continue;
+   const issuer=String(a.awardedBy||a.issuer||'');
+   row.hidden=!!((f.category.length&&!f.category.includes(a.category))||(f.awarded.length&&!f.awarded.includes(issuer))||!gt467DateMatches(a.date,f));
+  }
+ }
+
+}
+// Existing Scoreboard uses its report filter state. Enforce the new shared
+// selection predicate in its existing data pipeline (not only the visible DOM).
+const gt467ReportsFilteredBefore=filteredReports;
+filteredReports=function(...args){return gt467ReportsFilteredBefore(...args).filter(r=>gt467GameMatch(r.g,gt467State.reports))};
+// Force existing scoreboard Game Selection to be applied even where its legacy
+// filter UI was previously section-scoped.
+for(const [screen,renderName,id] of [
+ ['home','renderHome','homeContent'],['reports','renderReports','reportsContent'],
+ ['schedule','renderSchedule','scheduleContent'],['training','renderTraining','trainingContent'],
+ ['notebook','renderNotebook','notebookContent'],['trophies','renderTrophies','trophiesContent']]){
+ try{const prior=eval(renderName);if(typeof prior!=='function')continue;
+  const wrapped=function(...args){const result=prior.apply(this,args);gt467Trigger(screen);gt467ApplyRows(screen);return result};eval(renderName+' = wrapped')
+ }catch(e){console.warn('V46.7 filter wrapper:',screen,e)}
+}
+
+/* V46.8.3 — Home Court stability and responsive rendering guard.
+   Non-destructive: preserve original render pipeline, user data and actions. */
+function gt4683CourtStabilize(){
+ const root=document.getElementById('courtContent');
+ if(!root)return;
+ // Guard against duplicate shared page headers from repeated navigation.
+ const headers=[...root.querySelectorAll(':scope > .gt464-page-header')];
+ for(const excess of headers.slice(1))excess.remove();
+ // Preserve the existing rows and event listeners. Do not reparent or clone cards.
+ // Only clear accidental duplicate CTAs when two identical approved actions
+ // were inserted in the SAME header by successive render wrappers.
+ const header=headers[0];
+ if(header){
+   const buttons=[...header.querySelectorAll('button')],seen=new Set();
+   for(const btn of buttons){
+     const key=(btn.getAttribute('aria-label')||btn.textContent||'').trim().toLowerCase();
+     if(!key)continue;
+     if(seen.has(key))btn.remove();else seen.add(key);
+   }
+ }
+ root.classList.add('gt4683-court-stable');
+}
+// Run AFTER all established V46.7/V46.8 render decorators.
+const gt4683PriorCourtRender=renderHomeCourt;
+renderHomeCourt=function(...args){
+ const result=gt4683PriorCourtRender.apply(this,args);
+ gt4683CourtStabilize();
+ return result;
+};
+
+/* Initial screen renders before post-load decorators are registered in the
+   pinned V45 source. Re-render once when startup completes, using exactly
+   the same approved renderer that menu navigation invokes. */
+function gt4683SyncInitialCourt(){
+ if(window.gt4683InitialCourtSynced)return;
+ if(typeof ui==='undefined'||ui.screen!=='court')return;
+ const root=document.getElementById('courtContent');
+ if(!root||!root.isConnected)return;
+ window.gt4683InitialCourtSynced=true;
+ try{renderHomeCourt()}catch(error){
+  window.gt4683InitialCourtSynced=false;
+  console.warn('V46.8.3 initial Home Court sync:',error);
+ }
+}
+function gt4683ScheduleInitialCourt(){
+ requestAnimationFrame(()=>requestAnimationFrame(gt4683SyncInitialCourt));
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',gt4683ScheduleInitialCourt,{once:true});
+else gt4683ScheduleInitialCourt();
+
+/* GameTrace V46.8.4 — shared Banner > Live Game component.
+   Both Home Court and Games call the same factory and read liveGame().
+   Restrict changes to existing live-game cards; do not modify game records. */
+function gt4684GamePhase(g){
+ if(!g)return 'none';
+ const s=String(g.status||'').toLowerCase();
+ if(s==='completed'||s==='final'||s==='ended')return 'final';
+ if(s==='paused'||g.pausedAt||g.isPaused===true)return 'paused';
+ // A created game is not necessarily in progress. Prefer explicit markers.
+ const hasStart=Boolean(g.startedAt||g.startTime||g.actualStartAt||g.hasStarted||s==='live'||s==='in_progress'||s==='in-progress'||s==='active');
+ return hasStart?'live':'not-started';
+}
+function gt4684GameScore(g){
+ try{const s=C.scoreAt(g);return [Math.round(Number(s.team)||0),Math.round(Number(s.opponent)||0)]}
+ catch{return [0,0]}
+}
+function gt4684LiveBanner(g){
+ if(!g)return null;
+ const phase=gt4684GamePhase(g),score=gt4684GameScore(g),stats=gt46Stats(g);
+ const actionLabel=phase==='not-started'?'Start Game →':phase==='paused'?'Resume Tracking →':'Resume Tracking →';
+ const card=el('section',{class:'gt4684-banner gt4684-banner-live gt46-approved-banner','data-gt-banner':'live-game','aria-label':'LIVE Game'});
+ const heading=el('div',{class:'gt4684-banner-head'},el('div',{},el('h2',{},'LIVE Game'),el('p',{},friendlyDate(g.date))));
+ const badge=el('span',{class:'gt4684-status gt4684-status-'+phase},phase==='not-started'?'NOT STARTED':phase==='paused'?'PAUSED':'● LIVE');
+ heading.append(badge);card.append(heading);
+ card.append(el('div',{class:'gt4684-match'},(g.team||'Your Team')+' vs '+(g.opponent||'Opponent')));
+ const meta=[g.player,g.league,g.gameType].filter(Boolean).join(' · ');
+ if(meta)card.append(el('p',{class:'gt4684-meta'},meta));
+ card.append(el('div',{class:'gt4684-score'},score[0]+' – '+score[1]));
+ const figures=el('div',{class:'gt4684-figures'});
+ for(let i=0;i<3;i++)figures.append(el('div',{},el('strong',{},String(stats[i])),el('small',{},['POINTS','REBOUNDS','ASSISTS'][i])));
+ card.append(figures,button(actionLabel,()=>chooseGame(g.id,'live'),'gt4684-action'));
+ return card;
+}
+function gt4684ReplaceCourtBanner(){
+ const root=document.getElementById('courtContent'),game=liveGame();if(!root)return;
+ // Only replace the existing single-purpose current-game panel.
+ const titles=[...root.querySelectorAll('h1,h2,h3')].filter(h=>/^(current|live) game$/i.test(h.textContent.trim()));
+ if(!game){for(const old of root.querySelectorAll('[data-gt-banner="live-game"]'))old.remove();return}
+ if(!titles.length)return;
+ const title=titles[0];let node=title,found=null;
+ for(let i=0;i<7&&node&&node!==root;i++,node=node.parentElement){
+  if(!/open game|start game|resume tracking/i.test(node.textContent||''))continue;
+  if(/your journey|the work behind it/i.test(node.textContent||''))continue;
+  if(node.matches?.('section,article,.card,.hc45-banner,.hc45-current,.hc45-live,.hc45-game,.gt4684-banner')){found=node;break}
+  // A compact card under a page wrapper, containing a status and action.
+  if(i>=2&&node.querySelectorAll('h1,h2,h3').length===1){found=node;break}
+ }
+ if(!found||found===root)return;
+ found.replaceWith(gt4684LiveBanner(game));
+}
+function gt4684ReplaceGamesBanner(){
+ const root=document.getElementById('homeContent');if(!root)return;
+ const old=root.querySelector('.gt46-approved-banner');if(!old)return;
+ const game=liveGame();
+ // Leave the Latest Game / No Games banner untouched when no game is active.
+ if(game)old.replaceWith(gt4684LiveBanner(game));
+}
+const gt4684PriorCourt=renderHomeCourt;
+renderHomeCourt=function(...args){const result=gt4684PriorCourt.apply(this,args);try{gt4684ReplaceCourtBanner()}catch(e){console.warn('Live Game banner — Court',e)}return result};
+const gt4684PriorGames=renderHome;
+renderHome=function(...args){const result=gt4684PriorGames.apply(this,args);try{gt4684ReplaceGamesBanner()}catch(e){console.warn('Live Game banner — Games',e)}return result};
+// V46.8.3 startup synchronization performs a render, ensuring initial load also shares the component.
+
+/* V46.9.4 — unified New/Edit Game presentation.
+   Preserve original save pipeline and event editors; no app-wide DOM changes. */
+const gt4694NativeGameForm = gameForm;
+function gt4694Label(form, name){
+  return [...form.querySelectorAll('label')].find(l=>{
+    const text=[...l.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(' ').trim().toLowerCase();
+    return text===name.toLowerCase() || text.startsWith(name.toLowerCase());
+  })||null;
+}
+function gt4694EditGame(id=null,periodOnly=false){
+  gt4694NativeGameForm(id,periodOnly);
+  if(periodOnly||ui.screen!=='setup')return;
+  const form=$('gameForm'),root=$('setupContent');if(!form||!root||form.dataset.gt4694Final)return;
+  form.dataset.gt4694Final='yes';form.classList.add('gt4694-final');
+  const g=id?db.games.find(x=>x.id===id&&!x.deletedAt):null;
+  const heading=root.querySelector('.setup-page > .gt464-page-header,.setup-page > .page-heading,.setup-page > .view-title');
+  if(heading){heading.classList.add('gt4694-locked-header');const title=heading.querySelector('h1,h2');if(title)title.textContent=id?'Edit Game':'New Game';}
+  const fieldset=(title)=>el('fieldset',{class:'ng-section gt4694-card'},el('legend',{},title));
+  const sections=[...form.querySelectorAll(':scope>fieldset.ng-section')];
+  const player=fieldset('Player Information'),gameInfo=fieldset('Game Information'),gameFmt=fieldset('Game Format');
+  const group=(name,element)=>{if(element)name.append(element);};
+  const name=gt4694Label(form,'Player name'),jersey=gt4694Label(form,'Jersey');
+  if(!id){const x=name?.querySelector('input'),y=jersey?.querySelector('input');if(x&&!x.value.trim())x.value='Georgina';if(y&&!y.value.trim())y.value='3';}
+  const playerRow=el('div',{class:'gt4694-two gt4694-player'});group(playerRow,name);group(playerRow,jersey);player.append(playerRow);
+  const infoGrid=el('div',{class:'gt4694-info'});
+  for(const key of ['Team','Opponent','League','Game type'])group(infoGrid,gt4694Label(form,key));
+  const date=form.querySelector('[data-game-date]');
+  const dateRow=el('div',{class:'gt4694-two gt4694-datetime'});
+  if(date?.closest('label'))dateRow.append(date.closest('label'));
+  else {const input=formField(dateRow,'Date',g?.date||localDate(),{type:'date',required:'','data-game-date':''});input.setAttribute('aria-label','Game date');}
+  const time=el('input',{type:'time','aria-label':'Game time'});time.value=g?.gameTime||'';
+  dateRow.append(el('label',{class:'ng-field'},'Time',time));
+  infoGrid.append(dateRow);gameInfo.append(infoGrid);
+  const nativeFormat=sections.find(s=>s.querySelector('.ng-formats'));
+  if(nativeFormat){while(nativeFormat.firstChild){const item=nativeFormat.firstChild;if(item.tagName==='LEGEND'){item.remove();continue;}gameFmt.append(item);}}
+  for(const sec of [gameFmt,gameInfo,player])form.prepend(sec);
+  // Existing date save hook still runs. Stage time in the same synchronous submit transaction.
+  form.addEventListener('submit',()=>{ui.gt4694TimeDraft={id,value:time.value}},true);
+  // Save-transaction validation protects existing records against concurrent changes.
+  if(id&&g){
+    const results=fieldset('Game Results');
+    const status=el('p',{class:'gt4694-game-status'},'Status · '+(g.status==='completed'?'FINAL':g.pendingStart?'NOT STARTED':'LIVE'));
+    results.append(status);
+    const scores=['Team score','Opponent score'].map(t=>[...form.querySelectorAll('input[type=number]')].find(x=>(x.getAttribute('aria-label')||'')===t));
+    const scoreRow=el('div',{class:'gt4694-two gt4694-score'});
+    scores.forEach((input,i)=>{if(!input)return;const lab=input.closest('label');if(!lab)return;const text=[...lab.childNodes].find(n=>n.nodeType===3);if(text)text.textContent=i?'Opponent Score':'Our Score';input.setAttribute('aria-label',i?'Opponent Score':'Our Score');scoreRow.append(lab)});
+    results.append(scoreRow);
+    const outcome=el('p',{class:'gt4694-outcome'});const calc=()=>{const [a,b]=scores.map(x=>x?.value);outcome.textContent=a!==undefined&&b!==undefined&&a!==''&&b!==''?'Result · '+(+a>+b?'Win':+a<+b?'Loss':'Tie'):'Result · —'};
+    scores.forEach(x=>x?.addEventListener('input',calc));calc();results.append(outcome);
+    // Existing editor is reused. A successful event edit increments revision;
+    // reopen this page afterwards to avoid submitting a stale game draft.
+    const hasUnsaved=()=>[...form.querySelectorAll('input,select,textarea')].some(x=>x.dataset.gt4694Baseline!==undefined&&x.value!==x.dataset.gt4694Baseline);
+    const ensureReady=()=>{if(!hasUnsaved())return true;announce('Save Game changes before editing an event.');form.querySelector('.setup-error').textContent='Save your game changes before editing a play or journey event.';return false;};
+    const section=(title,items,kind)=>{
+      const details=el('details',{class:'gt4694-expand'}),summary=el('summary',{},title),body=el('div',{class:'gt4694-event-body'});details.append(summary,body);
+      const draw=()=>{const current=db.games.find(x=>x.id===id),events=current?items(current):[];summary.textContent=title+' · '+events.length;body.replaceChildren();
+        if(!events.length)body.append(el('p',{class:'gt4694-muted'},'No recorded events.'));
+        for(const entry of events.slice(0,800)){
+          const row=button('',()=>launch(entry.id),'gt4694-event-row',{type:'button'});
+          row.append(el('span',{},el('strong',{},C.eventLabel(entry)),el('small',{},(entry.period?.label||'')+' · '+recordTime(entry))),el('span',{},'Edit ›'));
+          const controls=el('span',{class:'gt4694-row-controls'});
+          const move=(direction)=>{
+            if(!ensureReady())return;
+            const list=items(db.games.find(x=>x.id===id)),idx=list.findIndex(x=>x.id===entry.id),target=list[idx+direction];
+            if(!target)return;
+            try{transaction(id,t=>{
+              const item=t.events.find(e=>e.id===entry.id);
+              if(!item||C.isBoundary(item)||item.code.startsWith('timeout_'))throw Error('This record cannot be rearranged independently.');
+              C.moveEvent(t,entry.id,target.id,direction>0);
+            });
+            gameForm(id);
+            const accordion=[...$('gameForm').querySelectorAll('.gt4694-expand')].find(d=>d.querySelector('summary')?.textContent.startsWith(title));
+            if(accordion)accordion.open=true;
+            announce('Event moved');
+            }catch(error){announce(error.message)}
+          };
+          for(const [symbol,delta,text] of [['↑',-1,'Move up'],['↓',1,'Move down']]){
+            const up=button(symbol,()=>move(delta),'gt4694-move',{type:'button','aria-label':text+' '+C.eventLabel(entry)});
+            up.disabled=events.indexOf(entry)+delta<0||events.indexOf(entry)+delta>=events.length;
+            controls.append(up);
+          }
+          const line=el('div',{class:'gt4694-event-line'});line.append(row,controls);body.append(line);
+        }
+        body.append(button(kind==='plays'?'＋ Add play':'＋ Add score correction',()=>launch(null),'gt4694-add-event',{type:'button'}));
+      };
+      function launch(eventId){
+        if(!ensureReady())return;
+        const latest=db.games.find(x=>x.id===id),original=eventId?latest?.events.find(e=>e.id===eventId):null;
+        if(!latest)return;
+        const refresh=()=>{if(ui.screen==='setup')gameForm(id);};
+        // Native save handlers commit with the existing game transaction and recalculate stats.
+        if(kind==='journey'&&!original)openDialog('Add score correction',box=>box.append(scoreCorrectionForm(latest,null,()=>{closeDialog();refresh()})));
+        else if(original?.code==='score_set')openDialog('Edit score correction',box=>box.append(scoreCorrectionForm(latest,original,()=>{closeDialog();refresh()})));
+        else if(original?.code?.startsWith('timeout_'))openDialog('Edit timeout',box=>box.append(timeoutForm(latest,original,()=>{closeDialog();refresh()})));
+        else openDialog(original?'Edit event':'Add play',box=>box.append(recordForm(latest,original||null,false)));
+        // Existing editor closes its dialog after saving, so the metadata form is refreshed.
+        const dialog=$('sheet');dialog.addEventListener('close',()=>{if(ui.screen==='setup')setTimeout(()=>gameForm(id),0)},{once:true});
+      }
+      draw();return details;
+    };
+    const playItems=x=>C.ordered(x).filter(e=>!e.deletedAt&&!['game_start','game_end','period_start','period_end'].includes(e.code));
+    const journeyItems=x=>scoreJourneyEntries(x);
+    results.append(section('Play Events',playItems,'plays'),section('Event Journey',journeyItems,'journey'));
+    const existingFeedback=form.querySelector('.gt-feedback');
+    if(existingFeedback){existingFeedback.classList.add('gt4694-card');const lg=existingFeedback.querySelector('legend');if(lg)lg.textContent="Player's Feedback";
+      const extra=el('textarea',{rows:3,maxlength:3000,'aria-label':'Additional Feedback'});extra.value=g.feedback?.additional||'';
+      existingFeedback.append(el('label',{class:'form-field'},'Additional Feedback',extra));
+      // Registered after native feedback staging listener; still capture-before-save.
+      form.addEventListener('submit',()=>{if(ui.feedbackDraft?.id===id)ui.feedbackDraft.feedback.additional=extra.value.trim()},true);
+    }
+    form.insertBefore(results,existingFeedback||form.querySelector('.ng-form-footer'));
+  }
+  // Remove old empty wrappers, but never remove original inputs or action handlers.
+  for(const old of sections)if(!old.querySelector('input,select,textarea,button'))old.remove();
+  for(const stale of [...form.querySelectorAll('.review-game-basics,.review-two-fields')])if(!stale.querySelector('input,select,textarea,button'))stale.remove();
+  // Reuse locked non-sticky branding footer, without adding Save/Cancel navigation.
+  const footer=el('footer',{class:'gt4694-brand'});
+  footer.append(el('p',{},'Follow the Play.',el('br'),'The Game. The Journey.'));
+  const nav=el('nav',{'aria-label':'Quick links'});
+  for(const [label,target]of [['Home Court','court'],['Games','home'],['Gym','training']]){
+    if(nav.childNodes.length)nav.append(el('span',{'aria-hidden':'true'},'·'));
+    nav.append(button(label,()=>navigate(target),'gt4694-footer-link',{type:'button'}));
+  }
+  footer.append(nav);form.after(footer);
+  for(const input of form.querySelectorAll('input,select,textarea'))input.dataset.gt4694Baseline=input.value;
+}
+gameForm=gt4694EditGame;
+
+/* V46.9.4 approved form-layout integration: active controls are moved, not cloned. */
+const gt493PreviousGameForm=gameForm;
+gameForm=function(id=null,periodOnly=false){
+ gt493PreviousGameForm(id,periodOnly);
+ if(periodOnly||ui.screen!=='setup')return;
+ const form=$('gameForm'),root=$('setupContent');if(!form||form.dataset.reviewed493)return;
+ form.dataset.reviewed493='yes';form.classList.add('gt493-form');
+ const saved=id?db.games.find(g=>g.id===id&&!g.deletedAt):null;
+ const label=(s)=>[...form.querySelectorAll('label')].find(l=>[...l.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim().toLowerCase()===s.toLowerCase());
+ const card=(title)=>el('section',{class:'gt493-card'},el('h2',{},title));
+ const row=(className='')=>el('div',{class:'gt493-grid '+className});
+ const put=(dest,title,input)=>{if(!input)return;let lab=input.closest('label');if(!lab)lab=el('label',{},input);lab.classList.add('gt493-field');for(const n of [...lab.childNodes])if(n.nodeType===3)n.remove();lab.prepend(el('span',{class:'gt493-label'},title));dest.append(lab);return input};
+ const p=card('Player Information'),pg=row('gt493-player');
+ put(pg,'Player Name *',label('Player name')?.querySelector('input'));
+ put(pg,'Jersey # *',label('Jersey')?.querySelector('input'));p.append(pg);
+ const info=card('Game Information'),ig=row();
+ put(ig,'Team *',label('Team')?.querySelector('input'));
+ put(ig,'Opponent *',label('Opponent')?.querySelector('input'));
+ const league=label('League')||label('League (optional)');
+ const wide=el('div',{class:'gt493-wide'});put(wide,'League',league?.querySelector('input'));ig.append(wide);
+ put(ig,'Game Type',form.querySelector('select[aria-label="Game type"]'));
+ const dt=row('gt493-wide gt493-datetime');
+ put(dt,'Date *',form.querySelector('[data-game-date]'));
+ put(dt,'Time',form.querySelector('input[aria-label="Game time"]'));
+ ig.append(dt);info.append(ig);
+ const fmt=card('Game Format'),fg=row();
+ const oldPeriod=[...form.querySelectorAll('fieldset.ng-section')].find(x=>x.querySelector('.ng-formats'));
+ const currentFormat=oldPeriod?.querySelector('.ng-formats input:checked')?.value||'4Q';
+ const format=el('select',{'aria-label':'Format'});
+ for(const [v,t] of [['4Q','4 Quarters'],['2H','2 Halves']])format.append(el('option',{value:v},t));
+ format.value=currentFormat;
+ const minute=el('input',{type:'number',min:1,max:60,inputmode:'numeric',required:'','aria-label':'Minutes per Period'});
+ const periodRows=()=>[...oldPeriod?.querySelectorAll('.ng-durations select')||[]];
+ const initial=periodRows().map(x=>Number(x.value)/60);
+ minute.value=String(Math.round(initial[0]||8));
+ const adjust=()=>{const num=Number(minute.value);if(!Number.isInteger(num)||num<1||num>60)return;for(const x of periodRows()){x.value=String(num*60);x.dispatchEvent(new Event('change',{bubbles:true}))}};
+ const choose=()=>{const r=oldPeriod?.querySelector('.ng-formats input[value="'+format.value+'"]');if(r){r.checked=true;r.dispatchEvent(new Event('change',{bubbles:true}))}minute.value=String(Math.round(Number(periodRows()[0]?.value||480)/60))};
+ format.addEventListener('change',choose);minute.addEventListener('change',adjust);
+ put(fg,'Format',format);put(fg,'Minutes per Period *',minute);fmt.append(fg);
+ const advanced=el('details',{class:'gt493-advanced'},el('summary',{},'Individual period lengths'));
+ if(oldPeriod){advanced.append(oldPeriod);fmt.append(advanced)}
+ if(new Set(initial).size>1)advanced.open=true;
+ const result=saved?card('Game Results'):null;
+ if(result){
+  const status=el('select',{'aria-label':'Game Status'});
+  for(const [v,t] of [['in_progress','In Progress'],['completed','Completed']])status.append(el('option',{value:v},t));
+  status.value=saved.status;status.disabled=true;
+  status.title='Use the existing End Game or Reopen Game control to change game status.';
+  put(result,'Game Status',status);
+  const scores=row('gt493-scores');
+  put(scores,'Our Score',form.querySelector('input[aria-label="Our Score"],input[aria-label="Team score"]'));
+  put(scores,'Opponent Score',form.querySelector('input[aria-label="Opponent Score"],input[aria-label="Opponent score"]'));
+  result.append(scores);
+  const outcome=form.querySelector('.gt4694-outcome');if(outcome)result.append(outcome);
+  for(const d of [...form.querySelectorAll('.gt4694-expand')])result.append(d);
+  for(const b of [...form.querySelectorAll('.setup-game-status')])result.append(b);
+ }
+ const feedback=form.querySelector('.gt-feedback');
+ if(feedback){
+  feedback.classList.add('gt493-card');const lg=feedback.querySelector('legend');if(lg)lg.textContent="Player's Feedback";
+  const prompts=['What I Saw','What I Became','What I Want to Become More','Additional Feedback'];
+  [...feedback.querySelectorAll('textarea')].forEach((x,i)=>{
+   const l=x.closest('label');if(!l)return;
+   for(const n of [...l.childNodes])if(n.nodeType===3)n.remove();
+   l.classList.add('gt493-field');
+   l.prepend(el('span',{class:'gt493-label'},prompts[i]||'Additional Feedback'));
+  });
+ }
+ const oldFooter=form.querySelector('.ng-form-footer'),save=oldFooter?.querySelector('button');
+ const actions=el('div',{class:'gt493-actions'});
+ actions.append(button('Cancel',()=>{if(confirm('Discard unsaved changes?'))navigate('home')},'gt493-cancel',{type:'button'}));
+ if(save){save.textContent=id?'Save Changes':'Create Game';actions.append(save)}
+ const fresh=el('div',{class:'gt493-layout'});fresh.append(p,info,fmt);
+ if(result)fresh.append(result);
+ // Player's Feedback is the last edit-only content section, immediately before CTA buttons.
+ if(feedback)fresh.append(feedback);
+ const error=oldFooter?.querySelector('.setup-error');if(error)fresh.append(error);
+ fresh.append(actions);form.replaceChildren(fresh);
+ const heading=root.querySelector('.setup-page > :first-child');
+ if(heading){const h=heading.querySelector('h1,h2');if(h)h.textContent=id?'Edit Game':'New Game';
+  const desc=[...heading.querySelectorAll('p,small')].filter(x=>/set it up now|start when play begins|update the details/i.test(x.textContent));
+  if(desc.length){desc[0].textContent=id?'Update your game details.':'Set up your game.';desc.slice(1).forEach(x=>x.remove())}
+ }
+ for(const x of [...root.querySelectorAll('.setup-page > p,.setup-page .review-kicker,.setup-page .review-page-subtitle')])if(/set it up now|start when play begins|update the details/i.test(x.textContent))x.remove();
+ for(const x of [...root.querySelectorAll('.gt4694-brand')].slice(1))x.remove();
+};
+
+
 })();
 
 </script><script>
