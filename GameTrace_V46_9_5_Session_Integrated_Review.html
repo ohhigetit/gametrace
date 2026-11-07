@@ -6500,7 +6500,7 @@ function gt495SessionLayout(ctx){
  // Preserve native form error/status and default drafts without an additional visible card.
  layout.append(p,info,skills,feedback,error,actions,status);
  // Preserve drafts and presets outside approved form cards.
- root.append(draftTools);
+ form.after(draftTools);
  form.replaceChildren(layout);
  const oldPageHead=root.querySelector('.page-heading');
  if(oldPageHead){
@@ -6523,7 +6523,7 @@ function gt495SessionLayout(ctx){
  }
  footer.append(nav);
  const parentAlreadyHasFooter=!!root.closest('.shell')?.querySelector('footer.footer');
- if(!parentAlreadyHasFooter&&!root.querySelector('footer.gt495-footer'))form.after(footer);
+ if(!parentAlreadyHasFooter&&!root.querySelector('footer.gt495-footer'))draftTools.after(footer);
 }
 const gt495OldFeedbackFields=feedbackFields;
 feedbackFields=function(parent,value,context){
