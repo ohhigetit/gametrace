@@ -2140,6 +2140,7 @@ html[data-theme] #app.gt-app #trainingContent form.gt495-form{display:flex;flex-
 html[data-theme] #app.gt-app #trainingContent .gt495-card{border:1px solid #cbdbcf;background:#eff6f1;padding:20px;border-radius:21px;margin:0;min-width:0}
 html[data-theme] #app.gt-app #trainingContent .gt495-card h2{font-size:22px;font-weight:800;letter-spacing:-.5px;margin:0 0 23px;color:#172920}
 html[data-theme] #app.gt-app #trainingContent .gt495-fields{display:grid;grid-template-columns:minmax(0,1fr);gap:19px}
+html[data-theme] #app.gt-app #trainingContent .gt495-field[hidden]{display:none!important}
 html[data-theme] #app.gt-app #trainingContent .gt495-field{display:flex;flex-direction:column;gap:9px;margin:0;min-width:0}
 html[data-theme] #app.gt-app #trainingContent .gt495-field>span{font-size:14px;font-weight:700;color:#465d50}
 html[data-theme] #app.gt-app #trainingContent .gt495-field :is(input,select,textarea){width:100%;min-width:0;min-inline-size:0;max-width:100%;min-height:52px;box-sizing:border-box;background:white;border:1px solid #c5d7ca;border-radius:13px;padding:14px 15px;color:#172920;font:inherit}
@@ -3756,7 +3757,7 @@ function buildSessionEditor({id,repeat,original,resultId,resume,preset}){
  form.append(button('Save session',save,'primary',{'data-save-session':''}),el('p',{class:'training-help'},'Everything below is optional.'));
  const details=el('details',{},el('summary',{},'Coach and location')),coach=formField(details,'Coach / organization',base.coach,{maxlength:200}),location=formField(details,'Location',base.location,{maxlength:200});form.append(details);
  const tagChoices=el('div',{class:'training-tags'}),tags=el('fieldset',{},el('legend',{},'Skills worked on'),tagChoices),checks=new Map();for(const t of [...new Set([...trainingSkillChoices(original),...(base.tags||[])])]){const c=el('input',{type:'checkbox','aria-label':t});c.checked=base.tags.includes(t);checks.set(t,c);tagChoices.append(el('label',{},c,t))}const custom=formField(tags,'Custom skills (separate with commas)',base.custom||'',{maxlength:300});form.append(tags);
- const reflections=el('section',{class:'training-reflections','data-training-feedback':''},el('h2',{},'Player Feedback · optional')),readFeedback=feedbackFields(reflections,base.feedback,'session');form.append(reflections);
+ const reflections=el('section',{class:'training-reflections','data-training-feedback':''},el('h2',{},'Player Feedback · optional')),readFeedbackOriginal=feedbackFields(reflections,base.feedback,'session'),readFeedback=()=>({...readFeedbackOriginal(),additional:form.querySelector('textarea[aria-label="Additional Feedback"]')?.value.trim()||''});form.append(reflections);
  const evidence=el('details',{},el('summary',{},'Progress notes and clip link · optional')),notes=el('textarea',{maxlength:3000,rows:3,'aria-label':'Progress notes'});notes.value=base.notes;evidence.append(el('label',{class:'form-field'},'Progress notes',notes));const clipLink=formField(evidence,'Clip link',base.clipLink,{type:'url',maxlength:2000});form.append(evidence);
  form.append(el('div',{class:'form-actions'},button('Save session',save,'primary',{'data-save-session':''}),button('Save draft & close',closeEditor,'journey-button')),el('div',{class:'draft-secondary-actions'},button('Cancel',closeEditor,'family-link'),button('Discard draft',()=>{if(!confirm('Discard this unfinished draft? Completed sessions will stay unchanged.'))return;try{writeWork('drafts',readWork('drafts').filter(d=>d.id!==editor.id));clearTimeout(editor.timer);sessionUI.editor=null;trainingUI.editing=false;renderTraining()}catch(e){error.textContent='Could not discard the draft. '+e.message}},'family-link')));
  function read(){return{type:type.value,customType:type.value==='custom'?customType.value.trim():'',name:name.value,date:date.value,hours:hours.value,minutes:minutes.value,player:player.value,coach:coach.value,location:location.value,tags:[...checks].filter(([,c])=>c.checked).map(([t])=>t),custom:custom.value,feedback:readFeedback(),notes:notes.value,clipLink:clipLink.value,savePreset:presetCheck.checked}}
@@ -6469,13 +6470,7 @@ buildSessionEditor=function(opts){
  actions.append(button('Cancel',()=>cancel.click(),'gt495-cancel',{type:'button'}),save);
  const error=form.querySelector('.setup-error'),status=form.querySelector('[data-draft-status]');
  form.replaceChildren(...(error?[error]:[]),...(status?[status]:[]),p,info,focus,reflection,actions);
- // Preserve additional feedback through the existing session commit and validation pipeline.
- const upstream=trainingCommit;
- trainingCommit=function(fn){return upstream(d=>{fn(d);const r=d.trainingSessions.find(x=>x.id===opts.resultId);if(r)r.feedback={...r.feedback,additional:additional.value.trim()}})};
- // Existing session source/closures remain intact; restore hook when form is left.
- const priorRender=renderTraining;
- const restore=()=>{if(trainingCommit!==upstream)trainingCommit=upstream};
- form.addEventListener('submit',restore,{once:true});
+ // Native readFeedback serializes the additional response with both drafts and saved sessions.
 };
 })();
 </script></body></html>
