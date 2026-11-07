@@ -6279,18 +6279,6 @@ gameForm=function(id=null,periodOnly=false){
  for(const x of [...root.querySelectorAll('.gt4694-brand')].slice(1))x.remove();
 };
 
-
-})();
-
-</script><script>
-(()=>{const sheet=document.getElementById('sheet');
-const clear=()=>document.querySelectorAll('.controller-selected').forEach(b=>b.classList.remove('controller-selected'));
-sheet.addEventListener('close',clear);
-for(const b of document.querySelectorAll('.visual .action'))b.addEventListener('click',()=>{
- if(b.getAttribute('aria-disabled')!=='false'||sheet.open)return;
- clear();b.classList.add('controller-selected');
- setTimeout(()=>{if(!sheet.open)clear()},0);
-},true);
 /* V46.9.5 — Session pages only; native saves, drafts and cloud sync remain authoritative. */
 // Hide legacy draft/preset shortcuts without deleting previously saved device data.
 const gt495PreviousTrainingRender=renderTraining;
@@ -6338,6 +6326,19 @@ buildSessionEditor=function(opts){
  form.replaceChildren(...(error?[error]:[]),p,info,focus,reflection,actions);
  // Native readFeedback serializes the additional response with both drafts and saved sessions.
 };
+
+
+})();
+
+</script><script>
+(()=>{const sheet=document.getElementById('sheet');
+const clear=()=>document.querySelectorAll('.controller-selected').forEach(b=>b.classList.remove('controller-selected'));
+sheet.addEventListener('close',clear);
+for(const b of document.querySelectorAll('.visual .action'))b.addEventListener('click',()=>{
+ if(b.getAttribute('aria-disabled')!=='false'||sheet.open)return;
+ clear();b.classList.add('controller-selected');
+ setTimeout(()=>{if(!sheet.open)clear()},0);
+},true);
 
 })();
 </script><script>
