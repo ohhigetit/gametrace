@@ -719,6 +719,8 @@ html[data-theme=courtside] #courtContent .hc45-focus{background:rgba(255,255,255
 #trainingContent .gt495-date-face{pointer-events:none;font-size:16px;color:#192b20;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #trainingContent .gt495-date-native{position:absolute;inset:0;width:100%!important;max-width:100%!important;min-width:0!important;height:100%;border:0!important;opacity:.015;z-index:2;padding:0!important;margin:0!important;cursor:pointer;-webkit-appearance:none;appearance:none}
 #trainingContent .gt495-date-native::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+#trainingContent .gt495-add-skill{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}
+#trainingContent .gt495-add-skill button{padding:10px 13px;border-radius:11px;background:white;border:1px solid #c5d5c9;font-weight:750;color:#192b20}
 #trainingContent .gt495-chip-list{display:flex;flex-wrap:wrap;gap:8px;margin:0;min-width:0}
 #trainingContent .gt495-chip-list>label{position:relative;display:inline-flex;align-items:center;justify-content:center;margin:0;border:1px solid #c5d5c9;background:#fff;padding:10px 13px;border-radius:24px;font-size:13px;font-weight:600;color:#415a48;cursor:pointer}
 #trainingContent .gt495-chip-list>label:has(input:checked){background:#dcefe3;border-color:#4e9b6c;color:#195d37}
@@ -3768,7 +3770,7 @@ function trainingForm(id=null,repeat=false,resumeId=null,preset=null){
  buildSessionEditor({id,repeat,original,resultId,resume,preset});
 }
 function buildSessionEditor({id,repeat,original,resultId,resume,preset}){
- const mode=original&&!repeat?'edit':repeat?'repeat':'new',now=C.now(),base=resume?.fields||{type:original?.customType?'custom':preset?.customType?'custom':original?.type||preset?.type||'training',customType:original?.customType||preset?.customType||'',name:original?.name||preset?.name||'',date:repeat?localDate():original?.date||localDate(),hours:repeat?'':original?String(Math.floor(original.minutes/60)):'',minutes:repeat?'':original?String(original.minutes%60):'',player:original?.player||preset?.player||playerContext.player||'',coach:original?.coach||preset?.coach||'',location:original?.location||preset?.location||'',tags:original?.tags||preset?.tags||[],feedback:repeat?{}:original?.feedback||{},notes:repeat?'':original?.notes||'',clipLink:repeat?'':original?.clipLink||''};
+ const mode=original&&!repeat?'edit':repeat?'repeat':'new',now=C.now(),base=resume?.fields||{type:original?.customType?'custom':preset?.customType?'custom':original?.type||preset?.type||'training',customType:original?.customType||preset?.customType||'',name:original?.name||preset?.name||'',date:repeat?localDate():original?.date||localDate(),hours:repeat?'':original?String(Math.floor(original.minutes/60)):'',minutes:repeat?'':original?String(original.minutes%60):'',player:original?.player||preset?.player||playerContext.player||'Georgina',coach:original?.coach||preset?.coach||'',location:original?.location||preset?.location||'',tags:original?.tags||preset?.tags||[],feedback:repeat?{}:original?.feedback||{},notes:repeat?'':original?.notes||'',clipLink:repeat?'':original?.clipLink||''};
  const editor={id:resume?.id||C.uid(),resultId,sourceId:id,mode,scope:localWorkScope(),baseFingerprint:resume?.baseFingerprint||(original?fingerprint(original):null),createdAt:resume?.createdAt||now,timer:null,flush:null};sessionUI.editor=editor;trainingUI.editing=true;
  const root=$('trainingContent'),form=el('form',{class:'training-form',novalidate:''}),error=el('p',{class:'setup-error',role:'alert'}),status=el('p',{class:'training-help',role:'status','data-draft-status':''});
  function closeEditor(){if(flush()){trainingUI.editing=false;sessionUI.editor=null;renderTraining();announce('Draft kept on this device.')}else error.textContent='Draft could not be saved. Keep this page open or discard it explicitly.'}
@@ -3798,7 +3800,7 @@ function buildSessionEditor({id,repeat,original,resultId,resume,preset}){
   clearTimeout(editor.timer);let note='Session saved';try{writeWork('drafts',readWork('drafts').filter(d=>d.id!==editor.id));if(f.savePreset){const p={id:C.uid(),type:entry.type,customType:entry.customType,name:entry.name,player:entry.player,coach:entry.coach,location:entry.location,tags:entry.tags},items=readWork('presets').filter(x=>!(x.name===p.name&&x.player===p.player&&x.type===p.type));writeWork('presets',[...items,p])}}catch{note+=' · local draft/preset storage needs attention'}
   sessionUI.editor=null;trainingUI.editing=false;openSession(resultId);announce(note);
  }catch(e){error.textContent=e.message;flush()}}
- gt495SessionLayout({root,form,mode,type,name,player,date,hours,minutes,coach,location,tagChoices,tags,custom,reflections,evidence,readFeedback,presetCheck,error,status,closeEditor,save,base,original});
+ gt495SessionLayout({root,form,mode,type,name,player,date,hours,minutes,coach,location,tagChoices,tags,checks,custom,reflections,evidence,readFeedback,presetCheck,error,status,closeEditor,save,base,original});
  flush();name.focus();scrollTo(0,0);
 }
 const gymBeforeQuickLog=renderTraining;
@@ -6317,7 +6319,7 @@ gameForm=function(id=null,periodOnly=false){
 /* V46.9.5: Move existing session inputs, drafts, skills and save callbacks into approved form cards.
    No independent data store is introduced; the original editor retains its handlers. */
 function gt495SessionLayout(ctx){
- const {root,form,mode,type,name,player,date,hours,minutes,coach,location,tagChoices,tags,custom,reflections,evidence,presetCheck,error,status,closeEditor,save,base}=ctx;
+ const {root,form,mode,type,name,player,date,hours,minutes,coach,location,tagChoices,tags,checks,custom,reflections,evidence,presetCheck,error,status,closeEditor,save,base}=ctx;
  form.classList.add('gt495-form');
  // Stored custom types are reusable choices, while all custom sessions use the existing training tally.
  const names=[...new Set(db.trainingSessions.filter(s=>!s.deletedAt&&s.customType).map(s=>s.customType))].sort();
@@ -6363,7 +6365,21 @@ function gt495SessionLayout(ctx){
  const skills=card('Skills & Focus'),skillStack=stack();
  const skillsLabel=el('span',{class:'gt495-label'},'Skills Worked On');
  tagChoices.classList.add('gt495-chip-list');skillStack.append(skillsLabel,tagChoices);
- place(skillStack,'Custom Skills (comma separated)',custom);
+ const customField=place(skillStack,'Custom Skills',custom);
+ if(customField){
+  custom.placeholder='Add a skill';
+  const addSkill=el('button',{type:'button'},'+ Add');
+  addSkill.addEventListener('click',()=>{
+   const names=custom.value.split(',').map(x=>x.trim()).filter(Boolean);
+   for(const skill of names){
+    let key=[...checks.keys()].find(x=>x.toLowerCase()===skill.toLowerCase());
+    if(!key){key=skill;const check=el('input',{type:'checkbox','aria-label':skill});check.checked=true;checks.set(skill,check);tagChoices.append(el('label',{},check,skill))}
+    else checks.get(key).checked=true;
+   }
+   custom.value='';custom.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  const skillInputRow=el('div',{class:'gt495-add-skill'},custom,addSkill);customField.append(skillInputRow);
+ }
  skills.append(skillStack);
  // Reuse the original feedback section and preserve its read() closure.
  const originalFeedbackHeading=reflections.querySelector('h2');if(originalFeedbackHeading)originalFeedbackHeading.textContent="Player's Feedback";
