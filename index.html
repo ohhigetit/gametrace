@@ -2158,6 +2158,29 @@ html[data-theme] #app.gt-app #trainingContent .gt495-header h1{font-size:32px}
 html[data-theme] #app.gt-app #trainingContent .gt495-heading-text{display:flex;flex-direction:column;min-width:0;gap:8px}
 html[data-theme] #app.gt-app #trainingContent .gt495-subtitle{margin:0;color:#73857a;font-size:17px;line-height:1.45}
 @media(max-width:370px){html[data-theme] #app.gt-app #trainingContent .gt495-card{padding:16px}}
+</style><style data-gt="GAME_V4_BANNER">
+html[data-theme] #app.app.gt-app .gt-v4-banner{background:var(--gt-surface);border:1px solid var(--gt-edge);border-radius:16px;padding:0!important;margin:14px 0 22px!important;overflow:hidden}
+.gt-v4-banner-header{display:flex;justify-content:space-between;gap:12px;padding:16px 17px 9px}
+.gt-v4-banner-header h2{font-size:17px!important;font-weight:700!important;margin:0 0 3px!important}
+.gt-v4-banner-header p,.gt-v4-banner-left small{font-size:12px;color:var(--gt-muted);margin:0}
+.gt-v4-banner-status{font-size:11px;font-weight:750;border:1px solid var(--gt-edge);border-radius:20px;padding:6px 10px;align-self:flex-start}
+.gt-v4-banner-main,.gt-v4-banner-details{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:9px 17px 16px}
+.gt-v4-banner-main>div{min-width:0}
+.gt-v4-banner-left{padding-right:14px}
+.gt-v4-banner-left strong{display:block;font-size:16px;overflow-wrap:anywhere}
+.gt-v4-banner-left small{display:block;margin-top:5px}
+.gt-v4-banner-left .gt-v4-score{font-size:21px;font-weight:750;color:var(--gt-ink)}
+.gt-v4-banner-metrics{border-left:1px solid var(--gt-edge);padding-left:14px;display:grid;grid-template-columns:1fr 1fr;gap:13px 7px;text-align:center}
+.gt-v4-banner-metrics strong{display:block;font-size:23px;font-weight:750;font-variant-numeric:tabular-nums}
+.gt-v4-banner-metrics small{display:block;font-size:11px;color:var(--gt-muted)}
+html[data-theme] #app.app.gt-app .gt-v4-banner-toggle{display:block;width:100%;min-height:44px;border:0;border-top:1px solid var(--gt-edge);background:transparent;color:var(--gt-ink);border-radius:0;font-size:12px;font-weight:700}
+.gt-v4-banner-details{background:color-mix(in srgb,var(--gt-surface) 65%,var(--gt-bg));border-top:1px solid var(--gt-edge);padding-top:15px;gap:14px}
+.gt-v4-banner-details[hidden]{display:none!important}
+.gt-v4-banner-details>div+div{border-left:1px solid var(--gt-edge);padding-left:14px}
+.gt-v4-banner-details h3{font-size:13px;margin:0 0 9px}
+.gt-v4-banner-details p{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin:7px 0;overflow-wrap:anywhere}
+.gt-v4-banner-details p strong{text-align:right}
+@media(max-width:350px){.gt-v4-banner-header{padding:12px}.gt-v4-banner-main,.gt-v4-banner-details{padding-left:12px;padding-right:12px}.gt-v4-banner-left{padding-right:8px}.gt-v4-banner-metrics{padding-left:8px}.gt-v4-banner-metrics strong{font-size:19px}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -4522,6 +4545,38 @@ renderStats=function(){statsBefore44();const root=$('statsContent'),g=game();if(
  for(const old of [...record.querySelectorAll('[data-score-journey-id]')]){const id=old.dataset.scoreJourneyId,event=g.events.find(e=>e.id===id);if(!event)continue;const outer=old.parentElement,head=el('div',{class:'report-play-head v42-event-row',role:'button',tabindex:0,'aria-label':'Edit '+C.eventLabel(event),'data-score-journey-id':id}),handle=button('',()=>{},'report-drag',{'data-drag-id':id,'aria-label':'Move '+C.eventLabel(event)+'. Drag or use arrow keys.'});handle.append(reportIcon('grip-vertical'));const score=g.scoreTracking?C.scoreAt(g,id):null;head.append(handle,el('div',{class:'report-play-label'},el('span',{},C.eventLabel(event)),el('small',{},event.period.label+' · '+recordTime(event)),event.note?el('small',{},event.note):null),score?el('strong',{class:'v42-record-score'},score.team+' – '+score.opponent):null);outer.dataset.recordId=id;outer.dataset.journeyRecord='';head.onclick=e=>{if(!e.target.closest('[data-drag-id],button,input,select,textarea')&&!reportDrag)openScoreJourneyRecord(id)};head.onkeydown=e=>{if(e.target===head&&['Enter',' '].includes(e.key)){e.preventDefault();openScoreJourneyRecord(id)}};old.replaceWith(head)}
  }
  removePlayerMeta42(root);stylePage43(root,'stats');};
+
+/* The Game V4 Phase 2: real-data GameSummaryBanner, built over the Scoreboard banner surface. */
+let gtV4Expanded=false;
+function gtV4Summary(g){
+ const t=C.totals(g.events),f=g.finalScore;
+ const status=f?(f.team>f.opponent?'WIN':f.team<f.opponent?'LOSS':'DRAW'):(g.status==='completed'?'FINAL':'LIVE');
+ const banner=el('section',{class:'scoreboard-banner gt-v4-banner','data-gt-v4-summary':''});
+ const head=el('div',{class:'gt-v4-banner-header'},el('div',{},el('h2',{},'Game Summary'),el('p',{},'The game at a glance.')),el('span',{class:'gt-v4-banner-status'},status));
+ const left=el('div',{class:'gt-v4-banner-left'},el('strong',{},gameTitle(g)),el('small',{},friendlyDate(g.date)),el('small',{class:'gt-v4-score'},f?f.team+' – '+f.opponent:'Score not recorded'));
+ const metrics=el('div',{class:'gt-v4-banner-metrics'});
+ for(const [label,val] of [['PTS',t.pts],['REB',t.reb],['AST',t.ast],['STL',t.stl]])metrics.append(el('div',{},el('strong',{},String(val)),el('small',{},label)));
+ const main=el('div',{class:'gt-v4-banner-main'},left,metrics);
+ const details=el('div',{class:'gt-v4-banner-details'});
+ const info=el('div',{},el('h3',{},'Other Game Details')),stats=el('div',{},el('h3',{},'Other Stats'));
+ function line(target,label,value){target.append(el('p',{},el('span',{},label),el('strong',{},String(value??'—'))))}
+ line(info,'Player',g.player+(g.number?' #'+g.number:''));
+ line(info,'Game type',C.GAME_TYPES[g.gameType||'regular']||'Regular');
+ line(info,'League',g.league||'—');line(info,'Status',g.status==='completed'?'Completed':'In progress');
+ line(stats,'2PT',t.m2+' / '+t.a2);line(stats,'3PT',t.m3+' / '+t.a3);line(stats,'FT',t.mft+' / '+t.aft);line(stats,'TOV',t.to);line(stats,'FOUL',t.pf);
+ details.append(info,stats);details.hidden=!gtV4Expanded;
+ const toggle=button(gtV4Expanded?'Hide Details ⌃':'Show Details ⌄',()=>{
+ gtV4Expanded=!gtV4Expanded;details.hidden=!gtV4Expanded;toggle.textContent=gtV4Expanded?'Hide Details ⌃':'Show Details ⌄';toggle.setAttribute('aria-expanded',String(gtV4Expanded));
+ },'gt-v4-banner-toggle',{'aria-expanded':String(gtV4Expanded)});
+ banner.append(head,main,toggle,details);return banner;
+}
+const gtV4BeforeBanner=renderStats;
+renderStats=function(...args){
+ const result=gtV4BeforeBanner(...args),g=game(),root=$('statsContent');
+ if(g&&root){root.querySelector('.report-summary')?.replaceWith(gtV4Summary(g));root.querySelector('.report-performance')?.remove()}
+ return result;
+};
+
 recordDropTarget=function(y){document.querySelectorAll('.report-play.drop-before,.report-play.drop-after').forEach(e=>e.classList.remove('drop-before','drop-after'));const rows=[...$('statsContent').querySelectorAll('[data-record-id]')].filter(e=>!e.closest('[hidden]')&&e.dataset.recordId!==reportDrag.id);const found=rows.reduce((best,row)=>{const r=row.getBoundingClientRect(),distance=y<r.top?r.top-y:y>r.bottom?y-r.bottom:0;return!best||distance<best.distance?{row,distance}:best},null);if(!found)return;const r=found.row.getBoundingClientRect();reportDrag.target=found.row.dataset.recordId;reportDrag.after=y>r.top+r.height/2;found.row.classList.add(reportDrag.after?'drop-after':'drop-before')};
 moveReportRecord=function(id,target,after){const g=game();if(!g||reportEditorActive)return;try{transaction(g.id,t=>C.moveEvent(t,id,target,after));reportState.editorId=null;reportState.adding=false;reportState.adjustedId=id;reportState.status='Record moved · timestamp adjusted.';renderStats();announce('Record moved · timestamp adjusted')}catch(e){announce(e.message)}};
 const journeyOpenBefore44=openScoreJourneyRecord;
