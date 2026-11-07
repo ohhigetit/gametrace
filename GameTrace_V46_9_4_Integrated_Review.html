@@ -2103,6 +2103,35 @@ html[data-theme] #app.gt-app .gt468-icon-trigger svg{width:23px;height:23px;disp
 .gt4684-figures small{display:block;color:#718379;font-size:12px;font-weight:700;letter-spacing:.01em;margin-top:4px}
 .gt4684-action{display:block;width:100%;padding:14px 0 4px;text-align:left;font-size:18px;font-weight:750;color:#1b2d22;background:transparent;border:0;border-top:1px solid #d0dfd4;cursor:pointer}
 @media(max-width:375px){.gt4684-banner{padding:18px 15px}.gt4684-score{font-size:43px}.gt4684-banner-head h2{font-size:23px}}
+</style><style data-review-v4694="true">
+#setupContent .gt493-form{margin:16px 0 0!important}
+#setupContent .gt493-layout{display:flex;flex-direction:column;gap:16px;min-width:0}
+#setupContent .gt493-card{display:block;min-width:0;border:1px solid #cbd8ce;border-radius:20px;background:#eff6f1;padding:19px;margin:0!important;box-sizing:border-box}
+#setupContent .gt493-card>h2{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 17px;color:#192b20}
+#setupContent .gt493-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 13px}
+#setupContent .gt493-player{grid-template-columns:minmax(0,3fr) minmax(82px,1fr)}
+#setupContent .gt493-wide{grid-column:1/-1;min-width:0}
+#setupContent .gt493-field{display:flex;flex-direction:column;gap:7px;min-width:0;color:#43564b;font-size:13px;font-weight:750}
+#setupContent .gt493-label{font-size:13px;color:#43564b;font-weight:760}
+#setupContent .gt493-form input,#setupContent .gt493-form select,#setupContent .gt493-form textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:49px;margin:0;border:1px solid #c5d5c9;border-radius:12px;background:white;color:#192b20;padding:10px 12px;font-size:16px}
+#setupContent .gt493-form textarea{min-height:90px;resize:vertical}
+#setupContent .gt493-datetime{column-gap:16px}
+#setupContent .gt493-datetime label{overflow:hidden}
+#setupContent .gt493-datetime input[type=date],#setupContent .gt493-datetime input[type=time]{height:49px;max-height:49px;appearance:none;-webkit-appearance:none;padding-inline:8px}
+#setupContent .gt493-scores{margin:15px 0}
+#setupContent .gt493-form .gt4694-expand{background:white;border-radius:13px;margin:11px 0}
+#setupContent .gt493-form .gt4694-expand summary{min-height:49px}
+#setupContent .gt493-form .gt-feedback{margin:0!important}
+#setupContent .gt493-form .gt-feedback legend{font-size:20px;font-weight:800}
+#setupContent .gt493-form .gt-feedback label{display:flex;flex-direction:column;gap:7px;margin:12px 0}
+#setupContent .gt493-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 26px}
+#setupContent .gt493-actions button{width:100%;min-height:51px;border-radius:13px;border:1px solid #c5d5c9;background:white;font-size:16px;font-weight:750}
+#setupContent .gt493-actions button:last-child{background:#dcefe3}
+#setupContent .gt493-advanced{margin:10px 0 0}
+#setupContent .gt493-advanced>summary{font-size:13px}
+#setupContent .gt493-advanced .ng-formats,#setupContent .gt493-advanced legend{display:none!important}
+#setupContent .gt493-advanced fieldset{border:0!important;background:transparent!important;padding:0!important;margin:0!important}
+@media(max-width:360px){#setupContent .gt493-card{padding:15px}#setupContent .gt493-grid{gap:11px}#setupContent .gt493-player{grid-template-columns:minmax(0,2fr) minmax(74px,1fr)}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -6146,6 +6175,92 @@ function gt4694EditGame(id=null,periodOnly=false){
   for(const input of form.querySelectorAll('input,select,textarea'))input.dataset.gt4694Baseline=input.value;
 }
 gameForm=gt4694EditGame;
+
+/* V46.9.4 approved form-layout integration: active controls are moved, not cloned. */
+const gt493PreviousGameForm=gameForm;
+gameForm=function(id=null,periodOnly=false){
+ gt493PreviousGameForm(id,periodOnly);
+ if(periodOnly||ui.screen!=='setup')return;
+ const form=$('gameForm'),root=$('setupContent');if(!form||form.dataset.reviewed493)return;
+ form.dataset.reviewed493='yes';form.classList.add('gt493-form');
+ const saved=id?db.games.find(g=>g.id===id&&!g.deletedAt):null;
+ const label=(s)=>[...form.querySelectorAll('label')].find(l=>[...l.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim().toLowerCase()===s.toLowerCase());
+ const card=(title)=>el('section',{class:'gt493-card'},el('h2',{},title));
+ const row=(className='')=>el('div',{class:'gt493-grid '+className});
+ const put=(dest,title,input)=>{if(!input)return;let lab=input.closest('label');if(!lab)lab=el('label',{},input);lab.classList.add('gt493-field');for(const n of [...lab.childNodes])if(n.nodeType===3)n.remove();lab.prepend(el('span',{class:'gt493-label'},title));dest.append(lab);return input};
+ const p=card('Player Information'),pg=row('gt493-player');
+ put(pg,'Player Name *',label('Player name')?.querySelector('input'));
+ put(pg,'Jersey # *',label('Jersey')?.querySelector('input'));p.append(pg);
+ const info=card('Game Information'),ig=row();
+ put(ig,'Team *',label('Team')?.querySelector('input'));
+ put(ig,'Opponent *',label('Opponent')?.querySelector('input'));
+ const league=label('League')||label('League (optional)');
+ const wide=el('div',{class:'gt493-wide'});put(wide,'League',league?.querySelector('input'));ig.append(wide);
+ put(ig,'Game Type',form.querySelector('select[aria-label="Game type"]'));
+ const dt=row('gt493-wide gt493-datetime');
+ put(dt,'Date *',form.querySelector('[data-game-date]'));
+ put(dt,'Time',form.querySelector('input[aria-label="Game time"]'));
+ ig.append(dt);info.append(ig);
+ const fmt=card('Game Format'),fg=row();
+ const oldPeriod=[...form.querySelectorAll('fieldset.ng-section')].find(x=>x.querySelector('.ng-formats'));
+ const currentFormat=oldPeriod?.querySelector('.ng-formats input:checked')?.value||'4Q';
+ const format=el('select',{'aria-label':'Format'});
+ for(const [v,t] of [['4Q','4 Quarters'],['2H','2 Halves']])format.append(el('option',{value:v},t));
+ format.value=currentFormat;
+ const minute=el('input',{type:'number',min:1,max:60,inputmode:'numeric',required:'','aria-label':'Minutes per Period'});
+ const periodRows=()=>[...oldPeriod?.querySelectorAll('.ng-durations select')||[]];
+ const initial=periodRows().map(x=>Number(x.value)/60);
+ minute.value=String(Math.round(initial[0]||8));
+ const adjust=()=>{const num=Number(minute.value);if(!Number.isInteger(num)||num<1||num>60)return;for(const x of periodRows()){x.value=String(num*60);x.dispatchEvent(new Event('change',{bubbles:true}))}};
+ const choose=()=>{const r=oldPeriod?.querySelector('.ng-formats input[value="'+format.value+'"]');if(r){r.checked=true;r.dispatchEvent(new Event('change',{bubbles:true}))}minute.value=String(Math.round(Number(periodRows()[0]?.value||480)/60))};
+ format.addEventListener('change',choose);minute.addEventListener('change',adjust);
+ put(fg,'Format',format);put(fg,'Minutes per Period *',minute);fmt.append(fg);
+ const advanced=el('details',{class:'gt493-advanced'},el('summary',{},'Individual period lengths'));
+ if(oldPeriod){advanced.append(oldPeriod);fmt.append(advanced)}
+ if(new Set(initial).size>1)advanced.open=true;
+ const result=saved?card('Game Results'):null;
+ if(result){
+  const status=el('select',{'aria-label':'Game Status'});
+  for(const [v,t] of [['in_progress','In Progress'],['completed','Completed']])status.append(el('option',{value:v},t));
+  status.value=saved.status;status.disabled=true;
+  status.title='Use the existing End Game or Reopen Game control to change game status.';
+  put(result,'Game Status',status);
+  const scores=row('gt493-scores');
+  put(scores,'Our Score',form.querySelector('input[aria-label="Our Score"],input[aria-label="Team score"]'));
+  put(scores,'Opponent Score',form.querySelector('input[aria-label="Opponent Score"],input[aria-label="Opponent score"]'));
+  result.append(scores);
+  const outcome=form.querySelector('.gt4694-outcome');if(outcome)result.append(outcome);
+  for(const d of [...form.querySelectorAll('.gt4694-expand')])result.append(d);
+  for(const b of [...form.querySelectorAll('.setup-game-status')])result.append(b);
+ }
+ const feedback=form.querySelector('.gt-feedback');
+ if(feedback){
+  feedback.classList.add('gt493-card');const lg=feedback.querySelector('legend');if(lg)lg.textContent="Player's Feedback";
+  const prompts=['What I Saw','What I Became','What I Want to Become More','Additional Feedback'];
+  [...feedback.querySelectorAll('textarea')].forEach((x,i)=>{
+   const l=x.closest('label');if(!l)return;
+   for(const n of [...l.childNodes])if(n.nodeType===3)n.remove();
+   l.classList.add('gt493-field');
+   l.prepend(el('span',{class:'gt493-label'},prompts[i]||'Additional Feedback'));
+  });
+ }
+ const oldFooter=form.querySelector('.ng-form-footer'),save=oldFooter?.querySelector('button');
+ const actions=el('div',{class:'gt493-actions'});
+ actions.append(button('Cancel',()=>{if(confirm('Discard unsaved changes?'))navigate('home')},'gt493-cancel',{type:'button'}));
+ if(save){save.textContent=id?'Save Changes':'Create Game';actions.append(save)}
+ const fresh=el('div',{class:'gt493-layout'});fresh.append(p,info,fmt);
+ if(result)fresh.append(result);if(feedback)fresh.append(feedback);
+ const error=oldFooter?.querySelector('.setup-error');if(error)fresh.append(error);
+ fresh.append(actions);form.replaceChildren(fresh);
+ const heading=root.querySelector('.setup-page > :first-child');
+ if(heading){const h=heading.querySelector('h1,h2');if(h)h.textContent=id?'Edit Game':'New Game';
+  const desc=[...heading.querySelectorAll('p,small')].filter(x=>/set it up now|start when play begins|update the details/i.test(x.textContent));
+  if(desc.length){desc[0].textContent=id?'Update your game details.':'Set up your game.';desc.slice(1).forEach(x=>x.remove())}
+ }
+ for(const x of [...root.querySelectorAll('.setup-page > p,.setup-page .review-kicker,.setup-page .review-page-subtitle')])if(/set it up now|start when play begins|update the details/i.test(x.textContent))x.remove();
+ for(const x of [...root.querySelectorAll('.gt4694-brand')].slice(1))x.remove();
+};
+
 
 })();
 
