@@ -2122,6 +2122,9 @@ html[data-theme] #app.gt-app .gt468-icon-trigger svg{width:23px;height:23px;disp
 #setupContent .gt493-form .gt4694-expand{background:white;border-radius:13px;margin:11px 0}
 #setupContent .gt493-form .gt4694-expand summary{min-height:49px}
 #setupContent .gt493-form .gt-feedback{margin:0!important}
+/* Edit Game: feedback must precede the Save/Cancel actions even when legacy order rules apply. */
+#setupContent .gt493-layout > .gt-feedback{order:10!important}
+#setupContent .gt493-layout > .gt493-actions{order:100!important}
 #setupContent .gt493-form .gt-feedback legend{font-size:20px;font-weight:800}
 #setupContent .gt493-form .gt-feedback label{display:flex;flex-direction:column;gap:7px;margin:12px 0}
 #setupContent .gt493-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 26px}
@@ -6249,7 +6252,9 @@ gameForm=function(id=null,periodOnly=false){
  actions.append(button('Cancel',()=>{if(confirm('Discard unsaved changes?'))navigate('home')},'gt493-cancel',{type:'button'}));
  if(save){save.textContent=id?'Save Changes':'Create Game';actions.append(save)}
  const fresh=el('div',{class:'gt493-layout'});fresh.append(p,info,fmt);
- if(result)fresh.append(result);if(feedback)fresh.append(feedback);
+ if(result)fresh.append(result);
+ // Player's Feedback is the last edit-only content section, immediately before CTA buttons.
+ if(feedback)fresh.append(feedback);
  const error=oldFooter?.querySelector('.setup-error');if(error)fresh.append(error);
  fresh.append(actions);form.replaceChildren(fresh);
  const heading=root.querySelector('.setup-page > :first-child');
