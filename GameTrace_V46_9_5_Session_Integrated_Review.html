@@ -6459,6 +6459,7 @@ function gt495SessionLayout(ctx){
   chipWrap.append(chip);
  }
  const addCustom=el('button',{type:'button'},'+ Add');
+ custom.classList.add('f-control');
  const customSkillRow=el('div',{class:'skill-entry'},custom,addCustom);
  custom.placeholder='Add a skill';custom.setAttribute('aria-label','Custom skill');
  const skills=section('Skills & Focus',
@@ -6497,7 +6498,9 @@ function gt495SessionLayout(ctx){
  if(presetLabel)extras.append(presetLabel);
  draftTools.append(extras);
  // Preserve native form error/status and default drafts without an additional visible card.
- layout.append(p,info,skills,feedback,error,actions,draftTools,status);
+ layout.append(p,info,skills,feedback,error,actions,status);
+ // Preserve drafts and presets outside approved form cards.
+ root.append(draftTools);
  form.replaceChildren(layout);
  const oldPageHead=root.querySelector('.page-heading');
  if(oldPageHead){
@@ -6509,7 +6512,8 @@ function gt495SessionLayout(ctx){
   }
   if(title)title.classList.add('gt495-title');
   const subtitle=el('p',{class:'gt495-subtitle'},mode==='edit'?'Update your session details.':'Log the work behind the game.');
-  oldPageHead.after(subtitle);
+  const parentAlreadyHasSubtitle=!!root.closest('.shell')?.querySelector('.pagehead .subtitle');
+  if(!parentAlreadyHasSubtitle && !root.querySelector('.gt495-subtitle'))oldPageHead.after(subtitle);
  }
  const footer=el('footer',{class:'gt495-footer'},el('p',{},'Follow the Play.',el('br'),'The Game. The Journey.'));
  const nav=el('nav',{'aria-label':'Quick links'});
@@ -6517,7 +6521,9 @@ function gt495SessionLayout(ctx){
   if(nav.childNodes.length)nav.append(el('span',{'aria-hidden':'true'},'·'));
   nav.append(button(name,()=>navigate(target),'',{type:'button'}));
  }
- footer.append(nav);form.after(footer);
+ footer.append(nav);
+ const parentAlreadyHasFooter=!!root.closest('.shell')?.querySelector('footer.footer');
+ if(!parentAlreadyHasFooter&&!root.querySelector('footer.gt495-footer'))form.after(footer);
 }
 const gt495OldFeedbackFields=feedbackFields;
 feedbackFields=function(parent,value,context){
