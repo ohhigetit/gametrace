@@ -2155,6 +2155,8 @@ html[data-theme] #app.gt-app #trainingContent .gt495-actions .gt495-save{backgro
 html[data-theme] #app.gt-app #trainingContent .gt495-actions .gt495-cancel{background:white;color:#172920;border:1px solid #c4d7c9}
 html[data-theme] #app.gt-app #trainingContent .gt495-header{max-width:760px;margin-left:auto;margin-right:auto}
 html[data-theme] #app.gt-app #trainingContent .gt495-header h1{font-size:32px}
+html[data-theme] #app.gt-app #trainingContent .gt495-heading-text{display:flex;flex-direction:column;min-width:0;gap:8px}
+html[data-theme] #app.gt-app #trainingContent .gt495-subtitle{margin:0;color:#73857a;font-size:17px;line-height:1.45}
 @media(max-width:370px){html[data-theme] #app.gt-app #trainingContent .gt495-card{padding:16px}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
@@ -6293,7 +6295,15 @@ buildSessionEditor=function(opts){
  const root=$('trainingContent'),form=root?.querySelector('form.training-form');
  if(!form||form.dataset.gt495)return;
  form.dataset.gt495='true';form.classList.add('gt495-form');
- const heading=root.querySelector(':scope>.page-heading');if(heading){heading.classList.add('gt495-header');const h=heading.querySelector('h1');if(h)h.textContent=opts.original&&!opts.repeat?'Edit Session':'New Session';}
+ const heading=root.querySelector(':scope>.page-heading');if(heading){
+ heading.classList.add('gt495-header');
+ const h=heading.querySelector('h1');
+ if(h){
+   h.textContent=opts.original&&!opts.repeat?'Edit Session':'New Session';
+   const wrap=el('div',{class:'gt495-heading-text'});
+   h.replaceWith(wrap);wrap.append(h,el('p',{class:'gt495-subtitle'},opts.original&&!opts.repeat?'Update your session details.':'Log the work behind the game.'));
+ }
+}
  const card=t=>el('section',{class:'gt495-card'},el('h2',{},t)),grid=()=>el('div',{class:'gt495-fields'});
  const field=(input,label)=>{if(!input)return null;let l=input.closest('label');if(!l)l=el('label',{},input);l.classList.add('gt495-field');for(const n of [...l.childNodes])if(n.nodeType===3)n.remove();l.prepend(el('span',{},label));return l};
  const fInput=t=>[...form.querySelectorAll('label')].find(l=>[...l.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().toLowerCase()===t.toLowerCase()))?.querySelector('input,select,textarea');
