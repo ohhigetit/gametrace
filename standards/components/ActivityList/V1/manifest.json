@@ -4,7 +4,7 @@
   "status": "LOCKED",
   "approved_on": "2026-11-08",
   "saved_branch": "standards/app-navigation-v1",
-  "preview": "standards/previews/GameTrace_ActivityList_V1_All_Variants_PREVIEW.html",
+  "preview": "standards/previews/GameTrace_ActivityList_V1_Official_Phosphor_Icons_PREVIEW.html",
   "composition": {
     "parent": "Section V1",
     "section_header": {
@@ -33,8 +33,8 @@
     "F": "empty_state"
   },
   "row_layout": [
-    "date",
-    "activity_details",
+    "official_phosphor_activity_icon",
+    "activity_title_date_and_details",
     "result_or_duration"
   ],
   "navigation_arrows": false,
@@ -47,5 +47,23 @@
   "row_interaction": "game_or_session_details",
   "approval_scope": "design_only",
   "dev_deployed": false,
-  "prod_deployed": false
+  "prod_deployed": false,
+  "previous_preview": "standards/previews/GameTrace_ActivityList_V1_All_Variants_PREVIEW.html",
+  "icon_family": "Phosphor",
+  "icon_weight": "regular",
+  "icons": {
+    "game": "Basketball",
+    "skills_training": "Target",
+    "performance_training": "Barbell",
+    "camp": "Tent"
+  },
+  "icon_presentation": {
+    "background": "transparent",
+    "border": false,
+    "box": false,
+    "color": "neutral_currentColor",
+    "green_line": false
+  },
+  "date_placement": "main_secondary_metadata",
+  "refinement_approved_on": "2026-11-08"
 }
