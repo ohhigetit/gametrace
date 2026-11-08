@@ -1,0 +1,44 @@
+{
+  "component": "PageFooter",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-07",
+  "approved_message": [
+    "SHOW UP. PUT IN THE WORK.",
+    "TRUST THE JOURNEY."
+  ],
+  "same_message_all_pages": true,
+  "required_in": "UniversalPage Parent V1",
+  "styling": {
+    "top_divider": {
+      "required": true,
+      "thickness_px": 1,
+      "width": "full",
+      "color": "theme edge"
+    },
+    "background": "transparent",
+    "card": false,
+    "alignment": "center",
+    "weight": "bold",
+    "case": "uppercase",
+    "line_2_accent": "theme green",
+    "responsive": [
+      "iphone portrait",
+      "iphone landscape"
+    ],
+    "position": "bottom of page content; nonfixed"
+  },
+  "themes": [
+    "Day",
+    "Courtside"
+  ],
+  "reference_preview": "GameTrace_PageFooter_V1_PREVIEW_Top_Divider.html",
+  "branch": "standards/app-navigation-v1",
+  "dependencies": [
+    "AppNavigation V1",
+    "IconFamily V1",
+    "PageHeader V1"
+  ],
+  "integration_status": "NOT_INTEGRATED",
+  "deployment_status": "NOT_DEPLOYED"
+}
