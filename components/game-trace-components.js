@@ -151,9 +151,32 @@
       return root;
     },emptyText:'No notes yet.'});
   }
+  /** Approved AchievementList V1 icon — B Championship, outline only.
+   * Matches ActivityList neutral ink; no fill, background, or icon box.
+   * Source of truth: approved/AchievementList_V1_Championship_Outline_APPROVED.html
+   */
+  function championshipTrophyIcon() {
+    const svg=doc.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 256 256');
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','12');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+    svg.setAttribute('aria-hidden','true');
+    svg.classList.add('gtc-achievement-trophy');
+    const d=["M73 34h110v75c0 38-24 65-55 65s-55-27-55-65V34Z","M73 57H39v35c0 31 18 51 46 51M183 57h34v35c0 31-18 51-46 51","M128 174v32M94 221h68M106 206h44","m128 70 7 15 17 2-12 12 3 17-15-8-15 8 3-17-12-12 17-2Z"];
+    d.forEach(value=>{
+      const path=doc.createElementNS(svg.namespaceURI,'path');
+      path.setAttribute('d',value);
+      path.setAttribute('fill','none');
+      svg.appendChild(path);
+    });
+    return svg;
+  }
   function AchievementList({items=[],icons={},onOpen}={}) {
     return List({items,renderItem:item=>rowShell({
-      iconNode:item.iconNode||icons.achievement,category:item.category||'ACHIEVEMENT',
+      iconNode:item.iconNode||icons.achievement||championshipTrophyIcon(),category:item.category||'ACHIEVEMENT',
       title:item.title,metadata:detail(item.origin,safeDate(item.date)),
       description:item.description||'',value:item.value||'',valueLabel:item.valueLabel||'',
       onOpen:onOpen?()=>onOpen(item):undefined
