@@ -2671,6 +2671,104 @@ html[data-theme] #app.gt-app #homeContent [data-page="games"] .up1-footer span:l
 html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtal-icon svg[data-gt-icon="dribble-basketball"]{
  fill:none;stroke:currentColor;stroke-width:11;stroke-linecap:round;stroke-linejoin:round;
 }
+</style><style id="gt-gamebanner-v2-compact-preview">
+/* GameBanner V2: shared primary content dimensions; no second primary row. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row,
+html[data-theme] #app.gt-app #homeContent .gtgames-compact-primary{
+ display:grid!important;grid-template-columns:minmax(0,2fr) minmax(0,1fr)!important;align-items:stretch;
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,
+html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell{padding:14px 12px!important;min-width:0;overflow-wrap:anywhere;}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell+.gtv2-banner-cell,
+html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell+.gtgames-compact-cell{border-left:1px solid var(--gt-edge,#cbd3c8)}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{display:flex;flex-direction:column;gap:7px;align-items:flex-start;justify-content:center;text-align:left}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{display:block;max-width:100%;font-weight:780;font-size:clamp(12px,3.2vw,16px);line-height:1.32;overflow-wrap:anywhere;letter-spacing:-.2px}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:clamp(26px,7.7vw,39px);font-weight:840;line-height:1.12;letter-spacing:-1.1px;font-variant-numeric:tabular-nums;white-space:nowrap}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:5px 7px;font-size:10px;line-height:1.4;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta .gtgames-badge,
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta .gtgbv1-status{font-size:9px!important;padding:3px 6px!important;line-height:1.4;max-width:100%;white-space:normal}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-quick-stats{display:flex;flex-direction:column;justify-content:center;gap:12px;align-items:stretch;min-width:0}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stats-caption{display:block!important;text-align:center;font-size:9px!important;letter-spacing:.65px!important}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 4px;min-width:0}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat{min-width:0;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat-label{font-size:9px;letter-spacing:.35px;font-weight:760;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat-number{font-size:clamp(17px,4.4vw,23px);font-weight:850;line-height:1.08;color:var(--gt-ink,#172119);font-variant-numeric:tabular-nums}
+@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell{padding:12px 8px!important}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{font-size:12px}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:27px}}
+</style><style id="gt-gamebanner-v2-centered-match-score">
+/* Approved V2 compact layout refinement: center VS and score without altering details. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{align-items:stretch!important}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+ width:100%;max-width:100%;gap:4px;align-items:center;text-align:center;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team{
+ min-width:0;overflow-wrap:anywhere;line-height:1.28;text-align:center;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
+ font-size:10px;font-weight:650;line-height:1.2;color:var(--gt-muted,#59655b);
+ text-transform:lowercase;text-align:center;align-self:center;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{
+ display:block;width:100%;text-align:center;
+}
+@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{gap:3px}}
+</style><style id="gt-gamebanner-v2-top-aligned-teams-action-parity">
+/* GameBanner V2 refinement: top-align teams, preserve centered vs and score. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{
+ align-items:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team{
+ align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:first-child{
+ text-align:right!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:last-child{
+ text-align:left!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
+ align-self:start!important;
+ text-align:center!important;
+ padding-top:2px;
+}
+/* Games: the Open/View Game action belongs beside Latest Game, not in the banner's content. */
+html[data-theme] #app.gt-app #homeContent .gtgames-featured-heading .gtgames-header-action{
+ display:inline-flex!important;align-items:center;justify-content:flex-end;
+ flex:0 0 auto;width:auto!important;min-height:44px;
+ margin:0;padding:5px 0 5px 8px!important;
+ border:0!important;background:transparent!important;
+ color:var(--gt-accent,#087d42)!important;
+ font-size:clamp(11px,3.25vw,14px)!important;font-weight:750!important;
+ text-align:right;white-space:nowrap;
+}
+</style><style id="gt-gamebanner-v2-summary-centered-except-teams">
+/* GameBanner V2: center all first-cell contents; retain the locked exceptions for team names. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{
+ align-items:center!important;
+ text-align:center!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary>.gtgbv1-label{
+ display:block;width:100%;text-align:center!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{
+ width:100%;align-items:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:first-child{
+ text-align:right!important;align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:last-child{
+ text-align:left!important;align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
+ text-align:center!important;align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{
+ width:100%;text-align:center!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta{
+ width:100%;justify-content:center!important;text-align:center!important;
+}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -7483,18 +7581,27 @@ function gtGBV1IntegrateCourtLive(root){
   block.append(node('span','gtgbv1-label',label),node('strong','gtgbv1-team-name',name),node('strong','gtgbv1-score',round(value)));
   return block;
  };
- row(primary,[teamBox('TEAM',clean(game.team,'Your Team'),score.team),teamBox('OPPONENT',clean(game.opponent,'Opponent'),score.opponent)]);
- const context=node('div','gtgbv1-context');
- if(date||gameType)context.append(node('span','gtgbv1-context-text',[date,gameType].filter(Boolean).join(' · ')));
- const badge=node('span','gtgbv1-status gtgbv1-status-'+(!started?'ready':paused?'paused':'live'),state);
- context.append(badge);
- if(started&&period)context.append(node('span','gtgbv1-context-text',period));
- primary.append(context);
- const stats=node('div','gtgbv1-stats');
- const values=[['PTS',totals.pts],['REB',totals.reb],['AST',totals.ast],['STL',totals.stl]];
- values.forEach(([label,val])=>{const stat=node('div','gtgbv1-stat');stat.append(node('span','gtgbv1-stat-label',label),node('strong','gtgbv1-stat-value',round(val)));stats.append(stat)});
- const allStats=node('div','gtgbv1-stats-wrap');allStats.append(node('span','gtgbv1-label','PLAYER STATS'),stats);
- row(primary,[allStats],true);banner.append(primary);
+ // Compact GameBanner V2 preview: one 2:1 primary row. Secondary details unchanged.
+ const summary=node('div','gtcompact-game-summary');
+ summary.append(node('span','gtgbv1-label','GAME SUMMARY'));
+ const matchup=node('div','gtcompact-match');
+ matchup.append(node('span','gtcompact-team',clean(game.team,'Your Team')),node('span','gtcompact-vs','vs'),node('span','gtcompact-team',clean(game.opponent,'Opponent')));
+ summary.append(matchup);
+ summary.append(node('div','gtcompact-score',round(score.team)+' – '+round(score.opponent)));
+ const compactMeta=node('div','gtcompact-meta');
+ compactMeta.append(node('span','gtgbv1-context-text',[date,gameType].filter(Boolean).join(' · ')));
+ compactMeta.append(node('span','gtgbv1-status gtgbv1-status-'+(!started?'ready':paused?'paused':'live'),state));
+ if(started&&period)compactMeta.append(node('span','gtgbv1-context-text',period));
+ summary.append(compactMeta);
+ const quickStats=node('div','gtcompact-quick-stats');
+ quickStats.append(node('span','gtgbv1-label gtcompact-stats-caption','TOP STATS'));
+ const quickGrid=node('div','gtcompact-stats-grid');
+ [['PTS',totals.pts],['REB',totals.reb],['AST',totals.ast],['STL',totals.stl]].forEach(([label,val])=>{
+  const stat=node('div','gtcompact-stat');stat.append(node('span','gtcompact-stat-label',label),node('strong','gtcompact-stat-number',round(val)));quickGrid.append(stat);
+ });
+ quickStats.append(quickGrid);
+ const compactRow=row(primary,[summary,quickStats]);compactRow.classList.add('gtcompact-row');
+ banner.append(primary);
  const details=node('details','gtgbv1-details');
  const toggle=node('summary','gtgbv1-toggle');const toggleText=node('span','', 'Show Details');
  toggle.append(toggleText,node('span','gtgbv1-chevron','⌄'));details.append(toggle);
@@ -7549,30 +7656,33 @@ function gtGamesFeaturedBannerV1(){
  const banner=document.createElement('article');banner.className='gtgames-banner';banner.dataset.component='GameBannerV1';banner.dataset.parent='SharedBannerV2';banner.dataset.gameId=g.id;
  const add=(tag,cl,content)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(content!=null)n.textContent=String(content);return n;};
  const score=isLive?gt4684GameScore(g):[g.finalScore?.team,g.finalScore?.opponent].map(v=>v===null||v===undefined||v===''?'—':Number.isFinite(Number(v))?String(Math.round(Number(v))):'—');
- const cols=add('div','gtgames-teamrow');
- [['TEAM',g.team||'Your Team',score[0]],['OPPONENT',g.opponent||'Opponent',score[1]]].forEach(([label,name,points])=>{
-  const col=add('div','gtgames-team');col.dataset.component='BannerCellV1';col.append(add('span','gtgames-label',label),add('strong','gtgames-teamname',name),add('strong','gtgames-teamscore',points));cols.append(col);
- });banner.append(cols);
- const context=add('div','gtgames-context');const date=g.date?friendlyDate(g.date):'Date unavailable';context.append(add('span','',date));
- if(g.gameType)context.append(add('span','',g.gameType));
- let phase=isLive?gt4684GamePhase(g):'final';
+ // GameBanner V2 compact primary: same 2:1 shared layout as Home Court.
+ const contextDate=g.date?friendlyDate(g.date):'Date unavailable';
+ const phase=isLive?gt4684GamePhase(g):'final';
  let badgeText=isLive?(phase==='not-started'?'NOT STARTED':phase==='paused'?'PAUSED':'● LIVE'):'FINAL';
  let tone=isLive?'live':'';
  if(!isLive&&score[0]!=='—'&&score[1]!=='—'){const a=Number(score[0]),b=Number(score[1]);badgeText=a>b?'WIN':a<b?'LOSS':'TIE';tone=a<b?'loss':'';}
- context.append(add('span','gtgames-badge '+tone,badgeText));
- if(isLive&&g.settings){const fmt=g.settings.format||'quarters';context.append(add('span','',String(g.settings.current||'')+(fmt==='halves'?'H':'Q')));}
- banner.append(context);
- if(isLive&&g.settings){
-  const progress=add('div','gtgames-progress');progress.setAttribute('aria-label','Game period progress');
-  let fraction=0;try{fraction=Number(g.settings.current||0)/Math.max(1,Number(C.count(g.settings.format)||4));}catch{}
-  const bar=add('span','');bar.style.width=(Math.max(0,Math.min(1,fraction))*100)+'%';progress.append(bar);banner.append(progress);
- }
  const totals=(()=>{try{return C.totals(C.filtered(g))||{}}catch{return{}}})();
- const stats=add('div','gtgames-statsrow');stats.dataset.component='BannerRowV1';stats.append(add('div','gtgames-label','PLAYER STATS'));
- const four=add('div','gtgames-stats');[['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl']].forEach(([label,key])=>{
-  const item=add('div','gtgames-stat');item.append(add('strong','',Number.isFinite(Number(totals[key]))?Math.round(Number(totals[key])):'—'),add('small','',label));four.append(item);
- });stats.append(four);banner.append(stats);
- const action=add('button','gtgames-open',isLive?'Open Game →':'View Game →');action.type='button';action.addEventListener('click',()=>chooseGame(g.id,isLive?'live':'stats'));banner.append(action);
+ const compactPrimary=add('div','gtgames-compact-primary');compactPrimary.dataset.component='BannerRowV1';
+ const leftCell=add('div','gtgames-compact-cell gtcompact-game-summary');leftCell.dataset.component='BannerCellV1';
+ leftCell.append(add('span','gtgames-label','GAME SUMMARY'));
+ const matchup=add('div','gtcompact-match');
+ matchup.append(add('span','gtcompact-team',g.team||'Your Team'),add('span','gtcompact-vs','vs'),add('span','gtcompact-team',g.opponent||'Opponent'));
+ leftCell.append(matchup);
+ leftCell.append(add('div','gtcompact-score',score[0]+' – '+score[1]));
+ const compactMeta=add('div','gtcompact-meta');compactMeta.append(add('span','',contextDate+(g.gameType?' · '+g.gameType:'')));
+ compactMeta.append(add('span','gtgames-badge '+tone,badgeText));
+ if(isLive&&g.settings)compactMeta.append(add('span','',String(g.settings.current||'')+(g.settings.format==='halves'?'H':'Q')));
+ leftCell.append(compactMeta);
+ const rightCell=add('div','gtgames-compact-cell gtcompact-quick-stats');rightCell.dataset.component='BannerCellV1';
+ rightCell.append(add('span','gtgames-label gtcompact-stats-caption','TOP STATS'));
+ const quickGrid=add('div','gtcompact-stats-grid');
+ [['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl']].forEach(([label,key])=>{
+   const item=add('div','gtcompact-stat');item.append(add('span','gtcompact-stat-label',label),add('strong','gtcompact-stat-number',Number.isFinite(Number(totals[key]))?Math.round(Number(totals[key])):'—'));quickGrid.append(item);
+ });
+ rightCell.append(quickGrid);compactPrimary.append(leftCell,rightCell);banner.append(compactPrimary);
+ const action=add('button','gtgames-open gtgames-header-action',isLive?'Open Game →':'View Game →');action.type='button';action.addEventListener('click',()=>chooseGame(g.id,isLive?'live':'stats'));titleWrap.append(action);
+ const date=contextDate;
  const more=add('details','gtgames-details');const summary=add('summary','','Show Details');more.addEventListener('toggle',()=>{summary.firstChild.textContent=more.open?'Hide Details':'Show Details'});more.append(summary);
  const secondary=add('div','gtgames-secondary');
  const left=add('div','gtgames-detail-cell'),right=add('div','gtgames-detail-cell');left.dataset.component=right.dataset.component='BannerCellV1';
