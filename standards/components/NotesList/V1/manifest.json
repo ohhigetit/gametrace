@@ -1,0 +1,36 @@
+{
+  "component": "NotesList",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-08",
+  "saved_branch": "standards/app-navigation-v1",
+  "preview": "standards/previews/GameTrace_GoalsList_NotesList_V1_All_Variants_PREVIEW.html",
+  "composes": {
+    "parent": "Section V1",
+    "section_header": {
+      "required": [
+        "title",
+        "subtitle"
+      ],
+      "optional": [
+        "action"
+      ]
+    },
+    "section_content": "List V1"
+  },
+  "variants": {
+    "A": "all_notes",
+    "B": "player_notes",
+    "C": "progress_notes",
+    "D": "general_notes",
+    "E": "by_origin",
+    "F": "empty"
+  },
+  "no_navigation_arrows": true,
+  "required_item_type": "note",
+  "day_and_courtside": true,
+  "dividers_configurable": true,
+  "design_only": true,
+  "dev_deployed": false,
+  "prod_deployed": false
+}
