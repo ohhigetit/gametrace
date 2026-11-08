@@ -2,7 +2,7 @@
 
 **Status:** APPROVED & LOCKED  
 **Approved:** November 8, 2026  
-**Canonical visual reference:** `standards/previews/GameTrace_ActivityList_V1_All_Variants_PREVIEW.html`  
+**Canonical visual reference:** `standards/previews/GameTrace_ActivityList_V1_Official_Phosphor_Icons_PREVIEW.html`  
 **Approval scope:** Reusable design system component. **Not integrated or deployed** to development or production.
 
 ## Structure and inheritance
@@ -39,11 +39,11 @@ All six variants are approved. The preview includes Day/Courtside theme switchin
 
 ## Row format: inherited List V1, Variant D
 
-**Leading (date)** → **Main (activity title and supporting details)** → **Trailing (outcome or duration)**.
+**Leading (official Phosphor activity icon)** → **Main (activity title, date and supporting details)** → **Trailing (outcome or duration)**.
 
-- **Game:** date; opponent/title; game type/context as available; score and W/L when present; supporting player statistics such as points, rebounds and assists only when recorded.
-- **Training session:** date; training type; coach/location and skills practiced when present; duration when recorded.
-- **Camp:** date; camp title; organizer/location and development focus when present; duration when recorded.
+- **Game:** official Phosphor Basketball icon; date in secondary metadata; opponent/title; game type/context as available; score and W/L when present; supporting player statistics such as points, rebounds and assists only when recorded.
+- **Training session:** official Phosphor Target icon for skills training or Barbell icon for performance training; date in secondary metadata; training type; coach/location and skills practiced when present; duration when recorded.
+- **Camp:** official Phosphor Tent icon; date in secondary metadata; camp title; organizer/location and development focus when present; duration when recorded.
 - Never fabricate missing stats, scores, times, durations, results or other values.
 - Preserve consistent alignment, natural wrapping, and full visibility on iPhone portrait and landscape.
 - Tappable rows use native Game Details and Session Details actions when integrated.
@@ -60,3 +60,18 @@ The preview is an approved visual standard, **not production code**. Future inte
 ## Change control
 
 This specification and the exact approved preview are **LOCKED**. Any design change requires explicit review and approval. Saving the standard does not authorize integration or deployment.
+
+## Approved refinement — activity icons (November 8, 2026)
+
+This refinement **supersedes the earlier date-leading ActivityList preview**. Match the existing ScheduleList three-column geometry, but replace its calendar/date leading block with the appropriate **official Phosphor regular-weight icon**:
+
+| Activity | Official Phosphor icon |
+|---|---|
+| Game | Basketball |
+| Skills Training | Target |
+| Performance Training | Barbell |
+| Camp | Tent |
+
+**No background fill, enclosing icon box, border, or green accent line.** Icons use neutral foreground/currentColor with consistent alignment and the approved outline-style appearance. Display the activity date as secondary information underneath the activity title. Preserve result/score or duration in the trailing column. Game statistics and skills/focus remain visible as supporting information. All six existing variants, themes, dividers, and navigation behavior remain unchanged. Embed the official SVG assets in the preview for offline iPhone use.
+
+The exact newly approved visual source is `standards/previews/GameTrace_ActivityList_V1_Official_Phosphor_Icons_PREVIEW.html`; the previous all-variants HTML remains available as historical reference only.
