@@ -2162,13 +2162,13 @@ html[data-theme] #app.gt-app #trainingContent .gt495-subtitle{margin:0;color:#73
 /* Clean page rebuild: approved V4 component markup, no patch-stack inheritance. */
 #app .gtv41-layout{color:var(--gt-ink);min-width:0}
 #app .gtv41-banner{--gt-banner-bg:#eaf1eb;--gt-banner-secondary:#f5f9f5;--gt-banner-border:#cbd9ce;--gt-banner-text:#243128;--gt-banner-muted:#647469;background:var(--gt-banner-bg);border:1px solid var(--gt-banner-border);border-radius:16px;overflow:hidden;color:var(--gt-banner-text);margin:0 0 28px}
-#app .gtv41-banner-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:18px 16px 13px;border-bottom:1px solid var(--gt-banner-border)}
+#app .gtv41-banner-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:18px 16px 13px}
 #app .gtv41-banner-title{font-size:20px;font-weight:750;letter-spacing:-.02em;line-height:1.25}
 #app .gtv41-banner-subtitle{font-size:12px;line-height:1.4;color:var(--gt-banner-muted);margin-top:4px}
 #app .gtv41-banner-status{font-size:10px;font-weight:800;padding:6px 9px;border-radius:8px;background:#d8ebdf;color:#245b3b;white-space:nowrap}
 #app .gtv41-banner-main,#app .gtv41-banner-extra{display:grid;grid-template-columns:1.12fr 1fr;min-width:0}
 #app .gtv41-banner-cell{min-width:0;padding:16px 12px}
-#app .gtv41-banner-cell:first-child{border-right:1px solid var(--gt-banner-border)}
+#app .gtv41-banner-cell:first-child{border-right:0}
 #app .gtv41-eyebrow{font-size:10px;letter-spacing:.055em;font-weight:750;color:var(--gt-banner-muted);text-transform:uppercase}
 #app .gtv41-team{font-size:14px;font-weight:800;line-height:1.25;margin-top:12px;overflow-wrap:anywhere}
 #app .gtv41-versus{font-size:12px;margin:5px 0;color:#647469}
@@ -2180,11 +2180,11 @@ html[data-theme] #app.gt-app #trainingContent .gt495-subtitle{margin:0;color:#73
 #app .gtv41-stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
 #app .gtv41-stat{background:#f8faf8;border-radius:10px;padding:11px 3px;text-align:center}
 #app .gtv41-stat-value{font-size:clamp(22px,6vw,29px);font-weight:800;line-height:1.2}
-html[data-theme] #app.app.gt-app .gtv41-banner-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;padding:10px 16px;border:0;border-top:1px solid var(--gt-banner-border);border-radius:0;background:transparent;color:#243128;text-align:left;font-size:13px;font-weight:700}
-#app .gtv41-banner-extra{background:var(--gt-banner-secondary);border-top:1px solid var(--gt-banner-border)}
+html[data-theme] #app.app.gt-app .gtv41-banner-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;padding:10px 16px;border:0;border-radius:0;background:transparent;color:#243128;text-align:left;font-size:13px;font-weight:700}
+#app .gtv41-banner-extra{background:var(--gt-banner-secondary);border-top:0}
 #app .gtv41-banner-extra[hidden]{display:none!important}
 #app .gtv41-detail-heading{font-size:10px;font-weight:800;letter-spacing:.04em;margin-bottom:5px}
-#app .gtv41-detail-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;padding:9px 0;border-bottom:1px solid #dce6de;font-size:12px}
+#app .gtv41-detail-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;padding:9px 0;border-bottom:0;font-size:12px}
 #app .gtv41-detail-row:last-child{border-bottom:0}
 #app .gtv41-detail-row>span{color:#647469}
 #app .gtv41-detail-row strong{text-align:right;overflow-wrap:anywhere}
@@ -4668,13 +4668,15 @@ function gtv41Banner(g){
  for(const [k,v] of [['PTS',t.pts],['REB',t.reb],['AST',t.ast],['STL',t.stl]])grid.append(el('div',{class:'gtv41-stat'},el('div',{class:'gtv41-stat-value'},String(v)),el('div',{class:'gtv41-eyebrow'},k)));
  two.append(grid);
  const main=el('div',{class:'gtv41-banner-main'},one,two);
- const extra=el('div',{class:'gtv41-banner-extra'}),gameRows=el('section',{class:'gtv41-banner-cell'},el('div',{class:'gtv41-detail-heading'},'OTHER GAME DETAILS')),statRows=el('section',{class:'gtv41-banner-cell'},el('div',{class:'gtv41-detail-heading'},'OTHER STATS'));
+ const extra=el('div',{class:'gtv41-banner-extra',id:'gtv41-banner-extra'}),gameRows=el('section',{class:'gtv41-banner-cell'},el('div',{class:'gtv41-detail-heading'},'OTHER GAME DETAILS')),statRows=el('section',{class:'gtv41-banner-cell'},el('div',{class:'gtv41-detail-heading'},'OTHER STATS'));
  const add=(p,k,v)=>p.append(el('div',{class:'gtv41-detail-row'},el('span',{},k),el('strong',{},String(v??'—'))));
  add(gameRows,'Player',g.player+(g.number?' #'+g.number:''));add(gameRows,'Game Type',C.GAME_TYPES[g.gameType||'regular']||'Regular');add(gameRows,'League',g.league||'—');add(gameRows,'Status',g.status==='completed'?'Completed':'In progress');
  add(statRows,'2PT',t.m2+' / '+t.a2);add(statRows,'3PT',t.m3+' / '+t.a3);add(statRows,'FT',t.mft+' / '+t.aft);add(statRows,'TOV',t.to);add(statRows,'FOUL',t.pf);extra.append(gameRows,statRows);
  extra.hidden=!gtv41Expanded;
- const toggle=button('',()=>{gtv41Expanded=!gtv41Expanded;extra.hidden=!gtv41Expanded;toggle.firstChild.textContent=gtv41Expanded?'Hide Details':'Show Details';toggle.lastChild.textContent=gtv41Expanded?'⌃':'⌄';toggle.setAttribute('aria-expanded',String(gtv41Expanded))},'gtv41-banner-toggle',{'aria-expanded':String(gtv41Expanded)});
- toggle.append(el('span',{},gtv41Expanded?'Hide Details':'Show Details'),el('span',{'aria-hidden':'true'},gtv41Expanded?'⌃':'⌄'));
+ const toggle=button('',()=>{gtv41Expanded=!gtv41Expanded;extra.hidden=!gtv41Expanded;caption.textContent=gtv41Expanded?'Hide Details':'Show Details';indicator.textContent=gtv41Expanded?'⌃':'⌄';toggle.setAttribute('aria-expanded',String(gtv41Expanded))},'gtv41-banner-toggle',{'aria-expanded':String(gtv41Expanded),'aria-controls':'gtv41-banner-extra'});
+ const caption=el('span',{},gtv41Expanded?'Hide Details':'Show Details');
+ const indicator=el('span',{'aria-hidden':'true'},gtv41Expanded?'⌃':'⌄');
+ toggle.replaceChildren(caption,indicator);
  root.append(head,main,toggle,extra);return root;
 }
 function gtv41SectionHead(title,subtitle,action){
