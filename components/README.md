@@ -1,12 +1,12 @@
 # GameTrace Component Library — foundation v0.1
 
-**Branch:** `feature/component-library` (based on `development`). This is an isolated source-only foundation. It is **not** connected to the running GameTrace app and is **not deployed**.
+**Branch:** `feature/component-library` (based on `development`). This is an isolated source-only foundation. The ActivityList adapter is now wired into the feature-branch build source, but generated app files have **not** been committed, runtime rendering has **not** been verified, and nothing has been deployed.
 
 ## Architecture
 
 - `game-trace-components.js`: reusable, state-independent DOM renderers.
 - `game-trace-components.css`: scoped Day-theme styling; token fallback values require comparison with canonical app styles.
-- `preview.html`: illustrative manual inspection, using synthetic data only.
+- `preview.html`: illustrative manual inspection, using synthetic data only.\n- `homecourt-activity-integration.js`: feature-branch Home Court adapter that composes existing rendered game/training rows into one ActivityList while preserving their DOM nodes, icon markup, and event handlers.\n- `tests/component-activity-integration.cjs`: isolated integration regression; GitHub Actions workflow checks syntax, build parity and this test.
 
 Components available:
 
@@ -52,7 +52,7 @@ All strings are written through `textContent`, not inserted as HTML. The views h
 
 ## Integration guardrails
 
-1. **Do not switch Home Court to these renderers yet.** First compare the library against the approved screenshots on actual iPhone portrait/landscape.
+1. **Home Court ActivityList integration is feature-branch-only.** It uses the existing app row nodes (not reconstructed records). Verify it against actual DOM and approved screenshots on iPhone portrait/landscape before merging or deploying.
 2. Map real records with an adapter. Never create synthetic app records, mutate IDs, scores, trainer details or saved records.
 3. Source the exact production icons, spacing and color tokens. Current CSS values are provisional fallbacks.
 4. Preserve existing navigation, filters, score computation, dates and cloud sync; connect `onOpen` and View All to the current routes.
@@ -72,3 +72,11 @@ The existing build remains `python3 source/v42/build.py` and the existing reposi
 - Validate notes question/quote/origin visual arrangement against the locked preview.
 - Validate goal progress treatment and achievement trophy layout against approved previews.
 - Add automated regression/visual tests and documented version changes.
+
+## Home Court ActivityList integration (feature branch only)
+
+The source build adds the shared component JavaScript/CSS and an adapter after the existing V42 scripts. The adapter runs after the original `renderHomeCourt`, looks for distinct **Recent Games** and **Recent Trainings** sections, and replaces those two sections with a unified **Recent Activity** section using the shared `ActivityList` and `Section` renderers.
+
+Original row DOM nodes, icons, click handlers, and View All actions are moved rather than reimplemented. It sorts newest-first only if every rendered row exposes a parseable complete date; otherwise existing order is preserved. Missing/unknown markup results in a no-op rather than destructive replacement. No storage, cloud, backend, or game logic changes.
+
+**Known limitation:** Current source includes only the base V42 application, which may not match later manually approved preview HTML. The adapter has not been validated on the actual Home Court DOM or an iPhone yet. Do not claim visual parity, a live preview, or deployed integration until actual build/test results confirm it. Neither `development` nor `main` has been changed.
