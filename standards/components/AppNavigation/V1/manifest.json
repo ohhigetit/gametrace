@@ -1,0 +1,28 @@
+{
+  "component": "AppNavigation",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-07",
+  "parent": "UniversalPage V1 (draft)",
+  "source": {
+    "repository": "ohhigetit/gametrace",
+    "branch_at_approval": "development",
+    "commit": "3ca115579ef889d84de2b1da31f1cec8ee604354",
+    "file": "index.html",
+    "git_blob_sha": "a355788326c3e8fac84b15abdbc58c4c3acdee0e",
+    "test_url": "https://development--game-trace.netlify.app/"
+  },
+  "implementation": "Existing integrated app navigation; immutable approved reference. Not separately extracted.",
+  "preserve": [
+    "HTML layout",
+    "CSS styling",
+    "JavaScript behavior",
+    "menu ordering and destinations",
+    "existing logo and icons",
+    "selected states",
+    "responsive layout",
+    "active game continuity"
+  ],
+  "standalone_extraction_verified": false,
+  "production_changed": false
+}
