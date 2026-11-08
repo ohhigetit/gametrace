@@ -4,7 +4,7 @@ const fs=require('fs'),assert=require('node:assert/strict');const {JSDOM,Virtual
  await wait();
  assert(w.__qa,errors.join('\n'));
  await click('Skip');
- run(`celebrateTrophies=()=>{};const now=C.now();db=C.blankDB();const g=C.prepareGame({player:'Georgina',team:'West Essex',opponent:'Caldwell',date:localDate()});C.startGame(g,new Date(Date.now()-600000).toISOString());C.appendEvent(g,'in',{at:new Date(Date.now()-590000).toISOString()});C.appendEvent(g,'2_make',{at:new Date(Date.now()-580000).toISOString()});db.games=[g];db.trainingSessions=[T.validSession({id:'session',type:'training',name:'Shooting',date:localDate(),minutes:60,player:'Georgina',tags:[],createdAt:now,updatedAt:now}),T.validSession({id:'camp',type:'camp',name:'Summer Camp',date:localDate(),minutes:120,player:'Georgina',tags:[],createdAt:now,updatedAt:now})];setPlayerContext('Georgina');navigate('court');`);
+ run(`celebrateTrophies=()=>{};const now=C.now();db=C.blankDB();const g=C.prepareGame({player:'Georgina',team:'West Essex',opponent:'Caldwell',date:localDate()});C.startGame(g,new Date(Date.now()-600000).toISOString());C.appendEvent(g,'in',{at:new Date(Date.now()-590000).toISOString()});C.appendEvent(g,'2_make',{at:new Date(Date.now()-580000).toISOString()});g.status='completed';g.finalScore={team:5,opponent:3};db.games=[g];db.trainingSessions=[T.validSession({id:'session',type:'training',name:'Shooting',date:localDate(),minutes:60,player:'Georgina',tags:[],createdAt:now,updatedAt:now}),T.validSession({id:'camp',type:'camp',name:'Summer Camp',date:localDate(),minutes:120,player:'Georgina',tags:[],createdAt:now,updatedAt:now})];setPlayerContext('Georgina');navigate('court');`);
  const root=d.querySelector('#courtContent');
  console.log('COURT HEADINGS', JSON.stringify([...root.querySelectorAll('h2,h3,h4,h5')].map(n=>({title:n.textContent.trim().slice(0,110),parent:n.parentElement?.className}))));
  console.log('COURT SECTION HTML',JSON.stringify([...root.querySelectorAll('h2,h3')].filter(n=>/Recent (Games|Sessions)/.test(n.textContent)).map(n=>({heading:n.textContent,html:n.parentElement?.parentElement?.outerHTML.slice(0,2400)}))));
@@ -12,9 +12,11 @@ const fs=require('fs'),assert=require('node:assert/strict');const {JSDOM,Virtual
  console.log('COURT ACTIVITY',JSON.stringify({sections:root.querySelectorAll('[data-gtc-home-activity]').length,rows:root.querySelectorAll('[data-gtc-home-activity] .gtc-list-row').length,text:root.textContent.slice(0,650)}));
  assert(root.querySelector('[data-gtc-home-activity]'),'Real Home Court must use ActivityList');
  assert(root.querySelector('[data-gtc-home-activity]').textContent.includes('Recent Activity'));
- assert(root.querySelectorAll('[data-gtc-home-activity] .gtc-list-row').length>=2,'Game and session row');
+ assert(root.querySelectorAll('[data-gtc-home-activity] .gtc-list-row').length===3,'Game and training/camp rows');
+ assert(root.querySelector('[data-gtc-home-activity] [data-icon-family=Phosphor]'),'Official icon family is present');
+ assert(root.querySelector('[data-gtc-home-activity]').textContent.includes('W 5–3'),'Game result preserved');
  assert(![...root.querySelectorAll('h2,h3')].some(n=>/^Recent Games$|^Recent Trainings$/i.test(n.textContent.trim())));
- assert(root.textContent.includes('Words to Remember'),'Unrelated component retained');
+ assert(root.textContent.includes('On the Wall'),'Unrelated component retained');
  assert.deepEqual(errors,[]);
  console.log('PASS real app Home Court activity integration');w.close();
 })().catch(e=>{console.error(e);console.error('RUNTIME',errors);w.close();process.exit(1)});
