@@ -2539,6 +2539,24 @@ html[data-theme] #app.gt-app #courtContent .gtgbv1-section .gtgbv1-header-link {
 html[data-theme] #app.gt-app #courtContent .gtgbv1-section .gtgbv1-header-link:focus-visible {
   outline:2px solid var(--gt-accent);outline-offset:3px;border-radius:3px !important;
 }
+</style><style id="up1-games-step1-css">
+/* Games-only UniversalPage V1 and PageHeader. Inherits the locked Home Court parent. */
+html[data-theme] #app.gt-app #homeContent>.up1-page{display:flex;flex-direction:column;min-height:100%;min-width:0}
+html[data-theme] #app.gt-app #homeContent .up1-header{padding:12px 0 20px;flex:0 0 auto}
+html[data-theme] #app.gt-app #homeContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}
+html[data-theme] #app.gt-app #homeContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #homeContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #homeContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #homeContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #homeContent .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #homeContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important}
+html[data-theme] #app.gt-app #homeContent .up1-actions{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #homeContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;padding:9px 12px;font-size:clamp(11px,2.8vw,14px);font-weight:400;display:flex;align-items:center;justify-content:center;gap:7px}
+html[data-theme=courtside] #app.gt-app #homeContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #homeContent .up1-action svg{width:17px;height:17px}
+html[data-theme] #app.gt-app #homeContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #homeContent .up1-footer{border-top:1px solid var(--gt-edge);text-align:center;padding:23px 0 4px;margin-top:30px;display:flex;flex-direction:column;font-size:clamp(11px,3.1vw,14px);font-weight:850;letter-spacing:1.1px;line-height:1.7}
+html[data-theme] #app.gt-app #homeContent .up1-footer span:last-child{color:var(--gt-accent)}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -6922,6 +6940,50 @@ renderHomeCourt=function(...args){const result=up1PriorRenderHomeCourt.apply(thi
 // This direct call uses the same native Home Court renderer, then the parent composition.
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()}),{once:true});
 else requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()});
+/* Games page migration, Step 1 only. Composes existing DEV DOM into UniversalPage V1.
+   No record replacement, banner redesign, list/filter replacement, storage or backend writes. */
+function up1ComposeGames(){
+ if(ui.screen!=='home')return;
+ const root=document.getElementById('homeContent');if(!root)return;
+ const old=[...root.children];
+ const shell=document.createElement('div');shell.className='up1-page';shell.dataset.component='UniversalPage';shell.dataset.version='V1';shell.dataset.page='Games';
+ const header=document.createElement('header');header.className='up1-header';header.dataset.component='PageHeader';header.dataset.page='Games';
+ const heading=document.createElement('div');heading.className='up1-heading';
+ const back=document.createElement('button');back.className='up1-back';back.type='button';back.setAttribute('aria-label','Back to Menu');back.append(up1Icon('back'));back.addEventListener('click',openMenu);
+ const text=document.createElement('div'),titleRow=document.createElement('div');titleRow.className='up1-title';
+ titleRow.append(up1Icon('basketball'));const title=document.createElement('h1');title.textContent='Games';titleRow.append(title);
+ const subtitle=document.createElement('div');subtitle.className='up1-subtitle-v1';subtitle.dataset.component='PageSubtitle';subtitle.textContent='EVERY GAME IS PART OF YOUR STORY.';
+ text.append(titleRow,subtitle);heading.append(back,text);header.append(heading);
+ // Reuse the approved native New Game button when available; retain its original event handler.
+ const actionContainer=document.createElement('div');actionContainer.className='up1-actions';actionContainer.setAttribute('role','group');actionContainer.setAttribute('aria-label','Games actions');
+ const existingAction=old.flatMap(node=>[...node.querySelectorAll?.('button')||[]]).find(btn=>btn.closest('.gt465-page-cta')&&/^new game$/i.test((btn.textContent||'').trim()));
+ if(!liveGame()){
+   const button=document.createElement('button');button.type='button';button.className='up1-action';button.setAttribute('aria-label','New Game');
+   button.append(up1Icon('basketball'),document.createTextNode('New Game'));
+   button.addEventListener('click',()=>{if(!liveGame())gameForm()});
+   actionContainer.append(button);
+ }
+ if(actionContainer.childElementCount)header.append(actionContainer);
+ const content=document.createElement('div');content.className='up1-content';content.dataset.component='PrimaryContent';
+ // Keep the approved game banner, Recent Games list, filter trigger, their existing nodes and listeners.
+ // Remove only redundant header/CTA DOM, never remove records, modals or controls inside content sections.
+ const isLegacyHeader=node=>node.matches?.('.view-title,.page-heading,.gt464-page-header,.gt46-approved-header');
+ const isLegacyCTA=node=>node.matches?.('.gt465-page-cta');
+ for(const node of old){
+   if(isLegacyHeader(node)||isLegacyCTA(node))continue;
+   content.append(node);
+ }
+ const footer=document.createElement('footer');footer.className='up1-footer';footer.dataset.component='PageFooter';
+ footer.append(Object.assign(document.createElement('span'),{textContent:'SHOW UP. PUT IN THE WORK.'}),Object.assign(document.createElement('span'),{textContent:'TRUST THE JOURNEY.'}));
+ shell.append(header,content,footer);root.replaceChildren(shell);
+}
+const up1GamesPriorRender=renderHome;
+renderHome=function(...args){
+ const result=up1GamesPriorRender.apply(this,args);
+ try{up1ComposeGames()}catch(error){console.error('Games UniversalPage composition failed',error)}
+ return result;
+};
+
 /* APPROVED ActivityList V1: Section V1 + List V1 (Variant D).
    Scoped Home Court pilot; replace only Recent Games / Recent Trainings presentation.
    Use actual GameTrace records, preserve navigation, and do not alter any other sections. */
