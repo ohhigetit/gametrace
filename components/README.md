@@ -22,6 +22,21 @@ Components available:
 
 The **approved design is authoritative**. Source code is not automatically locked just because it is in the repository. Review individual previews and test visual parity before marking implementations locked.
 
+## Approved application shell — required parent components
+
+The component library MUST also account for these previously approved application-level building blocks, which the initial foundation inventory omitted:
+
+| Component | Role | Implementation in this library |
+| --- | --- | --- |
+| **Parent Page Template** | Required shared page structure, layout, slots, spacing and responsive page behavior | **Not yet ported or verified** |
+| **App Navigation** | Shared app-level navigation and its existing routes/states | **Not yet ported or verified** |
+| **PageHeader** | Shared page title, subtitle, approved icon and right-aligned actions | **Not yet ported or verified** |
+| **Footer** | Shared application footer | **Not yet ported or verified** |
+
+**Composition:** App Navigation + Parent Page Template (PageHeader + page content built from Section/Banner/List components + Footer). The exact placement and hierarchy must be checked against approved source; this is a conceptual dependency map, not authorization to change layout.
+
+These are **existing approved designs**, not candidates for redesign. Reuse/extract their approved implementations from the actual baseline, preserve exact behavior and visual styling, and avoid introducing competing headers, navigation, or footers. The new Section header is for content sections and must NOT duplicate PageHeader. No app-shell implementation or runtime integration is claimed by this inventory change.
+
 ## Data contracts
 
 Each list takes `{items, icons, onOpen}`; `onOpen(item)` is invoked only for interactive rows. Pass real app **icon DOM nodes** (Phosphor family selected from the canonical app) keyed by `game`, `training`, `camp`, `goal`, `note`, `achievement`. Icons are cloned for each row. Existing app records are adapted at the integration boundary, not mutated.
