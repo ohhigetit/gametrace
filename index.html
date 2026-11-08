@@ -4726,6 +4726,7 @@ renderStats=function(...args){
  // Only the approved page presentation is replaced; existing header and app shell stay in place.
  const header=root.querySelector('.gt464-page-header');
  if(header)header.after(page);else root.prepend(page);
+ for(const child of [...root.children])if(child!==page&&child!==header)child.remove();
  return result;
 };
 // Capture before the legacy chronological-keyboard handler. Reordering never calls C.moveEvent.
@@ -4737,8 +4738,14 @@ $('statsContent')?.addEventListener('keydown',event=>{
 },true);
 
 /* End clean The Game V4.1 rebuild */
-recordDropTarget=function(y){document.querySelectorAll('.report-play.drop-before,.report-play.drop-after').forEach(e=>e.classList.remove('drop-before','drop-after'));const rows=[...$('statsContent').querySelectorAll('[data-record-id]')].filter(e=>!e.closest('[hidden]')&&e.dataset.recordId!==reportDrag.id);const found=rows.reduce((best,row)=>{const r=row.getBoundingClientRect(),distance=y<r.top?r.top-y:y>r.bottom?y-r.bottom:0;return!best||distance<best.distance?{row,distance}:best},null);if(!found)return;const r=found.row.getBoundingClientRect();reportDrag.target=found.row.dataset.recordId;reportDrag.after=y>r.top+r.height/2;found.row.classList.add(reportDrag.after?'drop-after':'drop-before')};
-moveReportRecord=function(id,target,after){const g=game();if(!g||reportEditorActive)return;try{transaction(g.id,t=>C.moveEvent(t,id,target,after));reportState.editorId=null;reportState.adding=false;reportState.adjustedId=id;reportState.status='Record moved · timestamp adjusted.';renderStats();announce('Record moved · timestamp adjusted')}catch(e){announce(e.message)}};
+recordDropTarget=function(y){
+ const record=$('statsContent')?.querySelector('.gtv41-record');if(!record||!reportDrag)return;
+ record.querySelectorAll('.drop-before,.drop-after').forEach(n=>n.classList.remove('drop-before','drop-after'));
+ const candidates=gtv41Rows(record,reportUI41.tab).filter(n=>n.dataset.recordId!==reportDrag.id);
+ const best=candidates.reduce((a,row)=>{const box=row.getBoundingClientRect(),gap=y<box.top?box.top-y:y>box.bottom?y-box.bottom:0;return!a||gap<a.gap?{row,gap}:a},null);
+ reportDrag.target=null;if(!best)return;const box=best.row.getBoundingClientRect();reportDrag.target=best.row.dataset.recordId;reportDrag.after=y>box.top+box.height/2;best.row.classList.add(reportDrag.after?'drop-after':'drop-before');
+};
+moveReportRecord=function(id,target,after){gtv41Move(id,target,after)};
 const journeyOpenBefore44=openScoreJourneyRecord;
 openScoreJourneyRecord=function(id){const result=journeyOpenBefore44(id);if(ui.screen==='stats'&&reportState.editorId===id){reportUI41.tab='plays';renderStats()}return result};
 const liveBefore44=renderLive;
