@@ -1,0 +1,34 @@
+{
+  "component": "IconFamily",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-07",
+  "primary": {
+    "name": "Phosphor Icons",
+    "style": "outline",
+    "website": "https://phosphoricons.com/"
+  },
+  "secondary": {
+    "name": "Lucide Icons",
+    "style": "outline",
+    "website": "https://lucide.dev/icons/"
+  },
+  "defaults": {
+    "size_px": 24,
+    "color": "currentColor",
+    "stroke": "optically consistent across families"
+  },
+  "approved_header_icons": {
+    "back": "Phosphor ArrowLeft",
+    "filter": "Phosphor Funnel",
+    "edit": "Phosphor PencilSimple"
+  },
+  "exclusions": [
+    "Do not change locked AppNavigation V1",
+    "Do not replace GameTrace brand logo",
+    "No automated icon migration",
+    "No application deployment"
+  ],
+  "integration_status": "NOT_INTEGRATED",
+  "reference_branch": "standards/app-navigation-v1"
+}
