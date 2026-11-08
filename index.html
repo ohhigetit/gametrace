@@ -2167,12 +2167,12 @@ html[data-theme] #app.gt-app #courtContent .up1-back svg{width:24px;height:24px}
 html[data-theme] #app.gt-app #courtContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
 html[data-theme] #app.gt-app #courtContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important;min-width:0}
 html[data-theme] #app.gt-app #courtContent .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
-html[data-theme] #app.gt-app #courtContent .up1-sub{font-size:14px!important;line-height:1.5!important;margin:6px 0 0!important;color:var(--gt-muted)!important;font-weight:400!important;letter-spacing:normal!important;text-transform:none!important}
+html[data-theme] #app.gt-app #courtContent .up1-sub{font-size:11px!important;line-height:1.55!important;margin:7px 0 0!important;color:var(--gt-ink)!important;font-weight:750!important;letter-spacing:1.2px!important;text-transform:uppercase!important}
 html[data-theme] #app.gt-app #courtContent .up1-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
-html[data-theme] #app.gt-app #courtContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:#174c2d;min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(10px,2.8vw,13px);font-weight:750;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #courtContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
 html[data-theme] #app.gt-app #courtContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
 html[data-theme=courtside] #app.gt-app #courtContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
-html[data-theme] #app.gt-app #courtContent .up1-content{min-width:0;flex:1 0 auto}
+html[data-theme] #app.gt-app #courtContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
 html[data-theme] #app.gt-app #courtContent .up1-footer{flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
 html[data-theme] #app.gt-app #courtContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
 html[data-theme] #app.gt-app #courtContent .up1-footer span:last-child{color:var(--gt-accent)}
@@ -6385,8 +6385,8 @@ function up1ComposeHomeCourt(){
  const back=document.createElement('button');back.className='up1-back';back.type='button';back.setAttribute('aria-label','Back to Menu');back.append(up1Icon('back'));back.addEventListener('click',openMenu);
  const text=document.createElement('div');
  const titleRow=document.createElement('div');titleRow.className='up1-title';titleRow.append(up1Icon('court'));
- const h1=document.createElement('h1');h1.textContent=titleText||((courtUI.player||'Georgina')+"'s Home Court");titleRow.append(h1);
- const sub=document.createElement('p');sub.className='up1-sub';sub.textContent='Your game. Your growth. Your journey.';
+ const h1=document.createElement('h1');h1.textContent='Home Court';titleRow.append(h1);
+ const sub=document.createElement('p');sub.className='up1-sub';sub.textContent='Your work. Your growth. Your basketball journey.';
  text.append(titleRow,sub);heading.append(back,text);header.append(heading);
  const ctas=document.createElement('div');ctas.className='up1-actions';ctas.setAttribute('role','group');ctas.setAttribute('aria-label','Home Court actions');
  const add=(label,icon,callback)=>{
