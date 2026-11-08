@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GameTrace · GameBanner V1 · Live & Completed</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}
+html[data-theme=day]{--bg:#f7f8f5;--surface:#fff;--ink:#172119;--muted:#59655b;--edge:#cbd3c8;--accent:#087d42;--soft:#e3efe5;--control:#edf0e9;--onsoft:#174c2d;--detail:#f2f5f0;--line:#e2e7df;--loss:#b54c4c}
+html[data-theme=courtside]{--bg:#101211;--surface:#1b1e1c;--ink:#f0f4ef;--muted:#a4b0a5;--edge:#3b453d;--accent:#19c66a;--soft:#284733;--control:#232824;--onsoft:#e5f6e7;--detail:#252c27;--line:#313a33;--loss:#ef9999}
+body{margin:0;padding:22px 14px 64px;background:var(--bg);color:var(--ink)}main{max-width:880px;margin:0 auto}
+h1{font-size:24px;letter-spacing:-.7px;margin:0 0 5px}.lead{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:11px;border:1px solid var(--edge);border-radius:12px;background:var(--surface);margin-bottom:14px}
+button{font:inherit;cursor:pointer}button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toolbar button{font-size:12px;font-weight:750;min-height:38px;padding:8px 12px;background:var(--control);color:var(--ink);border:1px solid var(--edge);border-radius:8px}
+.toolbar button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:var(--soft)}.toolbar .group{display:flex;flex-wrap:wrap;gap:6px}.toolbar .divider{width:1px;height:30px;background:var(--edge);margin:0 3px}
+.device{max-width:730px;margin:auto}.device.phone{max-width:375px}.micro{color:var(--accent);font-size:10px;letter-spacing:1px;font-weight:850;text-transform:uppercase;margin:12px 0 6px}.hint{font-size:12px;color:var(--muted);line-height:1.45;margin:0 0 12px}
+.section{padding:8px 0 20px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 13px}.section-title{font-size:17px;line-height:1.25;letter-spacing:-.25px;font-weight:780;margin:0}.section-subtitle{font-size:12px;color:var(--muted);line-height:1.4;margin:5px 0 0}.section-action{border:none;background:transparent;color:var(--accent);font-size:12px;font-weight:700;white-space:nowrap;padding:8px 0}
+.banner{background:var(--surface);border:1px solid var(--edge);border-radius:14px;overflow:hidden;min-width:0}.banner-row{display:grid;min-width:0}.cols-1{grid-template-columns:minmax(0,1fr)}.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.banner-row.row-line{border-top:1px solid var(--line)}.banner-row.dividers>.banner-cell+.banner-cell{border-left:1px solid var(--line)}.banner-cell{min-width:0;padding:17px 14px;display:flex;flex-direction:column;gap:7px;overflow-wrap:anywhere}.compact{padding:13px 11px}.right-aligned{text-align:right;align-items:flex-end}.center{text-align:center;align-items:center}
+.cell-label{font-size:10px;font-weight:800;letter-spacing:.75px;text-transform:uppercase;color:var(--accent);line-height:1.3}.cell-value{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.12;font-variant-numeric:tabular-nums}.cell-value.medium{font-size:20px;line-height:1.2}.cell-value.small{font-size:16px;line-height:1.25}.cell-sub{font-size:11px;line-height:1.4;color:var(--muted)}.detail-title{font-weight:800;font-size:16px;line-height:1.23}.detail-line{font-size:12px;color:var(--muted);line-height:1.42}.team-name{font-size:11px;color:var(--muted);font-weight:750}.score{display:flex;align-items:center;gap:6px;font-size:30px;font-weight:850;letter-spacing:-1.2px;line-height:1;font-variant-numeric:tabular-nums}.score .dash{color:var(--muted);font-size:18px}.score span{min-width:24px}.badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 9px;background:var(--soft);color:var(--onsoft);font-size:10px;font-weight:850;letter-spacing:.3px;white-space:nowrap;width:max-content}.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}.badge.live{background:#fff0d9;color:#965400}.badge.win{background:var(--soft);color:var(--onsoft)}.badge.loss{background:#f9e7e7;color:#a23b3b}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 9px}.stat{min-width:0;display:flex;flex-direction:column;gap:4px}.stat-label{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.45px}.stat-value{font-size:24px;font-weight:850;line-height:1.1;font-variant-numeric:tabular-nums}
+.statusline{display:flex;flex-wrap:wrap;gap:7px;align-items:center}.progress-track{width:100%;height:5px;background:var(--control);border-radius:99px;overflow:hidden;margin:2px 0}.progress-fill{height:100%;background:var(--accent);width:0;transition:width .2s}
+.more{border-top:1px solid var(--edge)}.more summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:5px;min-height:42px;padding:10px 16px;cursor:pointer;color:var(--accent);font-size:12px;font-weight:750}.more summary::-webkit-details-marker{display:none}.more .arrow{display:inline-block;transition:transform .2s}.more[open] .arrow{transform:rotate(180deg)}.secondary{background:var(--detail);border-top:1px solid var(--edge)}
+.secondary .cell-value{font-size:19px}.field{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-size:11px;line-height:1.5}.field span:first-child{color:var(--muted)}.field b{text-align:right;font-weight:750}.disclaimer{border:1px dashed var(--edge);border-radius:11px;padding:12px 13px;color:var(--muted);font-size:12px;line-height:1.5;margin:17px 0}.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;border:1px solid var(--edge);border-radius:7px;padding:6px 8px;color:var(--muted)}
+@media(max-width:390px){.banner-cell{padding:13px 10px;gap:6px}.score{font-size:25px;gap:4px}.detail-title{font-size:14px}.cell-value{font-size:24px}.stat-value{font-size:21px}.stats{gap:11px 7px}.section-head{gap:7px}}
+@media(max-width:340px){.banner-cell{padding:12px 8px}.score{font-size:23px}.stat-value{font-size:19px}.detail-title{font-size:13px}.cell-label{font-size:9px}}
+
+/* GameBanner V1 refinement: 2 cells for team/opponent, 1 full-width stats cell. */
+.game-teams{grid-template-columns:repeat(2,minmax(0,1fr))}
+.team-cell{align-items:center;text-align:center;justify-content:center;gap:7px;padding:18px 10px}
+.team-cell .detail-title{font-size:clamp(14px,3.5vw,19px);min-height:2.4em;display:flex;align-items:center;justify-content:center;text-align:center}
+.team-score{font-size:clamp(36px,9vw,52px);line-height:1;font-weight:850;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.game-context{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:var(--surface);border-top:1px solid var(--line)}
+.game-progress-wrap{padding:0 14px 10px}
+.game-stats-cell{padding-top:14px;padding-bottom:15px}
+.game-stats-cell .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:5px}
+.game-stats-cell .stat{align-items:center;text-align:center}
+.game-stats-cell .stat-value{font-size:clamp(20px,5vw,27px)}
+@media(max-width:390px){.team-cell{padding:15px 7px}.team-score{font-size:36px}.game-context{gap:5px 7px}.game-stats-cell .stats{gap:3px}}
+</style>
+</head><body><main>
+<h1>GameBanner V1 · Design Review</h1>
+<p class="lead">A dedicated game banner inheriting <strong>Section V1 → SharedBanner V2 → BannerRow → BannerCell</strong>. The primary layout uses two team/opponent cells, followed by one full-width player stats cell. Review live and completed game states.</p>
+<div class="toolbar" role="group" aria-label="Preview controls"><div class="group" aria-label="Game state"><button type="button" id="live" aria-pressed="true">● Live Game</button><button type="button" id="completed" aria-pressed="false">✓ Completed Game</button></div><span class="divider" aria-hidden="true"></span><div class="group"><button type="button" id="day" aria-pressed="true">☀ Day</button><button type="button" id="courtside" aria-pressed="false">◐ Courtside</button></div><span class="divider" aria-hidden="true"></span><div class="group"><button type="button" id="phone" aria-pressed="true">iPhone</button><button type="button" id="wide" aria-pressed="false">Wide</button></div></div>
+<div class="device phone" id="device"><div class="micro" id="eyebrow">Variant A · Live Game</div><p class="hint" id="description">Two team/opponent cells display their own scores. Player stats occupy one full-width cell below.</p>
+<section class="section" aria-label="Game banner preview"><header class="section-head"><div><h2 class="section-title" id="heading">Current Game</h2><p class="section-subtitle" id="subtitle">Follow the game. Follow the journey.</p></div><button class="section-action" id="action" type="button">View Game →</button></header>
+<div class="banner">
+<div class="banner-row cols-2 dividers game-teams">
+  <div class="banner-cell team-cell" aria-label="West Essex team and score">
+    <span class="cell-label">Team</span>
+    <div class="detail-title" id="team-name">West Essex</div>
+    <div class="team-score" id="ours">38</div>
+    <span class="cell-sub">Our score</span>
+  </div>
+  <div class="banner-cell team-cell" aria-label="Opponent and score">
+    <span class="cell-label">Opponent</span>
+    <div class="detail-title" id="opponent-name">Caldwell</div>
+    <div class="team-score" id="theirs">34</div>
+    <span class="cell-sub">Opponent score</span>
+  </div>
+</div>
+<div class="game-context" aria-label="Game date and status">
+  <span class="detail-line">Nov 12 · Regular Season</span>
+  <span class="badge live" id="state-badge"><span class="dot"></span><span id="status-text">LIVE</span></span>
+  <span class="detail-line" id="phase">Q3 · 4:20 left</span>
+</div>
+<div class="game-progress-wrap" id="progress-track"><div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:65%"></div></div></div>
+<div class="banner-row cols-1 row-line">
+  <div class="banner-cell game-stats-cell" aria-label="Player primary statistics">
+    <div class="cell-label">Player Stats</div>
+    <div class="stats"><div class="stat"><span class="stat-label">PTS</span><span class="stat-value" id="pts">12</span></div><div class="stat"><span class="stat-label">REB</span><span class="stat-value" id="reb">5</span></div><div class="stat"><span class="stat-label">AST</span><span class="stat-value" id="ast">3</span></div><div class="stat"><span class="stat-label">STL</span><span class="stat-value" id="stl">2</span></div></div>
+  </div>
+</div>
+<details class="more" id="details"><summary><span id="toggle-label">Show Details</span><span class="arrow">⌄</span></summary><div class="secondary"><div class="banner-row cols-2 dividers"><div class="banner-cell"><div class="cell-label">More Game Details</div><div class="field"><span>League</span><b>High School</b></div><div class="field"><span>Location</span><b>Home</b></div><div class="field"><span>Format</span><b>4 quarters</b></div><div class="field"><span>Status</span><b id="details-status">In Progress</b></div></div><div class="banner-cell"><div class="cell-label">More Player Stats</div><div class="field"><span>TOV</span><b id="tov">1</b></div><div class="field"><span>FOUL</span><b id="foul">2</b></div><div class="field"><span>FT</span><b id="ft">2 / 3</b></div><div class="field"><span>FG</span><b id="fg">5 / 9</b></div></div></div><div class="banner-row cols-1 row-line"><div class="banner-cell compact"><span class="cell-sub" id="footnote">Live values represent plays recorded so far and can change as tracking continues.</span></div></div></div></details>
+</div></section></div>
+<div class="disclaimer"><strong>Design preview only.</strong> Names, dates, scores and stats are illustrative—not connected to GameTrace records. The “View Game” button shows a demo message; no app navigation, data, or GitHub files are changed.<div class="legend"><span class="chip">Section V1 owns header</span><span class="chip">SharedBanner V2 owns layout</span><span class="chip">2 + 1 primary cells</span><span class="chip">2 secondary cells + note row</span><span class="chip">One Show Details control</span></div><p id="message" role="status" aria-live="polite" style="margin-bottom:0"></p></div>
+</main>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const states={live:{label:'Variant A · Live Game',description:'Two team/opponent cells display their own scores. Player stats occupy one full-width cell below.',heading:'Current Game',subtitle:'Follow the game. Follow the journey.',ours:'38',theirs:'34',status:'LIVE',phase:'Q3 · 4:20 left',badge:'live',pts:'12',reb:'5',ast:'3',stl:'2',tov:'1',foul:'2',ft:'2 / 3',fg:'5 / 9',details:'In Progress',note:'Live values represent plays recorded so far and can change as tracking continues.',progress:'65%'},completed:{label:'Variant B · Completed Game',description:'The same 2–1 layout displays the final team/opponent scores and final player totals. Extra context stays collapsible.',heading:'Recent Game',subtitle:'The game. The performance. The journey.',ours:'51',theirs:'43',status:'WIN',phase:'Final',badge:'win',pts:'18',reb:'7',ast:'4',stl:'3',tov:'2',foul:'2',ft:'4 / 6',fg:'7 / 13',details:'Completed',note:'Final statistics are based on the recorded game and may be edited in Game Details.',progress:'100%'}};
+let mode='live';
+function render(){const s=states[mode];[['eyebrow','label'],['description','description'],['heading','heading'],['subtitle','subtitle'],['ours','ours'],['theirs','theirs'],['status-text','status'],['phase','phase'],['pts','pts'],['reb','reb'],['ast','ast'],['stl','stl'],['tov','tov'],['foul','foul'],['ft','ft'],['fg','fg'],['details-status','details'],['footnote','note']].forEach(([id,key])=>$(id).textContent=s[key]);$('state-badge').className='badge '+s.badge;$('progress-fill').style.width=s.progress;$('progress-track').hidden=mode!=='live';$('live').setAttribute('aria-pressed',mode==='live');$('completed').setAttribute('aria-pressed',mode==='completed');}
+$('live').addEventListener('click',()=>{mode='live';render()});$('completed').addEventListener('click',()=>{mode='completed';render()});
+for(const name of ['day','courtside'])$(name).addEventListener('click',()=>{document.documentElement.dataset.theme=name;$('day').setAttribute('aria-pressed',name==='day');$('courtside').setAttribute('aria-pressed',name==='courtside')});
+for(const name of ['phone','wide'])$(name).addEventListener('click',()=>{$('device').className='device'+(name==='phone'?' phone':'');$('phone').setAttribute('aria-pressed',name==='phone');$('wide').setAttribute('aria-pressed',name==='wide')});
+$('details').addEventListener('toggle',()=>$('toggle-label').textContent=$('details').open?'Hide Details':'Show Details');
+$('action').addEventListener('click',()=>{$('message').textContent='Preview only — game navigation will be connected during integration.'});
+render();
+})();
+</script></body></html>
