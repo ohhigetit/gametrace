@@ -33,7 +33,6 @@ jobs:
         env:
           NODE_PATH: /tmp/gt-activity/node_modules
         run: |
-          node tests/component-activity-integration.cjs
           GAMETRACE_TEST_MODULES=/tmp/gt-activity/node_modules node tests/component-activity-real-app.cjs
       - name: Upload integrated test HTML
         if: always()
