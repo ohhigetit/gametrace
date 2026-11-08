@@ -1,0 +1,70 @@
+/* GameTrace SharedBanner V2 — component-only styles.
+   Canonical visual reference:
+   approved/SharedBanner_V2_BannerCell_Content_Variants_APPROVED.html
+   The approved Section V1 parent handles title/subtitle/actions. */
+.gtv2-banner {
+  --gtv2-ink:var(--ink,var(--gt-text,#172119));
+  --gtv2-accent:var(--accent,var(--gt-green,#087d42));
+  --gtv2-edge:var(--edge,var(--gt-line,#cbd3c8));
+  --gtv2-muted:var(--muted,var(--gt-muted,#59655b));
+  --gtv2-surface:var(--surface,var(--gtc-panel,#fff));
+  --gtv2-detail:var(--detail,var(--gtc-detail,#f2f5f0));
+  --gtv2-control:var(--control,#edf0e9);
+  --gtv2-soft:var(--soft,#e3efe5);
+  --gtv2-onsoft:var(--onsoft,#174c2d);
+  --gtv2-line:var(--lightline,#e2e7df);
+  background:var(--gtv2-surface);
+  border:1px solid var(--gtv2-edge);
+  border-radius:14px;
+  overflow:hidden;
+  min-width:0;
+  color:var(--gtv2-ink);
+}
+.gtv2-banner * { box-sizing:border-box; }
+.gtv2-banner-area { min-width:0; }
+.gtv2-banner-row { display:grid; min-width:0; }
+.gtv2-cols-1 { grid-template-columns:repeat(1,minmax(0,1fr)); }
+.gtv2-cols-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.gtv2-cols-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.gtv2-banner-row.gtv2-row-line { border-top:1px solid var(--gtv2-line); }
+.gtv2-dividers > .gtv2-banner-cell + .gtv2-banner-cell { border-left:1px solid var(--gtv2-line); }
+.gtv2-banner-cell {
+  min-width:0;padding:17px 14px;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:6px;
+  overflow-wrap:anywhere;
+}
+.gtv2-align-center { text-align:center;align-items:center; }
+.gtv2-align-right { text-align:right;align-items:flex-end; }
+.gtv2-compact { padding:13px 11px; }
+.gtv2-content { display:flex;flex-direction:column;align-items:inherit;gap:6px;min-width:0; }
+.gtv2-cell-label { font-size:10px;font-weight:800;letter-spacing:.75px;text-transform:uppercase;color:var(--gtv2-accent);line-height:1.3; }
+.gtv2-cell-value { display:block;font-size:31px;font-weight:800;line-height:1.12;letter-spacing:-.6px;font-variant-numeric:tabular-nums; }
+.gtv2-cell-value.gtv2-is-medium { font-size:20px;line-height:1.2; }
+.gtv2-cell-info { font-size:14px;font-weight:760;line-height:1.3; }
+.gtv2-cell-sub { font-size:11px;line-height:1.4;color:var(--gtv2-muted); }
+.gtv2-summary-text { font-size:14px;font-weight:650;line-height:1.45; }
+.gtv2-badge { display:inline-flex;align-items:center;background:var(--gtv2-soft);color:var(--gtv2-onsoft);font-size:11px;font-weight:800;border-radius:99px;padding:5px 9px;width:max-content;max-width:100%; }
+.gtv2-progress-bar { height:7px;background:var(--gtv2-control);border-radius:999px;overflow:hidden;width:100%;margin-top:3px; }
+.gtv2-progress-fill { display:block;height:100%;background:var(--gtv2-accent);border-radius:inherit; }
+.gtv2-progress-dots { display:flex;gap:5px;margin-top:4px; }
+.gtv2-progress-dot { width:10px;height:10px;border-radius:50%;border:1.5px solid var(--gtv2-accent); }
+.gtv2-progress-dot.gtv2-is-filled { background:var(--gtv2-accent); }
+.gtv2-more { border-top:1px solid var(--gtv2-edge); }
+.gtv2-toggle {
+  list-style:none;cursor:pointer;min-height:41px;padding:10px 16px;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  color:var(--gtv2-accent);font-size:12px;font-weight:750;
+}
+.gtv2-toggle::-webkit-details-marker { display:none; }
+.gtv2-arrow { display:inline-block;transition:transform .2s; }
+.gtv2-more[open] .gtv2-arrow { transform:rotate(180deg); }
+.gtv2-secondary { background:var(--gtv2-detail);border-top:1px solid var(--gtv2-edge); }
+.gtv2-toggle:focus-visible { outline:2px solid var(--gtv2-accent);outline-offset:-2px; }
+@media(max-width:390px){
+  .gtv2-banner-cell { padding:15px 10px;gap:5px; }
+  .gtv2-compact { padding:12px 8px; }
+  .gtv2-cols-3 .gtv2-cell-value { font-size:24px; }
+  .gtv2-cols-3 .gtv2-cell-value.gtv2-is-medium { font-size:16px; }
+  .gtv2-cols-3 .gtv2-cell-label { font-size:9px;letter-spacing:.45px; }
+  .gtv2-cols-3 .gtv2-cell-sub { font-size:10px; }
+}
