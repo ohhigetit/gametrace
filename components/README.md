@@ -2,6 +2,20 @@
 
 **Branch:** `feature/component-library` (based on `development`). This is an isolated source-only foundation. The ActivityList adapter is now wired into the feature-branch build source, but generated app files have **not** been committed, runtime rendering has **not** been verified, and nothing has been deployed.
 
+## GameBanner V2 — approved & locked (Nov 8, 2026)
+
+**Current implementation:** Full-app DEV commit [`630f723`](https://github.com/ohhigetit/gametrace/blob/630f72367f3fffccb3e03cb6d56f5100dc5e0cc6/index.html), verified as the deployed `development` branch. Design is approved for **Home Court and Games**.
+
+**Version-locked references:**
+- `components/approved/GameBanner_V2_Compact_APPROVED.css`: exact four approved style blocks from DEV, in cascade order.
+- `components/COMPONENT_DESIGN_CONTRACT_V1.md`: complete layout, alignment, action and component-inheritance rules.
+- `tests/gamebanner-v2-contract.cjs`: static source/CSS contract tests (optionally pass full-app HTML to check the adapters).
+- `components/approved/GameBanner_V1_TwoPlusOne_Live_Completed_APPROVED.html`: preserved V1 rollback reference.
+
+**V2 primary row:** one 2:1 Game Summary/Top Stats split; stats PTS/REB/AST/STL in a 2×2 grid. Summary center aligned, **except** team name right-aligned and opponent name left-aligned toward top-aligned centered VS. Score, label, date/status centered. No second primary row; existing Show/Hide Details preserved. Games Open Game action is in the Latest Game heading. Use existing approved banner background and shared tokens.
+
+**Implementation caveat:** The current DEV app has separate Home Court and Games DOM adapters, both matching the same approved layout. The standalone component-library source is **not yet fully extracted/wired into the app**. Do not claim that editing a library CSS/JS file automatically changes both pages. Future extraction should converge the adapters while preserving all game/data behavior and pixel parity; review/approve before deployment. No component-library edits here change DEV or production.
+
 ## Architecture
 
 - `game-trace-components.js`: reusable, state-independent DOM renderers.
