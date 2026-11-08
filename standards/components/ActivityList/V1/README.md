@@ -4,6 +4,8 @@ Reusable composite using [Section V1](../../Section/V1/specification.md) and [Li
 
 - [Specification](./specification.md)
 - [Manifest](./manifest.json)
-- [Exact approved HTML preview](../../../previews/GameTrace_ActivityList_V1_All_Variants_PREVIEW.html)
+- [Exact approved HTML preview](../../../previews/GameTrace_ActivityList_V1_Official_Phosphor_Icons_PREVIEW.html)
 
 Design approval only. Development and production remain unchanged.
+
+Approved icon-leading refinement: official Phosphor Basketball / Target / Barbell / Tent, neutral lines, no fill, box or border. Date now appears in activity metadata; scores and durations remain trailing. Earlier date-leading preview is superseded.
