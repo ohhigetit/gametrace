@@ -100,7 +100,10 @@
    * ActivityList v0.1: mixed game/session/camp rows, chronological by date.
    * Adapter supplies already-sanitized data, callbacks and icon nodes.
    */
-  function ActivityList({items=[],icons={},onOpen,emptyText='No recent activity.'}={}) {
+  function ActivityList({items=[],existingRows=null,icons={},onOpen,emptyText='No recent activity.'}={}) {
+    // Preserve existing app row nodes and their listeners when integrating an approved legacy list.
+    // No data parsing, cloning or callback recreation is needed.
+    if (Array.isArray(existingRows)) return List({items:existingRows,emptyText,renderItem:row=>row});
     const sorted=items.map((item,index)=>({...item,__index:index})).sort((a,b)=>{
       const x=String(a.date||''),y=String(b.date||'');
       return y.localeCompare(x)||a.__index-b.__index;
