@@ -1,0 +1,51 @@
+{
+  "component": "ActivityList",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-08",
+  "saved_branch": "standards/app-navigation-v1",
+  "preview": "standards/previews/GameTrace_ActivityList_V1_All_Variants_PREVIEW.html",
+  "composition": {
+    "parent": "Section V1",
+    "section_header": {
+      "required": [
+        "title",
+        "subtitle"
+      ],
+      "optional": [
+        "action"
+      ]
+    },
+    "section_content": "List V1",
+    "list_variant": "D_complete"
+  },
+  "item_types": [
+    "game",
+    "training",
+    "camp"
+  ],
+  "variants": {
+    "A": "all_activity",
+    "B": "games_only",
+    "C": "training_and_camps",
+    "D": "training_only",
+    "E": "camps_only",
+    "F": "empty_state"
+  },
+  "row_layout": [
+    "date",
+    "activity_details",
+    "result_or_duration"
+  ],
+  "navigation_arrows": false,
+  "empty_state": true,
+  "themes": [
+    "day",
+    "courtside"
+  ],
+  "dividers": "configurable",
+  "row_interaction": "game_or_session_details",
+  "approval_scope": "design_only",
+  "dev_deployed": false,
+  "prod_deployed": false
+}
