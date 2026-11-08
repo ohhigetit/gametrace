@@ -1,0 +1,55 @@
+{
+  "name": "UniversalPage",
+  "kind": "Parent Page Template",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-07",
+  "components": [
+    {
+      "order": 1,
+      "name": "AppNavigation",
+      "version": "V1",
+      "required": true,
+      "reference": "standards/components/AppNavigation/V1/"
+    },
+    {
+      "order": 2,
+      "name": "PageHeader",
+      "version": "V1",
+      "required": true,
+      "reference": "standards/components/PageHeader/V1/"
+    },
+    {
+      "order": 3,
+      "name": "Primary Content",
+      "required": true,
+      "type": "single generic page-owned container",
+      "parent_sections_imposed": 0
+    },
+    {
+      "order": 4,
+      "name": "PageFooter",
+      "version": "V1",
+      "required": true,
+      "reference": "standards/components/PageFooter/V1/"
+    }
+  ],
+  "icon_family": "standards/design-system/IconFamily/V1/",
+  "reference_preview": "standards/previews/UniversalPage_Parent_V1_ApprovedNav_SourceDerived_PREVIEW.html",
+  "navigation_authority": {
+    "commit": "3ca115579ef889d84de2b1da31f1cec8ee604354",
+    "source": "index.html",
+    "preview_is_runtime": false
+  },
+  "themes": [
+    "Day",
+    "Courtside"
+  ],
+  "responsive": [
+    "iPhone portrait",
+    "iPhone landscape"
+  ],
+  "integration_status": "NOT_INTEGRATED",
+  "deployment_status": "NOT_DEPLOYED",
+  "note": "Locked standard only. Preserve the original approved application navigation runtime; preview has simplified page switching."
+}
