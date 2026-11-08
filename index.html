@@ -2178,6 +2178,32 @@ html[data-theme] #app.gt-app #courtContent .up1-footer span{display:block;font-s
 html[data-theme] #app.gt-app #courtContent .up1-footer span:last-child{color:var(--gt-accent)}
 html[data-theme] #app.gt-app #courtContent :is(.up1-back,.up1-action):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
 @media(max-width:365px){html[data-theme] #app.gt-app #courtContent .up1-action{font-size:10px;flex-direction:column;gap:2px;min-height:57px}html[data-theme] #app.gt-app #courtContent .up1-actions{gap:5px}html[data-theme] #app.gt-app #courtContent .up1-footer span{letter-spacing:.5px}}
+</style><style id="gt-activitylist-v1-homecourt">
+/* Home Court ActivityList V1 — approved Section V1 + List V1 composite */
+#app.gt-app #courtContent .gtal-section{background:transparent!important;border:0!important;box-shadow:none!important;min-width:0;margin:24px 0 0!important;padding:0!important}
+#app.gt-app #courtContent .gtal-section .gtal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:0 0 14px;min-width:0}
+#app.gt-app #courtContent .gtal-section .gtal-heading{min-width:0;flex:1}
+#app.gt-app #courtContent .gtal-section .gtal-heading h2{margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important}
+#app.gt-app #courtContent .gtal-section .gtal-heading p{margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;line-height:1.5!important;font-weight:400!important;letter-spacing:normal!important;text-transform:none!important}
+#app.gt-app #courtContent .gtal-section .gtal-action{border:0!important;box-shadow:none!important;background:transparent!important;color:var(--gt-accent)!important;font-size:12px!important;line-height:1.4!important;font-weight:700!important;min-height:44px;padding:9px 0 9px 8px!important;flex:0 0 auto;text-align:right}
+#app.gt-app #courtContent .gtal-section .gtal-list{min-width:0}
+#app.gt-app #courtContent .gtal-section .gtal-row{position:relative;display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:10px;align-items:center;padding:14px 0;min-height:72px;width:100%;background:transparent!important;border:0!important;box-shadow:none!important;text-align:left;color:var(--gt-ink);border-radius:0!important;cursor:pointer}
+#app.gt-app #courtContent .gtal-section .gtal-row + .gtal-row{border-top:1px solid var(--gt-edge)!important}
+#app.gt-app #courtContent .gtal-section .gtal-icon{width:50px;height:50px;display:grid;place-items:center;color:var(--gt-ink);background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+#app.gt-app #courtContent .gtal-section .gtal-icon svg{width:26px;height:26px;display:block;fill:currentColor;stroke:none}
+#app.gt-app #courtContent .gtal-section .gtal-main{min-width:0;display:flex;flex-direction:column;gap:3px}
+#app.gt-app #courtContent .gtal-section .gtal-type{font-size:10px!important;line-height:1.3!important;font-weight:700!important;color:var(--gt-muted)!important;text-transform:uppercase!important;letter-spacing:.5px!important}
+#app.gt-app #courtContent .gtal-section .gtal-title{font-size:14px!important;font-weight:740!important;line-height:1.35!important;color:var(--gt-ink)!important;min-width:0;overflow-wrap:anywhere}
+#app.gt-app #courtContent .gtal-section .gtal-sub{color:var(--gt-muted)!important;font-size:12px!important;line-height:1.4!important;overflow-wrap:anywhere}
+#app.gt-app #courtContent .gtal-section .gtal-support{color:var(--gt-muted)!important;font-size:11px!important;line-height:1.4!important;overflow-wrap:anywhere}
+#app.gt-app #courtContent .gtal-section .gtal-trailing{min-width:0;align-self:center;display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right;white-space:nowrap}
+#app.gt-app #courtContent .gtal-section .gtal-value{font-size:14px!important;font-weight:750!important;line-height:1.3!important;color:var(--gt-ink)!important}
+#app.gt-app #courtContent .gtal-section .gtal-value[data-result=win]{color:var(--gt-accent)!important}
+#app.gt-app #courtContent .gtal-section .gtal-value[data-result=loss]{color:#b53b36!important}
+#app.gt-app #courtContent .gtal-section .gtal-meta{font-size:11px!important;color:var(--gt-muted)!important;line-height:1.35!important}
+#app.gt-app #courtContent .gtal-section .gtal-empty{padding:16px 0 20px;color:var(--gt-muted);font-size:13px;line-height:1.6}
+#app.gt-app #courtContent .gtal-section .gtal-row:focus-visible,#app.gt-app #courtContent .gtal-section .gtal-action:focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:370px){#app.gt-app #courtContent .gtal-section .gtal-row{grid-template-columns:42px minmax(0,1fr) auto;gap:7px;padding:12px 0}#app.gt-app #courtContent .gtal-section .gtal-icon{width:42px;height:44px}#app.gt-app #courtContent .gtal-section .gtal-icon svg{width:23px;height:23px}#app.gt-app #courtContent .gtal-section .gtal-value{font-size:12px!important}#app.gt-app #courtContent .gtal-section .gtal-title{font-size:13px!important}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -6419,6 +6445,112 @@ renderHomeCourt=function(...args){const result=up1PriorRenderHomeCourt.apply(thi
 // This direct call uses the same native Home Court renderer, then the parent composition.
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()}),{once:true});
 else requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()});
+
+/* APPROVED ActivityList V1: Section V1 + List V1 (Variant D).
+   Scoped Home Court pilot; replace only Recent Games / Recent Trainings presentation.
+   Use actual GameTrace records, preserve navigation, and do not alter any other sections. */
+const gtALV1OfficialPhosphor={
+ game:'<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM60,72.17A87.2,87.2,0,0,1,79.63,120H40.37A87.54,87.54,0,0,1,60,72.17ZM136,120V40.37a87.59,87.59,0,0,1,48.68,20.37A103.06,103.06,0,0,0,160.3,120Zm-16,0H95.7A103.06,103.06,0,0,0,71.32,60.74,87.59,87.59,0,0,1,120,40.37ZM79.63,136A87.2,87.2,0,0,1,60,183.83,87.54,87.54,0,0,1,40.37,136Zm16.07,0H120v79.63a87.59,87.59,0,0,1-48.68-20.37A103.09,103.09,0,0,0,95.7,136Zm40.3,0h24.3a103.09,103.09,0,0,0,24.38,59.26A87.59,87.59,0,0,1,136,215.63Zm40.37,0h39.26A87.54,87.54,0,0,1,196,183.83,87.2,87.2,0,0,1,176.37,136Zm0-16A87.2,87.2,0,0,1,196,72.17,87.54,87.54,0,0,1,215.63,120Z"/>',
+ training:'<path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/>',
+ performance:'<path d="M248,120h-8V88a16,16,0,0,0-16-16H208V64a16,16,0,0,0-16-16H168a16,16,0,0,0-16,16v56H104V64A16,16,0,0,0,88,48H64A16,16,0,0,0,48,64v8H32A16,16,0,0,0,16,88v32H8a8,8,0,0,0,0,16h8v32a16,16,0,0,0,16,16H48v8a16,16,0,0,0,16,16H88a16,16,0,0,0,16-16V136h48v56a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16v-8h16a16,16,0,0,0,16-16V136h8a8,8,0,0,0,0-16ZM32,168V88H48v80Zm56,24H64V64H88V192Zm104,0H168V64h24V175.82c0,.06,0,.12,0,.18s0,.12,0,.18V192Zm32-24H208V88h16Z"/>',
+ camp:'<path d="M255.31,188.75l-64-144A8,8,0,0,0,184,40H72a8,8,0,0,0-7.27,4.69.21.21,0,0,0,0,.06l0,.12,0,0L.69,188.75A8,8,0,0,0,8,200H248a8,8,0,0,0,7.31-11.25ZM64,184H20.31L64,85.7Zm16,0V85.7L123.69,184Zm61.2,0L84.31,56H178.8l56.89,128Z"/>'
+};
+function gtALV1Element(tag,cls,text){
+ const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;
+}
+function gtALV1Icon(kind){
+ const wrap=gtALV1Element('span','gtal-icon');wrap.setAttribute('aria-hidden','true');
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 256 256');svg.setAttribute('fill','currentColor');
+ svg.setAttribute('data-icon-family','Phosphor');svg.setAttribute('data-icon-weight','regular');
+ svg.innerHTML=gtALV1OfficialPhosphor[kind]||gtALV1OfficialPhosphor.training;
+ wrap.append(svg);return wrap;
+}
+function gtALV1Item(activity){
+ const row=gtALV1Element('button','gtal-row');row.type='button';
+ row.dataset.activityKind=activity.kind;row.dataset.activityId=activity.id;
+ row.setAttribute('aria-label','Open '+activity.title);
+ row.append(gtALV1Icon(activity.icon));
+ const main=gtALV1Element('span','gtal-main');
+ main.append(gtALV1Element('span','gtal-type',activity.typeLabel));
+ main.append(gtALV1Element('span','gtal-title',activity.title));
+ if(activity.subtitle)main.append(gtALV1Element('span','gtal-sub',activity.subtitle));
+ if(activity.support)main.append(gtALV1Element('span','gtal-support',activity.support));
+ const trail=gtALV1Element('span','gtal-trailing');
+ if(activity.value){
+  const v=gtALV1Element('span','gtal-value',activity.value);
+  if(activity.result)v.dataset.result=activity.result;
+  trail.append(v);
+ }
+ if(activity.valueLabel)trail.append(gtALV1Element('span','gtal-meta',activity.valueLabel));
+ row.append(main,trail);row.addEventListener('click',activity.open);
+ return row;
+}
+function gtALV1Section({title,subtitle,action,items,empty,key}){
+ const section=gtALV1Element('section','gtal-section');section.dataset.component='ActivityList';
+ section.dataset.version='V1';section.dataset.courtSection=key;
+ section.setAttribute('aria-label',title);
+ const header=gtALV1Element('header','gtal-header');header.dataset.component='SectionHeader';
+ const copy=gtALV1Element('div','gtal-heading');
+ copy.append(gtALV1Element('h2',null,title),gtALV1Element('p',null,subtitle));
+ header.append(copy);
+ if(action){const a=gtALV1Element('button','gtal-action','View All');a.type='button';a.addEventListener('click',action);header.append(a)}
+ const content=gtALV1Element('div','gtal-list');content.dataset.component='SectionContent';
+ content.dataset.listComponent='ListV1';
+ if(items.length){for(const item of items)content.append(gtALV1Item(item))}
+ else content.append(gtALV1Element('p','gtal-empty',empty));
+ section.append(header,content);return section;
+}
+function gtALV1IntegrateHomeCourt(){
+ if(ui.screen!=='court')return;
+ const root=document.getElementById('courtContent');if(!root)return;
+ const gameOld=root.querySelector('[data-court-section="games"]');
+ const trainingOld=root.querySelector('[data-court-section="training"]');
+ // Each section uses its own original View All destination; no change to Schedule, Journey, Goals etc.
+ const player=courtUI.player;
+ const samePlayer=r=>!player||T.playerKey(r.player)===T.playerKey(player);
+ if(gameOld){
+  const finished=(db.games||[]).filter(g=>!g.deletedAt&&g.status==='completed'&&samePlayer(g))
+   .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(b.updatedAt||'').localeCompare(String(a.updatedAt||''))).slice(0,2);
+  const entries=finished.map(g=>{
+   const score=g.finalScore;const team=score?Number(score.team):NaN,opp=score?Number(score.opponent):NaN;
+   const valid=Number.isFinite(team)&&Number.isFinite(opp);
+   const result=!valid?'':team>opp?'win':team<opp?'loss':'tie';
+   const value=valid?(result==='win'?'W ':result==='loss'?'L ':'T ')+Math.round(team)+'–'+Math.round(opp):'';
+   const stats=C.totals(C.filtered(g));
+   const context=[g.type||g.gameType||'Game',g.date?friendlyDate(String(g.date).slice(0,10)):''].filter(Boolean).join(' · ');
+   return {id:g.id,kind:'game',icon:'game',typeLabel:'Game',title:(g.team||'Your Team')+' vs '+(g.opponent||'Opponent'),subtitle:context,
+    support:[Math.round(stats.pts)+' PTS',Math.round(stats.reb)+' REB',Math.round(stats.ast)+' AST'].join(' · '),
+    value,valueLabel:valid?'Final score':'',result,open:()=>chooseGame(g.id,'stats')};
+  });
+  gameOld.replaceWith(gtALV1Section({key:'games',title:'Recent Games',subtitle:'Every game adds to the story.',action:()=>courtOpen('home'),items:entries,empty:'Completed games will appear here.'}));
+ }
+ if(trainingOld){
+  const sessions=(db.trainingSessions||[]).filter(s=>!s.deletedAt&&samePlayer(s));
+  const finished=[...T.summarize(sessions).sessions].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(b.updatedAt||'').localeCompare(String(a.updatedAt||''))).slice(0,2);
+  const entries=finished.map(s=>{
+   const camp=s.type==='camp';
+   const perf=!camp&&/performance|strength|conditioning|agility/i.test([s.name,s.type].join(' '));
+   const icon=camp?'camp':perf?'performance':'training';
+   const date=s.date?friendlyDate(String(s.date).slice(0,10)):'';
+   const context=[s.coach||s.trainer||s.location||'',date].filter(Boolean).join(' · ');
+   const minutes=Number(s.minutes);
+   const hasDuration=s.minutes!==null&&s.minutes!==undefined&&s.minutes!==''&&Number.isFinite(minutes)&&minutes>=0;
+   const skills=(Array.isArray(s.skills)?s.skills.join(' · '):typeof s.skills==='string'?s.skills:
+      typeof s.skillsWorkedOn==='string'?s.skillsWorkedOn:'');
+   return {id:s.id,kind:camp?'camp':'training',icon,typeLabel:camp?'Camp':perf?'Performance Training':'Skills Training',title:s.name||(camp?'Basketball Camp':'Training Session'),
+    subtitle:context,support:skills,value:hasDuration?trainingDuration(minutes):'',valueLabel:hasDuration?'Duration':'',
+    open:()=>openSession(s.id,'court')};
+  });
+  trainingOld.replaceWith(gtALV1Section({key:'training',title:'Recent Trainings',subtitle:'The work behind the progress.',action:()=>courtOpen('training'),items:entries,empty:'Completed trainings and camps will appear here.'}));
+ }
+ window.gtHomeCourtActivityListV1={status:'integrated',sections:['games','training'],components:['Section V1','List V1','ActivityList V1'],iconFamily:'Phosphor'};
+}
+const gtALV1PreviousCourt=renderHomeCourt;
+renderHomeCourt=function(...args){const out=gtALV1PreviousCourt.apply(this,args);gtALV1IntegrateHomeCourt();return out;};
+if(document.readyState==='loading'){
+ document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()}),{once:true});
+}else requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()});
 
 })();
 
