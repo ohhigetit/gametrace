@@ -2231,6 +2231,33 @@ html[data-theme] #app.app.gt-app .gtv41-record .gtv41-row .report-drag{grid-colu
 #app .gtv41-record .report-editor{margin:12px}
 @media(min-width:520px){#app .gtv41-banner-head{padding:20px}#app .gtv41-banner-cell{padding:20px}#app .gtv41-stat{padding:15px 8px}}
 @media(max-width:350px){#app .gtv41-banner-head{padding:14px 10px}#app .gtv41-banner-cell{padding:12px 8px}#app .gtv41-stat-grid{gap:5px}#app .gtv41-stat{padding:10px 2px}#app .gtv41-score{font-size:29px}html[data-theme] #app.app.gt-app .gtv41-record .gtv41-row{grid-template-columns:47px minmax(0,1fr) 44px!important;gap:5px!important;padding:5px 7px!important}.gtv41-record .review-tabs button{font-size:12px!important}}
+</style>
+<style data-gt="THE_GAME_V4_1_REFINEMENTS">
+/* Both folder panels use one compact row surface. */
+html[data-theme] #app.app.gt-app .gtv41-record .gtv41-record-panel>.score-journey-section,
+html[data-theme] #app.app.gt-app .gtv41-record .gtv41-record-panel>[data-record-list]{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:#fff!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section>details{display:block!important;border:0!important;margin:0!important;padding:0!important;background:#fff!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section>details>summary{display:none!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .report-record-body{padding:0!important;margin:0!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .report-play{min-height:59px!important;height:auto!important;padding:0!important;margin:0!important;display:block!important;line-height:1.3!important;border:0!important;border-bottom:1px solid #dce5de!important;background:#fff!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .report-play:last-child{border-bottom:0!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .gtv41-row{display:grid!important;min-height:59px!important;grid-template-columns:54px minmax(0,1fr) 44px!important;align-items:center!important;gap:9px!important;padding:5px 10px!important;margin:0!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .gtv41-row .report-play-label{min-width:0!important;font-size:14px!important;line-height:1.25!important;padding:0!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .gtv41-row .report-play-label small{font-size:12px!important;line-height:1.25!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .gtv41-row .report-drag{grid-column:3!important;width:44px!important;height:44px!important}
+html[data-theme] #app.app.gt-app .gtv41-record .report-record-toolbar{display:none!important}
+html[data-theme] #app.app.gt-app .gtv41-record .report-record-toolbar button{display:none!important}
+/* Existing approved feedback table and edit callback, presented after Game Record. */
+#app .gtv41-feedback{margin:28px 0 10px;padding:0;border:0;background:transparent}
+#app .gtv41-feedback-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+#app .gtv41-feedback-top h2{font-size:20px!important;font-weight:700!important;margin:0!important}
+#app .gtv41-feedback .reflection-principle{color:var(--gt-muted);font-size:13px;margin:4px 0 14px}
+html[data-theme] #app.app.gt-app .gtv41-feedback .gtv41-feedback-edit{min-height:44px;padding:8px 15px;border:1px solid var(--gt-edge);background:var(--gt-surface);border-radius:10px;font-size:13px;font-weight:700;flex-shrink:0}
+#app .gtv41-feedback table{width:100%;table-layout:fixed;border-collapse:collapse}
+#app .gtv41-feedback table th,#app .gtv41-feedback table td{vertical-align:top;border-bottom:1px solid var(--gt-edge);padding:13px 9px;overflow-wrap:anywhere}
+#app .gtv41-feedback table th{text-align:left;width:49%;font-weight:650;font-size:13px}
+#app .gtv41-feedback table td{font-size:13px}
+@media(max-width:350px){html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .gtv41-row{grid-template-columns:47px minmax(0,1fr) 44px!important;gap:5px!important;padding:5px 7px!important}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -4682,11 +4709,23 @@ function gtv41Records(old,g){
  for(const tab of tabs.querySelectorAll('[data-record-tab]'))tab.addEventListener('click',()=>{},false);
  for(const r of gtv41Rows(record,'plays'))gtv41DecorateRow(r,g,'plays');
  for(const r of gtv41Rows(record,'scores'))gtv41DecorateRow(r,g,'scores');
+ // The Score Journey section already has a folder tab; its internal accordion header is redundant.
+ const scoreDetails=scores.querySelector('details[data-score-journey]');
+ if(scoreDetails)scoreDetails.open=true;
+ for(const row of gtv41Rows(record,'scores')){
+   // Older row builders can produce a literal null text node; never expose this as record content.
+   const walker=document.createTreeWalker(row,NodeFilter.SHOW_TEXT),garbage=[];
+   while(walker.nextNode())if(walker.currentNode.textContent.trim()==='null')garbage.push(walker.currentNode);
+   for(const node of garbage)node.remove();
+   // Retain one compact editor head and discard empty generated wrappers only.
+   for(const child of [...row.children])if(child!==row.querySelector('.report-play-head')&&!child.matches('.report-editor')&&!child.textContent.trim())child.remove();
+ }
+
  // Panels keep their existing data, buttons, forms, event IDs and callbacks.
  pane.append(actions,plays,scores);content.append(tabs,pane);
  const toggle=button(gtv41RecordExpanded?'Hide ⌃':'Show ⌄',()=>{gtv41RecordExpanded=!gtv41RecordExpanded;content.hidden=!gtv41RecordExpanded;toggle.textContent=gtv41RecordExpanded?'Hide ⌃':'Show ⌄';toggle.setAttribute('aria-expanded',String(gtv41RecordExpanded))},'gtv41-toggle',{'aria-expanded':String(gtv41RecordExpanded)});
  const header=gtv41SectionHead('Game Record','Every recorded play and scoring moment.',toggle);
- record.replaceChildren(header,content);content.hidden=!gtv41RecordExpanded;
+ record.replaceChildren(header,content);if(reportState.adding||reportState.editorId)gtv41RecordExpanded=true;content.hidden=!gtv41RecordExpanded;
  gtv41ApplyOrder(record,g);sync();return record;
 }
 function gtv41Timeline(old){
@@ -4714,6 +4753,7 @@ renderStats=function(...args){
  if(!g||!root)return result;
  const originalSummary=root.querySelector('.report-summary'),performance=root.querySelector('.report-performance'),circles=root.querySelector('.report-circles'),timeline=root.querySelector('[data-timeline]'),record=[...root.querySelectorAll('.report-record')].find(n=>!n.classList.contains('score-journey-section'));
  if(!circles||!timeline||!record)return result;
+ const feedback=root.querySelector('[data-player-feedback]');
  const page=el('div',{class:'gtv41-layout','data-component':'TheGameV41'});
  const circleHost=el('section',{class:'gtv41-section'});
  circles.classList.add('gtv41-circles');
@@ -4721,6 +4761,20 @@ renderStats=function(...args){
  // Move original nodes, never clone SVGs or rebuild chart/event handlers.
  const timelineHost=gtv41Timeline(timeline);
  page.append(gtv41Banner(g),circleHost,timelineHost,gtv41Records(record,g));
+ if(feedback){
+   feedback.classList.add('gtv41-feedback');
+   // Preserve the actual Player Feedback table and the existing edit/save workflow.
+   const title=feedback.querySelector(':scope > h2,.review-section-title');
+   if(title)title.textContent='Player’s Feedback';
+   let editor=[...feedback.querySelectorAll('button')].find(b=>/edit/i.test(b.textContent||'')||/edit/i.test(b.getAttribute('aria-label')||''));
+   if(editor){
+     const heading=el('div',{class:'gtv41-feedback-top'},el('h2',{},'Player’s Feedback'));
+     editor.classList.add('gtv41-feedback-edit');editor.textContent='Edit';
+     title?.remove();heading.append(editor);feedback.prepend(heading);
+   }else if(!title){feedback.prepend(el('h2',{},'Player’s Feedback'))}
+   page.append(feedback);
+ }
+
  originalSummary?.remove();performance?.remove();
  root.querySelector('[data-game-notes]')?.remove();root.querySelector('.activity-playbook')?.remove();
  // Only the approved page presentation is replaced; existing header and app shell stay in place.
