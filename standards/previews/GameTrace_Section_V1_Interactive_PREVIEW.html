@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GameTrace • Section V1 Preview</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}
+html[data-theme="day"]{--bg:#f7f8f5;--surface:#fff;--ink:#172119;--muted:#59655b;--edge:#cbd3c8;--accent:#087d42;--soft:#e3efe5;--control:#edf0e9;--onsoft:#174c2d}
+html[data-theme="courtside"]{--bg:#101211;--surface:#1b1e1c;--ink:#f0f4ef;--muted:#a4b0a5;--edge:#3b453d;--accent:#19c66a;--soft:#284733;--control:#232824;--onsoft:#e5f6e7}
+body{margin:0;padding:18px 14px 40px;background:var(--bg);color:var(--ink);transition:background .15s,color .15s}
+main{max-width:760px;margin:auto}
+h1{font-size:23px;letter-spacing:-.5px;margin:0 0 5px;font-weight:800}.intro{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 20px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:12px;border:1px solid var(--edge);border-radius:14px;background:var(--surface);margin-bottom:15px}.toolbar label{font-size:12px;font-weight:650;display:flex;align-items:center;gap:6px}.toolbar select{border:1px solid var(--edge);background:var(--control);color:var(--ink);border-radius:8px;padding:8px;font-size:16px}.toolbar button{min-height:40px;border:1px solid var(--edge);border-radius:9px;background:var(--control);color:var(--ink);padding:8px 10px;font-weight:700;cursor:pointer}.toolbar button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.preview-device{max-width:680px;margin:auto;transition:max-width .2s}.preview-device.phone{max-width:375px}.device-label{text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);margin:0 0 12px}
+.section{padding:20px 0 18px;border-bottom:1px solid var(--edge)}.section:first-child{padding-top:4px}.section:last-child{border-bottom:0}
+.sh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;min-width:0;margin-bottom:16px}.sh-copy{min-width:0;flex:1}.sh-title{margin:0;font-size:17px;line-height:1.3;font-weight:780;letter-spacing:-.3px;color:var(--ink)}.sh-sub{font-size:12px;line-height:1.5;font-weight:400;color:var(--muted);margin:5px 0 0;overflow-wrap:anywhere}
+.sh-action{display:inline-flex;gap:5px;align-items:center;justify-content:center;min-height:40px;padding:7px 2px 7px 8px;flex:0 0 auto;border:0;background:transparent;color:var(--accent);font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}.sh-action svg{width:16px;height:16px;flex:0 0 16px}.sh-icon{width:40px;height:40px;border:1px solid var(--edge);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px;display:grid;place-items:center;cursor:pointer}.sh-icon svg{width:20px;height:20px}.sh-icon:hover,.sh-action:hover{opacity:.8}
+.section-content{min-width:0}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.metric{border:1px solid var(--edge);background:var(--surface);border-radius:12px;padding:15px;min-width:0}.metric .tag{font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-weight:750}.metric strong{display:block;font-size:27px;line-height:1.35;margin-top:8px}.metric small{font-size:11px;color:var(--muted)}.row{display:grid;grid-template-columns:47px minmax(0,1fr) auto;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid var(--edge)}.row:last-child{border:0}.date{font-size:11px;font-weight:700;color:var(--muted);text-align:center}.date strong{display:block;font-size:20px;color:var(--ink)}.row-name{font-size:13px;font-weight:720}.row-sub{font-size:11px;color:var(--muted);margin-top:5px}.badge{font-size:12px;font-weight:750;color:var(--accent)}.goal{border:1px solid var(--edge);border-radius:12px;background:var(--surface);padding:16px}.goal h4{margin:0 0 6px;font-size:14px}.goal p{margin:0 0 12px;color:var(--muted);font-size:12px;line-height:1.6}.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;border:2px solid var(--accent)}.dots i.active{background:var(--accent)}.caption{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:4px 0 8px}
+.no-dividers .section{border-bottom-color:transparent}.no-dividers .row{border-bottom-color:var(--edge)}
+.status{margin:12px 0 0;border-radius:10px;background:var(--soft);color:var(--onsoft);padding:10px;font-size:12px;line-height:1.5;display:none}.status.show{display:block}
+footer{margin-top:22px;border-top:1px solid var(--edge);text-align:center;padding-top:24px}.footer-line{font-size:12px;font-weight:850;letter-spacing:1.05px;line-height:1.7}.footer-line:last-child{color:var(--accent)}
+@media(max-width:360px){.toolbar{gap:8px}.metric{padding:11px}.sh-title{font-size:16px}.sh-sub{font-size:11px}.sh-action{font-size:11px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Section Component V1</h1>
+<p class="intro">Interactive review • SectionHeader (title + required subtitle + optional action) and SectionContent (page-owned). Four action variants, using GameTrace's established colors.</p>
+<div class="toolbar">
+<label>Theme <select id="theme"><option value="day">Day</option><option value="courtside">Courtside</option></select></label>
+<label>Width <select id="width"><option value="phone">iPhone portrait</option><option value="wide">Wider / landscape</option></select></label>
+<button type="button" id="divider" aria-pressed="true">Dividers: On</button>
+</div>
+<div class="preview-device phone" id="device">
+<p class="device-label">Live component variations</p>
+<section class="section" aria-label="Variation A">
+<p class="caption">A · Title + required subtitle (no action)</p>
+<div class="sh"><div class="sh-copy"><h2 class="sh-title">Your Journey</h2><p class="sh-sub">Every practice. Every game. Every step forward.</p></div></div>
+<div class="section-content"><div class="metric-grid"><div class="metric"><div class="tag">Training hours</div><strong>24</strong><small>7 completed sessions</small></div><div class="metric"><div class="tag">Games played</div><strong>12</strong><small>Every game counts</small></div></div></div>
+</section>
+<section class="section" aria-label="Variation B">
+<p class="caption">B · Title + required subtitle + text action</p>
+<div class="sh"><div class="sh-copy"><h2 class="sh-title">Recent Games</h2><p class="sh-sub">Every game adds to the story.</p></div><button type="button" class="sh-action" data-action="View All Games">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
+<div class="section-content"><div class="row"><div class="date">NOV<strong>06</strong></div><div><div class="row-name">vs Panthers</div><div class="row-sub">12 PTS · 4 REB · 3 AST</div></div><span class="badge">W 42–38</span></div><div class="row"><div class="date">NOV<strong>02</strong></div><div><div class="row-name">vs Eagles</div><div class="row-sub">9 PTS · 5 REB · 2 AST</div></div><span class="badge">L 31–36</span></div></div>
+</section>
+<section class="section" aria-label="Variation C">
+<p class="caption">C · Title + required subtitle + icon action</p>
+<div class="sh"><div class="sh-copy"><h2 class="sh-title">Coming Up</h2><p class="sh-sub">The next moments on your calendar.</p></div><button type="button" class="sh-icon" data-action="Open Schedule" aria-label="Open Schedule" title="Open Schedule"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16ZM72 48v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24v32H48V48Zm136 160H48V96h160Z"/></svg></button></div>
+<div class="section-content"><div class="row"><div class="date">NOV<strong>12</strong></div><div><div class="row-name">Team Practice</div><div class="row-sub">6:00 PM · West Essex</div></div><span class="badge">›</span></div><div class="row"><div class="date">NOV<strong>14</strong></div><div><div class="row-name">Game Day</div><div class="row-sub">10:00 AM · Away</div></div><span class="badge">›</span></div></div>
+</section>
+<section class="section" aria-label="Variation D">
+<p class="caption">D · Title + required subtitle + text-and-icon action</p>
+<div class="sh"><div class="sh-copy"><h2 class="sh-title">Your Focus</h2><p class="sh-sub">Small steps. Bigger goals.</p></div><button type="button" class="sh-action" data-action="Open Playbook">Playbook <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
+<div class="section-content"><div class="goal"><h4>Attack the basket confidently</h4><p>Look for openings. Commit to the drive. Finish strong.</p><div class="dots" aria-label="3 of 5 progress"><i class="active"></i><i class="active"></i><i class="active"></i><i></i><i></i></div></div></div>
+</section>
+<p id="status" class="status" role="status"></p>
+<footer><div class="footer-line">SHOW UP. PUT IN THE WORK.</div><div class="footer-line">TRUST THE JOURNEY.</div></footer>
+</div>
+</main>
+<script>
+const theme=document.getElementById('theme'),width=document.getElementById('width'),device=document.getElementById('device'),divider=document.getElementById('divider'),status=document.getElementById('status');
+theme.addEventListener('change',()=>{document.documentElement.dataset.theme=theme.value;status.classList.remove('show')});
+width.addEventListener('change',()=>{device.classList.toggle('phone',width.value==='phone');device.classList.toggle('wide',width.value==='wide');status.classList.remove('show')});
+divider.addEventListener('click',()=>{let enabled=divider.getAttribute('aria-pressed')!=='true';divider.setAttribute('aria-pressed',String(enabled));divider.textContent='Dividers: '+(enabled?'On':'Off');device.classList.toggle('no-dividers',!enabled)});
+for(const button of document.querySelectorAll('[data-action]'))button.addEventListener('click',()=>{status.textContent=button.dataset.action+' selected — action demo only; no app navigation or data changed.';status.classList.add('show')});
+</script>
+</body>
+</html>
