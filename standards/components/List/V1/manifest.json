@@ -1,0 +1,41 @@
+{
+  "component": "List",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-08",
+  "branch": "standards/app-navigation-v1",
+  "source_preview": "standards/previews/GameTrace_List_V1_Variants_No_Arrows_PREVIEW.html",
+  "parent": "Section V1 > SectionContent",
+  "component_boundary": "single_unified_list_including_rows",
+  "required": [
+    "container",
+    "items",
+    "item_main_title",
+    "empty_state_when_zero_items"
+  ],
+  "optional": [
+    "leading",
+    "subtitle",
+    "supporting_text",
+    "trailing",
+    "row_dividers",
+    "row_interaction"
+  ],
+  "variants": {
+    "A": "simple",
+    "B": "leading",
+    "C": "trailing",
+    "D": "complete"
+  },
+  "navigation_arrows": false,
+  "chevrons": false,
+  "interactive_rows_without_arrow": true,
+  "background": "transparent_default",
+  "themes": [
+    "day",
+    "courtside"
+  ],
+  "approval_scope": "design_only",
+  "dev_deployed": false,
+  "prod_deployed": false
+}
