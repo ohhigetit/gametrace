@@ -2270,6 +2270,23 @@ html[data-theme] #app.app.gt-app .gtv41-section{margin-bottom:28px!important}
 html[data-theme] #app.app.gt-app .gtv41-timeline [data-timeline] .score-journey-filters,
 html[data-theme] #app.app.gt-app .gtv41-timeline [data-timeline] .timeline-focus{display:none!important}
 html[data-theme] #app.app.gt-app .gtv41-timeline [data-timeline] .score-journey-filters legend{display:none!important}
+</style><style data-gt="THE_GAME_V4_1_STABILIZATION">
+/* Shared V46.2 section-header tokens, not independent V4.1 typography. */
+#app .gtv41-section-head{align-items:flex-start!important;gap:12px;margin-bottom:12px!important}
+#app .gtv41-section-head h2{font-size:20px!important;font-weight:700!important;line-height:1.3!important;margin:0!important}
+#app .gtv41-section-head p{font-size:13px!important;font-weight:400!important;line-height:1.4!important;margin:4px 0 0!important}
+#app .gtv41-section-head :is(.gtv41-filter-button,.gtv41-toggle){font-size:14px!important;font-weight:700!important;min-height:44px!important}
+#app .gtv41-section{margin-bottom:28px!important}
+/* One consistent row contract for Recorded Plays and Score Journey. */
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .report-play,
+html[data-theme] #app.app.gt-app .gtv41-record [data-record-list] .report-play{margin:0!important;padding:0!important;min-height:59px!important;border:0!important;border-bottom:1px solid #dce5de!important;background:#fff!important;box-shadow:none!important}
+html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .report-play-head,
+html[data-theme] #app.app.gt-app .gtv41-record [data-record-list] .report-play-head{display:grid!important;grid-template-columns:54px minmax(0,1fr) 44px!important;align-items:center!important;gap:9px!important;min-height:59px!important;padding:5px 10px!important}
+#app .gtv41-record .score-journey-section .report-record-toolbar{display:none!important}
+#app .gtv41-record .score-journey-section .report-record-body{padding:0!important;margin:0!important}
+#app .gtv41-timeline-source{display:block!important;margin:0!important;padding:0!important}
+#app .gtv41-timeline-source .gtv41-no-scores{font-size:13px;color:var(--gt-muted);line-height:1.45;margin:0 0 12px!important}
+@media(max-width:350px){html[data-theme] #app.app.gt-app .gtv41-record :is(.score-journey-section,[data-record-list]) .report-play-head{grid-template-columns:47px minmax(0,1fr) 44px!important;gap:5px!important;padding:5px 7px!important}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -4718,19 +4735,32 @@ function gtv41Records(old,g){
  const add=button('＋ Add Play',()=>{const target=reportUI41.tab==='scores'?addScore:addPlay;target?.click()},'gtv41-add');
  actions.append(add);
  function sync(){const tab=reportUI41.tab,rows=gtv41Rows(record,tab);count.textContent=rows.length+' records';add.textContent=tab==='scores'?'＋ Add Score':'＋ Add Play'}
- for(const tab of tabs.querySelectorAll('[data-record-tab]'))tab.addEventListener('click',()=>{},false);
+ // Switch tabs in place; avoid a full app redraw, scroll jump and repeated SVG initialization.
+ for(const tabButton of tabs.querySelectorAll('[data-record-tab]')){
+   tabButton.addEventListener('click',e=>{
+     if(reportEditorActive){e.stopImmediatePropagation();return announce('Save or cancel the current edit first.')}
+     e.stopImmediatePropagation();
+     reportUI41.tab=tabButton.dataset.recordTab;
+     for(const b of tabs.querySelectorAll('[data-record-tab]'))b.setAttribute('aria-selected',String(b.dataset.recordTab===reportUI41.tab));
+     plays.hidden=reportUI41.tab!=='plays';
+     scores.hidden=reportUI41.tab!=='scores';
+     sync();
+   },true);
+ }
  for(const r of gtv41Rows(record,'plays'))gtv41DecorateRow(r,g,'plays');
  for(const r of gtv41Rows(record,'scores'))gtv41DecorateRow(r,g,'scores');
- // The Score Journey section already has a folder tab; its internal accordion header is redundant.
+ // Both tabs now expose a single list body, with the original event IDs and
+ // editor callbacks retained. Remove the redundant nested accordion once.
  const scoreDetails=scores.querySelector('details[data-score-journey]');
- if(scoreDetails)scoreDetails.open=true;
+ if(scoreDetails){
+   const list=scoreDetails.querySelector('.report-record-body');
+   if(list)scores.replaceChildren(list);
+ }
  for(const row of gtv41Rows(record,'scores')){
-   // Older row builders can produce a literal null text node; never expose this as record content.
-   const walker=document.createTreeWalker(row,NodeFilter.SHOW_TEXT),garbage=[];
-   while(walker.nextNode())if(walker.currentNode.textContent.trim()==='null')garbage.push(walker.currentNode);
-   for(const node of garbage)node.remove();
-   // Retain one compact editor head and discard empty generated wrappers only.
-   for(const child of [...row.children])if(child!==row.querySelector('.report-play-head')&&!child.matches('.report-editor')&&!child.textContent.trim())child.remove();
+   const head=row.querySelector('.report-play-head');
+   if(!head)continue;
+   const editors=[...row.querySelectorAll(':scope > .report-editor,:scope > form[data-event-form]')];
+   row.replaceChildren(head,...editors);
  }
 
  // Panels keep their existing data, buttons, forms, event IDs and callbacks.
@@ -4740,30 +4770,48 @@ function gtv41Records(old,g){
  record.replaceChildren(header,content);if(reportState.adding||reportState.editorId)gtv41RecordExpanded=true;content.hidden=!gtv41RecordExpanded;
  gtv41ApplyOrder(record,g);sync();return record;
 }
-function gtv41Timeline(old){
+// Timeline renders the existing graph directly. No hidden duplicate checkbox DOM.
+function gtv41Timeline(old,g){
  const host=el('section',{class:'gtv41-section gtv41-timeline'});
- old.open=true;
- // Hide legacy inline controls explicitly; the original inputs continue driving
- // the live renderer via the shared Timeline Filter dialog.
- for(const control of [old.querySelector('.score-journey-filters'),old.querySelector('.timeline-focus')]){
-   if(control){control.hidden=true;control.style.setProperty('display','none','important')}
- }const modal=button('',()=>{
-  const filters=old.querySelector('.score-journey-filters'),period=old.querySelector('.timeline-focus select');
+ const chart=old.querySelector('[data-gtv41-chart]');
+ const filters=button('',()=>{
   openDialog('Timeline Filters',box=>{
-   if(filters)for(const label of filters.querySelectorAll('label')){
-    const original=label.querySelector('input[type=checkbox]');if(!original)continue;
-    const input=el('input',{type:'checkbox'});input.checked=original.checked;
-    input.addEventListener('change',()=>{original.checked=input.checked;original.dispatchEvent(new Event('change',{bubbles:true}))});
-    box.append(el('label',{class:'form-field'},input,label.textContent.trim()));
-   }
-   if(period){const dropdown=el('select',{'aria-label':'Timeline period'});for(const opt of period.options)dropdown.append(el('option',{value:opt.value},opt.textContent));dropdown.value=period.value;dropdown.addEventListener('change',()=>{period.value=dropdown.value;period.dispatchEvent(new Event('change',{bubbles:true}))});box.append(el('label',{class:'form-field'},'View',dropdown))}
-   box.append(button('Done',closeDialog,'primary'));
+    box.append(el('p',{class:'training-help'},'Choose what appears on the timeline.'));
+    const hasScores=g.scoreTracking||g.events.some(e=>/^(team_|opponent_)/.test(e.code)||e.code==='score_set');
+    for(const [key,label] of [['team','Team score'],['opponent','Opponent score'],['player','Player events']]){
+      const input=el('input',{type:'checkbox','aria-label':label});
+      input.checked=!!scoreJourneyView[key];
+      if(!hasScores&&key!=='player'){input.disabled=true;input.checked=false}
+      input.addEventListener('change',()=>{scoreJourneyView[key]=input.checked;gtv41DrawChart(old,g)});
+      box.append(el('label',{class:'form-field gtv41-filter-row'},input,label));
+    }
+    const period=el('select',{'aria-label':'Timeline period'});
+    period.append(el('option',{value:'all'},'Whole game'));
+    for(const p of C.periodOptions(g).filter(p=>g.events.some(e=>C.periodKey(e.period)===p.key)))period.append(el('option',{value:p.key},p.label));
+    period.value=[...period.options].some(o=>o.value===focusedTimelinePeriod)?focusedTimelinePeriod:'all';
+    period.addEventListener('change',()=>{focusedTimelinePeriod=period.value;gtv41DrawChart(old,g)});
+    box.append(el('label',{class:'form-field'},'View',period),button('Done',closeDialog,'primary'));
   });
  },'gtv41-filter-button',{'aria-label':'Timeline filters'});
- modal.innerHTML='<svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/></svg>';
- host.append(gtv41SectionHead('Timeline','Every moment, every play.',modal),old);
+ filters.innerHTML='<svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/></svg>';
+ host.append(gtv41SectionHead('Timeline','Every moment, every play.',filters),old);
  return host;
 }
+function gtv41DrawChart(target,g){
+ const chart=target.querySelector('[data-gtv41-chart]');if(!chart)return;
+ const hasScores=g.scoreTracking||g.events.some(e=>/^(team_|opponent_)/.test(e.code)||e.code==='score_set');
+ const visual=buildScoreJourney(g,{...scoreJourneyView,team:!!hasScores&&scoreJourneyView.team,opponent:!!hasScores&&scoreJourneyView.opponent,period:focusedTimelinePeriod});
+ chart.replaceChildren(visual);
+}
+// Override the historical timeline composition without constructing orphaned checkboxes
+// or an accordion just to hide it with CSS. Keep the original SVG renderer.
+reportTimeline=function(g){
+ const section=el('section',{'data-timeline':'',class:'gtv41-timeline-source'});
+ const chart=el('div',{'data-gtv41-chart':'',class:'score-journey-chart'});
+ const hasScores=g.scoreTracking||g.events.some(e=>/^(team_|opponent_)/.test(e.code)||e.code==='score_set');
+ if(!hasScores)section.append(el('p',{class:'training-help gtv41-no-scores'},'No running team scores were recorded for this game. Player events and the final score are kept.'));
+ section.append(chart);gtv41DrawChart(section,g);return section;
+};
 const gtv41OriginalStats=renderStats;
 renderStats=function(...args){
  const result=gtv41OriginalStats(...args),g=game(),root=$('statsContent');
@@ -4776,7 +4824,7 @@ renderStats=function(...args){
  circles.classList.add('gtv41-circles');
  circleHost.append(gtv41SectionHead('Game Circles','Your game at a glance.'),circles);
  // Move original nodes, never clone SVGs or rebuild chart/event handlers.
- const timelineHost=gtv41Timeline(timeline);
+ const timelineHost=gtv41Timeline(timeline,g);
  page.append(gtv41Banner(g),circleHost,timelineHost,gtv41Records(record,g));
  if(feedback){
    feedback.classList.add('gtv41-feedback');
@@ -4797,7 +4845,9 @@ renderStats=function(...args){
  // Only the approved page presentation is replaced; existing header and app shell stay in place.
  const header=root.querySelector('.gt464-page-header');
  if(header)header.after(page);else root.prepend(page);
- for(const child of [...root.children])if(child!==page&&child!==header)child.remove();
+ // Replace the legacy report shell atomically after moving live components.
+ // The app header, event handlers, and restored feedback are already mounted inside the new page.
+ root.replaceChildren(...(header?[header]:[]),page);
  return result;
 };
 // Capture before the legacy chronological-keyboard handler. Reordering never calls C.moveEvent.
