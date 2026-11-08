@@ -91,3 +91,46 @@ Original row DOM nodes, icons, click handlers, and View All actions are moved ra
 - **Preserve:** Approved Section V1 and List V1 layout, row typography, dividers, spacing, achievement details and interactions.
 - `game-trace-components.js` uses the approved trophy as the AchievementList default icon if the caller does not explicitly pass an icon. The preview is the authority if other styles differ.
 - **Scope:** Component library only. No Home Court or Wall integration, no dev or production deployment. Such integrations require separate explicit approval.
+
+## Approved SharedBanner V2 + BannerRow + BannerCell — 2026-11-08
+
+**Approval state:** User-approved visual variants and component hierarchy, locked as the source of truth; not yet integrated into the live application.
+
+- [Canonical approved interactive preview](approved/SharedBanner_V2_BannerCell_Content_Variants_APPROVED.html) — five variants, Day/Courtside themes, phone/wide, disclosure controls.
+- [Reusable DOM module](shared-banner-v2.js) — `window.GameTraceSharedBannerV2`.
+- [Component-only CSS](shared-banner-v2.css) — all classes use `gtv2-` prefix; does not override app-wide Section styles.
+
+**Composition:** `Section V1 (header/subtitle/action) → SharedBanner V2 → Primary/Secondary areas → BannerRow (1–N) → BannerCell (1–3 per row) → Content component(s)`.
+
+**SharedBanner V2:** Mandatory always-visible primary rows; optional secondary rows (native Show Details/Hide Details, collapsed by default). Rows in either area may differ in number and distribution of cells.
+
+**BannerRow V1:** 1, 2 or 3 cells, equal widths by default; optional ratio widths, vertical dividers, and row dividers; no nested page headers.
+
+**BannerCell V1:** Controls alignment (left/center/right), compact/default padding, responsive behavior and child placement. May host one or multiple compatible content components. Individual cells do not receive independent card backgrounds.
+
+**Approved content types:** `stat`, `info`, `status`, `progress`, `summary`, `custom`. The last may contain other approved DOM components. Source content in the demo is illustrative, not actual game data.
+
+**API example (using approved Section V1 composition):**
+
+```js
+const {SharedBannerV2} = window.GameTraceSharedBannerV2;
+const banner = SharedBannerV2({
+  primaryRows: [
+    {divider:true,cells:[
+      {align:'center',content:{type:'stat',label:'PTS',value:12}},
+      {align:'center',content:{type:'stat',label:'REB',value:5}},
+      {align:'center',content:{type:'stat',label:'AST',value:3}}
+    ]}
+  ],
+  secondaryRows:[
+    {cells:[{content:{type:'summary',label:'Notes',text:'Example only'}}]}
+  ]
+});
+const section = window.GameTraceComponents.Section({
+  title:'Performance Overview',
+  subtitle:'Results, progress and context',
+  content:banner
+});
+```
+
+**Integration boundary:** This source is **additive and isolated**. Neither `development` nor `main` nor the compiled HTML is changed by this approval. Do not replace the locked SharedBanner Parent V1 / GameSummaryBanner V1 in existing pages without separate explicit approval. The preview is authoritative for pixel-level appearance; verify against the actual development app during any future integration. The reusable implementation is ready for integration testing but has not been claimed visually identical in an app runtime.
