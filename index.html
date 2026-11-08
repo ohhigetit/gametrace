@@ -2258,6 +2258,18 @@ html[data-theme] #app.app.gt-app .gtv41-feedback .gtv41-feedback-edit{min-height
 #app .gtv41-feedback table th{text-align:left;width:49%;font-weight:650;font-size:13px}
 #app .gtv41-feedback table td{font-size:13px}
 @media(max-width:350px){html[data-theme] #app.app.gt-app .gtv41-record .score-journey-section .gtv41-row{grid-template-columns:47px minmax(0,1fr) 44px!important;gap:5px!important;padding:5px 7px!important}}
+</style><style data-gt="THE_GAME_V4_1_SECTION_STANDARD">
+/* V46.2 SectionHeader contract: 20/700 title, 13/400 subtitle, 14/700 right action.
+   Retain 4px title/subtitle gap, 12px header/content gap, 28px between sections. */
+html[data-theme] #app.app.gt-app .gtv41-section-head{align-items:flex-start!important;column-gap:12px!important;margin-bottom:12px!important}
+html[data-theme] #app.app.gt-app .gtv41-section-head h2{font-size:20px!important;font-weight:700!important;line-height:1.3!important;letter-spacing:normal!important;margin:0!important}
+html[data-theme] #app.app.gt-app .gtv41-section-head p{font-size:13px!important;font-weight:400!important;line-height:1.4!important;margin:4px 0 0!important;color:var(--gt-muted)}
+html[data-theme] #app.app.gt-app .gtv41-section-head :is(.gtv41-filter-button,.gtv41-toggle){font-size:14px!important;font-weight:700!important;min-height:44px!important}
+html[data-theme] #app.app.gt-app .gtv41-section{margin-bottom:28px!important}
+/* Override V42 global display:grid!important; keep original controls in DOM for Filter modal. */
+html[data-theme] #app.app.gt-app .gtv41-timeline [data-timeline] .score-journey-filters,
+html[data-theme] #app.app.gt-app .gtv41-timeline [data-timeline] .timeline-focus{display:none!important}
+html[data-theme] #app.app.gt-app .gtv41-timeline [data-timeline] .score-journey-filters legend{display:none!important}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -4730,7 +4742,12 @@ function gtv41Records(old,g){
 }
 function gtv41Timeline(old){
  const host=el('section',{class:'gtv41-section gtv41-timeline'});
- old.open=true;const modal=button('',()=>{
+ old.open=true;
+ // Hide legacy inline controls explicitly; the original inputs continue driving
+ // the live renderer via the shared Timeline Filter dialog.
+ for(const control of [old.querySelector('.score-journey-filters'),old.querySelector('.timeline-focus')]){
+   if(control){control.hidden=true;control.style.setProperty('display','none','important')}
+ }const modal=button('',()=>{
   const filters=old.querySelector('.score-journey-filters'),period=old.querySelector('.timeline-focus select');
   openDialog('Timeline Filters',box=>{
    if(filters)for(const label of filters.querySelectorAll('label')){
