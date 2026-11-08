@@ -2414,6 +2414,43 @@ html[data-theme] #app.gt-app[data-appearance=dark]{--gt-positive:#27d47b;--gt-ne
  .gtav1-section .gtav1-action,
  .gtglv1-section .gtglv1-action
 ):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+</style><style id="gt-journey-sharedbanner-v2">
+/* HOME COURT — Your Journey · Section V1 → SharedBanner V2 → BannerRows → BannerCells.
+   Uses actual app data & original tile event handlers; no changes to other sections. */
+#app.gt-app #courtContent .gtjourney-section{margin:24px 0 0;padding:0;min-width:0;border:0;background:transparent;box-shadow:none}
+#app.gt-app #courtContent .gtjourney-section>.gtglv1-header{margin-bottom:16px}
+#app.gt-app #courtContent .gtjourney-section>.gtv2-banner{
+ --gtv2-ink:var(--gt-ink,#172119);--gtv2-accent:var(--gt-green,#087d42);
+ --gtv2-edge:var(--gt-edge,#cbd3c8);--gtv2-muted:var(--gt-muted,#59655b);
+ --gtv2-surface:var(--gt-surface,var(--gt-card,#fff));
+ --gtv2-line:var(--gt-edge,#e2e7df);
+ color:var(--gtv2-ink);background:var(--gtv2-surface);
+ border:1px solid var(--gtv2-edge);border-radius:14px;overflow:hidden;min-width:0;width:100%;
+}
+#app.gt-app #courtContent .gtjourney-section .gtv2-banner-row{display:grid;min-width:0;grid-template-columns:repeat(1,minmax(0,1fr))}
+#app.gt-app #courtContent .gtjourney-section .gtv2-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+#app.gt-app #courtContent .gtjourney-section .gtv2-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+#app.gt-app #courtContent .gtjourney-section .gtv2-row-line{border-top:1px solid var(--gtv2-line)}
+#app.gt-app #courtContent .gtjourney-section .gtv2-banner-cell{min-width:0;padding:17px 14px;overflow-wrap:anywhere;display:flex;flex-direction:column;justify-content:flex-start;gap:6px}
+#app.gt-app #courtContent .gtjourney-section .gtv2-dividers>.gtv2-banner-cell+.gtv2-banner-cell{border-left:1px solid var(--gtv2-line)}
+/* Neutralize only the old Journey tile-box placement; preserve its content and navigation. */
+#app.gt-app #courtContent .gtjourney-section .hc45-tile,
+#app.gt-app #courtContent .gtjourney-section .hc45-journeygoal{width:100%;min-width:0;min-height:100%;margin:0;padding:0!important;border:0!important;border-radius:0;background:transparent;color:inherit;text-align:left;cursor:pointer}
+#app.gt-app #courtContent .gtjourney-section .hc45-journeygoal{display:block}
+#app.gt-app #courtContent .gtjourney-section .hc45-tile{display:flex;flex-direction:column;align-items:flex-start}
+#app.gt-app #courtContent .gtjourney-section .hc45-focus{max-width:100%;background:transparent}
+#app.gt-app #courtContent .gtjourney-section .hc45-number{font-size:clamp(25px,7vw,34px);letter-spacing:-.6px;margin:8px 0 4px}
+#app.gt-app #courtContent .gtjourney-section .hc45-label{color:var(--gtv2-accent);font-size:10px;line-height:1.3;letter-spacing:.7px;font-weight:800}
+#app.gt-app #courtContent .gtjourney-section .hc45-tile>small,
+#app.gt-app #courtContent .gtjourney-section .hc45-mini small{color:var(--gtv2-muted)}
+#app.gt-app #courtContent .gtjourney-section .hc45-goalcounts{flex-wrap:wrap;gap:12px;margin:10px 0}
+#app.gt-app #courtContent .gtjourney-section .hc45-goalcounts strong{color:var(--gtv2-ink)}
+#app.gt-app #courtContent .gtjourney-section button:focus-visible{outline:2px solid var(--gtv2-accent);outline-offset:3px;border-radius:4px}
+@media(max-width:390px){
+ #app.gt-app #courtContent .gtjourney-section .gtv2-banner-cell{padding:15px 10px;gap:5px}
+ #app.gt-app #courtContent .gtjourney-section .hc45-number{font-size:clamp(23px,7vw,29px)}
+ #app.gt-app #courtContent .gtjourney-section .hc45-goalcounts strong{font-size:24px}
+}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -7091,6 +7128,48 @@ function gtGLV1IntegrateWhatsNext(root,player){
  window.gtHomeCourtGoalsListV1={status:'integrated',section:'goals',component:'GoalsList V1',source:'Playbook'};
 }
 
+
+/* GameTrace SharedBanner V2 / BannerRow V1 / BannerCell V1 — Home Court Journey adapter.
+   Existing live tile DOM and handlers are MOVED into approved rows, not recreated.
+   Scope is strictly [data-court-section="journey"]. Section V1 owns header. */
+function gtSBV2IntegrateJourney(root){
+ const old=root.querySelector('[data-court-section="journey"]');
+ if(!old||old.dataset.component==='SharedBannerV2')return;
+ const pairs=old.querySelectorAll('.hc45-pair');
+ const primaryPair=[...pairs].find(p=>!p.classList.contains('hc45-bottom'));
+ const secondaryPair=[...pairs].find(p=>p.classList.contains('hc45-bottom'));
+ const goal=old.querySelector('.hc45-journeygoal');
+ if(!primaryPair||primaryPair.children.length!==2||!goal||!secondaryPair||secondaryPair.children.length!==2)return;
+ const section=document.createElement('section');
+ section.className='gtjourney-section';
+ section.dataset.courtSection='journey';
+ section.dataset.component='SharedBannerV2';
+ section.dataset.version='V2';
+ const head=document.createElement('header');head.className='gtglv1-header';head.dataset.component='SectionV1';
+ const heading=document.createElement('div');heading.className='gtglv1-heading';
+ const title=document.createElement('h2');title.textContent='Your Journey';
+ const sub=document.createElement('p');sub.textContent='Every practice. Every game. Every step forward.';
+ heading.append(title,sub);head.append(heading);section.append(head);
+ const banner=document.createElement('div');banner.className='gtv2-banner';banner.dataset.component='SharedBannerV2';
+ const area=document.createElement('div');area.className='gtv2-banner-area';area.dataset.area='primary';
+ function row(nodes,withDivider){
+  const r=document.createElement('div');
+  r.className='gtv2-banner-row gtv2-cols-'+nodes.length+(nodes.length>1?' gtv2-dividers':'')+(withDivider?' gtv2-row-line':'');
+  r.dataset.component='BannerRowV1';
+  for(const node of nodes){
+   const cell=document.createElement('div');cell.className='gtv2-banner-cell';cell.dataset.component='BannerCellV1';
+   // Do not clone these buttons: their existing click handlers and source data must survive.
+   cell.append(node);r.append(cell);
+  }
+  area.append(r);
+ }
+ row([...primaryPair.children],false);
+ row([goal],true);
+ row([...secondaryPair.children],true);
+ banner.append(area);section.append(banner);old.replaceWith(section);
+ window.gtHomeCourtSharedBannerV2={status:'integrated-local-preview',section:'journey',parent:'Section V1',component:'SharedBanner V2',rowCells:[2,1,2],data:'existing DOM nodes and click handlers preserved'};
+}
+
 function gtALV1IntegrateHomeCourt(){
  if(ui.screen!=='court')return;
  const root=document.getElementById('courtContent');if(!root)return;
@@ -7143,7 +7222,7 @@ function gtALV1IntegrateHomeCourt(){
  window.gtHomeCourtActivityListV1={status:'integrated',sections:['games','training'],components:['Section V1','List V1','ActivityList V1'],iconFamily:'Phosphor'};
 }
 const gtALV1PreviousCourt=renderHomeCourt;
-renderHomeCourt=function(...args){const out=gtALV1PreviousCourt.apply(this,args);gtALV1IntegrateHomeCourt();return out;};
+renderHomeCourt=function(...args){const out=gtALV1PreviousCourt.apply(this,args);gtALV1IntegrateHomeCourt();gtSBV2IntegrateJourney(document.getElementById('courtContent'));return out;};
 if(document.readyState==='loading'){
  document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()}),{once:true});
 }else requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()});
