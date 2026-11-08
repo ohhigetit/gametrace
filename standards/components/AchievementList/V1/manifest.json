@@ -1,0 +1,55 @@
+{
+  "component": "AchievementList",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-08",
+  "saved_branch": "standards/app-navigation-v1",
+  "preview": "standards/previews/GameTrace_AchievementList_V1_All_Variants_PREVIEW.html",
+  "composition": {
+    "parent": "Section V1",
+    "section_header": {
+      "required": [
+        "title",
+        "subtitle"
+      ],
+      "optional": [
+        "action"
+      ]
+    },
+    "section_content": "List V1"
+  },
+  "variants": {
+    "A": "all_achievements",
+    "B": "performance",
+    "C": "training",
+    "D": "personal_growth",
+    "E": "family_recognition",
+    "F": "recent_achievements",
+    "G": "empty_state"
+  },
+  "row": {
+    "leading": "trophy",
+    "main_required": "achievement_title",
+    "main_optional": [
+      "description",
+      "category"
+    ],
+    "trailing_optional": "date_earned",
+    "no_navigation_arrows": true
+  },
+  "categories": [
+    "performance",
+    "training",
+    "personal_growth",
+    "family_recognition"
+  ],
+  "themes": [
+    "day",
+    "courtside"
+  ],
+  "dividers": "configurable",
+  "existing_trophy_system_preserved": true,
+  "approval_scope": "design_only",
+  "dev_deployed": false,
+  "prod_deployed": false
+}
