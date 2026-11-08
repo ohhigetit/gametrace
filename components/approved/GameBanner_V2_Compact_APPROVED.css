@@ -1,0 +1,115 @@
+/* GameTrace GameBanner V2 — exact approved CSS reference. 
+   Source: DEV commit 630f72367f3fffccb3e03cb6d56f5100dc5e0cc6, index.html.
+   DO NOT load this file alongside the DEV inline CSS; this is the version-locked 
+   reference for eventual shared-component extraction (avoid duplicate rules). 
+   Captures the cascading approved refinements in their original order.
+*/
+
+/* === gt-gamebanner-v2-compact-preview === */
+
+/* GameBanner V2: shared primary content dimensions; no second primary row. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row,
+html[data-theme] #app.gt-app #homeContent .gtgames-compact-primary{
+ display:grid!important;grid-template-columns:minmax(0,2fr) minmax(0,1fr)!important;align-items:stretch;
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,
+html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell{padding:14px 12px!important;min-width:0;overflow-wrap:anywhere;}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell+.gtv2-banner-cell,
+html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell+.gtgames-compact-cell{border-left:1px solid var(--gt-edge,#cbd3c8)}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{display:flex;flex-direction:column;gap:7px;align-items:flex-start;justify-content:center;text-align:left}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{display:block;max-width:100%;font-weight:780;font-size:clamp(12px,3.2vw,16px);line-height:1.32;overflow-wrap:anywhere;letter-spacing:-.2px}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:clamp(26px,7.7vw,39px);font-weight:840;line-height:1.12;letter-spacing:-1.1px;font-variant-numeric:tabular-nums;white-space:nowrap}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:5px 7px;font-size:10px;line-height:1.4;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta .gtgames-badge,
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta .gtgbv1-status{font-size:9px!important;padding:3px 6px!important;line-height:1.4;max-width:100%;white-space:normal}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-quick-stats{display:flex;flex-direction:column;justify-content:center;gap:12px;align-items:stretch;min-width:0}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stats-caption{display:block!important;text-align:center;font-size:9px!important;letter-spacing:.65px!important}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 4px;min-width:0}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat{min-width:0;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat-label{font-size:9px;letter-spacing:.35px;font-weight:760;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat-number{font-size:clamp(17px,4.4vw,23px);font-weight:850;line-height:1.08;color:var(--gt-ink,#172119);font-variant-numeric:tabular-nums}
+@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell{padding:12px 8px!important}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{font-size:12px}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:27px}}
+
+
+/* === gt-gamebanner-v2-centered-match-score === */
+
+/* Approved V2 compact layout refinement: center VS and score without altering details. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{align-items:stretch!important}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+ width:100%;max-width:100%;gap:4px;align-items:center;text-align:center;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team{
+ min-width:0;overflow-wrap:anywhere;line-height:1.28;text-align:center;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
+ font-size:10px;font-weight:650;line-height:1.2;color:var(--gt-muted,#59655b);
+ text-transform:lowercase;text-align:center;align-self:center;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{
+ display:block;width:100%;text-align:center;
+}
+@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{gap:3px}}
+
+
+/* === gt-gamebanner-v2-top-aligned-teams-action-parity === */
+
+/* GameBanner V2 refinement: top-align teams, preserve centered vs and score. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{
+ align-items:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team{
+ align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:first-child{
+ text-align:right!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:last-child{
+ text-align:left!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
+ align-self:start!important;
+ text-align:center!important;
+ padding-top:2px;
+}
+/* Games: the Open/View Game action belongs beside Latest Game, not in the banner's content. */
+html[data-theme] #app.gt-app #homeContent .gtgames-featured-heading .gtgames-header-action{
+ display:inline-flex!important;align-items:center;justify-content:flex-end;
+ flex:0 0 auto;width:auto!important;min-height:44px;
+ margin:0;padding:5px 0 5px 8px!important;
+ border:0!important;background:transparent!important;
+ color:var(--gt-accent,#087d42)!important;
+ font-size:clamp(11px,3.25vw,14px)!important;font-weight:750!important;
+ text-align:right;white-space:nowrap;
+}
+
+
+/* === gt-gamebanner-v2-summary-centered-except-teams === */
+
+/* GameBanner V2: center all first-cell contents; retain the locked exceptions for team names. */
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{
+ align-items:center!important;
+ text-align:center!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary>.gtgbv1-label{
+ display:block;width:100%;text-align:center!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{
+ width:100%;align-items:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:first-child{
+ text-align:right!important;align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-team:last-child{
+ text-align:left!important;align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
+ text-align:center!important;align-self:start!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{
+ width:100%;text-align:center!important;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta{
+ width:100%;justify-content:center!important;text-align:center!important;
+}
