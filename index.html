@@ -2451,6 +2451,94 @@ html[data-theme] #app.gt-app[data-appearance=dark]{--gt-positive:#27d47b;--gt-ne
  #app.gt-app #courtContent .gtjourney-section .hc45-number{font-size:clamp(23px,7vw,29px)}
  #app.gt-app #courtContent .gtjourney-section .hc45-goalcounts strong{font-size:24px}
 }
+
+/* Approved refinement preview: only Your Journey primary Row 1.
+   Center numeric value, content label and supporting text within each cell.
+   Keep the small eyebrow/header label LEFT-aligned. Do not affect other rows. */
+#app.gt-app #courtContent .gtjourney-section
+ .gtv2-banner-area[data-area="primary"] > .gtv2-banner-row:first-child
+ .hc45-tile > :not(.hc45-label){align-self:center;text-align:center}
+#app.gt-app #courtContent .gtjourney-section
+ .gtv2-banner-area[data-area="primary"] > .gtv2-banner-row:first-child
+ .hc45-tile > .hc45-label{align-self:flex-start;text-align:left}
+</style><style id="gt-homecourt-gamebanner-v1">
+/* Approved GameBanner V1 2+1, scoped to Home Court current game only. */
+#app.gt-app #courtContent .gtgbv1-section{margin:22px 0 0;min-width:0;background:transparent;border:0;padding:0;box-shadow:none}
+#app.gt-app #courtContent .gtgbv1-section>.gtglv1-header{margin-bottom:14px}
+#app.gt-app #courtContent .gtgbv1-section .gtgbv1-banner{width:100%;min-width:0;overflow:hidden;background:var(--surface,var(--gt-card,#fff));color:var(--ink,var(--gt-ink,#172119));border:1px solid var(--edge,var(--gt-edge,#cbd3c8));border-radius:14px;padding:0}
+#app.gt-app #courtContent .gtgbv1-banner .gtv2-banner-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0}
+#app.gt-app #courtContent .gtgbv1-banner .gtv2-cols-1{grid-template-columns:minmax(0,1fr)}
+#app.gt-app #courtContent .gtgbv1-banner .gtv2-row-line{border-top:1px solid var(--line,var(--gt-edge,#e2e7df))}
+#app.gt-app #courtContent .gtgbv1-banner .gtv2-banner-cell{padding:15px 11px;min-width:0;overflow-wrap:anywhere}
+#app.gt-app #courtContent .gtgbv1-banner .gtv2-dividers>.gtv2-banner-cell+.gtv2-banner-cell{border-left:1px solid var(--line,var(--gt-edge,#e2e7df))}
+#app.gt-app #courtContent .gtgbv1-team{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px}
+#app.gt-app #courtContent .gtgbv1-label{color:var(--accent,var(--gt-green,#087d42));font-size:10px;font-weight:800;letter-spacing:.75px;line-height:1.3}
+#app.gt-app #courtContent .gtgbv1-team-name{font-size:clamp(14px,3.5vw,19px);font-weight:800;line-height:1.25;min-height:2.5em;display:flex;align-items:center;justify-content:center;max-width:100%}
+#app.gt-app #courtContent .gtgbv1-score{font-size:clamp(36px,9vw,52px);line-height:1;font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+#app.gt-app #courtContent .gtgbv1-context{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px 9px;padding:10px 12px;border-top:1px solid var(--line,var(--gt-edge,#e2e7df))}
+#app.gt-app #courtContent .gtgbv1-context-text{font-size:11px;line-height:1.4;color:var(--muted,var(--gt-muted,#59655b))}
+#app.gt-app #courtContent .gtgbv1-status{border-radius:99px;background:#fff0d9;color:#965400;font-size:10px;font-weight:800;padding:5px 9px;letter-spacing:.3px}
+#app.gt-app #courtContent .gtgbv1-status-ready{background:var(--control,#edf0e9);color:var(--muted,#59655b)}
+#app.gt-app #courtContent .gtgbv1-status-paused{background:#fff0d9;color:#965400}
+#app.gt-app #courtContent .gtgbv1-stats-wrap{min-width:0}
+#app.gt-app #courtContent .gtgbv1-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;margin-top:10px}
+#app.gt-app #courtContent .gtgbv1-stat{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0;gap:5px}
+#app.gt-app #courtContent .gtgbv1-stat-label{font-size:10px;font-weight:800;letter-spacing:.45px;color:var(--muted,var(--gt-muted,#59655b))}
+#app.gt-app #courtContent .gtgbv1-stat-value{font-size:clamp(20px,5vw,27px);font-weight:850;line-height:1.1;font-variant-numeric:tabular-nums}
+#app.gt-app #courtContent .gtgbv1-details{border-top:1px solid var(--edge,var(--gt-edge,#cbd3c8))}
+#app.gt-app #courtContent .gtgbv1-toggle{display:flex;align-items:center;justify-content:center;gap:5px;list-style:none;min-height:42px;padding:10px 14px;cursor:pointer;font-size:12px;font-weight:750;color:var(--accent,var(--gt-green,#087d42))}
+#app.gt-app #courtContent .gtgbv1-toggle::-webkit-details-marker{display:none}
+#app.gt-app #courtContent .gtgbv1-chevron{display:inline-block;transition:transform .2s}
+#app.gt-app #courtContent .gtgbv1-details[open] .gtgbv1-chevron{transform:rotate(180deg)}
+#app.gt-app #courtContent .gtgbv1-secondary{background:var(--detail,var(--gtc-detail,#f2f5f0));border-top:1px solid var(--edge,var(--gt-edge,#cbd3c8))}
+#app.gt-app #courtContent .gtgbv1-more{display:flex;flex-direction:column;gap:7px;min-width:0}
+#app.gt-app #courtContent .gtgbv1-field{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:11px;line-height:1.4}
+#app.gt-app #courtContent .gtgbv1-field>span{color:var(--muted,var(--gt-muted,#59655b))}
+#app.gt-app #courtContent .gtgbv1-field>strong{font-weight:750;overflow-wrap:anywhere}
+@media(max-width:390px){#app.gt-app #courtContent .gtgbv1-banner .gtv2-banner-cell{padding:13px 9px}#app.gt-app #courtContent .gtgbv1-stats{gap:2px}}
+</style>
+<style id="gt-sharedbanner-v2-surface-action-fix">
+/* SharedBanner V2 — approved Home Court green surface, inherited by all V2 banners.
+   The previous var(--gt-surface) was WHITE and prevented the pale-green banner.
+   Use the app's original approved banner gradients for both themes instead. */
+html[data-theme] #app.gt-app #courtContent {
+  --gtv2-banner-surface:linear-gradient(135deg,#f3f7f4,#e6efe8);
+  --gtv2-banner-edge:#cedbd2;
+}
+html[data-theme="courtside"] #app.gt-app #courtContent {
+  --gtv2-banner-surface:linear-gradient(135deg,#27352e,#202c26);
+  --gtv2-banner-edge:#455a4d;
+}
+html[data-theme] #app.gt-app #courtContent .gtv2-banner[data-component="SharedBannerV2"] {
+  background:var(--gtv2-banner-surface) !important;
+  border:1px solid var(--gtv2-banner-edge) !important;
+  border-radius:14px !important;
+  overflow:hidden;
+  box-shadow:none;
+}
+/* Prevent transparent legacy tile style from washing out the banner's surface. */
+html[data-theme] #app.gt-app #courtContent .gtjourney-section .gtv2-banner-cell,
+html[data-theme] #app.gt-app #courtContent .gtgbv1-banner .gtv2-banner-cell {
+  background:transparent;
+}
+/* Shared Section V1 header action visual, same as Home Court View All.
+   Navigation is a semantic link, not a filled call-to-action button. */
+html[data-theme] #app.gt-app #courtContent .gtgbv1-section .gtgbv1-header-link {
+  appearance:none !important;
+  display:inline-flex;align-items:center;justify-content:flex-end;
+  flex:none;align-self:center;
+  padding:5px 0 !important; margin:0 !important;min-height:0 !important;
+  border:0 !important;border-radius:0 !important;
+  background:transparent !important;box-shadow:none !important;
+  color:var(--gt-accent) !important;
+  font-family:inherit !important;font-size:12px !important;font-weight:700 !important;
+  line-height:1.4 !important;letter-spacing:normal !important;
+  text-transform:none !important;text-decoration:none !important;
+  white-space:nowrap;cursor:pointer;
+}
+html[data-theme] #app.gt-app #courtContent .gtgbv1-section .gtgbv1-header-link:focus-visible {
+  outline:2px solid var(--gt-accent);outline-offset:3px;border-radius:3px !important;
+}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -7221,8 +7309,84 @@ function gtALV1IntegrateHomeCourt(){
  }
  window.gtHomeCourtActivityListV1={status:'integrated',sections:['games','training'],components:['Section V1','List V1','ActivityList V1'],iconFamily:'Phosphor'};
 }
+
+/* GAMEBANNER V1 — approved 2+1 live-game layout, Home Court only.
+   Section V1 title and action; SharedBanner V2 rows with two Team/Opponent
+   cells then one full-width Player Stats cell; secondary details are optional.
+   Every displayed value is derived from actual game data. No stored records changed. */
+function gtGBV1IntegrateCourtLive(root){
+ if(!root||ui.screen!=='court')return;
+ const game=liveGame();
+ if(!game)return; // Existing no-active-game behavior remains untouched.
+ const old=root.querySelector('[data-gt-banner="live-game"], [data-court-section="current"]');
+ if(!old||old.dataset.component==='GameBannerV1')return;
+ const node=(tag,cls,value)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(value!==undefined&&value!==null)x.textContent=String(value);return x};
+ const clean=(value,fallback)=>value===undefined||value===null||String(value).trim()===''?fallback:String(value);
+ const round=v=>Number.isFinite(Number(v))?String(Math.round(Number(v))):'0';
+ const score=C.scoreAt(game), totals=C.totals(C.filtered(game));
+ const started=!game.pendingStart,paused=started&&C.paused(game);
+ const state=!started?'NOT STARTED':paused?'TIMEOUT':'LIVE';
+ const date=game.date?friendlyDate(String(game.date).slice(0,10)):'';
+ const gameType=C.GAME_TYPES?.[game.gameType||'regular']||clean(game.gameType,'Game');
+ const period=game.settings?C.label(game.settings.format,game.settings.current):'';
+ const section=node('section','gtgbv1-section');
+ section.dataset.courtSection='current';section.dataset.component='GameBannerV1';section.dataset.version='V1';
+ const header=node('header','gtglv1-header');header.dataset.component='SectionV1';
+ const titles=node('div','gtglv1-heading');
+ titles.append(node('h2','', 'Live Game'),node('p','',!started?'Ready for tip-off.':paused?'Game paused.':'The game in progress.'));
+ const action=node('a','gtglv1-action gtgbv1-header-link',!started?'Open Game →': 'Resume Tracking →');
+ action.href='#live';action.dataset.courtResume=game.id;
+ action.addEventListener('click',(event)=>{event.preventDefault();chooseGame(game.id,'live')});
+ header.append(titles,action);section.append(header);
+ const banner=node('div','gtgbv1-banner gtv2-banner');banner.dataset.component='SharedBannerV2';
+ const primary=node('div','gtv2-banner-area');primary.dataset.area='primary';
+ const row=(area,items,addDivider=false)=>{
+  const r=node('div','gtv2-banner-row gtv2-cols-'+items.length+(items.length>1?' gtv2-dividers':'')+(addDivider?' gtv2-row-line':''));
+  r.dataset.component='BannerRowV1';
+  items.forEach(content=>{const cell=node('div','gtv2-banner-cell');cell.dataset.component='BannerCellV1';cell.append(content);r.append(cell)});
+  area.append(r);return r;
+ };
+ const teamBox=(label,name,value)=>{
+  const block=node('div','gtgbv1-team');
+  block.append(node('span','gtgbv1-label',label),node('strong','gtgbv1-team-name',name),node('strong','gtgbv1-score',round(value)));
+  return block;
+ };
+ row(primary,[teamBox('TEAM',clean(game.team,'Your Team'),score.team),teamBox('OPPONENT',clean(game.opponent,'Opponent'),score.opponent)]);
+ const context=node('div','gtgbv1-context');
+ if(date||gameType)context.append(node('span','gtgbv1-context-text',[date,gameType].filter(Boolean).join(' · ')));
+ const badge=node('span','gtgbv1-status gtgbv1-status-'+(!started?'ready':paused?'paused':'live'),state);
+ context.append(badge);
+ if(started&&period)context.append(node('span','gtgbv1-context-text',period));
+ primary.append(context);
+ const stats=node('div','gtgbv1-stats');
+ const values=[['PTS',totals.pts],['REB',totals.reb],['AST',totals.ast],['STL',totals.stl]];
+ values.forEach(([label,val])=>{const stat=node('div','gtgbv1-stat');stat.append(node('span','gtgbv1-stat-label',label),node('strong','gtgbv1-stat-value',round(val)));stats.append(stat)});
+ const allStats=node('div','gtgbv1-stats-wrap');allStats.append(node('span','gtgbv1-label','PLAYER STATS'),stats);
+ row(primary,[allStats],true);banner.append(primary);
+ const details=node('details','gtgbv1-details');
+ const toggle=node('summary','gtgbv1-toggle');const toggleText=node('span','', 'Show Details');
+ toggle.append(toggleText,node('span','gtgbv1-chevron','⌄'));details.append(toggle);
+ details.addEventListener('toggle',()=>{toggleText.textContent=details.open?'Hide Details':'Show Details'});
+ const secondary=node('div','gtgbv1-secondary gtv2-banner-area');secondary.dataset.area='secondary';
+ const info=node('div','gtgbv1-more');const extra=node('div','gtgbv1-more');
+ const field=(box,label,value)=>{if(value===undefined||value===null||String(value).trim()==='')return;
+  const line=node('div','gtgbv1-field');line.append(node('span','',label),node('strong','',value));box.append(line)};
+ info.append(node('span','gtgbv1-label','MORE GAME DETAILS'));
+ field(info,'League',game.league);field(info,'Location',game.location);
+ field(info,'Game type',gameType);field(info,'Format',game.settings?.format==='halves'?'2 halves':game.settings?.format==='quarters'?'4 quarters':game.settings?.format);
+ field(info,'Status',!started?'Not started':paused?'Timeout':'In progress');
+ if(game.player)field(info,'Player',game.player);
+ extra.append(node('span','gtgbv1-label','MORE PLAYER STATS'));
+ field(extra,'TOV',round(totals.to));field(extra,'FOUL',round(totals.pf));
+ field(extra,'FT',round(totals.mft)+' / '+round(totals.aft));field(extra,'FG',round(totals.fgm)+' / '+round(totals.fga));
+ row(secondary,[info,extra]);
+ details.append(secondary);banner.append(details);section.append(banner);
+ old.replaceWith(section);
+ window.gtHomeCourtGameBannerV1={status:'local-preview',section:'current',component:'GameBanner V1',parent:'SharedBanner V2',rowCells:[2,1],state,gameId:game.id};
+}
+
 const gtALV1PreviousCourt=renderHomeCourt;
-renderHomeCourt=function(...args){const out=gtALV1PreviousCourt.apply(this,args);gtALV1IntegrateHomeCourt();gtSBV2IntegrateJourney(document.getElementById('courtContent'));return out;};
+renderHomeCourt=function(...args){const out=gtALV1PreviousCourt.apply(this,args);gtALV1IntegrateHomeCourt();gtSBV2IntegrateJourney(document.getElementById('courtContent'));gtGBV1IntegrateCourtLive(document.getElementById('courtContent'));return out;};
 if(document.readyState==='loading'){
  document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()}),{once:true});
 }else requestAnimationFrame(()=>{if(ui.screen==='court')renderHomeCourt()});
