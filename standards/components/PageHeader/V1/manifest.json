@@ -1,0 +1,86 @@
+{
+  "component": "PageHeader",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-07",
+  "saved_branch": "standards/app-navigation-v1",
+  "reference_page": "Scoreboard",
+  "dependencies": [
+    "AppNavigation V1",
+    "IconFamily V1"
+  ],
+  "required": [
+    "back_arrow",
+    "page_icon",
+    "page_title",
+    "page_subtitle"
+  ],
+  "optional": [
+    "action_icon",
+    "cta_row"
+  ],
+  "alignment": {
+    "order": [
+      "back_arrow",
+      "page_icon",
+      "page_title",
+      "optional_action_right"
+    ],
+    "subtitle_align": "page_icon_left_edge",
+    "cta_row": "full_header_content_width"
+  },
+  "actions": {
+    "filter": {
+      "family": "Phosphor",
+      "name": "SlidersHorizontal",
+      "behavior": "existing_filter_modal"
+    },
+    "edit": {
+      "family": "Phosphor",
+      "name": "PencilLine",
+      "behavior": "open_edit_page"
+    }
+  },
+  "icon_choices": {
+    "Home Court": {
+      "family": "Phosphor",
+      "name": "CourtBasketball"
+    },
+    "Game Details": {
+      "family": "custom_phosphor_style",
+      "name": "Dribbling Basketball",
+      "official_phosphor_asset": false
+    }
+  },
+  "cta": {
+    "fill": "uniform_light_green",
+    "equal_width": true,
+    "same_height": true,
+    "icon_and_label": true,
+    "optional": true
+  },
+  "themes": [
+    "day",
+    "courtside"
+  ],
+  "sample_pages": [
+    "Scoreboard",
+    "Game Details",
+    "Games",
+    "Gym",
+    "Home Court",
+    "Notebook",
+    "Schedule",
+    "Playbook",
+    "Family Huddle",
+    "Wall"
+  ],
+  "preview_filename": "GameTrace_PageHeader_V1_LOCKED_Reference.html",
+  "integration_status": "NOT_INTEGRATED",
+  "deployment_status": "NOT_DEPLOYED",
+  "notes": [
+    "Save of design standard only",
+    "Preserve locked AppNavigation",
+    "Other sample page CTA counts are visual variants, not automatic application changes"
+  ]
+}
