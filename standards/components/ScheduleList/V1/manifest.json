@@ -1,0 +1,41 @@
+{
+  "component": "ScheduleList",
+  "version": "V1",
+  "status": "LOCKED",
+  "approved_on": "2026-11-08",
+  "saved_branch": "standards/app-navigation-v1",
+  "source_preview": "standards/previews/GameTrace_ScheduleList_V1_Composite_PREVIEW.html",
+  "composition": {
+    "parent": "Section V1",
+    "section_header": {
+      "required": [
+        "title",
+        "subtitle"
+      ],
+      "optional": [
+        "action"
+      ]
+    },
+    "section_content": "List V1",
+    "list_variant": "D_complete"
+  },
+  "items": "event_records_only",
+  "empty_state": true,
+  "leading": "event_date",
+  "main": "event_title_and_optional_location",
+  "trailing": "event_time_if_available",
+  "row_navigation_arrows": false,
+  "configurations": [
+    "home_court_coming_up",
+    "schedule_upcoming_events",
+    "no_events"
+  ],
+  "themes": [
+    "day",
+    "courtside"
+  ],
+  "dividers": "configurable",
+  "approval_scope": "design_only",
+  "dev_deployed": false,
+  "prod_deployed": false
+}
