@@ -50,3 +50,14 @@ button.gtc-activity-row { cursor:pointer; }
  .gtc-row-value-label { font-size:.72rem; }
  .gtc-section-subtitle { font-size:.86rem; }
 }
+
+/* Home Court adapter: existing rows are reused without changing their callbacks,
+   markup, source icons, or stored-record IDs. */
+#courtContent [data-gtc-home-activity] { margin-block:1.25rem 1.7rem; }
+#courtContent [data-gtc-home-activity] .gtc-section-header { margin-bottom:.45rem; }
+#courtContent [data-gtc-home-activity] .gtc-original-actions { margin-left:auto; display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; }
+#courtContent [data-gtc-home-activity] .gtc-original-actions button,
+#courtContent [data-gtc-home-activity] .gtc-original-actions a { font:inherit; font-size:.86rem; font-weight:700; color:var(--gtc-green); }
+#courtContent [data-gtc-home-activity] .gtc-existing-activity { box-sizing:border-box; margin:0; border-radius:0; }
+#courtContent [data-gtc-home-activity] .gtc-list-row + .gtc-list-row { border-top:1px solid var(--gtc-line); }
+#courtContent [data-gtc-home-activity] .gtc-legacy-category { color:var(--gtc-green); font-weight:750; text-transform:uppercase; letter-spacing:.07em; }
