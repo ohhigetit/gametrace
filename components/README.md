@@ -18,7 +18,7 @@ Components available:
 | ActivityList | List | Approved design screenshot; foundation awaiting visual check |
 | GoalsList | List | Approved concept; implementation check pending |
 | NotesList | List | Approved note type, italic quotation, origin/date; implementation check pending |
-| AchievementList | List | Approved concept; implementation check pending |
+| AchievementList | List | **Approved icon refinement locked: V1 Championship Trophy B, outline only, neutral ActivityList ink (Nov 8, 2026).** Other component visual contracts remain as previously approved; full app integration not authorized. |
 
 The **approved design is authoritative**. Source code is not automatically locked just because it is in the repository. Review individual previews and test visual parity before marking implementations locked.
 
@@ -80,3 +80,14 @@ The source build adds the shared component JavaScript/CSS and an adapter after t
 Original row DOM nodes, icons, click handlers, and View All actions are moved rather than reimplemented. It sorts newest-first only if every rendered row exposes a parseable complete date; otherwise existing order is preserved. Missing/unknown markup results in a no-op rather than destructive replacement. No storage, cloud, backend, or game logic changes.
 
 **Known limitation:** Current source includes only the base V42 application, which may not match later manually approved preview HTML. The adapter has not been validated on the actual Home Court DOM or an iPhone yet. Do not claim visual parity, a live preview, or deployed integration until actual build/test results confirm it. Neither `development` nor `main` has been changed.
+
+## Locked AchievementList V1 trophy icon — 2026-11-08
+
+- **Canonical preview:** [AchievementList_V1_Championship_Outline_APPROVED.html](approved/AchievementList_V1_Championship_Outline_APPROVED.html). This is the exact user-approved interactive HTML preview.
+- **Approved choice:** Option B — Championship Trophy with star detail.
+- **Stroke-only:** No fill, including inside the star.
+- **Color:** Same neutral ink color as ActivityList icons; follows Day and Courtside themes.
+- **Container:** No filled/colored box, border, gradient or shadow.
+- **Preserve:** Approved Section V1 and List V1 layout, row typography, dividers, spacing, achievement details and interactions.
+- `game-trace-components.js` uses the approved trophy as the AchievementList default icon if the caller does not explicitly pass an icon. The preview is the authority if other styles differ.
+- **Scope:** Component library only. No Home Court or Wall integration, no dev or production deployment. Such integrations require separate explicit approval.
