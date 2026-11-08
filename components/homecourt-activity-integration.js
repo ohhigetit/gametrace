@@ -12,10 +12,10 @@
   const isSessions = s => /^recent (trainings?|sessions?|training(?:s)?\s*(?:&|and)\s*camps?)$/.test(normalize(s));
   const rowSelector = '.gt-list-row';
   function findBlock(root, heading, otherHeading) {
-    // Find the smallest section-like ancestor that actually owns this list,
+    // Find the smallest section-like ancestor, including documented empty states.
     // and never select a shared ancestor containing the other list.
     for (let node = heading.parentElement; node && node !== root; node = node.parentElement) {
-      if (node.contains(otherHeading) || !node.querySelector(rowSelector)) continue;
+      if (node.contains(otherHeading)) continue;
       if (node.matches('section,article,.gt-section,.court-section,.home-court-section,[data-section]')) return node;
     }
     for (let node = heading.parentElement; node && node !== root; node = node.parentElement) {
@@ -60,7 +60,7 @@
     if (!gamesBlock || !sessionsBlock || gamesBlock === sessionsBlock ||
         gamesBlock.contains(sessionsBlock) || sessionsBlock.contains(gamesBlock)) return;
     const gamesRows = leaves(gamesBlock), sessionRows = leaves(sessionsBlock);
-    if (!gamesRows.length && !sessionRows.length) return;
+    // Zero-activity states are valid: show the unified empty message.
     // Keep original row nodes so navigation, details, source icons and
     // existing on-click handlers remain fully intact.
     const records = [...gamesRows.map(row => ({row,type:'game'})),
@@ -73,7 +73,7 @@
     // Do not silently remove existing section actions. Retain original
     // buttons/links using their live nodes and handlers.
     const actions = [...gamesBlock.querySelectorAll('button,a'),...sessionsBlock.querySelectorAll('button,a')]
-      .filter(el => !el.closest(rowSelector) && (/view all|see all/i.test(el.textContent) || /view.all/i.test(el.getAttribute('aria-label') || '')));
+      .filter(el => !el.closest(rowSelector) && (/view all|see all|all games|^gym$/i.test(el.textContent.trim()) || /view.all/i.test(el.getAttribute('aria-label') || '')));
     const list = C.ActivityList({existingRows:records.map(item => enhance(item.row,item.type))});
     const section = C.Section({title:'Recent Activity',subtitle:'The work behind your journey.',content:list,kind:'gtc-home-activity'});
     section.dataset.gtcHomeActivity = 'true';
