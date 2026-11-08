@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>GameTrace • ActivityList V1 — Outline Icons, No Fill</title><style>
+
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}*{box-sizing:border-box}html[data-theme=day]{--bg:#f7f8f5;--surface:#fff;--ink:#172119;--muted:#59655b;--edge:#cbd3c8;--accent:#087d42;--soft:#e3efe5;--control:#edf0e9;--onsoft:#174c2d;--negative:#b53b36;--positive:#087d42}html[data-theme=courtside]{--bg:#101211;--surface:#1b1e1c;--ink:#f0f4ef;--muted:#a4b0a5;--edge:#3b453d;--accent:#19c66a;--soft:#284733;--control:#232824;--onsoft:#e5f6e7;--negative:#ef8580;--positive:#27d47b}body{margin:0;padding:18px 14px 44px;background:var(--bg);color:var(--ink)}main{max-width:760px;margin:auto}h1{font-size:24px;letter-spacing:-.6px;margin:0 0 6px;font-weight:800}.intro{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 18px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;padding:12px;border:1px solid var(--edge);border-radius:14px;background:var(--surface);margin:0 0 14px;align-items:center}.toolbar button,.toolbar select{font:650 13px/1.3 inherit;min-height:40px;padding:8px 11px;background:var(--control);color:var(--ink);border:1px solid var(--edge);border-radius:9px;cursor:pointer}.toolbar button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}.toolbar label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700}.toolbar input{accent-color:var(--accent)}.device{max-width:680px;margin:auto;transition:max-width .2s}.device.phone{max-width:375px}.device-label{text-align:center;font-size:11px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin:13px 0}.section{padding:20px 0 23px;border-bottom:1px solid var(--edge)}.section:first-child{padding-top:4px}.section:last-child{border-bottom:0}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:15px}.section-head h2{font-size:17px;line-height:1.3;letter-spacing:-.3px;margin:0;font-weight:780}.section-head p{font-size:12px;line-height:1.5;font-weight:400;color:var(--muted);margin:5px 0 0}.tag{font-size:10px;font-weight:800;letter-spacing:.65px;text-transform:uppercase;border-radius:8px;background:var(--soft);color:var(--onsoft);padding:7px 8px;white-space:nowrap}.list{width:100%;min-width:0}.list-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:center;padding:13px 0;min-height:58px}.list.dividers .list-item+.list-item{border-top:1px solid var(--edge)}.list-item.has-leading{grid-template-columns:62px minmax(0,1fr);gap:10px}.list-item.has-trailing{grid-template-columns:minmax(0,1fr) auto;gap:10px}.list-item.has-leading.has-trailing{grid-template-columns:62px minmax(0,1fr) auto;gap:10px}.list-item:has(.row-hit){cursor:pointer}.row-hit{position:absolute;inset:0;border:0;padding:0;margin:0;background:transparent;cursor:pointer;z-index:1}.list-item:has(.row-hit):focus-within{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}.item-leading,.item-main,.item-trailing{position:relative;z-index:0;pointer-events:none;min-width:0}.item-leading{align-self:center}.item-leading.date{width:54px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center}.date .day{font-weight:800;font-size:17px;line-height:1.1}.date .month{font-size:10px;font-weight:750;letter-spacing:.9px;color:var(--muted)}.item-leading.icon{width:44px;height:44px;display:grid;place-items:center;border-radius:11px;background:var(--soft);color:var(--onsoft)}.item-leading.icon svg{width:22px;height:22px}.item-title{font-size:14px;line-height:1.35;font-weight:740;letter-spacing:-.1px;color:var(--ink);overflow-wrap:anywhere}.item-sub{font-size:12px;line-height:1.4;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}.item-support{font-size:11px;line-height:1.4;color:var(--muted);margin-top:3px}.item-trailing{display:flex;align-items:center;gap:8px;justify-content:flex-end;text-align:right;white-space:nowrap}.trailing-stack{display:flex;flex-direction:column;gap:4px;align-items:flex-end}.value{font-size:14px;font-weight:750}.meta{font-size:11px;color:var(--muted)}.status{display:inline-flex;align-items:center;gap:4px;padding:5px 7px;border-radius:8px;background:var(--soft);font-size:11px;font-weight:750;color:var(--onsoft)}.status.loss{background:transparent;color:var(--negative);border:1px solid var(--negative)}.goal{font-size:12px;color:var(--accent);font-weight:750}.sample-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.sample-controls button{border:1px solid var(--edge);background:var(--control);color:var(--ink);border-radius:8px;padding:8px 12px;min-height:40px;font-weight:700}.empty{padding:22px 12px;text-align:center;font-size:13px;color:var(--muted);border:1px dashed var(--edge);border-radius:12px}.note{font-size:11px;color:var(--muted);line-height:1.5;margin:7px 0}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);border-radius:12px;background:var(--ink);color:var(--bg);padding:12px 16px;z-index:5;font-size:12px;font-weight:700;box-shadow:0 6px 24px #0002;max-width:calc(100vw - 30px);text-align:center}svg{display:block}@media(max-width:370px){.list-item.has-leading.has-trailing{grid-template-columns:55px minmax(0,1fr) auto;gap:6px}.item-leading.date{width:49px}.item-title{font-size:13px}.item-sub{font-size:11px}.status{padding:4px 5px}.value{font-size:12px}.meta{font-size:10px}}@media(prefers-reduced-motion:reduce){.device{transition:none}}
+
+.sh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;min-width:0;margin-bottom:16px}.sh-copy{min-width:0;flex:1}.sh-title{margin:0;font-size:17px;line-height:1.3;font-weight:780;letter-spacing:-.3px;color:var(--ink)}.sh-sub{font-size:12px;line-height:1.5;font-weight:400;color:var(--muted);margin:5px 0 0;overflow-wrap:anywhere}
+.sh-action{display:inline-flex;gap:5px;align-items:center;justify-content:center;min-height:40px;padding:7px 2px 7px 8px;flex:0 0 auto;border:0;background:transparent;color:var(--accent);font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}.sh-action svg{width:16px;height:16px;flex:0 0 16px}.sh-icon{width:40px;height:40px;border:1px solid var(--edge);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px;display:grid;place-items:center;cursor:pointer}.sh-icon svg{width:20px;height:20px}.sh-icon:hover,.sh-action:hover{opacity:.8}
+
+/* Composition-only styles. Locked Section V1 / List V1 rules above remain intact. */
+.section{padding:16px 0 24px}.section-head{margin:0}.sh{margin-bottom:16px}
+.sh-action:focus-visible,.sh-icon:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toolbar button{font-family:inherit;font-size:12px;font-weight:700}.toolbar .active{background:var(--soft);color:var(--onsoft);border-color:var(--accent)}
+.toolbar .stretch{margin-left:auto}.toolbar .group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.toolbar .group-name{font-size:11px;font-weight:700;color:var(--muted)}
+.preview-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding:2px 0}.preview-tabs button{background:transparent;color:var(--muted);border:1px solid var(--edge);border-radius:99px;padding:10px 12px;white-space:nowrap;font-size:12px;font-weight:700;min-height:42px}.preview-tabs button.active{background:var(--soft);color:var(--onsoft);border-color:var(--accent)}
+.device{max-width:650px}.device.phone{max-width:375px}.preview-frame{background:var(--surface);padding:17px;border:1px solid var(--edge);border-radius:17px;min-width:0}
+.device-label{margin:10px 0 12px}.section{padding:0 0 10px;border:0}.sh-copy{min-width:0}.sh-action{font-family:inherit}.sh-action span{max-width:100%}
+.list-item{min-height:67px}.list-item.has-leading.has-trailing{grid-template-columns:56px minmax(0,1fr) auto;gap:9px}
+.item-leading.date{border:1px solid var(--edge);border-radius:10px;padding:6px 3px;width:50px;background:var(--bg);min-height:51px}
+.item-leading.date .month{font-size:10px}.item-leading.date .day{font-size:18px}
+.item-main{min-width:0}.item-title{font-size:13px;line-height:1.4}.item-sub{font-size:11px;line-height:1.5;margin-top:4px}.item-support{font-size:10px;margin-top:4px}
+.item-trailing{align-items:flex-start;align-self:center}.trailing-stack{gap:3px}.trailing-stack .value{font-size:12px;font-weight:750}.trailing-stack .meta{font-size:10px}.canceled{opacity:.62}.canceled .item-title{text-decoration:line-through}
+.label-status{display:inline-block;margin-top:5px;padding:3px 6px;border:1px solid var(--edge);border-radius:6px;font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.25px}
+.label-status.cancel{color:var(--negative);border-color:var(--negative)}
+.empty{padding:28px 14px}.empty strong{display:block;color:var(--ink);margin-bottom:5px;font-size:13px}.empty p{margin:0;font-size:12px;line-height:1.55}
+.sample-summary{margin-top:12px;border-top:1px solid var(--edge);padding-top:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:var(--muted)}
+.sample-summary strong{color:var(--ink);font-size:12px}.legend{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.chip{font-size:10px;font-weight:750;border:1px solid var(--edge);border-radius:6px;padding:4px 6px;color:var(--muted)}
+.system-note{margin-top:17px;padding:13px;border:1px solid var(--edge);border-radius:13px;font-size:11px;line-height:1.7;color:var(--muted)}.system-note strong{color:var(--ink)}
+.dialog-backdrop{position:fixed;inset:0;z-index:30;background:#0007;display:grid;align-items:end;justify-items:center}.dialog-backdrop[hidden]{display:none}.dialog{background:var(--surface);color:var(--ink);border-radius:18px 18px 0 0;padding:22px;width:min(100%,500px);box-shadow:0 -10px 30px #0002}.dialog h2{margin:0 0 10px;font-size:20px}.dialog p{font-size:13px;line-height:1.6;color:var(--muted);margin:6px 0}.dialog button{margin-top:16px;background:var(--soft);color:var(--onsoft);border:0;border-radius:9px;padding:12px;width:100%;font-weight:750;font-size:14px;min-height:44px}
+.info-line{color:var(--muted);font-size:11px;line-height:1.7;margin:10px 0 0}
+@media(max-width:390px){.preview-frame{padding:13px}.list-item.has-leading.has-trailing{grid-template-columns:49px minmax(0,1fr) auto;gap:7px}.item-leading.date{width:47px}.item-title{font-size:12px}.item-sub{font-size:10px}.trailing-stack .value{font-size:11px}.sh-title{font-size:17px}.sh-sub{font-size:12px}}
+
+
+/* ActivityList V1 composition only; Section V1 and List V1 styles above are inherited */
+.item-type{font-size:9px;font-weight:750;letter-spacing:.5px;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:3px}
+.item-main .item-title{font-size:13px}.item-support{font-size:10px}
+.activity-summary{margin-top:13px;border-top:1px solid var(--edge);padding:13px 0 0;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}
+.activity-summary strong{color:var(--ink)}.trailing-stack .result-win{color:var(--positive)}.trailing-stack .result-loss{color:var(--negative)}
+.item-leading.date .weekday{font-size:9px;color:var(--muted);font-weight:700;letter-spacing:.3px}
+.activity-legend{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px}.activity-legend .chip{font-size:9px}
+.demo-badge{display:inline-block;font-size:10px;font-weight:750;color:var(--onsoft);background:var(--soft);border-radius:8px;padding:5px 7px;margin:0 0 10px}
+.preview-frame{min-height:200px}.section{min-width:0}.sh-action{gap:5px}
+@media(max-width:390px){.item-type{font-size:8px}.item-title{font-size:12px!important}.item-trailing .value{font-size:11px}.item-support{font-size:9px}.item-leading.date .weekday{font-size:8px}}
+
+/* ActivityList icon-leading refinement: retain List V1 column dimensions and approved Section V1 */
+.list-item.has-leading{grid-template-columns:62px minmax(0,1fr);gap:10px}
+.list-item.has-leading.has-trailing{grid-template-columns:62px minmax(0,1fr) auto;gap:10px}
+.activity-symbol{width:50px;height:50px;border:0;border-radius:0;background:transparent;color:var(--ink);display:grid;place-items:center;align-self:center}
+.activity-symbol svg{width:26px;height:26px;display:block;fill:currentColor;stroke:none}
+.activity-symbol[data-kind="game"]{border:0;background:transparent;color:var(--ink)}
+.activity-symbol[data-kind="training"]{border:0;background:transparent;color:var(--ink)}
+.activity-symbol[data-kind="performance"]{border:0;background:transparent;color:var(--ink)}
+.activity-symbol[data-kind="camp"]{border:0;background:transparent;color:var(--ink)}
+.activity-date{font-size:11px;font-weight:600;color:var(--muted)}
+@media(max-width:370px){.list-item.has-leading.has-trailing{grid-template-columns:46px minmax(0,1fr) auto;gap:8px}.activity-symbol{width:43px;height:43px;border-radius:10px}.activity-symbol svg{width:23px;height:23px}}
+</style></head>
+<body><main>
+<h1>🏀 ActivityList V1</h1>
+<p class="intro">Composite design preview • Inherits <strong>Section V1</strong> (required title + subtitle; optional action) and <strong>List V1 Variant D</strong> (activity icon → activity details → outcome or duration). All sample activities are illustrative.</p>
+<div class="toolbar" aria-label="Preview settings">
+  <div class="group"><span class="group-name">Theme</span><button id="theme" type="button">☀️ Day</button></div>
+  <div class="group"><span class="group-name">Width</span><button id="width" type="button">📱 iPhone</button></div>
+  <div class="group"><label><input type="checkbox" id="dividers" checked> Row dividers</label></div>
+</div>
+<div class="preview-tabs" role="tablist" aria-label="ActivityList variants">
+ <button role="tab" aria-selected="true" class="active" type="button" data-view="mixed">All Activity</button>
+ <button role="tab" aria-selected="false" type="button" data-view="games">Games Only</button>
+ <button role="tab" aria-selected="false" type="button" data-view="sessions">Training & Camps</button>
+ <button role="tab" aria-selected="false" type="button" data-view="training">Training Only</button>
+ <button role="tab" aria-selected="false" type="button" data-view="camps">Camps Only</button>
+ <button role="tab" aria-selected="false" type="button" data-view="empty">Empty State</button>
+</div>
+<div class="device phone" id="device"><p class="device-label" id="deviceLabel">iPhone portrait · Day theme</p><div class="preview-frame">
+ <span class="demo-badge" id="variantLabel">Composite · Mixed Activity</span>
+ <section class="section" data-component="SectionV1" aria-labelledby="sectionTitle">
+  <header class="sh" data-component="SectionHeader"><div class="sh-copy"><h2 class="sh-title" id="sectionTitle">Recent Activity</h2><p class="sh-sub" id="sectionSubtitle">The work behind your journey.</p></div>
+   <button id="sectionAction" class="sh-action" type="button" aria-label="View all activities">View All <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+  </header>
+  <div class="section-content" data-component="SectionContent"><div class="list dividers" id="activityList" role="list" data-component="ListV1"></div></div>
+ </section>
+ <div class="activity-summary"><strong id="countLabel">0 activities</strong><span id="sortLabel">Most recent first</span></div>
+ <div class="activity-legend"><span class="chip">🏀 Games</span><span class="chip">◉ Training</span><span class="chip">★ Camps</span></div>
+</div>
+<p class="info-line">Tap a row to inspect its demonstration details. List rows never show navigation arrows. Missing statistics or durations are not invented.</p>
+<div class="sample-controls"><button type="button" id="clearDemo">Simulate empty</button><button type="button" id="restoreDemo">Restore activities</button></div>
+<div class="system-note"><strong>Component inheritance:</strong> Section V1 controls header, subtitle and action; List V1 controls row layout, aligned columns, dividers and empty state; ActivityList supplies game / training / camp data mapping, sorting, filtering and tap behavior. This standalone preview does not access or change GameTrace records.</div>
+</div>
+<div id="modal" class="dialog-backdrop" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><h2 id="modalTitle"></h2><div id="modalBody"></div><button type="button" id="closeModal">Close</button></div></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const activities=[
+ {id:'g1',kind:'game',date:'2026-11-06',title:'vs NJ Panthers',sub:'Regular Season',support:'12 PTS · 5 REB · 3 AST',outcome:'W 42–38',result:'win',detail:'Game Details'},
+ {id:'s1',kind:'training',date:'2026-11-05',title:'Skills Training',sub:"I’m Possible · Cam Hoo",support:'Ball Handling · Finishing',minutes:90,detail:'Session Details'},
+ {id:'c1',kind:'camp',date:'2026-11-04',title:'Elite Basketball Camp',sub:'New York, NY',support:'Shooting · Game Situations',minutes:360,detail:'Session Details'},
+ {id:'g2',kind:'game',date:'2026-11-02',title:'vs Eagles',sub:'Tournament',support:'8 PTS · 4 REB · 2 AST',outcome:'L 31–36',result:'loss',detail:'Game Details'},
+ {id:'s2',kind:'training',date:'2026-10-30',title:'Performance Training',sub:"I’m Possible",support:'Footwork · Conditioning',minutes:60,detail:'Session Details'},
+ {id:'c2',kind:'camp',date:'2026-10-27',title:'Shooting Camp',sub:'Washington, DC',support:'Shooting · Footwork',minutes:240,detail:'Session Details'},
+ {id:'g3',kind:'game',date:'2026-10-25',title:'vs Wildcats',sub:'League Game',support:'7 PTS · 3 REB · 2 AST',outcome:'W 35–29',result:'win',detail:'Game Details'}
+];
+const configs={
+ mixed:{title:'Recent Activity',sub:'The work behind your journey.',action:'View All',badge:'Official Phosphor icons · Games + Sessions + Camps',kinds:['game','training','camp'],limit:5},
+ games:{title:'Recent Games',sub:'Every game adds to the story.',action:'View All',badge:'Games only',kinds:['game'],limit:Infinity},
+ sessions:{title:'Training & Camps',sub:'Every session builds your game.',action:'View All',badge:'Training + camps',kinds:['training','camp'],limit:Infinity},
+ training:{title:'Training Sessions',sub:'The work you put in.',action:'View All',badge:'Training only',kinds:['training'],limit:Infinity},
+ camps:{title:'Basketball Camps',sub:'Learn more. Grow stronger.',action:'View All',badge:'Camps only',kinds:['camp'],limit:Infinity},
+ empty:{title:'Recent Activity',sub:'The work behind your journey.',action:'View All',badge:'No activity',kinds:[],limit:0}
+};
+let view='mixed',theme='day',phone=true,simulateEmpty=false;
+// Official Phosphor Icons (regular weight), assets from @phosphor-icons/core.
+// Embedded locally for reliable offline iPhone previews; each path is an official SVG asset.
+const activityIcons={
+ game:'<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM60,72.17A87.2,87.2,0,0,1,79.63,120H40.37A87.54,87.54,0,0,1,60,72.17ZM136,120V40.37a87.59,87.59,0,0,1,48.68,20.37A103.06,103.06,0,0,0,160.3,120Zm-16,0H95.7A103.06,103.06,0,0,0,71.32,60.74,87.59,87.59,0,0,1,120,40.37ZM79.63,136A87.2,87.2,0,0,1,60,183.83,87.54,87.54,0,0,1,40.37,136Zm16.07,0H120v79.63a87.59,87.59,0,0,1-48.68-20.37A103.09,103.09,0,0,0,95.7,136Zm40.3,0h24.3a103.09,103.09,0,0,0,24.38,59.26A87.59,87.59,0,0,1,136,215.63Zm40.37,0h39.26A87.54,87.54,0,0,1,196,183.83,87.2,87.2,0,0,1,176.37,136Zm0-16A87.2,87.2,0,0,1,196,72.17,87.54,87.54,0,0,1,215.63,120Z"/>',
+ training:'<path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/>',
+ performance:'<path d="M248,120h-8V88a16,16,0,0,0-16-16H208V64a16,16,0,0,0-16-16H168a16,16,0,0,0-16,16v56H104V64A16,16,0,0,0,88,48H64A16,16,0,0,0,48,64v8H32A16,16,0,0,0,16,88v32H8a8,8,0,0,0,0,16h8v32a16,16,0,0,0,16,16H48v8a16,16,0,0,0,16,16H88a16,16,0,0,0,16-16V136h48v56a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16v-8h16a16,16,0,0,0,16-16V136h8a8,8,0,0,0,0-16ZM32,168V88H48v80Zm56,24H64V64H88V192Zm104,0H168V64h24V175.82c0,.06,0,.12,0,.18s0,.12,0,.18V192Zm32-24H208V88h16Z"/>',
+ camp:'<path d="M255.31,188.75l-64-144A8,8,0,0,0,184,40H72a8,8,0,0,0-7.27,4.69.21.21,0,0,0,0,.06l0,.12,0,0L.69,188.75A8,8,0,0,0,8,200H248a8,8,0,0,0,7.31-11.25ZM64,184H20.31L64,85.7Zm16,0V85.7L123.69,184Zm61.2,0L84.31,56H178.8l56.89,128Z"/>'
+};
+function activityIcon(a){
+ const kind=a.kind==='training'&&/performance/i.test(a.title)?'performance':a.kind;
+ const box=node('div','item-leading activity-symbol');box.dataset.kind=kind;
+ box.setAttribute('aria-hidden','true');
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 256 256');
+ svg.setAttribute('fill','currentColor');
+ svg.setAttribute('data-icon-family','Phosphor');
+ svg.setAttribute('data-icon-weight','regular');
+ svg.innerHTML=activityIcons[kind]||activityIcons.training;
+ box.append(svg);return box;
+}
+const mon=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'short'}).toUpperCase();
+const fmtDuration=minutes=>minutes>=180?(Number.isInteger(minutes/60)?minutes/60:(minutes/60).toFixed(1))+' HR':minutes+' MIN';
+function node(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el}
+function activityRow(a){
+ const row=node('div','list-item has-leading has-trailing');row.dataset.activityId=a.id;row.setAttribute('role','listitem');
+ const tap=node('button','row-hit');tap.type='button';tap.dataset.action=a.id;tap.setAttribute('aria-label','Open '+a.title+' '+a.detail);
+ const leading=activityIcon(a);
+ const main=node('div','item-main');main.append(node('span','item-type',a.kind==='game'?'Game':a.kind==='camp'?'Camp':'Training'),node('div','item-title',a.title));
+ const shortDate=mon[Number(a.date.slice(5,7))-1]+' '+Number(a.date.slice(8,10))+', '+a.date.slice(0,4);main.append(node('div','item-sub',(a.sub?a.sub+' · ':'')+shortDate));if(a.support)main.append(node('div','item-support',a.support));
+ const trailing=node('div','item-trailing'),stack=node('div','trailing-stack');
+ if(a.kind==='game'){stack.append(node('span','value result-'+a.result,a.outcome));stack.append(node('span','meta','Final score'))}
+ else if(Number.isFinite(a.minutes)){stack.append(node('span','value',fmtDuration(a.minutes)));stack.append(node('span','meta','Duration'))}
+ else stack.append(node('span','meta','—'));
+ trailing.append(stack);row.append(tap,leading,main,trailing);return row;
+}
+function render(){
+ const c=configs[view],arr=simulateEmpty?[]:activities.filter(a=>c.kinds.includes(a.kind)).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,c.limit);
+ $('sectionTitle').textContent=c.title;$('sectionSubtitle').textContent=c.sub;
+ $('variantLabel').textContent='Composite · '+c.badge;
+ const root=$('activityList');root.replaceChildren();root.classList.toggle('dividers',$('dividers').checked);
+ if(!arr.length){const box=node('div','empty');box.append(node('strong',null,'No activities yet'),node('p',null,'The next chapter of your journey starts with showing up.'));root.append(box)}else arr.forEach(a=>root.append(activityRow(a)));
+ $('countLabel').textContent=arr.length+' activit'+(arr.length===1?'y':'ies');
+ $('sortLabel').textContent='Most recent first';
+ document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});
+ $('theme').textContent=theme==='day'?'☀️ Day':'🌙 Courtside';$('width').textContent=phone?'📱 iPhone':'↔️ Wide';
+ $('deviceLabel').textContent=(phone?'iPhone portrait':'Wider / landscape')+' · '+(theme==='day'?'Day':'Courtside')+' theme';
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;simulateEmpty=false;render()}));
+$('theme').addEventListener('click',()=>{theme=theme==='day'?'courtside':'day';document.documentElement.dataset.theme=theme;render()});
+$('width').addEventListener('click',()=>{phone=!phone;$('device').classList.toggle('phone',phone);render()});
+$('dividers').addEventListener('change',render);
+$('clearDemo').addEventListener('click',()=>{simulateEmpty=true;render()});
+$('restoreDemo').addEventListener('click',()=>{simulateEmpty=false;if(view==='empty')view='mixed';render()});
+$('sectionAction').addEventListener('click',()=>{view='mixed';simulateEmpty=false;render()});
+document.addEventListener('click',e=>{const hit=e.target.closest('[data-action]');if(!hit)return;const a=activities.find(x=>x.id===hit.dataset.action);if(!a)return;$('modalTitle').textContent=a.title;const body=$('modalBody');body.replaceChildren();for(const [label,val] of [['Activity',a.kind==='game'?'Game':a.kind==='camp'?'Camp':'Training'],['Date',a.date],['Details',a.sub],['Development',a.support],['Outcome / Duration',a.kind==='game'?a.outcome:Number.isFinite(a.minutes)?fmtDuration(a.minutes):'Not recorded'],['Navigation',a.detail]]){if(val)body.append(node('p',null,label+': '+val))}$('modal').hidden=false;$('closeModal').focus()});
+function closeModal(){$('modal').hidden=true}
+$('closeModal').addEventListener('click',closeModal);$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});window.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+render();
+</script></body></html>
