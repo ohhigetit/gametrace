@@ -134,3 +134,18 @@ const section = window.GameTraceComponents.Section({
 ```
 
 **Integration boundary:** This source is **additive and isolated**. Neither `development` nor `main` nor the compiled HTML is changed by this approval. Do not replace the locked SharedBanner Parent V1 / GameSummaryBanner V1 in existing pages without separate explicit approval. The preview is authoritative for pixel-level appearance; verify against the actual development app during any future integration. The reusable implementation is ready for integration testing but has not been claimed visually identical in an app runtime.
+
+## Approved GameBanner V1 — 2+1 Live & Completed (2026-11-08)
+
+**Status:** User-approved and locked design reference. Approved preview is canonical. **No application integration or deployment** is authorized by this library-only commit.
+
+- [Approved interactive HTML preview](approved/GameBanner_V1_TwoPlusOne_Live_Completed_APPROVED.html)
+- **Inheritance:** Section V1 → SharedBanner V2 → BannerRow V1 → BannerCell V1 → game-specific content.
+- **Primary Row 1:** exactly **two** equal BannerCells, **Team** and **Opponent**, each showing the team name and its own score. Both remain visible for live and completed games.
+- **Context strip:** game date/type, current state badge, live quarter/time or final result; live progress bar only for live games.
+- **Primary Row 2:** **one full-width BannerCell** containing **four evenly spaced player stats**: PTS, REB, AST, STL.
+- **Secondary Content:** collapsible Show Details / Hide Details; one two-cell row (More Game Details / More Player Stats), plus a full-width context note row.
+- **States:** Live Game (current score, LIVE badge, game progress, stats to date) and Completed Game (final score, WIN/LOSS, final stats). The same layout is used for both.
+- **Responsive/themes:** iPhone and wide, Day and Courtside, as shown in the user-approved preview.
+- **Data:** Preview uses synthetic example records only; integrating into the app requires existing real game data, score/result semantics, and navigation. No sample values should be written to records.
+- **Compatibility:** SharedBanner V2 is the layout parent; preserve all locked existing GameSummaryBanner V1 and game data behaviors until integration is separately approved.
