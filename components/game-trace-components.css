@@ -61,3 +61,15 @@ button.gtc-activity-row { cursor:pointer; }
 #courtContent [data-gtc-home-activity] .gtc-existing-activity { box-sizing:border-box; margin:0; border-radius:0; }
 #courtContent [data-gtc-home-activity] .gtc-list-row + .gtc-list-row { border-top:1px solid var(--gtc-line); }
 #courtContent [data-gtc-home-activity] .gtc-legacy-category { color:var(--gtc-green); font-weight:750; text-transform:uppercase; letter-spacing:.07em; }
+
+/* AchievementList V1 — approved Championship Trophy B.
+ * Icon-only change. Shared ActivityList ink tone, no fill or colored background.
+ * Existing Section/List/Achievement typography and spacing are unchanged. */
+.gtc-achievement-trophy { color:inherit; fill:none !important; stroke:currentColor; filter:none; }
+.gtc-row-icon:has(> .gtc-achievement-trophy) {
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+  color:var(--gtc-text);
+}
