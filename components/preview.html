@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GameTrace Component Library — isolated preview</title><link rel="stylesheet" href="./game-trace-components.css"><style>body{margin:0;background:#f8faf7;color:#18251d;font:16px system-ui,-apple-system,sans-serif}main{max-width:540px;margin:auto;padding:18px}nav{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}nav button{border:1px solid #bac9bc;border-radius:1rem;background:white;padding:.65rem;cursor:pointer}nav button[aria-pressed=true]{border-color:#00844b;background:#e4f1e7;color:#105834}#surface{background:#fff;padding:1rem;border:1px solid #cfdbcf;border-radius:1.2rem}#status{font-size:.8rem;color:#58675c}</style></head><body><main><h1>Component Library <small style="font-size:.6em">v0.1</small></h1><p>Isolated demo data. Not connected to GameTrace records.</p><nav aria-label="Component previews"><button data-tab="activity" aria-pressed="true">Activity</button><button data-tab="goals" aria-pressed="false">Goals</button><button data-tab="notes" aria-pressed="false">Notes</button><button data-tab="achievements" aria-pressed="false">Achievements</button><button data-tab="banner" aria-pressed="false">Banner</button></nav><div id="surface"></div><p id="status" aria-live="polite"></p></main><script src="./game-trace-components.js"></script><script>
+const C=window.GameTraceComponents;
+const surface=document.getElementById('surface'),status=document.getElementById('status');
+const svg=(paths)=>{const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('fill','none');s.setAttribute('stroke','currentColor');s.setAttribute('stroke-width','1.7');s.setAttribute('stroke-linecap','round');s.setAttribute('stroke-linejoin','round');paths.forEach(d=>{let p=document.createElementNS(s.namespaceURI,'path');p.setAttribute('d',d);s.appendChild(p)});return s};
+const icons={
+game:svg(['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z','M2 12h20','M12 2c4 4 4 16 0 20','M12 2c-4 4-4 16 0 20']),
+training:svg(['M20 5 12 13','M19 12a7 7 0 1 1-7-7','M16 12a4 4 0 1 1-4-4']),
+camp:svg(['M2 20 9 4h6l7 16H2Z','M9 4l6 16','M7 20l4-9']),
+goal:svg(['M12 2v4','M12 18v4','M2 12h4','M18 12h4','M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z']),
+note:svg(['M5 4h14v16H5z','M8 8h8','M8 12h7']),
+achievement:svg(['M7 3h10v7c0 4-2 6-5 6s-5-2-5-6V3Z','M7 5H3v3c0 3 2 4 5 4','M17 5h4v3c0 3-2 4-5 4','M12 16v4','M8 21h8'])
+};
+const open=item=>status.textContent='Selected: '+(item.title||item.note||'item');
+const sections={
+activity:()=>C.Section({title:'Recent Activity',subtitle:'The work behind your journey.',onAction:()=>status.textContent='View All',content:C.ActivityList({icons,onOpen:open,items:[
+{type:'game',title:'vs NJ Panthers',date:'2026-11-06',context:'Regular Season',result:'W',homeScore:42,awayScore:38,description:'12 PTS · 5 REB · 3 AST'},
+{type:'training',title:'Skills Training',date:'2026-11-05',context:'I’m Possible · Cam Hoo',durationMinutes:90,description:'Ball Handling · Finishing'},
+{type:'camp',title:'Elite Basketball Camp',date:'2026-11-04',context:'New York, NY',durationMinutes:360,description:'Shooting · Game Situations'},
+{type:'game',title:'vs Eagles',date:'2026-11-02',context:'Tournament',result:'L',homeScore:31,awayScore:36,description:'8 PTS · 4 REB · 2 AST'}
+]})}),
+goals:()=>C.Section({title:'Goals',subtitle:'The work that moves you forward.',content:C.GoalsList({icons,onOpen:open,items:[{title:'Attack the basket',priority:'High priority',progressLabel:'3 of 5 steps',description:'Seek opportunities to finish through contact.'},{title:'Be ready to shoot',progressLabel:'2 of 5 steps',description:'Prepare before receiving the pass.'}]})}),
+notes:()=>C.Section({title:'Words to Remember',subtitle:'Your thoughts, in your own words.',content:C.NotesList({icons,onOpen:open,items:[{noteType:'PLAYER’S NOTE · QUESTION',note:'I saw more opportunities when I attacked early.',question:'What did I see?',origin:'West Essex vs Caldwell',date:'2026-11-07'},{noteType:'PERSONAL NOTE',note:'Be confident and play free.',origin:'Personal',date:'2026-11-05'}]})}),
+achievements:()=>C.Section({title:'Achievements',subtitle:'Celebrate the work and growth.',content:C.AchievementList({icons,onOpen:open,items:[{title:'Shooting Star',category:'TROPHY',origin:'Skills Training',date:'2026-11-05',description:'For showing up and working hard.'}]})}),
+banner:()=>C.SharedBanner({title:'Game Summary',subtitle:'November 7, 2026',status:'Final',primaryLeft:'West Essex vs Caldwell · W 42–38',primaryRight:'12 PTS · 5 REB · 3 AST · 1 STL',secondaryLeft:'Regular Season',secondaryRight:'Additional details'})
+};
+function render(tab){surface.replaceChildren(sections[tab]());document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab===tab)));status.textContent='Illustrative component preview — review against approved design before locking.'}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>render(b.dataset.tab)));render('activity');
+</script></body></html>
