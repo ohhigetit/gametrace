@@ -32,4 +32,14 @@ jobs:
       - name: Run isolated ActivityList regression
         env:
           NODE_PATH: /tmp/gt-activity/node_modules
-        run: node tests/component-activity-integration.cjs
+        run: |
+          node tests/component-activity-integration.cjs
+          GAMETRACE_TEST_MODULES=/tmp/gt-activity/node_modules node tests/component-activity-real-app.cjs
+      - name: Upload integrated test HTML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GameTrace-HomeCourt-ActivityList-Integrated
+          path: index.html
+          if-no-files-found: error
+          retention-days: 14
