@@ -1,0 +1,35 @@
+name: GameTrace Component Activity Integration
+on:
+  push:
+    branches:
+      - feature/component-library
+  workflow_dispatch:
+jobs:
+  activity-list:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated DOM test dependency
+        run: npm install --no-save --no-package-lock --prefix /tmp/gt-activity jsdom@24
+      - name: Static checks and rebuild
+        run: |
+          node --check components/game-trace-components.js
+          node --check components/homecourt-activity-integration.js
+          python3 -m py_compile source/v42/build.py
+          python3 source/v42/build.py
+          python3 - <<'PY'
+          from pathlib import Path
+          a=Path('index.html').read_bytes()
+          assert a == Path('source/v42/GameTrace_V42.html').read_bytes()
+          assert a == Path('templates/current/GameTrace.html').read_bytes()
+          assert b'data-gtc-home-activity' in a
+          print('PASS build outputs match; ActivityList integration included')
+          PY
+      - name: Run isolated ActivityList regression
+        env:
+          NODE_PATH: /tmp/gt-activity/node_modules
+        run: node tests/component-activity-integration.cjs
