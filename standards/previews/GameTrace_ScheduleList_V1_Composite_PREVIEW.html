@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>GameTrace • ScheduleList V1 Preview</title><style>
+
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}*{box-sizing:border-box}html[data-theme=day]{--bg:#f7f8f5;--surface:#fff;--ink:#172119;--muted:#59655b;--edge:#cbd3c8;--accent:#087d42;--soft:#e3efe5;--control:#edf0e9;--onsoft:#174c2d;--negative:#b53b36;--positive:#087d42}html[data-theme=courtside]{--bg:#101211;--surface:#1b1e1c;--ink:#f0f4ef;--muted:#a4b0a5;--edge:#3b453d;--accent:#19c66a;--soft:#284733;--control:#232824;--onsoft:#e5f6e7;--negative:#ef8580;--positive:#27d47b}body{margin:0;padding:18px 14px 44px;background:var(--bg);color:var(--ink)}main{max-width:760px;margin:auto}h1{font-size:24px;letter-spacing:-.6px;margin:0 0 6px;font-weight:800}.intro{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 18px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;padding:12px;border:1px solid var(--edge);border-radius:14px;background:var(--surface);margin:0 0 14px;align-items:center}.toolbar button,.toolbar select{font:650 13px/1.3 inherit;min-height:40px;padding:8px 11px;background:var(--control);color:var(--ink);border:1px solid var(--edge);border-radius:9px;cursor:pointer}.toolbar button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}.toolbar label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700}.toolbar input{accent-color:var(--accent)}.device{max-width:680px;margin:auto;transition:max-width .2s}.device.phone{max-width:375px}.device-label{text-align:center;font-size:11px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin:13px 0}.section{padding:20px 0 23px;border-bottom:1px solid var(--edge)}.section:first-child{padding-top:4px}.section:last-child{border-bottom:0}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:15px}.section-head h2{font-size:17px;line-height:1.3;letter-spacing:-.3px;margin:0;font-weight:780}.section-head p{font-size:12px;line-height:1.5;font-weight:400;color:var(--muted);margin:5px 0 0}.tag{font-size:10px;font-weight:800;letter-spacing:.65px;text-transform:uppercase;border-radius:8px;background:var(--soft);color:var(--onsoft);padding:7px 8px;white-space:nowrap}.list{width:100%;min-width:0}.list-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:center;padding:13px 0;min-height:58px}.list.dividers .list-item+.list-item{border-top:1px solid var(--edge)}.list-item.has-leading{grid-template-columns:62px minmax(0,1fr);gap:10px}.list-item.has-trailing{grid-template-columns:minmax(0,1fr) auto;gap:10px}.list-item.has-leading.has-trailing{grid-template-columns:62px minmax(0,1fr) auto;gap:10px}.list-item:has(.row-hit){cursor:pointer}.row-hit{position:absolute;inset:0;border:0;padding:0;margin:0;background:transparent;cursor:pointer;z-index:1}.list-item:has(.row-hit):focus-within{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}.item-leading,.item-main,.item-trailing{position:relative;z-index:0;pointer-events:none;min-width:0}.item-leading{align-self:center}.item-leading.date{width:54px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center}.date .day{font-weight:800;font-size:17px;line-height:1.1}.date .month{font-size:10px;font-weight:750;letter-spacing:.9px;color:var(--muted)}.item-leading.icon{width:44px;height:44px;display:grid;place-items:center;border-radius:11px;background:var(--soft);color:var(--onsoft)}.item-leading.icon svg{width:22px;height:22px}.item-title{font-size:14px;line-height:1.35;font-weight:740;letter-spacing:-.1px;color:var(--ink);overflow-wrap:anywhere}.item-sub{font-size:12px;line-height:1.4;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}.item-support{font-size:11px;line-height:1.4;color:var(--muted);margin-top:3px}.item-trailing{display:flex;align-items:center;gap:8px;justify-content:flex-end;text-align:right;white-space:nowrap}.trailing-stack{display:flex;flex-direction:column;gap:4px;align-items:flex-end}.value{font-size:14px;font-weight:750}.meta{font-size:11px;color:var(--muted)}.status{display:inline-flex;align-items:center;gap:4px;padding:5px 7px;border-radius:8px;background:var(--soft);font-size:11px;font-weight:750;color:var(--onsoft)}.status.loss{background:transparent;color:var(--negative);border:1px solid var(--negative)}.goal{font-size:12px;color:var(--accent);font-weight:750}.sample-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.sample-controls button{border:1px solid var(--edge);background:var(--control);color:var(--ink);border-radius:8px;padding:8px 12px;min-height:40px;font-weight:700}.empty{padding:22px 12px;text-align:center;font-size:13px;color:var(--muted);border:1px dashed var(--edge);border-radius:12px}.note{font-size:11px;color:var(--muted);line-height:1.5;margin:7px 0}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);border-radius:12px;background:var(--ink);color:var(--bg);padding:12px 16px;z-index:5;font-size:12px;font-weight:700;box-shadow:0 6px 24px #0002;max-width:calc(100vw - 30px);text-align:center}svg{display:block}@media(max-width:370px){.list-item.has-leading.has-trailing{grid-template-columns:55px minmax(0,1fr) auto;gap:6px}.item-leading.date{width:49px}.item-title{font-size:13px}.item-sub{font-size:11px}.status{padding:4px 5px}.value{font-size:12px}.meta{font-size:10px}}@media(prefers-reduced-motion:reduce){.device{transition:none}}
+
+.sh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;min-width:0;margin-bottom:16px}.sh-copy{min-width:0;flex:1}.sh-title{margin:0;font-size:17px;line-height:1.3;font-weight:780;letter-spacing:-.3px;color:var(--ink)}.sh-sub{font-size:12px;line-height:1.5;font-weight:400;color:var(--muted);margin:5px 0 0;overflow-wrap:anywhere}
+.sh-action{display:inline-flex;gap:5px;align-items:center;justify-content:center;min-height:40px;padding:7px 2px 7px 8px;flex:0 0 auto;border:0;background:transparent;color:var(--accent);font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}.sh-action svg{width:16px;height:16px;flex:0 0 16px}.sh-icon{width:40px;height:40px;border:1px solid var(--edge);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px;display:grid;place-items:center;cursor:pointer}.sh-icon svg{width:20px;height:20px}.sh-icon:hover,.sh-action:hover{opacity:.8}
+
+/* Composition-only styles. Locked Section V1 / List V1 rules above remain intact. */
+.section{padding:16px 0 24px}.section-head{margin:0}.sh{margin-bottom:16px}
+.sh-action:focus-visible,.sh-icon:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toolbar button{font-family:inherit;font-size:12px;font-weight:700}.toolbar .active{background:var(--soft);color:var(--onsoft);border-color:var(--accent)}
+.toolbar .stretch{margin-left:auto}.toolbar .group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.toolbar .group-name{font-size:11px;font-weight:700;color:var(--muted)}
+.preview-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding:2px 0}.preview-tabs button{background:transparent;color:var(--muted);border:1px solid var(--edge);border-radius:99px;padding:10px 12px;white-space:nowrap;font-size:12px;font-weight:700;min-height:42px}.preview-tabs button.active{background:var(--soft);color:var(--onsoft);border-color:var(--accent)}
+.device{max-width:650px}.device.phone{max-width:375px}.preview-frame{background:var(--surface);padding:17px;border:1px solid var(--edge);border-radius:17px;min-width:0}
+.device-label{margin:10px 0 12px}.section{padding:0 0 10px;border:0}.sh-copy{min-width:0}.sh-action{font-family:inherit}.sh-action span{max-width:100%}
+.list-item{min-height:67px}.list-item.has-leading.has-trailing{grid-template-columns:56px minmax(0,1fr) auto;gap:9px}
+.item-leading.date{border:1px solid var(--edge);border-radius:10px;padding:6px 3px;width:50px;background:var(--bg);min-height:51px}
+.item-leading.date .month{font-size:10px}.item-leading.date .day{font-size:18px}
+.item-main{min-width:0}.item-title{font-size:13px;line-height:1.4}.item-sub{font-size:11px;line-height:1.5;margin-top:4px}.item-support{font-size:10px;margin-top:4px}
+.item-trailing{align-items:flex-start;align-self:center}.trailing-stack{gap:3px}.trailing-stack .value{font-size:12px;font-weight:750}.trailing-stack .meta{font-size:10px}.canceled{opacity:.62}.canceled .item-title{text-decoration:line-through}
+.label-status{display:inline-block;margin-top:5px;padding:3px 6px;border:1px solid var(--edge);border-radius:6px;font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.25px}
+.label-status.cancel{color:var(--negative);border-color:var(--negative)}
+.empty{padding:28px 14px}.empty strong{display:block;color:var(--ink);margin-bottom:5px;font-size:13px}.empty p{margin:0;font-size:12px;line-height:1.55}
+.sample-summary{margin-top:12px;border-top:1px solid var(--edge);padding-top:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:var(--muted)}
+.sample-summary strong{color:var(--ink);font-size:12px}.legend{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.chip{font-size:10px;font-weight:750;border:1px solid var(--edge);border-radius:6px;padding:4px 6px;color:var(--muted)}
+.system-note{margin-top:17px;padding:13px;border:1px solid var(--edge);border-radius:13px;font-size:11px;line-height:1.7;color:var(--muted)}.system-note strong{color:var(--ink)}
+.dialog-backdrop{position:fixed;inset:0;z-index:30;background:#0007;display:grid;align-items:end;justify-items:center}.dialog-backdrop[hidden]{display:none}.dialog{background:var(--surface);color:var(--ink);border-radius:18px 18px 0 0;padding:22px;width:min(100%,500px);box-shadow:0 -10px 30px #0002}.dialog h2{margin:0 0 10px;font-size:20px}.dialog p{font-size:13px;line-height:1.6;color:var(--muted);margin:6px 0}.dialog button{margin-top:16px;background:var(--soft);color:var(--onsoft);border:0;border-radius:9px;padding:12px;width:100%;font-weight:750;font-size:14px;min-height:44px}
+.info-line{color:var(--muted);font-size:11px;line-height:1.7;margin:10px 0 0}
+@media(max-width:390px){.preview-frame{padding:13px}.list-item.has-leading.has-trailing{grid-template-columns:49px minmax(0,1fr) auto;gap:7px}.item-leading.date{width:47px}.item-title{font-size:12px}.item-sub{font-size:10px}.trailing-stack .value{font-size:11px}.sh-title{font-size:17px}.sh-sub{font-size:12px}}
+</style></head><body><main>
+<h1>🏀 ScheduleList V1</h1>
+<p class="intro">Composite component preview • <strong>Section V1</strong> (required title and subtitle, optional action) + <strong>List V1</strong> (event rows only). This is a design preview using illustrative events.</p>
+<div class="toolbar" aria-label="Preview settings">
+<div class="group"><span class="group-name">Theme</span><button id="theme" type="button">☀️ Day</button></div>
+<div class="group"><span class="group-name">Width</span><button id="width" type="button">📱 iPhone</button></div>
+<div class="group"><label><input type="checkbox" id="dividers" checked> Row dividers</label></div>
+</div>
+<div class="preview-tabs" role="tablist" aria-label="ScheduleList examples">
+<button role="tab" aria-selected="true" class="active" type="button" data-view="home">Home Court · Coming Up</button>
+<button role="tab" aria-selected="false" type="button" data-view="schedule">Schedule · Upcoming Events</button>
+<button role="tab" aria-selected="false" type="button" data-view="empty">No Events</button>
+</div>
+<div class="device phone" id="device">
+<p class="device-label" id="deviceLabel">iPhone portrait · Day theme</p>
+<div class="preview-frame">
+<section class="section" data-component="SectionV1" aria-labelledby="sectionTitle">
+<header class="sh" data-component="SectionHeader"><div class="sh-copy"><h2 class="sh-title" id="sectionTitle">Coming Up</h2><p class="sh-sub" id="sectionSubtitle">What's next on your journey.</p></div>
+<button id="sectionAction" class="sh-action" type="button" aria-label="View all scheduled events">View All <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></header>
+<div class="section-content" data-component="SectionContent"><div class="list dividers" role="list" data-component="ListV1" id="eventsList"></div></div>
+</section>
+<div class="sample-summary"><strong id="countLabel">3 upcoming events</strong><span id="sortLabel">Earliest first</span></div>
+</div>
+<p class="info-line">Tap an event to inspect event details. Event rows have <strong>no navigation arrows</strong> and preserve the approved List V1 column layout.</p>
+<div class="sample-controls" id="sampleControls"><button id="toggleCanceled" type="button">Show canceled events</button><button id="clearDemo" type="button">Simulate empty</button><button id="restoreDemo" type="button">Restore sample events</button></div>
+<div class="system-note"><strong>Composition:</strong> Section V1 owns the header and required subtitle; List V1 owns item spacing, date / main / time columns and dividers. ScheduleList V1 supplies event records, sorting, limits, status and click behavior. Sample events only; no live calendar connection.</div>
+</div>
+<div id="modal" class="dialog-backdrop" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><h2 id="modalTitle"></h2><div id="modalBody"></div><button type="button" id="closeModal">Close</button></div></div>
+</main><script>
+const $=id=>document.getElementById(id);
+const data=[
+ {id:'a',date:'2026-11-12',time:'18:00',end:'19:30',title:'Team Practice',place:'West Essex High School',activity:'Basketball',source:'Team Calendar',state:'upcoming'},
+ {id:'b',date:'2026-11-14',time:'10:00',end:'11:30',title:'Basketball Game',place:'Away Game · Opponent TBD',activity:'Game',source:'Team Calendar',state:'upcoming'},
+ {id:'c',date:'2026-11-23',time:'15:00',end:'17:00',title:'Basketball Tryouts',place:'West Essex High School',activity:'Tryouts',source:'Manual Entry',state:'upcoming'},
+ {id:'d',date:'2026-11-25',time:'18:30',end:'19:30',title:'Skills Training',place:"I'm Possible Training",activity:'Training',source:'Manual Entry',state:'upcoming'},
+ {id:'e',date:'2026-11-28',time:'11:00',end:'12:30',title:'Basketball Tournament',place:'TBD · Tournament',activity:'Tournament',source:'Team Calendar',state:'upcoming'},
+ {id:'f',date:'2026-11-20',time:'17:00',end:'18:30',title:'Open Gym',place:'School Gymnasium',activity:'Practice',source:'Team Calendar',state:'canceled'}
+];
+let view='home',theme='day',phone=true,showCanceled=false,simulateEmpty=false;
+const mon=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const dateObj=d=>new Date(d+'T12:00:00');
+const formatTime=t=>{let [h,m]=t.split(':').map(Number);return (h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')};
+const dayName=d=>new Intl.DateTimeFormat('en-US',{weekday:'long'}).format(dateObj(d));
+function node(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el}
+function eventRow(e){
+ const row=node('div','list-item has-leading has-trailing');row.setAttribute('role','listitem');row.dataset.eventId=e.id;if(e.state==='canceled')row.classList.add('canceled');
+ const tap=node('button','row-hit');tap.type='button';tap.setAttribute('aria-label','Open '+e.title+' event details');tap.dataset.action=e.id;
+ const date=node('div','item-leading date');date.append(node('span','month',mon[Number(e.date.slice(5,7))-1]),node('span','day',String(Number(e.date.slice(8,10)))));
+ const main=node('div','item-main');main.append(node('div','item-title',e.title),node('div','item-sub',e.place),node('div','item-support',dayName(e.date)));
+ if(e.state==='canceled')main.append(node('span','label-status cancel','Canceled'));
+ const trailing=node('div','item-trailing'),stack=node('div','trailing-stack');stack.append(node('span','value',formatTime(e.time)));if(e.state==='canceled')stack.append(node('span','meta','Canceled'));trailing.append(stack);
+ row.append(tap,date,main,trailing);return row;
+}
+function render(){
+ const configs={home:{title:'Coming Up',sub:"What's next on your journey.",limit:3,action:'View All'},schedule:{title:'Upcoming Events',sub:'Your schedule. Your commitments.',limit:Infinity,action:'Filter'},empty:{title:'Coming Up',sub:"What's next on your journey.",limit:3,action:'View All'}};
+ const config=configs[view];$('sectionTitle').textContent=config.title;$('sectionSubtitle').textContent=config.sub;
+ const action=$('sectionAction');action.firstChild.nodeValue=config.action+' ';action.setAttribute('aria-label',config.action==='View All'?'View all scheduled events':'Filter schedule events');
+ const rows=simulateEmpty||view==='empty'?[]:data.filter(e=>showCanceled||e.state!=='canceled').sort((a,b)=>(a.date+'T'+a.time).localeCompare(b.date+'T'+b.time)).slice(0,config.limit);
+ const root=$('eventsList');root.replaceChildren();root.classList.toggle('dividers',$('dividers').checked);
+ if(!rows.length){const empty=node('div','empty');empty.append(node('strong',null,'No upcoming events'),node('p',null,'Your next opportunity starts here.'));root.append(empty)}else rows.forEach(e=>root.append(eventRow(e)));
+ const upcoming=rows.filter(e=>e.state!=='canceled').length;$('countLabel').textContent=rows.length?rows.length+' event'+(rows.length===1?'':'s')+' shown':'No scheduled events';$('sortLabel').textContent='Earliest first';
+ document.querySelectorAll('[data-view]').forEach(t=>{const active=t.dataset.view===view;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active))});
+ $('toggleCanceled').textContent=showCanceled?'Hide canceled events':'Show canceled events';$('theme').textContent=theme==='day'?'☀️ Day':'🌙 Courtside';$('width').textContent=phone?'📱 iPhone':'↔️ Wide';
+ $('deviceLabel').textContent=(phone?'iPhone portrait':'Wider / landscape')+' · '+(theme==='day'?'Day':'Courtside')+' theme';
+}
+document.querySelectorAll('[data-view]').forEach(t=>t.addEventListener('click',()=>{view=t.dataset.view;simulateEmpty=false;render()}));
+$('theme').addEventListener('click',()=>{theme=theme==='day'?'courtside':'day';document.documentElement.dataset.theme=theme;render()});
+$('width').addEventListener('click',()=>{phone=!phone;$('device').classList.toggle('phone',phone);render()});
+$('dividers').addEventListener('change',render);
+$('toggleCanceled').addEventListener('click',()=>{showCanceled=!showCanceled;render()});
+$('clearDemo').addEventListener('click',()=>{simulateEmpty=true;render()});
+$('restoreDemo').addEventListener('click',()=>{simulateEmpty=false;if(view==='empty')view='home';render()});
+$('sectionAction').addEventListener('click',()=>{if(view==='schedule'){showCanceled=!showCanceled;render()}else{view='schedule';simulateEmpty=false;render()}});
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-action]');if(!b)return;const record=data.find(e=>e.id===b.dataset.action);if(!record)return;const body=$('modalBody');body.replaceChildren();$('modalTitle').textContent=record.title;for(const [label,value] of [['Date',dayName(record.date)+', '+record.date],['Time',formatTime(record.time)+' – '+formatTime(record.end)],['Location',record.place],['Activity',record.activity],['Source',record.source],['Status',record.state]])body.append(node('p',null,label+': '+value));$('modal').hidden=false;$('closeModal').focus()});
+function closeModal(){$('modal').hidden=true}
+$('closeModal').addEventListener('click',closeModal);$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});window.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+render();
+</script></body></html>
