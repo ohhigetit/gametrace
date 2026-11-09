@@ -2769,6 +2769,54 @@ html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta{
  width:100%;justify-content:center!important;text-align:center!important;
 }
+</style><style id="up1-game-details-css">/* UniversalPage Parent V1 – Game Details integration, page-scoped */
+html[data-theme] #app.gt-app #statsContent>.up1-page{display:flex;flex-direction:column;min-height:100%;min-width:0}
+html[data-theme] #app.gt-app #statsContent .up1-header{padding:12px 0 20px;flex:0 0 auto}
+html[data-theme] #app.gt-app #statsContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}
+html[data-theme] #app.gt-app #statsContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #statsContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #statsContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #statsContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important;min-width:0}
+html[data-theme] #app.gt-app #statsContent .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #statsContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;text-align:left!important;max-width:100%!important;white-space:normal!important}
+html[data-theme] #app.gt-app #statsContent .up1-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #statsContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #statsContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #statsContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #statsContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #statsContent .up1-footer{flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #statsContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #statsContent .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #statsContent :is(.up1-back,.up1-action):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:365px){html[data-theme] #app.gt-app #statsContent .up1-action{font-size:10px;flex-direction:column;gap:2px;min-height:57px}html[data-theme] #app.gt-app #statsContent .up1-actions{gap:5px}html[data-theme] #app.gt-app #statsContent .up1-footer span{letter-spacing:.5px}}
+
+/* Game Details header: left navigation, compact title/subtitle, right edit action. */
+html[data-theme] #app.gt-app #statsContent .up1-heading{
+ grid-template-columns:34px minmax(0,1fr) 40px!important;
+ gap:9px!important;align-items:start!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-title>span{
+ display:flex;align-items:center;justify-content:center;flex:0 0 25px;
+}
+html[data-theme] #app.gt-app #statsContent .up1-title svg{
+ display:block!important;width:25px!important;height:25px!important;max-width:25px!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-heading>[data-component="PageHeaderAction"]{
+ width:40px!important;min-width:40px!important;max-width:40px!important;
+ height:44px!important;min-height:44px!important;padding:9px!important;
+ margin:0!important;display:grid!important;place-items:center!important;
+ border-radius:9px!important;color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-heading>[data-component="PageHeaderAction"] svg{
+ display:block!important;width:20px!important;height:20px!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-content{
+ min-height:140px;
+}
+html[data-theme] #app.gt-app #statsContent .up1-footer span{
+ white-space:normal!important;
+}
+html[data-theme] #app.gt-app #statsContent>.up1-page{width:100%;max-width:100%;overflow:hidden}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
