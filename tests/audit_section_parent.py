@@ -4,3 +4,8 @@ for token in ["function gtTrainingSummaryBannerSectionV8(", "gtTrainingSummaryBa
  print(token, s.count(token))
  i=s.find(token)
  if i>=0: print(repr(s[max(0,i-140):i+850]))
+
+for token in ["function gtTrainingsRecentAllTypesV1(", "function gtTrainingSummaryBannerSectionV8(", "gttsv2-section-head", "Recent Trainings"]:
+ print("AUDIT",token,"count",s.count(token))
+ pos=s.find(token)
+ if pos>=0: print(s[max(0,pos-120):pos+2400][:2400])
