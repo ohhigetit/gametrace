@@ -1,0 +1,23 @@
+name: Training Detail Banner V1 component review
+on:
+  push:
+    branches: [review/training-detail-banner-v1-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  component-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/gt-training-detail-test jsdom@24 --no-save --no-package-lock
+      - name: Verify Training Detail inheritance and Games banner parity
+        env:
+          NODE_PATH: /tmp/gt-training-detail-test/node_modules
+        run: node tests/training-detail-banner-reuse.cjs
