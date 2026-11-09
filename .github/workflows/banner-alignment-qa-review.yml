@@ -1,0 +1,50 @@
+name: Training banner alignment QA build
+on:
+  push:
+    branches:
+      - review/trainings-summary-v8-20261109
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build-and-static-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit actual Section V1 reuse
+        run: python3 tests/audit_section_parent.py
+      - name: Build full standalone pending app QA
+        run: python3 tests/build_banner_alignment_qa.py
+      - name: Install DOM regression runtime
+        run: npm install --no-save --no-package-lock jsdom@24
+      - name: Verify real Section V1 constructor reuse and exact V8 DOM
+        run: node tests/training-section-parent-runtime.cjs
+      - name: Preserve Training V8 and regression-check other banners
+        shell: python
+        run: |
+          from pathlib import Path
+          s=Path('tests/GameTrace_Trainings_BannerAlignment_QA.html').read_text()
+          baseline=Path('tests/GameTrace_Trainings_SummaryV8_FirstSection_TEST.html').read_text()
+          assert len(s)>len(baseline)
+          for token in ['gttsv2-banner','gttsv2-skill-tag','gttsv2-achievement',
+                        'gtcompact-team','gtcompact-vs','gtcompact-score',
+                        'scoreboard','Show Details','Hide Details']:
+              assert token in s, 'Missing banner contract: '+token
+          assert '#e6efe8' in s.lower(), 'Approved soft-green V8 color missing'
+          assert 'background:transparent!important' in s.replace(' ','').lower(), 'Approved chip transparency missing'
+          assert 'gt-global-banner-cell-alignment-qa' in s
+          print('PASS: Training, Game Summary, Scoreboard banner signatures retained')
+      - name: Publish QA HTML in review branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/GameTrace_Trainings_BannerAlignment_QA.html
+          if ! git diff --cached --quiet; then
+            git commit -m "QA: publish pending Trainings banner alignment HTML"
+            git push origin HEAD:review/trainings-summary-v8-20261109
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GameTrace_Trainings_BannerAlignment_QA
+          path: tests/GameTrace_Trainings_BannerAlignment_QA.html
+          retention-days: 14

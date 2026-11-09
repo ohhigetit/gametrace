@@ -1,0 +1,20 @@
+name: V46.9.5 Session QA
+on:
+  push:
+    branches: [v46-9-5-session-integration]
+  workflow_dispatch:
+jobs:
+  session-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated test dependencies
+        run: npm install --no-save --no-package-lock --prefix /tmp/gt495-ui jsdom@24
+      - name: Run V46.9.5 Session checks
+        env:
+          NODE_PATH: /tmp/gt495-ui/node_modules
+        run: node tests/v495-session-ui.cjs

@@ -1,0 +1,23 @@
+name: Training Details Recent Trainings review
+on:
+  push:
+    branches: [review/training-details-recent-trainings-v1-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integration-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/gt-training-details-recent jsdom@24 --no-save --no-package-lock
+      - name: Check last ten sessions, shared ActivityList, navigation and unchanged approved pages
+        env:
+          NODE_PATH: /tmp/gt-training-details-recent/node_modules
+        run: node tests/training-details-recent-trainings-integration.cjs

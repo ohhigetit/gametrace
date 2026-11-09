@@ -57,3 +57,67 @@ const sessionBefore44=renderSessionDetail;renderSessionDetail=function(){session
 const gameFormBefore44=gameForm;gameForm=function(...args){const r=gameFormBefore44(...args);if(ui.screen==='setup'){const form=$('gameForm'),player=[...form?.querySelectorAll('input')||[]].find(n=>n.closest('label')?.firstChild?.textContent==='Player name');if(player&&!player.value)player.value=playerContext.player||'Georgina';stylePage43($('setupContent'),'setup')}return r};
 
 const verifyBefore42=verifyFamilyMembership;verifyFamilyMembership=async function(){const ok=await verifyBefore42();if(ok)try{const feature=await familyRpc('gt_cloud_features',{});scheduleCloud41=feature?.version>=7}catch{}return ok};
+
+
+/* Scoreboard Option 1: restore the V42 Your Games summary and keep every
+ * game-table statistic in one fixed-width, no-sideways-scroll table.
+ * Display formatting does not modify game/event storage or calculations.
+ */
+function scoreboardWhole43(value){
+  return String(value ?? '—').replace(/-?\d+\.\d+(?=%|\b)/g,token=>{
+    const number=Number(token);
+    return Number.isFinite(number)?String(Math.round(number)):token;
+  });
+}
+function scoreboardCompactTable43(){
+  if(ui.screen!=='reports')return;
+  const root=$('reportsContent'),table=root?.querySelector('.reports-table');
+  if(!table||!table.tHead?.rows?.length)return;
+  const header=table.tHead.rows[0],count=header.cells.length;
+  const width=count===12
+    ? [27,7,7,7,7,7,6,6,6,6,6,8]
+    : [Math.max(24,100-(count-1)*7),...Array(count-1).fill(Math.min(7,76/(count-1)))];
+  const sum=width.reduce((a,b)=>a+b,0);
+  // Colgroup is the single source of truth for header and row alignment.
+  const cols=document.createElement('colgroup');
+  width.forEach(n=>cols.append(el('col',{style:'width:'+(n/sum*100).toFixed(3)+'%'})));
+  table.querySelector('colgroup')?.remove();
+  table.prepend(cols);
+  table.classList.add('v43-full-width-table');
+  table.closest('.reports-table-scroll')?.classList.add('v43-no-side-scroll');
+  // Tighten only the player table; summary design, buttons and collapsed stats stay intact.
+  for(const row of table.querySelectorAll('tbody tr,tfoot tr')){
+    for(const cell of row.cells){
+      if(cell.cellIndex===0)continue;
+      const leaves=cell.querySelectorAll('span,small');
+      if(leaves.length){
+        for(const node of leaves)if(!node.children.length)node.textContent=scoreboardWhole43(node.textContent.trim());
+      }else if(!cell.children.length)cell.textContent=scoreboardWhole43(cell.textContent.trim());
+    }
+  }
+  const banner=root.querySelector('.scoreboard-banner');
+  if(banner){
+    banner.classList.remove('v43-scoreboard-all');
+    for(const node of banner.querySelectorAll('.scoreboard-banner-metrics strong,[data-summary-all-stats] td'))
+      if(!node.children.length)node.textContent=scoreboardWhole43(node.textContent.trim());
+    // Totals/Average redraw the original summary; preserve its exact structure and collapse state.
+    for(const toggle of banner.querySelectorAll('[data-mode]')){
+      if(toggle.dataset.scoreboardInteger43)continue;
+      toggle.dataset.scoreboardInteger43='yes';
+      toggle.addEventListener('click',()=>{
+        queueMicrotask(()=>{
+          for(const node of banner.querySelectorAll('.scoreboard-banner-metrics strong,[data-summary-all-stats] td'))
+            if(!node.children.length)node.textContent=scoreboardWhole43(node.textContent.trim());
+        });
+      });
+    }
+  }
+  // Recreate the optional sticky header after changing table geometry.
+  if(typeof reportsStickyCleanup==='function'){reportsStickyCleanup();reportsStickyCleanup=null;}
+  if(typeof installReportsHeader==='function'){
+    reportsStickyCleanup=installReportsHeader(root);
+    root.querySelector('.reports-floating-header .reports-table')?.classList.add('v43-full-width-table');
+  }
+}
+const reportsBeforeScoreboard43=renderReports;
+renderReports=function(){reportsBeforeScoreboard43();scoreboardCompactTable43()};

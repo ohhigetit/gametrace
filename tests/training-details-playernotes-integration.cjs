@@ -1,0 +1,121 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const cp=require('node:child_process');
+const {JSDOM}=require('jsdom');
+const prior='9fd75525934b3af6de8693d029625bc4bb21bf92';
+const read=(ref,path)=>cp.execFileSync('git',['show',ref+':'+path],{encoding:'utf8',maxBuffer:17*1024*1024});
+const html=fs.readFileSync('index.html','utf8');
+const lib=fs.readFileSync('components/game-trace-components.js','utf8');
+const css=fs.readFileSync('components/player-notes-training-v1.css','utf8');
+const previousHtml=read(prior,'index.html'),previousLib=read(prior,'components/game-trace-components.js');
+assert(html.includes(lib),'Full app must embed canonical reusable components library');
+const style='<style id="gt-training-detail-playernotes-v1-css">\n'+css+'\n</style>';
+assert(html.includes(style),'Full app must embed approved, scoped Player Notes style');
+assert(css.includes('#sessionContent'),'Notes styles must target Training Details');
+assert(!css.includes('#statsContent'),'Notes styles must not change Game Details');
+assert(!css.includes('#trainingContent'),'Notes styles must not change Trainings overview');
+assert(css.includes('font-size:18px!important'),'Approved 18px answer size must remain');
+assert(css.includes('background:linear-gradient(135deg,#f3f7f4,#e6efe8)'),'Approved notebook background');
+const begin='/* TRAINING_DETAILS_UNIVERSAL_SHELL_V1';
+const end='/* GT_TRAININGS_STEP1_END */';
+const block=h=>{const i=h.indexOf(begin),j=h.indexOf(end,i);assert(i>0&&j>i);return h.slice(i,j);};
+const adapter=block(html),oldAdapter=block(previousHtml);
+assert.equal(html.replace(style,'').replace(lib,previousLib).replace(adapter,oldAdapter),previousHtml,
+  'All other application content, Game Details, Trainings and page navigation must remain byte-identical');
+assert(adapter.includes('content:[trainingSummary,sessionNotes]'),'Notes must render after approved Training Summary');
+assert(adapter.includes('Components.PlayerNotesSectionV1('),'Training Details must reuse the canonical notes section');
+assert(adapter.includes("if(ui.screen!=='session')return"),'Do not alter Trainings overview');
+const w=new JSDOM('<!doctype html><html><body><div id="sessionContent"></div><div id="trainingContent">Existing Trainings overview</div></body></html>',{url:'https://test.invalid/',runScripts:'outside-only'}).window;
+w.eval(lib);
+const Cmp=w.GameTraceComponents;
+for(const name of ['UniversalPageV1','PageHeaderV1','Section','TrainingDetailBannerSectionV1','PlayerNotesV1','PlayerNotesSectionV1']){
+  assert.equal(typeof Cmp[name],'function',name+' must be exported');
+}
+const training={
+  id:'s-1',name:'Ball Handling and Finishing',type:'training',date:'2026-11-09',
+  minutes:90,tags:['Footwork','Finishing'],feedback:{see:'I saw a better driving angle',became:'',more:'',well:'Earlier answer'}
+};
+w.db={trainingSessions:[training]};
+w.sessionUI={id:'s-1',returnTo:'training'};w.ui={screen:'session'};
+w.__log=[];
+w.navigate=where=>w.__log.push('back:'+where);
+w.trainingForm=id=>w.__log.push('edit:'+id);
+w.announce=value=>w.__log.push('announce:'+value);
+w.up1Icon=name=>{const icon=w.document.createElement('span');icon.dataset.icon=name;return icon;};
+w.fingerprint=record=>JSON.stringify(record);
+w.C={now:()=> '2026-11-09T15:00:00Z'};
+w.T={feedback:values=>({...values})};
+w.trainingCommit=change=>{const copy=JSON.parse(JSON.stringify(w.db));change(copy);w.db=copy;};
+w.renderSessionDetail=()=>{
+  const h=w.document.createElement('header'),edit=w.document.createElement('button');
+  edit.className='gt465-header-edit'; edit.textContent='Edit';
+  edit.addEventListener('click',()=>w.__log.push('original-edit'));
+  h.append(edit);
+  w.document.getElementById('sessionContent').replaceChildren(h);
+};
+w.eval(adapter);
+const untouched=w.document.getElementById('trainingContent').outerHTML;
+w.renderSessionDetail();
+let page=w.document.querySelector('#sessionContent [data-page="training-details"]');
+assert(page,'Individual Training Details page should render');
+assert.equal(page.querySelector('h1').textContent,'Training Details');
+const sections=[...page.querySelectorAll('.up1-content > section')];
+assert.equal(sections.length,2,'Exactly Training Summary and Player Notes sections');
+assert.equal(sections[0].dataset.component,'TrainingDetailBannerSectionV1');
+assert.equal(sections[1].dataset.component,'PlayerNotesSectionV1');
+assert.equal(sections[1].dataset.parent,'SectionV1');
+assert.equal(sections[1].querySelector('h2').textContent,"Player's Notes");
+assert.equal(sections[1].querySelector('.gt-pns-heading p').textContent,'The work, in my own words.');
+assert(!sections[1].querySelector('.gtc-section-action'),'No extra action in notes section');
+const notes=sections[1].querySelector('[data-component="PlayerNotesV1"]');
+assert(notes,'Canonical PlayerNotesV1 child required');
+assert.equal(notes.dataset.parent,'PlayerNotesSectionV1');
+assert.equal(notes.querySelectorAll('.pn-item').length,3);
+assert.equal(notes.querySelector('.pn-item[data-note-key="see"] .pn-answer').textContent,'“I saw a better driving angle”');
+assert(notes.querySelector('.pn-item[data-note-key="became"] .pn-answer').classList.contains('pn-empty'));
+assert(notes.querySelector('.pn-legacy'),'Older reflection notes should stay accessible');
+assert.equal(w.document.getElementById('trainingContent').outerHTML,untouched,'Trainings page unaffected');
+assert.equal(w.db.trainingSessions[0].feedback.see,'I saw a better driving angle','Rendering must not mutate saved records');
+async function checkSave(){
+  const item=notes.querySelector('.pn-item[data-note-key="became"]');
+  item.querySelector('.pn-answer').click();
+  const textarea=item.querySelector('textarea'),form=item.querySelector('form');
+  assert(textarea&&form,'Tap should open inline editor');
+  textarea.value='I became more decisive';
+  form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(w.db.trainingSessions[0].feedback.became,'I became more decisive',
+    'Saving a note must write back to the existing training session');
+  page=w.document.querySelector('#sessionContent [data-page="training-details"]');
+  assert.equal(page.querySelector('.pn-item[data-note-key="became"] .pn-answer').textContent,'“I became more decisive”');
+  assert.equal(page.querySelector('.pn-item[data-note-key="more"] .pn-answer').classList.contains('pn-empty'),true);
+  assert.equal(w.document.getElementById('trainingContent').outerHTML,untouched);
+  page.querySelector('.gt465-header-edit').click();
+  page.querySelector('.up1-back').click();
+  assert(w.__log.includes('original-edit'));assert(w.__log.includes('back:training'));
+  assert(w.__log.includes('announce:Player note saved'));
+  w.ui.screen='training';
+  const before=w.document.getElementById('sessionContent').outerHTML;
+  w.eval('gtTrainingDetailsUniversalV1()');
+  assert.equal(w.document.getElementById('sessionContent').outerHTML,before,'Do not touch Training Details when on Trainings');
+  w.ui.screen='session';
+  const snapshot=w.db.trainingSessions[0].feedback;
+  w.db.trainingSessions=[{...w.db.trainingSessions[0],deletedAt:'2026-11-09'}];
+  w.renderSessionDetail();
+  assert(!w.document.querySelector('#sessionContent .up1-page'),'Deleted training uses existing fallback');
+  assert.strictEqual(snapshot.became,'I became more decisive');
+  w.close();
+  const beforeGame=new JSDOM('<!doctype html><html><body></body></html>',{runScripts:'outside-only'}).window;
+  beforeGame.eval(previousLib);
+  const afterGame=new JSDOM('<!doctype html><html><body></body></html>',{runScripts:'outside-only'}).window;
+  afterGame.eval(lib);
+  const cfg={gameId:'game',team:'Knights',opponent:'Rivals',score:['55','53'],contextDate:'Nov 9',badgeText:'WIN',stats:{pts:14,reb:5,ast:3,stl:2}};
+  const render=lib=>lib.GameBannerSectionV1({title:'Game Summary',banner:lib.GameBannerV2(cfg)});
+  assert.equal(render(beforeGame.GameTraceComponents).outerHTML,render(afterGame.GameTraceComponents).outerHTML,
+    'Approved game banners must remain identical');
+  console.log('PASS: approved Player Notes notebook styles and reusable SectionV1/PlayerNotesV1 inheritance');
+  console.log('PASS: reflection content and save to Training session with legacy notes preserved');
+  console.log('PASS: Training Summary, Trainings overview, Game Details and Game banners unchanged');
+}
+checkSave().catch(error=>{console.error(error);process.exitCode=1;});
