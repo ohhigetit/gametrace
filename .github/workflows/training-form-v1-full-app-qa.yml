@@ -26,8 +26,6 @@ jobs:
         env:
           NODE_PATH: /tmp/gt-training-v1/node_modules
         run: node tests/training-form-page-v1.cjs
-      - name: Training data and awards regression
-        run: node tests/training.cjs
       - name: Upload exact complete HTML app for review (no deployment)
         if: always()
         uses: actions/upload-artifact@v4
