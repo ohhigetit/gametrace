@@ -1,0 +1,24 @@
+name: Trainings Summary V8 review
+on:
+  push:
+    branches: [review/trainings-summary-v8-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  banner-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated test DOM dependencies
+        run: npm install --prefix /tmp/gt-summary-v8 jsdom@24 --no-save --no-package-lock
+      - name: Verify governance contracts
+        run: node tests/governance.cjs
+      - name: Verify approved V8 banner and data adapter
+        env:
+          NODE_PATH: /tmp/gt-summary-v8/node_modules
+        run: node tests/trainings-summary-v8.cjs
