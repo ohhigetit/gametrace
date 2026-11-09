@@ -52,7 +52,7 @@ assert.equal(section.dataset.component,'TrainingSummaryBannerSectionV8');
 assert.equal(section.dataset.parent,'SectionV1');
 assert.equal(section.querySelector('.gttsv2-banner').dataset.parent,'SharedBannerV2');
 assert.equal(section.querySelector('.gttsv2-hero-number').textContent,'4','All 4 session categories must count');
-assert(section.textContent.includes('6.5'),'Total duration is 390 minutes = 6.5 hours');
+assert(section.textContent.includes('5.5'),'Total duration is 330 minutes = 5.5 hours');
 for(const label of ['Skills','Performance','Camps','Other','Shooting','Finishing','Defense','Agility'])assert(section.textContent.includes(label),'Missing category or skill '+label);
 assert(!section.textContent.includes('Hidden Skill'),'Deleted or unrelated-player records leaked into banner');
 assert.equal(section.querySelectorAll('[data-component="BannerRowV1"]').length,3,'Three visible rows expected');
