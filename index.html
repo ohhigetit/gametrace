@@ -2589,56 +2589,61 @@ html[data-theme] #app.gt-app #homeContent .up1-footer{display:flex;justify-conte
 html[data-theme] #app.gt-app #homeContent .gt-games-empty-stage{min-height:190px}
 
 /* Games migration step 2: approved GameBanner V1, scoped to Games only. */
-html[data-theme] #app.gt-app #homeContent .gtgames-featured{padding:5px 0 18px;min-width:0}
-html[data-theme] #app.gt-app #homeContent .gtgames-featured-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 13px}
-html[data-theme] #app.gt-app #homeContent .gtgames-featured-heading h2{font-size:17px!important;line-height:1.25;font-weight:780;margin:0!important;color:var(--gt-ink)}
-html[data-theme] #app.gt-app #homeContent .gtgames-banner{border:1px solid #cbd3c8;border-radius:14px;background:#fff;overflow:hidden;min-width:0;color:#172119}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-banner{background:#1b1e1c;color:#f0f4ef;border-color:#3b453d}
-html[data-theme] #app.gt-app #homeContent .gtgames-teamrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-html[data-theme] #app.gt-app #homeContent .gtgames-team{min-width:0;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;justify-content:center;padding:18px 10px;overflow-wrap:anywhere}
-html[data-theme] #app.gt-app #homeContent .gtgames-team+.gtgames-team{border-left:1px solid #e2e7df}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-team+.gtgames-team{border-color:#313a33}
-html[data-theme] #app.gt-app #homeContent .gtgames-label{font-size:10px;font-weight:800;letter-spacing:.75px;text-transform:uppercase;color:#087d42;line-height:1.3}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-label{color:#19c66a}
-html[data-theme] #app.gt-app #homeContent .gtgames-teamname{font-size:clamp(14px,3.5vw,19px);font-weight:800;line-height:1.23;min-height:2.4em;display:flex;align-items:center;justify-content:center}
-html[data-theme] #app.gt-app #homeContent .gtgames-teamscore{font-size:clamp(36px,9vw,52px);font-weight:850;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums}
-html[data-theme] #app.gt-app #homeContent .gtgames-context{border-top:1px solid #e2e7df;padding:10px 12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#59655b}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-context{border-color:#313a33;color:#a4b0a5}
-html[data-theme] #app.gt-app #homeContent .gtgames-badge{display:inline-flex;align-items:center;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:850;background:#e3efe5;color:#174c2d}
-html[data-theme] #app.gt-app #homeContent .gtgames-badge.live{background:#fff0d9;color:#965400}
-html[data-theme] #app.gt-app #homeContent .gtgames-badge.loss{background:#f9e7e7;color:#a23b3b}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-badge{background:#284733;color:#e5f6e7}
-html[data-theme] #app.gt-app #homeContent .gtgames-progress{height:5px;border-radius:99px;background:#edf0e9;margin:0 14px 10px;overflow:hidden}
-html[data-theme] #app.gt-app #homeContent .gtgames-progress>span{display:block;height:100%;background:#087d42}
-html[data-theme] #app.gt-app #homeContent .gtgames-statsrow{border-top:1px solid #e2e7df;padding:14px 12px 15px}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-statsrow{border-color:#313a33}
-html[data-theme] #app.gt-app #homeContent .gtgames-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:7px}
-html[data-theme] #app.gt-app #homeContent .gtgames-stat{text-align:center;min-width:0;display:flex;flex-direction:column;gap:4px}
-html[data-theme] #app.gt-app #homeContent .gtgames-stat strong{font-size:clamp(20px,5vw,27px);font-weight:850;line-height:1.1;font-variant-numeric:tabular-nums}
-html[data-theme] #app.gt-app #homeContent .gtgames-stat small{font-size:10px;letter-spacing:.45px;font-weight:800;color:#59655b}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-stat small{color:#a4b0a5}
-html[data-theme] #app.gt-app #homeContent .gtgames-open{width:100%;background:transparent;border:0;border-top:1px solid #e2e7df;padding:13px 14px;min-height:44px;text-align:left;font-size:12px;font-weight:750;color:#087d42}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-open{border-color:#313a33;color:#19c66a}
-html[data-theme] #app.gt-app #homeContent .gtgames-details{border-top:1px solid #cbd3c8}
-html[data-theme] #app.gt-app #homeContent .gtgames-details summary{list-style:none;min-height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:750;color:#087d42;padding:10px}
-html[data-theme] #app.gt-app #homeContent .gtgames-details summary::-webkit-details-marker{display:none}
-html[data-theme] #app.gt-app #homeContent .gtgames-details summary::after{content:'⌄';margin-left:6px}
-html[data-theme] #app.gt-app #homeContent .gtgames-details[open] summary::after{content:'⌃'}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-details{border-color:#3b453d}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-details summary{color:#19c66a}
-html[data-theme] #app.gt-app #homeContent .gtgames-secondary{background:#f2f5f0;border-top:1px solid #cbd3c8;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-secondary{background:#252c27;border-color:#3b453d}
-html[data-theme] #app.gt-app #homeContent .gtgames-detail-cell{padding:15px 12px;min-width:0;display:flex;flex-direction:column;gap:8px}
-html[data-theme] #app.gt-app #homeContent .gtgames-detail-cell+.gtgames-detail-cell{border-left:1px solid #cbd3c8}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-detail-cell+.gtgames-detail-cell{border-color:#3b453d}
-html[data-theme] #app.gt-app #homeContent .gtgames-detail{font-size:11px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px;line-height:1.5}
-html[data-theme] #app.gt-app #homeContent .gtgames-detail span{color:#59655b}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-detail span{color:#a4b0a5}
-html[data-theme] #app.gt-app #homeContent .gtgames-note{grid-column:1/-1;border-top:1px solid #cbd3c8;padding:13px 12px;font-size:11px;color:#59655b;line-height:1.5}
-html[data-theme=courtside] #app.gt-app #homeContent .gtgames-note{border-color:#3b453d;color:#a4b0a5}
-html[data-theme] #app.gt-app #homeContent .gtgames-no-game{border:1px dashed var(--gt-edge);padding:22px 15px;border-radius:12px;font-size:13px;color:var(--gt-muted)}
-@media(max-width:390px){html[data-theme] #app.gt-app #homeContent .gtgames-team{padding:15px 7px}html[data-theme] #app.gt-app #homeContent .gtgames-teamscore{font-size:36px}html[data-theme] #app.gt-app #homeContent .gtgames-stats{gap:3px}}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-featured{padding:5px 0 18px;min-width:0}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-featured-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 13px}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-featured-heading h2{font-size:17px!important;line-height:1.25;font-weight:780;margin:0!important;color:var(--gt-ink)}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-banner{border:1px solid #cbd3c8;border-radius:14px;background:#fff;overflow:hidden;min-width:0;color:#172119}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-banner{background:#1b1e1c;color:#f0f4ef;border-color:#3b453d}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-teamrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-team{min-width:0;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;justify-content:center;padding:18px 10px;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-team+.gtgames-team{border-left:1px solid #e2e7df}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-team+.gtgames-team{border-color:#313a33}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-label{font-size:10px;font-weight:800;letter-spacing:.75px;text-transform:uppercase;color:#087d42;line-height:1.3}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-label{color:#19c66a}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-teamname{font-size:clamp(14px,3.5vw,19px);font-weight:800;line-height:1.23;min-height:2.4em;display:flex;align-items:center;justify-content:center}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-teamscore{font-size:clamp(36px,9vw,52px);font-weight:850;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-context{border-top:1px solid #e2e7df;padding:10px 12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#59655b}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-context{border-color:#313a33;color:#a4b0a5}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-badge{display:inline-flex;align-items:center;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:850;background:#e3efe5;color:#174c2d}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-badge.live{background:#fff0d9;color:#965400}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-badge.loss{background:#f9e7e7;color:#a23b3b}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-badge{background:#284733;color:#e5f6e7}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-progress{height:5px;border-radius:99px;background:#edf0e9;margin:0 14px 10px;overflow:hidden}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-progress>span{display:block;height:100%;background:#087d42}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-statsrow{border-top:1px solid #e2e7df;padding:14px 12px 15px}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-statsrow{border-color:#313a33}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:7px}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-stat{text-align:center;min-width:0;display:flex;flex-direction:column;gap:4px}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-stat strong{font-size:clamp(20px,5vw,27px);font-weight:850;line-height:1.1;font-variant-numeric:tabular-nums}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-stat small{font-size:10px;letter-spacing:.45px;font-weight:800;color:#59655b}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-stat small{color:#a4b0a5}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-open{width:100%;background:transparent;border:0;border-top:1px solid #e2e7df;padding:13px 14px;min-height:44px;text-align:left;font-size:12px;font-weight:750;color:#087d42}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-open{border-color:#313a33;color:#19c66a}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details{border-top:1px solid #cbd3c8}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details summary{list-style:none;min-height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:750;color:#087d42;padding:10px}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details summary::-webkit-details-marker{display:none}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details summary::after{content:'⌄';margin-left:6px}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details[open] summary::after{content:'⌃'}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details{border-color:#3b453d}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-details summary{color:#19c66a}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-secondary{background:#f2f5f0;border-top:1px solid #cbd3c8;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-secondary{background:#252c27;border-color:#3b453d}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-detail-cell{padding:15px 12px;min-width:0;display:flex;flex-direction:column;gap:8px}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-detail-cell+.gtgames-detail-cell{border-left:1px solid #cbd3c8}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-detail-cell+.gtgames-detail-cell{border-color:#3b453d}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-detail{font-size:11px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px;line-height:1.5}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-detail span{color:#59655b}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-detail span{color:#a4b0a5}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-note{grid-column:1/-1;border-top:1px solid #cbd3c8;padding:13px 12px;font-size:11px;color:#59655b;line-height:1.5}
+html[data-theme=courtside] #app.gt-app :is(#homeContent,#courtContent) .gtgames-note{border-color:#3b453d;color:#a4b0a5}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-no-game{border:1px dashed var(--gt-edge);padding:22px 15px;border-radius:12px;font-size:13px;color:var(--gt-muted)}
+@media(max-width:390px){html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-team{padding:15px 7px}html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-teamscore{font-size:36px}html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-stats{gap:3px}}
 
+
+/* Home Court section placement only; banner appearance is shared with Games. */
+html[data-theme] #app.gt-app #courtContent .gtgames-featured[data-usage="home-court"]{
+ margin:22px 0 0;padding:0;min-width:0;
+}
 </style><style id="gtgames-filterheader-v1">
 /* Games migration Step 4: approved PageHeader + shared FilterTrigger V1 only. */
 html[data-theme] #app.gt-app #homeContent .up1-page[data-page="games"] .up1-heading{grid-template-columns:34px minmax(0,1fr) 44px;align-items:start;gap:9px}
@@ -2648,12 +2653,12 @@ html[data-theme] #app.gt-app #homeContent .up1-page[data-page="games"] .gtgames-
 html[data-theme] #app.gt-app #homeContent .up1-page[data-page="games"] .gtgames-filter-trigger .gt468-filter-active{position:absolute;right:6px;top:6px;width:7px;height:7px;background:var(--gt-accent);border-radius:99px}
 </style><style id="gtgames-homecourt-visual-parity-v1">
 /* Cross-page parity: values are copied from approved Home Court SharedBanner V2 and PageFooter V1. */
-html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner{
+html[data-theme] #app.gt-app :is(#homeContent [data-page="games"],#courtContent [data-usage="home-court"]) .gtgames-banner{
  background:linear-gradient(135deg,#f3f7f4,#e6efe8)!important;
  border-color:#cedbd2!important;
  box-shadow:none;
 }
-html[data-theme="courtside"] #app.gt-app #homeContent [data-page="games"] .gtgames-banner{
+html[data-theme="courtside"] #app.gt-app :is(#homeContent [data-page="games"],#courtContent [data-usage="home-court"]) .gtgames-banner{
  background:linear-gradient(135deg,#27352e,#202c26)!important;
  border-color:#455a4d!important;
 }
@@ -2674,14 +2679,14 @@ html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtal-icon svg[dat
 </style><style id="gt-gamebanner-v2-compact-preview">
 /* GameBanner V2: shared primary content dimensions; no second primary row. */
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row,
-html[data-theme] #app.gt-app #homeContent .gtgames-compact-primary{
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-compact-primary{
  display:grid!important;grid-template-columns:minmax(0,2fr) minmax(0,1fr)!important;align-items:stretch;
  width:100%;min-width:0;
 }
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,
-html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell{padding:14px 12px!important;min-width:0;overflow-wrap:anywhere;}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-compact-cell{padding:14px 12px!important;min-width:0;overflow-wrap:anywhere;}
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell+.gtv2-banner-cell,
-html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell+.gtgames-compact-cell{border-left:1px solid var(--gt-edge,#cbd3c8)}
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-compact-cell+.gtgames-compact-cell{border-left:1px solid var(--gt-edge,#cbd3c8)}
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{display:flex;flex-direction:column;gap:7px;align-items:flex-start;justify-content:center;text-align:left}
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{display:block;max-width:100%;font-weight:780;font-size:clamp(12px,3.2vw,16px);line-height:1.32;overflow-wrap:anywhere;letter-spacing:-.2px}
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:clamp(26px,7.7vw,39px);font-weight:840;line-height:1.12;letter-spacing:-1.1px;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -2694,7 +2699,7 @@ html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stats-gr
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat{min-width:0;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center}
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat-label{font-size:9px;letter-spacing:.35px;font-weight:760;color:var(--gt-muted,#59655b)}
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-stat-number{font-size:clamp(17px,4.4vw,23px);font-weight:850;line-height:1.08;color:var(--gt-ink,#172119);font-variant-numeric:tabular-nums}
-@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,html[data-theme] #app.gt-app #homeContent .gtgames-compact-cell{padding:12px 8px!important}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{font-size:12px}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:27px}}
+@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-row>.gtv2-banner-cell,html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-compact-cell{padding:12px 8px!important}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-match{font-size:12px}html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{font-size:27px}}
 </style><style id="gt-gamebanner-v2-centered-match-score">
 /* Approved V2 compact layout refinement: center VS and score without altering details. */
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-game-summary{align-items:stretch!important}
@@ -2733,7 +2738,7 @@ html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-vs{
  padding-top:2px;
 }
 /* Games: the Open/View Game action belongs beside Latest Game, not in the banner's content. */
-html[data-theme] #app.gt-app #homeContent .gtgames-featured-heading .gtgames-header-action{
+html[data-theme] #app.gt-app :is(#homeContent,#courtContent) .gtgames-featured-heading .gtgames-header-action{
  display:inline-flex!important;align-items:center;justify-content:flex-end;
  flex:0 0 auto;width:auto!important;min-height:44px;
  margin:0;padding:5px 0 5px 8px!important;
@@ -4489,8 +4494,107 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
     }
     return root;
   }
+
+  /**
+   * SharedBanner V2 parent (Games presentation).
+   * Ownership: presentation DOM only. No storage, global game state, or analytics.
+   * It preserves the existing approved gtgames-* DOM/CSS contract.
+   */
+  function SharedBannerV2({gameId,primary,details}={}) {
+    if (!(primary instanceof global.Node)) throw new TypeError('SharedBannerV2 requires a primary row');
+    const root=element('article','gtgames-banner');
+    root.dataset.component='GameBannerV2';
+    root.dataset.parent='SharedBannerV2';
+    if (gameId !== undefined && gameId !== null) root.dataset.gameId=String(gameId);
+    append(root,primary);
+    if (details) append(root,details);
+    return root;
+  }
+  /** GameBanner V2: approved read-only, reusable game summary presentation. */
+  function GameBannerV2({gameId,team,opponent,score,contextDate,gameType,
+                         badgeText,tone='',period=null,stats={},details={},note=''}={}) {
+    const row=element('div','gtgames-compact-primary');
+    row.dataset.component='BannerRowV1';
+    const left=element('div','gtgames-compact-cell gtcompact-game-summary');
+    left.dataset.component='BannerCellV1';
+    append(left,element('span','gtgames-label','GAME SUMMARY'));
+    const match=element('div','gtcompact-match');
+    append(match,element('span','gtcompact-team',team||'Your Team'),
+      element('span','gtcompact-vs','vs'),element('span','gtcompact-team',opponent||'Opponent'));
+    append(left,match,element('div','gtcompact-score',score[0]+' – '+score[1]));
+    const meta=element('div','gtcompact-meta');
+    append(meta,element('span','',contextDate+(gameType?' · '+gameType:'')),
+      element('span','gtgames-badge '+tone,badgeText));
+    if (period !== null) append(meta,element('span','',period));
+    append(left,meta);
+    const right=element('div','gtgames-compact-cell gtcompact-quick-stats');
+    right.dataset.component='BannerCellV1';
+    append(right,element('span','gtgames-label gtcompact-stats-caption','TOP STATS'));
+    const quick=element('div','gtcompact-stats-grid');
+    [['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl']].forEach(([label,key])=>{
+      const stat=element('div','gtcompact-stat');
+      append(stat,element('span','gtcompact-stat-label',label),
+        element('strong','gtcompact-stat-number',integer(stats[key])));
+      append(quick,stat);
+    });
+    append(right,quick);
+    append(row,left,right);
+    const extra=element('details','gtgames-details');
+    const toggle=element('summary','','Show Details');
+    extra.addEventListener('toggle',()=>{toggle.firstChild.textContent=extra.open?'Hide Details':'Show Details'});
+    append(extra,toggle);
+    const secondary=element('div','gtgames-secondary');
+    const info=element('div','gtgames-detail-cell');
+    const secondaryStats=element('div','gtgames-detail-cell');
+    info.dataset.component=secondaryStats.dataset.component='BannerCellV1';
+    append(info,element('strong','gtgames-label','MORE GAME DETAILS'));
+    append(secondaryStats,element('strong','gtgames-label','MORE PLAYER STATS'));
+    const field=(target,label,value)=>{
+      if(value===undefined||value===null||value==='')return;
+      const line=element('div','gtgames-detail');
+      append(line,element('span','',label),element('b','',String(value)));
+      append(target,line);
+    };
+    field(info,'Date',details.date);
+    field(info,'League',details.league);
+    field(info,'Game type',details.gameType);
+    field(info,'Player',details.player);
+    for(const [label,key] of [['FT','ft'],['Fouls','foul'],['Turnovers','tov']]){
+      const val=details[key];
+      if(val!==undefined&&val!==null&&Number.isFinite(Number(val)))
+        field(secondaryStats,label,Math.round(Number(val)));
+    }
+    append(secondary,info,secondaryStats,element('div','gtgames-note',note));
+    append(extra,secondary);
+    return SharedBannerV2({gameId,primary:row,details:extra});
+  }
+  /**
+   * GameBannerSection V1: reuse the approved Section V1 constructor but
+   * retain its existing Games/Game Details header and spacing markup exactly.
+   */
+  function GameBannerSectionV1({title='Latest Game',banner,emptyText='No games recorded yet.',
+                                actionLabel='View Game →',onAction}={}) {
+    const content=banner||element('div','gtgames-no-game',emptyText);
+    const section=Section({title,content,kind:'gtgames-featured'});
+    const heading=element('div','gtgames-featured-heading');
+    append(heading,element('h2','',title));
+    if(typeof onAction==='function'){
+      const button=element('button','gtgames-open gtgames-header-action',actionLabel);
+      button.type='button';
+      button.addEventListener('click',onAction);
+      append(heading,button);
+    }
+    section.querySelector('.gtc-section-header').replaceWith(heading);
+    section.querySelector('.gtc-section-content').replaceWith(content);
+    section.className='gtgames-featured';
+    section.dataset.component='SectionV1';
+    section.dataset.parent='SectionV1';
+    section.dataset.implementation='GameBannerSectionV1';
+    return section;
+  }
+
   global.GameTraceComponents=Object.freeze({
-    version:'0.1.0',Section,List,SharedBanner,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.2.0',Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
@@ -9382,81 +9486,23 @@ function gtALV1IntegrateHomeCourt(){
 function gtGBV1IntegrateCourtLive(root){
  if(!root||ui.screen!=='court')return;
  const game=liveGame();
- if(!game)return; // Existing no-active-game behavior remains untouched.
  const old=root.querySelector('[data-gt-banner="live-game"], [data-court-section="current"]');
- if(!old||old.dataset.component==='GameBannerV1')return;
- const node=(tag,cls,value)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(value!==undefined&&value!==null)x.textContent=String(value);return x};
- const clean=(value,fallback)=>value===undefined||value===null||String(value).trim()===''?fallback:String(value);
- const round=v=>Number.isFinite(Number(v))?String(Math.round(Number(v))):'0';
- const score=C.scoreAt(game), totals=C.totals(C.filtered(game));
- const started=!game.pendingStart,paused=started&&C.paused(game);
- const state=!started?'NOT STARTED':paused?'TIMEOUT':'LIVE';
- const date=game.date?friendlyDate(String(game.date).slice(0,10)):'';
- const gameType=C.GAME_TYPES?.[game.gameType||'regular']||clean(game.gameType,'Game');
- const period=game.settings?C.label(game.settings.format,game.settings.current):'';
- const section=node('section','gtgbv1-section');
- section.dataset.courtSection='current';section.dataset.component='GameBannerV1';section.dataset.version='V1';
- const header=node('header','gtglv1-header');header.dataset.component='SectionV1';
- const titles=node('div','gtglv1-heading');
- titles.append(node('h2','', 'Live Game'),node('p','',!started?'Ready for tip-off.':paused?'Game paused.':'The game in progress.'));
- const action=node('a','gtglv1-action gtgbv1-header-link',!started?'Open Game →': 'Resume Tracking →');
- action.href='#live';action.dataset.courtResume=game.id;
- action.addEventListener('click',(event)=>{event.preventDefault();chooseGame(game.id,'live')});
- header.append(titles,action);section.append(header);
- const banner=node('div','gtgbv1-banner gtv2-banner');banner.dataset.component='SharedBannerV2';
- const primary=node('div','gtv2-banner-area');primary.dataset.area='primary';
- const row=(area,items,addDivider=false)=>{
-  const r=node('div','gtv2-banner-row gtv2-cols-'+items.length+(items.length>1?' gtv2-dividers':'')+(addDivider?' gtv2-row-line':''));
-  r.dataset.component='BannerRowV1';
-  items.forEach(content=>{const cell=node('div','gtv2-banner-cell');cell.dataset.component='BannerCellV1';cell.append(content);r.append(cell)});
-  area.append(r);return r;
- };
- const teamBox=(label,name,value)=>{
-  const block=node('div','gtgbv1-team');
-  block.append(node('span','gtgbv1-label',label),node('strong','gtgbv1-team-name',name),node('strong','gtgbv1-score',round(value)));
-  return block;
- };
- // Compact GameBanner V2 preview: one 2:1 primary row. Secondary details unchanged.
- const summary=node('div','gtcompact-game-summary');
- summary.append(node('span','gtgbv1-label','GAME SUMMARY'));
- const matchup=node('div','gtcompact-match');
- matchup.append(node('span','gtcompact-team',clean(game.team,'Your Team')),node('span','gtcompact-vs','vs'),node('span','gtcompact-team',clean(game.opponent,'Opponent')));
- summary.append(matchup);
- summary.append(node('div','gtcompact-score',round(score.team)+' – '+round(score.opponent)));
- const compactMeta=node('div','gtcompact-meta');
- compactMeta.append(node('span','gtgbv1-context-text',[date,gameType].filter(Boolean).join(' · ')));
- compactMeta.append(node('span','gtgbv1-status gtgbv1-status-'+(!started?'ready':paused?'paused':'live'),state));
- if(started&&period)compactMeta.append(node('span','gtgbv1-context-text',period));
- summary.append(compactMeta);
- const quickStats=node('div','gtcompact-quick-stats');
- quickStats.append(node('span','gtgbv1-label gtcompact-stats-caption','TOP STATS'));
- const quickGrid=node('div','gtcompact-stats-grid');
- [['PTS',totals.pts],['REB',totals.reb],['AST',totals.ast],['STL',totals.stl]].forEach(([label,val])=>{
-  const stat=node('div','gtcompact-stat');stat.append(node('span','gtcompact-stat-label',label),node('strong','gtcompact-stat-number',round(val)));quickGrid.append(stat);
- });
- quickStats.append(quickGrid);
- const compactRow=row(primary,[summary,quickStats]);compactRow.classList.add('gtcompact-row');
- banner.append(primary);
- const details=node('details','gtgbv1-details');
- const toggle=node('summary','gtgbv1-toggle');const toggleText=node('span','', 'Show Details');
- toggle.append(toggleText,node('span','gtgbv1-chevron','⌄'));details.append(toggle);
- details.addEventListener('toggle',()=>{toggleText.textContent=details.open?'Hide Details':'Show Details'});
- const secondary=node('div','gtgbv1-secondary gtv2-banner-area');secondary.dataset.area='secondary';
- const info=node('div','gtgbv1-more');const extra=node('div','gtgbv1-more');
- const field=(box,label,value)=>{if(value===undefined||value===null||String(value).trim()==='')return;
-  const line=node('div','gtgbv1-field');line.append(node('span','',label),node('strong','',value));box.append(line)};
- info.append(node('span','gtgbv1-label','MORE GAME DETAILS'));
- field(info,'League',game.league);field(info,'Location',game.location);
- field(info,'Game type',gameType);field(info,'Format',game.settings?.format==='halves'?'2 halves':game.settings?.format==='quarters'?'4 quarters':game.settings?.format);
- field(info,'Status',!started?'Not started':paused?'Timeout':'In progress');
- if(game.player)field(info,'Player',game.player);
- extra.append(node('span','gtgbv1-label','MORE PLAYER STATS'));
- field(extra,'TOV',round(totals.to));field(extra,'FOUL',round(totals.pf));
- field(extra,'FT',round(totals.mft)+' / '+round(totals.aft));field(extra,'FG',round(totals.fgm)+' / '+round(totals.fga));
- row(secondary,[info,extra]);
- details.append(secondary);banner.append(details);section.append(banner);
+ // Never show a Live Game banner if there is no active game.
+ if(!game){if(old)old.remove();return;}
+ if(!old)return;
+ // The Games adapter is the single data source for all game banners.
+ // Live Game differs only by its section title, CTA and selected active record.
+ const wasExpanded=!!old.querySelector('details[open]');
+ const section=gtGamesFeaturedBannerV1(game,{title:'Live Game',actionLabel:'Resume Game'});
+ section.dataset.courtSection='current';
+ section.dataset.usage='home-court';
+ const details=section.querySelector('.gtgames-details');
+ if(details&&wasExpanded){
+   details.open=true;
+   const summary=details.querySelector('summary');
+   if(summary)summary.textContent='Hide Details';
+ }
  old.replaceWith(section);
- window.gtHomeCourtGameBannerV1={status:'local-preview',section:'current',component:'GameBanner V1',parent:'SharedBanner V2',rowCells:[2,1],state,gameId:game.id};
 }
 
 const gtALV1PreviousCourt=renderHomeCourt;
@@ -9480,53 +9526,39 @@ if(document.readyState==='loading'){
 /* Games Step 2 — approved GameBanner V1 on the already approved UniversalPage.
    Read existing game records; do not seed, store, sync or mutate data. */
 function gtGamesFeaturedBannerV1(selectedGame=null, options={}){
- const section=document.createElement('section');section.className='gtgames-featured';section.dataset.component='SectionV1';
- const titleWrap=document.createElement('div');titleWrap.className='gtgames-featured-heading';
- const heading=document.createElement('h2');heading.textContent=options.title||'Latest Game';titleWrap.append(heading);section.append(titleWrap);
  const current=liveGame();
  const completed=gt46Games();
  const g=selectedGame||current||completed[0];
- if(!g){const empty=document.createElement('div');empty.className='gtgames-no-game';empty.textContent='No games recorded yet.';section.append(empty);return section;}
+ if(!g)return window.GameTraceComponents.GameBannerSectionV1({
+   title:options.title||'Latest Game',emptyText:'No games recorded yet.'
+ });
  const isLive=!!current&&current.id===g.id&&g.status!=='completed';
- const banner=document.createElement('article');banner.className='gtgames-banner';banner.dataset.component='GameBannerV1';banner.dataset.parent='SharedBannerV2';banner.dataset.gameId=g.id;
- const add=(tag,cl,content)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(content!=null)n.textContent=String(content);return n;};
- const score=isLive?gt4684GameScore(g):[g.finalScore?.team,g.finalScore?.opponent].map(v=>v===null||v===undefined||v===''?'—':Number.isFinite(Number(v))?String(Math.round(Number(v))):'—');
- // GameBanner V2 compact primary: same 2:1 shared layout as Home Court.
+ const score=isLive?gt4684GameScore(g):[g.finalScore?.team,g.finalScore?.opponent]
+   .map(v=>v===null||v===undefined||v===''?'—':Number.isFinite(Number(v))?String(Math.round(Number(v))):'—');
  const contextDate=g.date?friendlyDate(g.date):'Date unavailable';
  const phase=isLive?gt4684GamePhase(g):'final';
  let badgeText=isLive?(phase==='not-started'?'NOT STARTED':phase==='paused'?'PAUSED':'● LIVE'):'FINAL';
  let tone=isLive?'live':'';
- if(!isLive&&score[0]!=='—'&&score[1]!=='—'){const a=Number(score[0]),b=Number(score[1]);badgeText=a>b?'WIN':a<b?'LOSS':'TIE';tone=a<b?'loss':'';}
+ if(!isLive&&score[0]!=='—'&&score[1]!=='—'){
+   const a=Number(score[0]),b=Number(score[1]);
+   badgeText=a>b?'WIN':a<b?'LOSS':'TIE';tone=a<b?'loss':'';
+ }
  const totals=(()=>{try{return C.totals(C.filtered(g))||{}}catch{return{}}})();
- const compactPrimary=add('div','gtgames-compact-primary');compactPrimary.dataset.component='BannerRowV1';
- const leftCell=add('div','gtgames-compact-cell gtcompact-game-summary');leftCell.dataset.component='BannerCellV1';
- leftCell.append(add('span','gtgames-label','GAME SUMMARY'));
- const matchup=add('div','gtcompact-match');
- matchup.append(add('span','gtcompact-team',g.team||'Your Team'),add('span','gtcompact-vs','vs'),add('span','gtcompact-team',g.opponent||'Opponent'));
- leftCell.append(matchup);
- leftCell.append(add('div','gtcompact-score',score[0]+' – '+score[1]));
- const compactMeta=add('div','gtcompact-meta');compactMeta.append(add('span','',contextDate+(g.gameType?' · '+g.gameType:'')));
- compactMeta.append(add('span','gtgames-badge '+tone,badgeText));
- if(isLive&&g.settings)compactMeta.append(add('span','',String(g.settings.current||'')+(g.settings.format==='halves'?'H':'Q')));
- leftCell.append(compactMeta);
- const rightCell=add('div','gtgames-compact-cell gtcompact-quick-stats');rightCell.dataset.component='BannerCellV1';
- rightCell.append(add('span','gtgames-label gtcompact-stats-caption','TOP STATS'));
- const quickGrid=add('div','gtcompact-stats-grid');
- [['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl']].forEach(([label,key])=>{
-   const item=add('div','gtcompact-stat');item.append(add('span','gtcompact-stat-label',label),add('strong','gtcompact-stat-number',Number.isFinite(Number(totals[key]))?Math.round(Number(totals[key])):'—'));quickGrid.append(item);
+ const banner=window.GameTraceComponents.GameBannerV2({
+   gameId:g.id,team:g.team,opponent:g.opponent,score,contextDate,
+   gameType:g.gameType,badgeText,tone,
+   period:isLive&&g.settings?String(g.settings.current||'')+(g.settings.format==='halves'?'H':'Q'):null,
+   stats:totals,
+   details:{date:contextDate,league:g.league,gameType:g.gameType,player:g.player,
+            ft:totals.ft,foul:totals.foul,tov:totals.tov},
+   note:isLive?'Game in progress. Statistics shown are recorded so far.':
+       'Completed game. Open Game to review recorded plays and analytics.'
  });
- rightCell.append(quickGrid);compactPrimary.append(leftCell,rightCell);banner.append(compactPrimary);
- if(!options.hideOpenAction){const action=add('button','gtgames-open gtgames-header-action',isLive?'Open Game →':'View Game →');action.type='button';action.addEventListener('click',()=>chooseGame(g.id,isLive?'live':'stats'));titleWrap.append(action);}
- const date=contextDate;
- const more=add('details','gtgames-details');const summary=add('summary','','Show Details');more.addEventListener('toggle',()=>{summary.firstChild.textContent=more.open?'Hide Details':'Show Details'});more.append(summary);
- const secondary=add('div','gtgames-secondary');
- const left=add('div','gtgames-detail-cell'),right=add('div','gtgames-detail-cell');left.dataset.component=right.dataset.component='BannerCellV1';
- left.append(add('strong','gtgames-label','MORE GAME DETAILS'));right.append(add('strong','gtgames-label','MORE PLAYER STATS'));
- const field=(target,label,value)=>{if(value===undefined||value===null||value==='')return;const line=add('div','gtgames-detail');line.append(add('span','',label),add('b','',String(value)));target.append(line)};
- field(left,'Date',date);field(left,'League',g.league);field(left,'Game type',g.gameType);field(left,'Player',g.player);
- for(const [label,key] of [['FT','ft'],['Fouls','foul'],['Turnovers','tov']])if(totals[key]!=null&&Number.isFinite(Number(totals[key])))field(right,label,Math.round(Number(totals[key])));
- secondary.append(left,right,add('div','gtgames-note',isLive?'Game in progress. Statistics shown are recorded so far.':'Completed game. Open Game to review recorded plays and analytics.'));
- more.append(secondary);banner.append(more);section.append(banner);return section;
+ return window.GameTraceComponents.GameBannerSectionV1({
+   title:options.title||'Latest Game',banner,
+   actionLabel:options.actionLabel||(isLive?'Open Game →':'View Game →'),
+   onAction:options.hideOpenAction?null:()=>chooseGame(g.id,isLive?'live':'stats')
+ });
 }
 /* Games migration Stage 3 — approved ActivityList V1 inside Section V1.
    Source: original game records, excluding deleted and unfinished games.
