@@ -1,0 +1,309 @@
+/* GameRecord V1 approved visual layers — extracted verbatim from the user-approved full-app preview.
+ Reference only. Do not load duplicate rules alongside its inline CSS. */
+
+/* === gt-gamerecord-v1-content-preview === */
+
+/* GameRecord V1 content preview — approved existing record behavior is canonical.
+   Parent Section V1 deliberately NOT created in this checkpoint. */
+html[data-theme] #app.gt-app #statsContent .gt-grv1-preview-heading{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin:24px 0 12px;color:var(--gt-ink);font-size:var(--gt-title-size,18px);
+  font-weight:700;line-height:1.3;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grv1-preview-heading h2{
+  margin:0;font:inherit;letter-spacing:inherit;color:inherit;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"]{
+  min-width:0;margin-top:0;overflow:visible;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs{
+  min-width:0;max-width:100%;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-play-label,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-play-head{
+  min-width:0;
+}
+
+
+/* === gt-gamerecord-v1-folder-tabs-compact-accordion-preview === */
+
+/* Scoped GameRecord preview. The original GameTrace event handlers and record data remain intact. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs,
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs{
+ display:flex!important;gap:5px!important;align-items:end!important;max-width:100%;
+ background:transparent!important;border-bottom:1px solid var(--gt-edge)!important;
+ padding:0 5px!important;margin:10px 0 0!important;border-radius:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button,
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button{
+ flex:1;min-width:0;min-height:46px!important;padding:10px 8px!important;
+ font-size:13px!important;font-weight:650!important;letter-spacing:0!important;
+ border:1px solid var(--gt-edge)!important;border-bottom:0!important;
+ border-radius:12px 12px 0 0!important;
+ color:var(--gt-muted)!important;background:var(--gt-surface-2,var(--gt-surface))!important;
+ box-shadow:none!important;transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button[aria-selected="true"],
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button[aria-selected="true"]{
+ color:var(--gt-ink)!important;background:var(--gt-surface)!important;
+ box-shadow:inset 0 3px 0 var(--gt-accent)!important;
+ position:relative;top:1px;border-bottom:1px solid var(--gt-surface)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-body{padding:0 2px 7px!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-toolbar{display:flex!important;align-items:center!important;gap:8px!important;margin:12px 0!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-toolbar .v42-add-record{
+ width:auto!important;min-width:0!important;margin:0!important;padding:9px 13px!important;min-height:42px!important;
+ font-size:13px!important;border-radius:10px!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-arrange{
+ min-height:42px;min-width:84px;margin-left:auto;padding:8px 12px;
+ background:var(--gt-surface);border:1px solid var(--gt-edge);color:var(--gt-ink);
+ border-radius:10px;font:inherit;font-size:13px;font-weight:650;cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period{
+ margin:7px 0;border:1px solid var(--gt-edge);border-radius:11px;
+ background:var(--gt-surface);overflow:hidden;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary{
+ display:flex;align-items:center;gap:9px;cursor:pointer;list-style:none;
+ min-height:47px;padding:10px 12px;font-weight:680;font-size:13px;color:var(--gt-ink);
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary::-webkit-details-marker{display:none}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary:before{content:'›';font-size:22px;line-height:14px;color:var(--gt-muted);transition:transform .15s ease}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period[open]>summary:before{transform:rotate(90deg)}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary .gtgr-count{margin-left:auto;color:var(--gt-muted);font-size:12px;font-weight:500}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows{padding:0 9px 6px;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows>.report-play{
+ min-height:0!important;margin:0!important;padding:0!important;border-bottom:1px solid var(--gt-edge)!important;border-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows>.report-play:last-child{border-bottom:0!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row,
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row{
+ min-height:43px!important;padding:5px 3px!important;grid-template-columns:28px minmax(0,1fr) auto!important;
+ align-items:center!important;gap:6px!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row .report-play-label{font-size:13px!important;line-height:1.2!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row .report-play-label small{display:inline;font-size:11px!important;color:var(--gt-muted);margin-left:8px}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row .v42-record-score{font-size:12px!important;margin:0!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-drag{width:28px!important;min-width:28px!important;height:34px!important;padding:5px!important;touch-action:none}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"]:not(.gtgr-arranging) .report-drag{visibility:hidden!important;pointer-events:none}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-order-hint{display:none!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-inline-editor{padding:9px 8px 15px;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-row-expanded{background:var(--gt-surface-2,var(--gt-surface))}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-row-expanded>.v42-event-row{font-weight:650}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-row-expanded>.v42-event-row:after{content:'⌄';color:var(--gt-muted);font-size:13px}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary:focus-visible,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row:focus-visible,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-arrange:focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:380px){html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button{font-size:12px!important;padding:8px 4px!important}}
+
+
+/* === gt-gamerecord-v1-folder-depth-inline-drag-refinement === */
+
+/* Folder visual treatment: active folder tab joins the content, no stray horizontal rules. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs{
+ position:relative!important;display:flex!important;gap:0!important;
+ margin:14px 0 0!important;padding:0 10px!important;
+ border:0!important;border-bottom:1px solid var(--gt-edge)!important;
+ background:transparent!important;overflow:visible!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button{
+ position:relative;z-index:1;flex:0 1 50%;margin:0 2px -1px 0!important;
+ border:1px solid var(--gt-edge)!important;border-bottom:1px solid var(--gt-edge)!important;
+ border-radius:10px 15px 0 0!important;box-shadow:none!important;
+ background:var(--gt-surface-2,var(--gt-surface))!important;
+ min-height:42px!important;font-size:13px!important;
+ clip-path:polygon(0 12%,5% 0,91% 0,100% 17%,100% 100%,0 100%)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button[aria-selected="true"]{
+ z-index:3!important;background:var(--gt-surface)!important;
+ border-bottom-color:var(--gt-surface)!important;
+ box-shadow:inset 0 3px 0 var(--gt-accent)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs + [data-record-list],
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs ~ .score-journey-section{
+ border:0!important;border-top:0!important;margin-top:0!important;padding-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] [data-record-list] > summary,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .score-journey-section > details > summary{
+ display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-body,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .score-journey-section .report-record-body{
+ border-top:0!important;margin-top:0!important;padding-top:4px!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-arrange{display:none!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"]:not(.gtgr-arranging) .report-drag,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-drag{
+ display:flex!important;visibility:visible!important;pointer-events:auto!important;
+ align-items:center;justify-content:center;opacity:.67;touch-action:none;cursor:grab;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows>.report-play{
+ min-height:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-add-inline{
+ margin:0 0 12px;padding:13px;background:var(--gt-surface);border:1px solid var(--gt-edge);
+ border-radius:11px;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-add-heading{
+ display:flex;justify-content:space-between;align-items:center;gap:8px;
+ font-size:14px;font-weight:700;color:var(--gt-ink);padding:0 0 12px;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-inline-cancel{
+ border:1px solid var(--gt-edge);border-radius:9px;padding:7px 12px;background:transparent;
+ font:inherit;font-size:12px;color:var(--gt-ink);min-height:36px;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-score-choices{
+ display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-score-choices button{
+ flex:1 1 100px;min-width:0;border:1px solid var(--gt-edge);border-radius:9px;
+ padding:9px 7px;min-height:42px;font:inherit;font-size:12px;font-weight:650;
+ color:var(--gt-ink);background:var(--gt-surface-2,var(--gt-surface));
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-score-choices button[aria-pressed="true"]{
+ border-color:var(--gt-accent);box-shadow:inset 0 0 0 1px var(--gt-accent);
+ color:var(--gt-ink);background:var(--gt-surface);
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-add-form-slot form{
+ max-width:100%;min-width:0;margin:0;padding:0;background:transparent;
+}
+
+
+/* === gt-gamerecord-v1-designer-folder-tabs-review === */
+
+/* DESIGN REVIEW: archival file-folder silhouette. No logic, event or data changes.
+   The outer tabs are reduced to short folder labels, sit directly on the raised
+   paper body and intentionally create an unbroken tab-to-folder surface. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 {
+ --gr-paper:var(--gt-surface,#fff);
+ --gr-back:var(--gt-surface-2,#edf1ed);
+ --gr-stroke:var(--gt-edge,#cdd7cd);
+ --gr-ink:var(--gt-ink,#233128);
+ --gr-muted:var(--gt-muted,#657369);
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs {
+ display:flex!important;
+ align-items:flex-end!important;
+ gap:8px!important;
+ padding:0 12px!important;
+ margin:18px 0 -1px!important;
+ height:48px!important;
+ border:0!important;
+ background:transparent!important;
+ position:relative!important;
+ overflow:visible!important;
+ isolation:isolate;
+}
+/* Light folder spine extends across the complete paper body. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs::after {
+ content:'';position:absolute;z-index:0;
+ bottom:0;left:0;right:0;
+ border-bottom:1px solid var(--gr-stroke);pointer-events:none;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button {
+ flex:0 1 auto!important;
+ min-width:0!important;
+ width:auto!important;
+ max-width:calc(50% - 4px);
+ min-height:36px!important;
+ height:36px!important;
+ margin:0!important;
+ padding:8px 16px!important;
+ border:1px solid var(--gr-stroke)!important;
+ border-radius:11px 10px 0 0!important;
+ background:var(--gr-back)!important;
+ color:var(--gr-muted)!important;
+ box-shadow:none!important;
+ clip-path:none!important;
+ transform:none!important;
+ position:relative!important;
+ z-index:1!important;
+ font-size:12px!important;
+ font-weight:660!important;
+ letter-spacing:.005em!important;
+ white-space:nowrap;
+ overflow:visible;
+ line-height:1.2!important;
+}
+/* Folders have a sloping shoulder that joins the short labeled tab to its body. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button::after {
+ content:'';position:absolute;pointer-events:none;
+ width:19px;height:21px;
+ right:-13px;bottom:-1px;
+ background:inherit;
+ border-top:1px solid var(--gr-stroke);
+ border-right:1px solid var(--gr-stroke);
+ border-radius:0 6px 0 0;
+ transform:skewX(29deg);
+ transform-origin:bottom left;
+ z-index:-1;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button[aria-selected="false"] {
+ bottom:0!important;
+ color:var(--gr-muted)!important;
+ background:var(--gr-back)!important;
+ box-shadow:inset 0 -3px 0 rgba(60,80,65,.04)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button[aria-selected="true"] {
+ z-index:3!important;
+ bottom:0!important;
+ color:var(--gr-ink)!important;
+ background:var(--gr-paper)!important;
+ border-bottom-color:var(--gr-paper)!important;
+ box-shadow:inset 0 3px 0 var(--gt-accent,#168348)!important;
+ font-weight:760!important;
+}
+/* The active folder and its paper body read as ONE connected physical object. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list],
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section {
+ margin-top:0!important;
+ border-top:0!important;
+ padding-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list] > .report-record-body,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section .report-record-body {
+ background:var(--gr-paper)!important;
+ border:1px solid var(--gr-stroke)!important;
+ border-radius:0 11px 11px 11px!important;
+ padding:14px 12px 15px!important;
+ margin:0!important;
+ min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list] > .report-record-body::before,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section .report-record-body::before {
+ content:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .report-record-toolbar {
+ margin:2px 0 12px!important;
+ padding:0!important;
+ border:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .gtgr-period {
+ margin:6px 0!important;
+}
+/* No unrequested tab or content redesign on small iPhone widths. */
+@media (max-width:390px){
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs {padding:0 8px!important;gap:7px!important;}
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button {font-size:11px!important;padding-inline:12px!important;}
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list] > .report-record-body,
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section .report-record-body {padding:12px 8px!important;}
+}
+
+
+/* === gt-gamerecord-v1-clean-continuous-folder-tabs === */
+
+/* Approved design refinement candidate: remove the right-hand slanted
+   shoulder/cut only. Preserve the original GameRecord forms, grouping,
+   dragging, typography, and parent Section. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button::after {
+ content:none!important;
+ display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button {
+ border-radius:12px 12px 0 0!important;
+}
+/* The active tab still meets the folder body without a dividing seam. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button[aria-selected="true"] {
+ border-bottom-color:var(--gr-paper)!important;
+}
