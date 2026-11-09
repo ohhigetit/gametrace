@@ -1,0 +1,27 @@
+'use strict';
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const previous=fs.readFileSync('tests/GameTrace_Trainings_Step1_Governed_TEST.html','utf8');
+const html=fs.readFileSync('tests/GameTrace_Trainings_Recent_AllTypes_TEST.html','utf8');
+const marker='/* TRAININGS_RECENT_ALL_TYPES_V1';
+const p=html.indexOf(marker),e=html.indexOf('/* GT_TRAININGS_STEP1_START',p);
+assert(p>0&&e>p,'Missing Recent Trainings adapter');
+const adapter=html.slice(p,e);
+const cssStart=html.indexOf('<style id="gt-trainings-activitylist-approved-v1">');
+const cssEnd=html.indexOf('</style>',cssStart);
+assert(cssStart>0&&cssEnd>cssStart,'Missing approved ActivityList CSS');
+const css=html.slice(cssStart,cssEnd);
+const sectionMount="body.append(gtTrainingsRecentAllTypesV1());";
+assert(html.includes(sectionMount),'Recent Trainings not mounted in PrimaryContent');
+assert(adapter.includes('gtALV1Section({'),'Approved ActivityList component not reused');
+assert(adapter.includes('openSession(s.id,\'training\')'),'Existing session detail navigation not reused');
+assert(adapter.includes('.filter(s=>s&&!s.deletedAt&&samePlayer(s))'),'Not filtering only deleted records/player scope');
+assert(!adapter.includes("s.type==='training'&&")&&!adapter.includes("s.type==='camp'&&"),'Session types excluded');
+assert(adapter.includes("s.customType||s.type"),'Custom types unsupported');
+assert(adapter.includes("camp?'camp':performance?'performance':'training'"),'Approved icons missing');
+for(const sel of ['.gtal-section','.gtal-header','.gtal-row','.gtal-icon','.gtal-type','.gtal-title','.gtal-sub','.gtal-trailing','.gtal-empty'])
+ assert(css.includes(sel),'Incomplete ActivityList styles: '+sel);
+assert(css.includes('#trainingContent [data-page="trainings"]'),'CSS not scoped to Trainings');
+const section=html.slice(0,cssStart)+html.slice(cssEnd+8);
+const cleaned=section.replace(adapter,'').replace('\n '+sectionMount,'');
+assert.equal(cleaned,previous,'Changes outside the new CSS/adapter/mount');
+console.log('PASS Recent Trainings: all session types, approved list, native details, scoped CSS, no unrelated changes');
