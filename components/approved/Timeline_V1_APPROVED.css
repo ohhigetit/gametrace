@@ -1,0 +1,40 @@
+/* Timeline V1 — approved content component. Source: full-app locked reference.
+   This is an extract/reference, not yet wired into DEV as a standalone stylesheet.
+   Scope excludes section header/filters. Legacy chart geometry and logic preserved. */
+
+/* === gt-timeline-component-v1-in-section-preview === */
+
+/* TimelineSectionV1 parent controls the header and filter; TimelineV1 owns
+   original chart, periods, score/plays visualization, native toggle and states. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1{
+ display:block;width:100%;min-width:0;margin:0;padding:0;
+ background:transparent;border:0;box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .report-timeline{
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .score-journey-chart{
+ min-width:0;max-width:100%;
+}
+
+
+/* === gt-timeline-v1-single-collapse-control === */
+
+/* Timeline V1: one collapsible control, right aligned. No redundant left label. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary{
+  justify-content:flex-end!important;
+  text-align:right!important;
+  list-style:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary::marker{content:"";}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary::-webkit-details-marker{display:none;}
+
+
+/* === gt-timeline-v1-always-visible-approved-direction === */
+
+/* Timeline V1: chart always visible; no Expand/Collapse/Hide timeline UI.
+   The Section V1 header still owns View + score/event filters. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary[hidden] {
+ display:none!important;
+}
