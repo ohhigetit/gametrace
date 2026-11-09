@@ -5605,7 +5605,7 @@ scoreCorrectionForm=function(g,original,done){const form=correctionBefore40(g,or
 const statsBefore40=renderStats;
 renderStats=function(){
  statsBefore40();const g=game(),root=$('statsContent');if(!g)return;
- const circles=root.querySelector('.report-circles'),timeline=root.querySelector('[data-timeline]');if(circles&&timeline)circles.after(timeline);
+ const circles=root.querySelector('.report-circles'),timeline=root.querySelector('[data-timeline]');if(circles&&timeline&&!timeline.closest('.gt-tls-v1'))circles.after(timeline);
  const record=[...root.querySelectorAll('.report-record')].find(n=>!n.classList.contains('score-journey-section')),journey=root.querySelector('.score-journey-section');
  if(record&&journey){record.append(journey);const toolbar=record.querySelector('.report-record-toolbar');toolbar?.append(button('Arrange',()=>arrangeRecords40(g),'report-tool',{'data-arrange-plays':''}));const body=journey.querySelector('.report-record-body');body?.prepend(el('div',{class:'report-record-toolbar'},button('Add score event',()=>addJourney40(g),'report-tool'),button('Arrange',()=>arrangeRecords40(g,true),'report-tool',{'data-arrange-journey':''})));}
  const heading=root.querySelector('.report-heading');if(heading&&!heading.querySelector('[data-edit-game]'))heading.append(button('Edit Game',()=>gameForm(g.id),'journey-button',{'data-edit-game':g.id}));
@@ -8700,6 +8700,14 @@ function gtGameDetailsUniversalV1(){
  }
  const timeline=root.querySelector('.gt-tls-v1[data-component="SectionV1"]');
  if(timeline){
+   // Compatibility with legacy V40 postprocessing: preserve the *approved*
+   // TimelineV1 child beneath TimelineSectionV1. Older renderStats wrappers
+   // may have reparented [data-timeline] to a former top-level position.
+   const timelineHost=timeline.querySelector('.gt-tlc-v1[data-component="TimelineV1"]');
+   const strayTimeline=root.querySelector(':scope > [data-timeline].report-timeline');
+   if(timelineHost && !timelineHost.querySelector('[data-timeline]') && strayTimeline){
+     timelineHost.append(strayTimeline); // move, never clone: preserve native bindings
+   }
    timeline.dataset.section='game-timeline';
    body.append(timeline);
  }
