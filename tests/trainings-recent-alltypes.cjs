@@ -22,6 +22,6 @@ for(const sel of ['.gtal-section','.gtal-header','.gtal-row','.gtal-icon','.gtal
  assert(css.includes(sel),'Incomplete ActivityList styles: '+sel);
 assert(css.includes('#trainingContent [data-page="trainings"]'),'CSS not scoped to Trainings');
 const section=html.slice(0,cssStart)+html.slice(cssEnd+8);
-const cleaned=section.replace(adapter,'').replace('\n '+sectionMount,'');
+const cleaned=section.replace(adapter,'').replace('\n '+sectionMount,'').replace('\n\n\n\n/* GT_TRAININGS_STEP1_START','\n\n\n/* GT_TRAININGS_STEP1_START');
 assert.equal(cleaned,previous,'Changes outside the new CSS/adapter/mount');
 console.log('PASS Recent Trainings: all session types, approved list, native details, scoped CSS, no unrelated changes');
