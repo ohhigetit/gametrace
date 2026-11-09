@@ -4,6 +4,8 @@ on:
     branches:
       - review/trainings-summary-v8-20261109
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build-and-static-qa:
     runs-on: ubuntu-latest
@@ -26,6 +28,15 @@ jobs:
           assert 'background:transparent!important' in s.replace(' ','').lower(), 'Approved chip transparency missing'
           assert 'gt-global-banner-cell-alignment-qa' in s
           print('PASS: Training, Game Summary, Scoreboard banner signatures retained')
+      - name: Publish QA HTML in review branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/GameTrace_Trainings_BannerAlignment_QA.html
+          if ! git diff --cached --quiet; then
+            git commit -m "QA: publish pending Trainings banner alignment HTML"
+            git push origin HEAD:review/trainings-summary-v8-20261109
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: GameTrace_Trainings_BannerAlignment_QA
