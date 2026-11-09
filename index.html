@@ -11586,6 +11586,57 @@ renderStats=function(...args){
  gtGameDetailsUniversalV1();
  return result;
 };
+
+/* Menu V1.4 adapter runs inside the existing app closure; external script cannot access renderMenu. */
+window.addEventListener('load',function(){
+/* GameTrace Menu V1.4: review-only integration. Routes and record storage unchanged. */
+(function(){
+ 'use strict';
+ const menuTargets={
+  home:'court',games:'home',training:'training',schedule:'schedule',
+  scoreboard:'reports',playbook:'goals',wall:'trophies',notebook:'notebook',
+  huddle:'family',settings:'settings',cloud:'family'
+ };
+ const menuSelected=()=>{
+  const screen=ui.menuReturn||'court';
+  return ({court:'home',home:'games',live:'games',stats:'games',history:'games',setup:'games',
+   training:'training',session:'training',reports:'scoreboard',schedule:'schedule',scheduleDetail:'schedule',
+   goals:'playbook',trophies:'wall',notebook:'notebook',family:'huddle',settings:'settings'})[screen]||'home';
+ };
+ const goTo=id=>{
+  if(id==='signout'){
+   if(typeof familyAuth!=='undefined' && familyAuth?.access_token){
+     if(window.confirm('Sign out of Family Cloud on this device?')) familyAction(()=>signOutFamily());
+   }else courtOpen('family');
+   return;
+  }
+  const target=menuTargets[id];
+  if(target)courtOpen(target);
+ };
+ const quick=id=>{
+  if(id==='newGame')gameForm();
+  else if(id==='newTraining')recordTrainingFromCourt();
+ };
+ renderMenu=function(){
+  const root=$('menuContent');
+  root.replaceChildren();
+  const brand=document.querySelector('.top .app-brand-icon');
+  const logo=brand?brand.cloneNode(true):null;
+  const active=liveGame();
+  const component=window.GameTraceMenuComponentV1({
+   active:menuSelected(), logo,
+   canCreateGame:!active&&!unfinishedGames().length,
+   iconFactory:screen=>menuIcon(pageIcons43[screen]||'layers'),
+   onNavigate:goTo,
+   onQuickAction:quick,
+   onClose:()=>navigate(ui.menuReturn||'court')
+  });
+  root.append(component);
+ };
+})();
+
+if(ui.screen==='menu')renderMenu();
+});
 })();
 
 
@@ -11863,51 +11914,6 @@ html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
  global.GameTraceMenuComponentV1=MenuComponentV1;
 })(window);
 
-/* GameTrace Menu V1.4: review-only integration. Routes and record storage unchanged. */
-(function(){
- 'use strict';
- const menuTargets={
-  home:'court',games:'home',training:'training',schedule:'schedule',
-  scoreboard:'reports',playbook:'goals',wall:'trophies',notebook:'notebook',
-  huddle:'family',settings:'settings',cloud:'family'
- };
- const menuSelected=()=>{
-  const screen=ui.menuReturn||'court';
-  return ({court:'home',home:'games',live:'games',stats:'games',history:'games',setup:'games',
-   training:'training',session:'training',reports:'scoreboard',schedule:'schedule',scheduleDetail:'schedule',
-   goals:'playbook',trophies:'wall',notebook:'notebook',family:'huddle',settings:'settings'})[screen]||'home';
- };
- const goTo=id=>{
-  if(id==='signout'){
-   if(typeof familyAuth!=='undefined' && familyAuth?.access_token){
-     if(window.confirm('Sign out of Family Cloud on this device?')) familyAction(()=>signOutFamily());
-   }else courtOpen('family');
-   return;
-  }
-  const target=menuTargets[id];
-  if(target)courtOpen(target);
- };
- const quick=id=>{
-  if(id==='newGame')gameForm();
-  else if(id==='newTraining')recordTrainingFromCourt();
- };
- renderMenu=function(){
-  const root=$('menuContent');
-  root.replaceChildren();
-  const brand=document.querySelector('.top .app-brand-icon');
-  const logo=brand?brand.cloneNode(true):null;
-  const active=liveGame();
-  const component=window.GameTraceMenuComponentV1({
-   active:menuSelected(), logo,
-   canCreateGame:!active&&!unfinishedGames().length,
-   iconFactory:screen=>menuIcon(pageIcons43[screen]||'layers'),
-   onNavigate:goTo,
-   onQuickAction:quick,
-   onClose:()=>navigate(ui.menuReturn||'court')
-  });
-  root.append(component);
- };
-})();
 
 </script>
 </body></html>
