@@ -1,6 +1,6 @@
 # GameTrace Reusable Form V1 — component review
 
-Status: **Draft / review candidate only**. No app page integration, DEV or PROD deployment.
+Status: **APPROVED & LOCKED — component implementation** (user approval: November 9, 2026). New implementation changes require a separately approved version. No app page integration, DEV or PROD deployment.
 
 ## Task boundary
 - DEV baseline commit: `88a1f6f9fc00b14931649aee65df16ea6f10a009`
@@ -27,4 +27,13 @@ The standalone self-contained `tests/FormComponentsV1_REVIEW.html` was exercised
 
 **Not yet done:** full-app `tests/governance.cjs` or session workflow regression against an integrated app; exact native iPhone Safari validation; comparison to physical-device screenshot. Because the app code is not modified, those remain integration gates.
 
-Approval sequence: review this candidate → explicitly approve components → separately authorize Log New Training page integration → test → DEV approval → PROD approval.
+Approval recorded: the user reviewed the downloadable HTML preview and explicitly approved Form Parent V1, Form Section V1, Form Field V1, and Form Actions V1.
+
+## Canonical locked source
+- JavaScript: `components/form-components-v1.js` (blob `be8500e1a35c6051581b0f61c22a4f704f5a2743`)
+- CSS: `components/form-components-v1.css` (blob `634cbd0559e6908cbe74e78ba38e7c55f7ae4190`)
+- Review artifact: `tests/FormComponentsV1_REVIEW.html` (blob `44bcee66b3f81a64af7b021e56053e7dbabc4381`)
+- These blobs are **approved reusable source**, currently committed on the review branch only. Do not silently copy to production or modify the code to integrate a page.
+- Integration sequence: separately authorize Log New Training integration → integrate the exact locked source with the existing app without redesign → test full app and iPhone → user approves → DEV deployment only with separate approval → PROD with separate approval.
+
+This approval does not authorize an application `index.html` change, a DEV merge, or any Netlify deployment.
