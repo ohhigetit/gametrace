@@ -4084,7 +4084,26 @@ html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1 .pn-ans
   line-height:1.6!important;
 }
 </style>
-</head><body>
+<style id="gt-games-banner-v2-sync">
+/* Games-only alignment refinement. Other GameBanner usages remain unchanged. */
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtgames-compact-cell{
+ text-align:center;
+}
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtcompact-game-summary,
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtcompact-quick-stats{
+ justify-content:flex-start!important;
+ align-items:stretch!important;
+}
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtgames-label{
+ display:block;width:100%;text-align:center;
+}
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtcompact-meta{
+ width:100%;justify-content:center!important;text-align:center;
+}
+/* Approved Team | vs | Opponent exception survives centered content. */
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtcompact-team:first-child{text-align:right!important}
+html[data-theme] #app.gt-app #homeContent [data-page="games"] .gtgames-banner[data-component="GameBannerV2"] .gtcompact-team:last-child{text-align:left!important}
+</style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -9043,6 +9062,10 @@ function gtGamesFeaturedBannerV1(selectedGame=null, options={}){
  if(!g){const empty=document.createElement('div');empty.className='gtgames-no-game';empty.textContent='No games recorded yet.';section.append(empty);return section;}
  const isLive=!!current&&current.id===g.id&&g.status!=='completed';
  const banner=document.createElement('article');banner.className='gtgames-banner';banner.dataset.component='GameBannerV1';banner.dataset.parent='SharedBannerV2';banner.dataset.gameId=g.id;
+ // Games page only: inherit the approved SharedBanner V2 DOM contract.
+ // Game Details keeps its existing approved implementation until separately reviewed.
+ const gamesV2=!options.hideOpenAction;
+ if(gamesV2){banner.classList.add('gtv2-banner');banner.dataset.component='GameBannerV2';banner.dataset.version='V2';}
  const add=(tag,cl,content)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(content!=null)n.textContent=String(content);return n;};
  const score=isLive?gt4684GameScore(g):[g.finalScore?.team,g.finalScore?.opponent].map(v=>v===null||v===undefined||v===''?'—':Number.isFinite(Number(v))?String(Math.round(Number(v))):'—');
  // GameBanner V2 compact primary: same 2:1 shared layout as Home Court.
@@ -9053,7 +9076,9 @@ function gtGamesFeaturedBannerV1(selectedGame=null, options={}){
  if(!isLive&&score[0]!=='—'&&score[1]!=='—'){const a=Number(score[0]),b=Number(score[1]);badgeText=a>b?'WIN':a<b?'LOSS':'TIE';tone=a<b?'loss':'';}
  const totals=(()=>{try{return C.totals(C.filtered(g))||{}}catch{return{}}})();
  const compactPrimary=add('div','gtgames-compact-primary');compactPrimary.dataset.component='BannerRowV1';
+ if(gamesV2)compactPrimary.classList.add('gtv2-banner-row','gtv2-cols-2','gtv2-dividers','gtcompact-row');
  const leftCell=add('div','gtgames-compact-cell gtcompact-game-summary');leftCell.dataset.component='BannerCellV1';
+ if(gamesV2)leftCell.classList.add('gtv2-banner-cell');
  leftCell.append(add('span','gtgames-label','GAME SUMMARY'));
  const matchup=add('div','gtcompact-match');
  matchup.append(add('span','gtcompact-team',g.team||'Your Team'),add('span','gtcompact-vs','vs'),add('span','gtcompact-team',g.opponent||'Opponent'));
@@ -9064,6 +9089,7 @@ function gtGamesFeaturedBannerV1(selectedGame=null, options={}){
  if(isLive&&g.settings)compactMeta.append(add('span','',String(g.settings.current||'')+(g.settings.format==='halves'?'H':'Q')));
  leftCell.append(compactMeta);
  const rightCell=add('div','gtgames-compact-cell gtcompact-quick-stats');rightCell.dataset.component='BannerCellV1';
+ if(gamesV2)rightCell.classList.add('gtv2-banner-cell');
  rightCell.append(add('span','gtgames-label gtcompact-stats-caption','TOP STATS'));
  const quickGrid=add('div','gtcompact-stats-grid');
  [['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl']].forEach(([label,key])=>{
