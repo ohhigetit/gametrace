@@ -4,10 +4,12 @@ const fs=require('node:fs');
 const {JSDOM}=require('jsdom');
 const html=fs.readFileSync('tests/GameTrace_Trainings_BannerAlignment_QA.html','utf8');
 const canonical=fs.readFileSync('components/game-trace-components.js','utf8');
-const a=html.indexOf('/* GT_APPROVED_TRAINING_SUMMARY_V8_COMPONENT_START */');
-const b=html.indexOf('/* GT_APPROVED_TRAINING_SUMMARY_V8_COMPONENT_END */',a);
+const start='/* GT_APPROVED_TRAINING_SUMMARY_V8_COMPONENT_START */\\n';
+const end='/* GT_APPROVED_TRAINING_SUMMARY_V8_COMPONENT_END */\\n';
+const a=html.indexOf(start);
+const b=html.indexOf(end,a);
 assert(a>=0&&b>a,'V8 component/adapter boundaries lost');
-const code=html.slice(a,b);
+const code=html.slice(a+start.length,b);
 assert(code.includes('function gtTrainingSummaryBannerSectionV8Original()'),
        'Unmodified V8 adapter alias missing');
 const c=html.indexOf('function gtTrainingSummaryBannerSectionV8(){',b);
