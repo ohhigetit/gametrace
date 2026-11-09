@@ -1,0 +1,17 @@
+/* Training Form V1 only adds training-specific controls. Parent cards/fields/actions
+   are styled by the LOCKED form-components-v1.css without overrides. */
+.gt-training-form-v1 .gt-training-skills-area-v1{display:grid;gap:12px;min-width:0}
+.gt-training-form-v1 .gt-training-skills-heading-v1{margin:0;font-size:14px;font-weight:700;color:var(--gtf-muted)}
+.gt-training-form-v1 .gt-training-skills-v1{display:flex;flex-wrap:wrap;gap:9px}
+.gt-training-form-v1 .gt-training-skill-v1,
+.gt-training-form-v1 .gt-training-add-v1{
+  cursor:pointer;border:1px solid #c2d3c6;background:var(--gtf-field-bg);
+  border-radius:999px;padding:10px 14px;color:#415a48;font-size:13px;line-height:1.35;
+}
+.gt-training-form-v1 .gt-training-skill-v1[aria-pressed="true"]{background:#d8ede1;border-color:#409a65;color:#155b36;font-weight:750}
+.gt-training-form-v1 .gt-training-skills-help-v1{font-size:13px;color:var(--gtf-muted);margin:0}
+.gt-training-form-v1 .gt-training-custom-row-v1{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px}
+.gt-training-form-v1 .gt-training-add-v1{border-radius:13px;min-height:52px;white-space:nowrap}
+.gt-training-form-v1 .gt-training-form-status-v1{border:1px solid #d7999d;color:var(--gtf-error);background:#fff5f5;border-radius:13px;padding:12px 14px;margin:0;font-size:14px}
+.gt-training-form-v1 .gt-training-form-status-v1[hidden]{display:none}
+@media (max-width:370px){.gt-training-form-v1 .gt-training-custom-row-v1{grid-template-columns:minmax(0,1fr)}.gt-training-form-v1 .gt-training-add-v1{justify-self:start}}
