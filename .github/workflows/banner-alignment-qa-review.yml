@@ -15,6 +15,10 @@ jobs:
         run: python3 tests/audit_section_parent.py
       - name: Build full standalone pending app QA
         run: python3 tests/build_banner_alignment_qa.py
+      - name: Install DOM regression runtime
+        run: npm install --no-save --no-package-lock jsdom@24
+      - name: Verify real Section V1 constructor reuse and exact V8 DOM
+        run: node tests/training-section-parent-runtime.cjs
       - name: Preserve Training V8 and regression-check other banners
         shell: python
         run: |
