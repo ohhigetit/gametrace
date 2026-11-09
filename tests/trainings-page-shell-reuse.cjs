@@ -6,8 +6,8 @@ const {JSDOM}=require('jsdom');
 const baseline='2e4a4e7a86a643aa85f2041a3349c0adc18302d9';
 const html=fs.readFileSync('index.html','utf8');
 const lib=fs.readFileSync('components/game-trace-components.js','utf8');
-const oldHtml=cp.execFileSync('git',['show',baseline+':index.html'],{encoding:'utf8'});
-const oldLib=cp.execFileSync('git',['show',baseline+':components/game-trace-components.js'],{encoding:'utf8'});
+const oldHtml=cp.execFileSync('git',['show',baseline+':index.html'],{encoding:'utf8',maxBuffer:10*1024*1024});
+const oldLib=cp.execFileSync('git',['show',baseline+':components/game-trace-components.js'],{encoding:'utf8',maxBuffer:10*1024*1024});
 assert(html.includes(lib),'App must embed canonical shared component library unchanged');
 const getBlock=(src,from,to)=>{
  const a=src.indexOf(from),b=src.indexOf(to,a);
@@ -23,8 +23,8 @@ assert(newBlock.includes('parent.UniversalPageV1('));
 assert(newBlock.includes('parent.PageHeaderV1('));
 assert(newBlock.includes('content:[],'));
 assert(newBlock.includes('gtTrainingsStep1Original.apply(this,args)'));
-const approvedFn=getBlock(oldBlock,'function gtTrainingSummaryBannerSectionV8(){','\\n body.append(gtTrainingSummaryBannerSectionV8());');
-assert(newBlock.includes(approvedFn.slice(0,approvedFn.indexOf('\\n body.append'))),
+const approvedFn=getBlock(oldBlock,'function gtTrainingSummaryBannerSectionV8(){','\n body.append(gtTrainingSummaryBannerSectionV8());');
+assert(newBlock.includes(approvedFn.slice(0,approvedFn.indexOf('\n body.append'))),
  'Preserve approved Training Summary V8 renderer for subsequent integration');
 const win=()=>{
  const w=new JSDOM('<!doctype html><html><body><div id="trainingContent"></div></body></html>',{
@@ -45,9 +45,8 @@ const win=()=>{
  return w;
 };
 const oldW=win(),newW=win();
-oldW.eval('('+getBlock(oldBlock,'function gtTrainingsStep1Universal(){','\\nrenderTraining=function').slice(0,-'\\nrenderTraining=function'.length)+')');
-const oldFn=oldW.eval('('+getBlock(oldBlock,'function gtTrainingsStep1Universal(){','\\nrenderTraining=function').slice(0,-'\\nrenderTraining=function'.length)+')');
-const newFn=newW.eval('('+getBlock(newBlock,'function gtTrainingsStep1Universal(){','\\nrenderTraining=function').slice(0,-'\\nrenderTraining=function'.length)+')');
+const oldFn=oldW.eval('('+getBlock(oldBlock,'function gtTrainingsStep1Universal(){','\nrenderTraining=function').slice(0,-'\nrenderTraining=function'.length)+')');
+const newFn=newW.eval('('+getBlock(newBlock,'function gtTrainingsStep1Universal(){','\nrenderTraining=function').slice(0,-'\nrenderTraining=function'.length)+')');
 oldFn();newFn();
 const oldRoot=oldW.document.querySelector('#trainingContent'),newRoot=newW.document.querySelector('#trainingContent');
 const oldPage=oldRoot.querySelector('.up1-page'),newPage=newRoot.querySelector('.up1-page');
