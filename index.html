@@ -2925,6 +2925,40 @@ html[data-theme] #app.gt-app #statsContent [data-page="game-details"] .gtal-icon
 html[data-theme] #app.gt-app #statsContent [data-section="game-summary"]{margin:0!important;padding:6px 0 16px!important}
 html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtgames-featured-heading h2{font-size:18px!important;font-weight:800!important}
 html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtgames-banner{width:100%;min-width:0}
+</style><style id="gt-game-details-gamebanner-center-fix">
+/* Apply approved GameBanner V2 first-cell centering on Game Details only.
+   The Games and Home Court banners are intentionally unchanged. */
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-game-summary{
+ display:flex!important; flex-direction:column!important; justify-content:center!important;
+ align-items:center!important; text-align:center!important; gap:7px;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-game-summary>.gtgames-label{
+ display:block!important;width:100%!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-match{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;
+ width:100%!important;max-width:100%!important;gap:4px!important;
+ align-items:start!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-team{
+ min-width:0;overflow-wrap:anywhere;line-height:1.28;align-self:start!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-team:first-child{text-align:right!important}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-team:last-child{text-align:left!important}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-vs{
+ display:block!important;justify-self:center!important;align-self:start!important;
+ text-align:center!important;font-size:10px;font-weight:650;line-height:1.28;
+ padding-top:2px;color:var(--gt-muted,#59655b);text-transform:lowercase;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-score{
+ display:block!important;width:100%!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-meta{
+ width:100%!important;justify-content:center!important;text-align:center!important;
+}
+@media(max-width:375px){
+ html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-match{gap:3px!important}
+}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
