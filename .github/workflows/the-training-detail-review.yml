@@ -1,0 +1,23 @@
+name: Corrected The Training page review
+on:
+  push:
+    branches: [review/the-training-detail-corrected-v1-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/gt-individual-training-test jsdom@24 --no-save --no-package-lock
+      - name: Test singular Training page and preserve overview
+        env:
+          NODE_PATH: /tmp/gt-individual-training-test/node_modules
+        run: node tests/the-training-detail-corrected.cjs
