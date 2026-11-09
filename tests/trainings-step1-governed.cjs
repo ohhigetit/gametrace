@@ -12,7 +12,7 @@ const c=test.indexOf(codeStart),d=test.indexOf(codeEnd,c);
 assert(c>=0&&d>c,'Missing implementation markers');
 const style=test.slice(a+styleStart.length,b);
 const code=test.slice(c,d+codeEnd.length);
-const reconstructed=test.slice(0,a)+test.slice(b+styleEnd.length,c)+test.slice(c+code.length+1);
+const reconstructed=test.replace(styleStart+style+styleEnd,'').replace('\n'+code+'\n','');
 assert.equal(reconstructed,base,'Candidate differs from DEV baseline outside Step 1 additions');
 for(const key of ['.up1-page','.up1-header','.up1-heading','.up1-back','.up1-title','.up1-subtitle-v1','.up1-actions','.up1-action','.up1-content','.up1-footer']){
  assert(style.includes('#trainingContent '+key)||style.includes('#trainingContent>.'+key),'Missing scoped style '+key);
