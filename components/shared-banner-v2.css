@@ -68,3 +68,24 @@
   .gtv2-cols-3 .gtv2-cell-label { font-size:9px;letter-spacing:.45px; }
   .gtv2-cols-3 .gtv2-cell-sub { font-size:10px; }
 }
+
+
+/* Global Banner V2 alignment standard: 2026-11-09.
+   Center normal cells horizontally; headings remain top-aligned.
+   No color, font, background, padding, or column-width changes.
+   The Team vs Opponent matchup is an explicit exception. */
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent){
+  text-align:center;
+  align-items:center;
+  justify-content:flex-start;
+}
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent) > .gtv2-content{
+  align-items:center;
+  text-align:center;
+  width:100%;
+}
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent) :is(.gtv2-cell-label,.gtv2-cell-value,.gtv2-cell-info,.gtv2-cell-sub,.gtv2-summary-text){text-align:center}
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent) .gtv2-progress-dots{justify-content:center}
+.gtv2-banner .gtv2-team-vs-opponent .gtcompact-team:first-child{text-align:right}
+.gtv2-banner .gtv2-team-vs-opponent .gtcompact-team:last-child{text-align:left}
+.gtv2-banner .gtv2-team-vs-opponent .gtcompact-vs{text-align:center}
