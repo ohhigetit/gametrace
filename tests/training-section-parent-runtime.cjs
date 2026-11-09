@@ -36,7 +36,21 @@ const originalSection=w.GameTraceComponents.Section;
 const spySection=(args)=>{calls++;return originalSection(args)};
 Object.defineProperty(w,'GameTraceComponents',{configurable:true,value:
  Object.freeze({...w.GameTraceComponents,Section:spySection})});
-console.log('Boundary debug',JSON.stringify(code.slice(-200)),JSON.stringify(wrap.slice(-200)));
+w.gtALV1Section=({title,subtitle})=>{
+  const section=w.document.createElement('section');
+  section.className='gtal-section';
+  const header=w.document.createElement('header');
+  header.className='gtal-header';
+  header.dataset.component='SectionHeader';
+  const copy=w.document.createElement('div');
+  copy.className='gtal-heading';
+  const h=w.document.createElement('h2');
+  h.textContent=title;
+  const p=w.document.createElement('p');
+  p.textContent=subtitle;
+  copy.append(h,p);header.append(copy);section.append(header);
+  return section;
+};
 w.eval([code,wrap,'window.__original=gtTrainingSummaryBannerSectionV8Original;window.__parent=gtTrainingSummaryBannerSectionV8;'].join(String.fromCharCode(10)));
 const legacy=w.__original();
 const actual=w.__parent();
@@ -47,11 +61,14 @@ assert.equal(actual.querySelector('.gttsv2-banner').dataset.parent,'SharedBanner
 assert.equal(actual.querySelectorAll('[data-component="BannerCellV1"]').length,6);
 assert.equal(actual.querySelectorAll('[data-component="BannerRowV1"]').length,3);
 assert.equal(actual.textContent,legacy.textContent,'Approved wording and values changed');
-assert.equal(actual.querySelector('.gttsv2-section-head').outerHTML,
-             legacy.querySelector('.gttsv2-section-head').outerHTML,'Approved header changed');
+assert(actual.classList.contains('gtal-section'),'Approved Section V1 style scope absent');
+assert(actual.querySelector('.gtal-header .gtal-heading h2'),'Approved section heading markup absent');
+assert.equal(actual.querySelector('.gtal-heading h2').textContent,'Training Summary');
+assert.equal(actual.querySelector('.gtal-heading p').textContent,'Every session is a step forward.');
+assert(!actual.querySelector('.gttsv2-section-head'),'Old mismatched V8 header retained');
 assert.equal(actual.querySelector('.gttsv2-banner').outerHTML,
              legacy.querySelector('.gttsv2-banner').outerHTML,'Approved banner DOM changed');
 assert(!actual.querySelector('.gtc-section-header,.gtc-section-content'),
  'Generated non-approved wrapper markup leaked into approved layout');
-console.log('PASS: real canonical Section V1 constructor called, all approved V8 DOM/values preserved');
+console.log('PASS: real canonical Section V1 constructor called, approved header reused, original V8 banner DOM/values preserved');
 dom.window.close();
