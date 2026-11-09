@@ -20,3 +20,6 @@ jobs:
         run: node tests/trainings-step1-governed.cjs
       - name: Recent Trainings all-types section validation
         run: node tests/trainings-recent-alltypes.cjs
+
+      - name: Trainings Player Notes component validation
+        run: node tests/trainings-playernotes.cjs
