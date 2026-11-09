@@ -30,9 +30,14 @@ assert html.count(call)==1, "Training Summary call location changed"
 wrapper="""
 function gtTrainingSummaryBannerSectionV8(){
   const legacy=gtTrainingSummaryBannerSectionV8Original();
-  const oldHeader=legacy.querySelector('.gttsv2-section-head');
+  const approvedHeaderSource=gtALV1Section({
+    title:'Training Summary',
+    subtitle:'Every session is a step forward.',
+    items:[],empty:'',key:'training-summary-header'
+  });
+  const approvedHeader=approvedHeaderSource.querySelector('.gtal-header');
   const banner=legacy.querySelector('.gttsv2-banner');
-  if(!oldHeader||!banner||!window.GameTraceComponents?.Section)
+  if(!approvedHeader||!banner||!window.GameTraceComponents?.Section)
     throw new Error('Approved Training Summary / Section V1 missing');
   const section=window.GameTraceComponents.Section({
     title:'Training Summary',
@@ -40,10 +45,12 @@ function gtTrainingSummaryBannerSectionV8(){
     content:banner,
     kind:'gttsv2-section'
   });
-  section.querySelector('.gtc-section-header').replaceWith(oldHeader);
+  section.querySelector('.gtc-section-header').replaceWith(approvedHeader);
   section.querySelector('.gtc-section-content').replaceWith(banner);
   // Identical approved DOM, sourced from the real shared Section V1 constructor.
-  section.className=legacy.className;
+  // Pair the canonical Section V1 root with the exact approved
+  // Recent Trainings SectionHeader styling and typography.
+  section.className=legacy.className+' gtal-section';
   section.dataset.component=legacy.dataset.component;
   section.dataset.parent='SectionV1';
   return section;
