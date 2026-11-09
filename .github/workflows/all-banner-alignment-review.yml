@@ -1,0 +1,52 @@
+name: Game Details and Scoreboard banner alignment QA
+on:
+  push:
+    branches:
+      - review/banner-alignment-game-scoreboard-20261109
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build full approved-baseline HTML with targeted styles
+        run: python3 tests/build_all_banner_alignment_qa.py
+      - name: Regression-check header top alignment, matchup exception and existing pages
+        shell: python
+        run: |
+          from pathlib import Path
+          src=Path('tests/GameTrace_Trainings_BannerAlignment_QA.html').read_text()
+          out=Path('tests/GameTrace_AllBanner_Alignment_QA.html').read_text()
+          assert len(out)>len(src)
+          for k in ('gtGameDetailsUniversalV1','gtGamesFeaturedBannerV1',
+            'gtTrainingSummaryBannerSectionV8','gtTrainingsRecentAllTypesV1',
+            'gtcompact-match','gtcompact-vs','gtcompact-team','v44-banner-columns',
+            'v44-banner-side','v44-segments','scoreboardVisible44',
+            'Show Details','Hide Details','gt-global-banner-cell-alignment-qa'):
+            assert k in out, 'Regression: missing '+k
+          css=out[out.index('<style id="gt-game-scoreboard-global-alignment-20261109">'):]
+          css=css[:css.index('</style>')]
+          for requirement in ('#statsContent','#reportsContent','justify-content:flex-start',
+            'align-content:start','text-align:right','text-align:left',
+            'text-align:center'):
+            assert requirement in css, 'Missing '+requirement
+          assert '.gttsv2-' not in css, 'Approved Trainings style must remain untouched'
+          assert '#homeContent' not in css and '#courtContent' not in css, 'Do not override Home Court / Games'
+          assert not any(k in css for k in ('background:', 'font-size:', 'padding:', 'border-radius:')), 'Unexpected visual redesign'
+          print('PASS: target pages aligned, all other pages unmodified, matchup preserved')
+      - name: Commit review HTML for direct test link
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/GameTrace_AllBanner_Alignment_QA.html
+          if ! git diff --cached --quiet; then
+            git commit -m "QA: publish all-banner alignment review HTML"
+            git push origin HEAD:review/banner-alignment-game-scoreboard-20261109
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GameTrace_AllBanner_Alignment_QA
+          path: tests/GameTrace_AllBanner_Alignment_QA.html
+          retention-days: 14
