@@ -15,7 +15,7 @@ const code=test.slice(c,d+codeEnd.length);
 const reconstructed=test.replace(styleStart+style+styleEnd,'').replace('\n'+code+'\n','');
 assert.equal(reconstructed,base,'Candidate differs from DEV baseline outside Step 1 additions');
 for(const key of ['.up1-page','.up1-header','.up1-heading','.up1-back','.up1-title','.up1-subtitle-v1','.up1-actions','.up1-action','.up1-content','.up1-footer']){
- assert(style.includes('#trainingContent '+key)||style.includes('#trainingContent>.'+key),'Missing scoped style '+key);
+ assert(style.includes('#trainingContent '+key)||style.includes('#trainingContent>'+key),'Missing scoped style '+key);
 }
 for(const key of ['up1Icon(\'session\')','dataset.component=\'UniversalPage\'','dataset.component=\'PageHeader\'','dataset.component=\'PrimaryContent\'','dataset.component=\'PageFooter\'','()=>trainingForm()','trainingUI.editing'])assert(code.includes(key),'Missing approved component or behavior '+key);
 assert(!code.includes('localStorage')&&!code.includes('fetch('),'Unapproved data or cloud modification');
