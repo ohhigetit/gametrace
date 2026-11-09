@@ -1,0 +1,23 @@
+name: Training Details reusable page-shell review
+on:
+  push:
+    branches: [review/training-details-universal-shell-v1-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  page-shell-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/gt-training-details-shell-test jsdom@24 --no-save --no-package-lock
+      - name: Verify Training Details shell and untouched Trainings overview
+        env:
+          NODE_PATH: /tmp/gt-training-details-shell-test/node_modules
+        run: node tests/training-details-universal-shell.cjs

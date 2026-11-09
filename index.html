@@ -4326,6 +4326,77 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
     else b.disabled = true;
     return b;
   }
+
+  /**
+   * UniversalPageV1 — approved page-shell parent.
+   * Renders structure only; callers supply a page-specific PageHeader and
+   * reusable content sections without copying the page shell markup.
+   */
+  function UniversalPageV1({page,header,content=[],contentLabel='Page content',
+                            footerLines=[]}={}) {
+    if (!visible(page)) throw new TypeError('UniversalPageV1 requires page');
+    if (!(header instanceof global.Node)) throw new TypeError('UniversalPageV1 requires PageHeader');
+    const root=element('div','up1-page');
+    root.dataset.component='UniversalPage';
+    root.dataset.version='V1';
+    root.dataset.page=String(page);
+    const primary=element('main','up1-content');
+    primary.dataset.component='PrimaryContent';
+    primary.setAttribute('aria-label',String(contentLabel));
+    const sections=Array.isArray(content)?content:content?[content]:[];
+    sections.forEach(section=>{
+      if (!(section instanceof global.Node)) throw new TypeError('UniversalPageV1 content must be DOM nodes');
+      append(primary,section);
+    });
+    const footer=element('footer','up1-footer');
+    footer.dataset.component='PageFooter';
+    footerLines.forEach(line=>append(footer,element('span','',line)));
+    append(root,header,primary,footer);
+    return root;
+  }
+
+  /**
+   * PageHeaderV1 — real reusable parent for the approved UniversalPage header.
+   * Page-specific icon/navigation/CTA are passed in; typography remains CSS-owned.
+   */
+  function PageHeaderV1({title,subtitle='',pageIcon,backIcon,
+                         backLabel='Back',onBack,actions=[],
+                         actionsLabel='Page actions'}={}) {
+    if (!visible(title)) throw new TypeError('PageHeaderV1 requires title');
+    const header=element('header','up1-header');
+    header.dataset.component='PageHeader';
+    const heading=element('div','up1-heading');
+    if (typeof onBack==='function'){
+      const back=element('button','up1-back');
+      back.type='button';
+      back.setAttribute('aria-label',backLabel);
+      if (backIcon instanceof global.Node) append(back,backIcon);
+      back.addEventListener('click',onBack);
+      append(heading,back);
+    }
+    const text=element('div');
+    const titleRow=element('div','up1-title');
+    if (pageIcon instanceof global.Node) append(titleRow,pageIcon);
+    append(titleRow,element('h1','',title));
+    const sub=element('div','up1-subtitle-v1',subtitle);
+    sub.dataset.component='PageSubtitle';
+    append(text,titleRow,sub);
+    append(heading,text);
+    append(header,heading);
+    const actionNodes=Array.isArray(actions)?actions:actions?[actions]:[];
+    if(actionNodes.length){
+      const row=element('div','up1-actions');
+      row.setAttribute('role','group');
+      row.setAttribute('aria-label',actionsLabel);
+      actionNodes.forEach(action=>{
+        if (!(action instanceof global.Node)) throw new TypeError('PageHeaderV1 actions must be DOM nodes');
+        append(row,action);
+      });
+      append(header,row);
+    }
+    return header;
+  }
+
   /** Section Parent — title/subtitle and optional action around arbitrary content. */
   function Section({title,subtitle,actionLabel='View All',onAction,content,kind=''}={}) {
     if (!visible(title)) throw new TypeError('Section requires title');
@@ -4594,7 +4665,7 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
   }
 
   global.GameTraceComponents=Object.freeze({
-    version:'0.2.0',Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.2.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
@@ -4634,7 +4705,80 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
 .gtcompact-match .gtcompact-vs {text-align:center!important;}
 /* Portrait and landscape: no changes to row grids, sizes, or overflow. */
 </style>
-</head><body>
+<style id="gt-training-details-universal-shell-v1">
+/* UniversalPage Parent V1 – Trainings Step 1 integration, page-scoped */
+html[data-theme] #app.gt-app #sessionContent>.up1-page{display:flex;flex-direction:column;min-height:100%;min-width:0}
+html[data-theme] #app.gt-app #sessionContent .up1-header{padding:12px 0 20px;flex:0 0 auto}
+html[data-theme] #app.gt-app #sessionContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}
+html[data-theme] #app.gt-app #sessionContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #sessionContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #sessionContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #sessionContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important;min-width:0}
+html[data-theme] #app.gt-app #sessionContent .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #sessionContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;text-align:left!important;max-width:100%!important;white-space:normal!important}
+html[data-theme] #app.gt-app #sessionContent .up1-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #sessionContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #sessionContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #sessionContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #sessionContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #sessionContent .up1-footer{flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #sessionContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #sessionContent .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #sessionContent :is(.up1-back,.up1-action):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:365px){html[data-theme] #app.gt-app #sessionContent .up1-action{font-size:10px;flex-direction:column;gap:2px;min-height:57px}html[data-theme] #app.gt-app #sessionContent .up1-actions{gap:5px}html[data-theme] #app.gt-app #sessionContent .up1-footer span{letter-spacing:.5px}}
+
+/* Trainings PageHeader: left navigation, compact title/subtitle, right edit action. */
+html[data-theme] #app.gt-app #sessionContent .up1-heading{
+ grid-template-columns:34px minmax(0,1fr)!important;
+ gap:9px!important;align-items:start!important;
+}
+html[data-theme] #app.gt-app #sessionContent .up1-title>span{
+ display:flex;align-items:center;justify-content:center;flex:0 0 25px;
+}
+html[data-theme] #app.gt-app #sessionContent .up1-title svg{
+ display:block!important;width:25px!important;height:25px!important;max-width:25px!important;
+}
+html[data-theme] #app.gt-app #sessionContent .up1-heading>[data-component="PageHeaderAction"]{
+ width:40px!important;min-width:40px!important;max-width:40px!important;
+ height:44px!important;min-height:44px!important;padding:9px!important;
+ margin:0!important;display:grid!important;place-items:center!important;
+ border-radius:9px!important;color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #sessionContent .up1-heading>[data-component="PageHeaderAction"] svg{
+ display:block!important;width:20px!important;height:20px!important;
+}
+html[data-theme] #app.gt-app #sessionContent .up1-content{
+ min-height:140px;
+}
+html[data-theme] #app.gt-app #sessionContent .up1-footer span{
+ white-space:normal!important;
+}
+html[data-theme] #app.gt-app #sessionContent>.up1-page{width:100%;max-width:100%;overflow:hidden}
+
+/* Exact approved page styling scoped to Trainings only; single action CTA. */
+html[data-theme] #app.gt-app #sessionContent .up1-actions{grid-template-columns:minmax(0,1fr)}
+html[data-theme] #app.gt-app #sessionContent .up1-title>span{display:flex;align-items:center;justify-content:center;flex:0 0 25px}
+html[data-theme] #app.gt-app #sessionContent .up1-title svg{display:block!important;width:25px!important;height:25px!important;max-width:25px!important}
+
+/* Individual Training Details header: retain approved edit action in rightmost column. */
+html[data-theme] #app.gt-app #sessionContent>.up1-page[data-page="training-details"] .up1-heading{
+ grid-template-columns:34px minmax(0,1fr) auto!important;
+ gap:9px!important;align-items:start!important;
+}
+html[data-theme] #app.gt-app #sessionContent [data-page="training-details"] [data-component="PageHeaderAction"]{
+ justify-self:end!important;align-self:start!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:auto!important;min-width:44px!important;max-width:none!important;
+ min-height:44px!important;height:44px!important;padding:8px 10px!important;
+ margin:0!important;border:0!important;border-radius:9px!important;
+ background:transparent!important;box-shadow:none!important;
+ color:var(--gt-ink)!important;font-size:12px!important;font-weight:750!important;
+}
+html[data-theme] #app.gt-app #sessionContent [data-page="training-details"] .up1-content{
+ min-height:140px!important;
+}
+
+</style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -10248,6 +10392,53 @@ renderTraining=function(...args){
  gtTrainingsStep1Universal();
  return result;
 };
+/* TRAINING_DETAILS_UNIVERSAL_SHELL_V1
+ * Rebuild only the singular session screen (#sessionContent), never the
+ * approved plural Trainings overview (#trainingContent).
+ * Keep legacy render implementation and all session form/data code intact.
+ * Body is intentionally empty pending individually approved sections. */
+const gtTrainingDetailsBeforeUniversalV1=renderSessionDetail;
+function gtTrainingDetailsUniversalV1(){
+ if(ui.screen!=='session')return;
+ const root=document.getElementById('sessionContent');
+ if(!root)return;
+ const session=(db.trainingSessions||[]).find(s=>s&&s.id===sessionUI.id&&!s.deletedAt);
+ if(!session)return; // Preserve existing unavailable/deleted session messages.
+ const Components=window.GameTraceComponents;
+ if(!Components?.UniversalPageV1||!Components?.PageHeaderV1)
+   throw new Error('UniversalPageV1 and PageHeaderV1 are required');
+ const existingEdit=root.querySelector('.gt465-header-edit');
+ const edit=existingEdit||document.createElement('button');
+ if(!existingEdit){
+   edit.type='button';
+   edit.className='gt465-header-edit';
+   edit.textContent='Edit';
+   edit.setAttribute('aria-label','Edit Training');
+   edit.addEventListener('click',()=>{navigate('training');trainingForm(session.id)});
+ }
+ edit.dataset.component='PageHeaderAction';
+ const header=Components.PageHeaderV1({
+   title:'Training Details',
+   subtitle:'THE WORK BEHIND EVERY IMPROVEMENT.',
+   pageIcon:up1Icon('session'),backIcon:up1Icon('back'),
+   backLabel:'Back',
+   onBack:()=>navigate(sessionUI.returnTo==='session'?'training':sessionUI.returnTo)
+ });
+ header.querySelector('.up1-heading').append(edit);
+ const page=Components.UniversalPageV1({
+   page:'training-details',header,content:[],
+   contentLabel:'Training Details page content',
+   footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
+ });
+ page.dataset.sessionId=session.id;
+ root.replaceChildren(page);
+}
+renderSessionDetail=function(...args){
+ const result=gtTrainingDetailsBeforeUniversalV1.apply(this,args);
+ gtTrainingDetailsUniversalV1();
+ return result;
+};
+
 /* GT_TRAININGS_STEP1_END */
 
 const gtGameDetailsPriorRender=renderStats;

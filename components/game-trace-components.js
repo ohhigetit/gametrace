@@ -40,6 +40,77 @@
     else b.disabled = true;
     return b;
   }
+
+  /**
+   * UniversalPageV1 — approved page-shell parent.
+   * Renders structure only; callers supply a page-specific PageHeader and
+   * reusable content sections without copying the page shell markup.
+   */
+  function UniversalPageV1({page,header,content=[],contentLabel='Page content',
+                            footerLines=[]}={}) {
+    if (!visible(page)) throw new TypeError('UniversalPageV1 requires page');
+    if (!(header instanceof global.Node)) throw new TypeError('UniversalPageV1 requires PageHeader');
+    const root=element('div','up1-page');
+    root.dataset.component='UniversalPage';
+    root.dataset.version='V1';
+    root.dataset.page=String(page);
+    const primary=element('main','up1-content');
+    primary.dataset.component='PrimaryContent';
+    primary.setAttribute('aria-label',String(contentLabel));
+    const sections=Array.isArray(content)?content:content?[content]:[];
+    sections.forEach(section=>{
+      if (!(section instanceof global.Node)) throw new TypeError('UniversalPageV1 content must be DOM nodes');
+      append(primary,section);
+    });
+    const footer=element('footer','up1-footer');
+    footer.dataset.component='PageFooter';
+    footerLines.forEach(line=>append(footer,element('span','',line)));
+    append(root,header,primary,footer);
+    return root;
+  }
+
+  /**
+   * PageHeaderV1 — real reusable parent for the approved UniversalPage header.
+   * Page-specific icon/navigation/CTA are passed in; typography remains CSS-owned.
+   */
+  function PageHeaderV1({title,subtitle='',pageIcon,backIcon,
+                         backLabel='Back',onBack,actions=[],
+                         actionsLabel='Page actions'}={}) {
+    if (!visible(title)) throw new TypeError('PageHeaderV1 requires title');
+    const header=element('header','up1-header');
+    header.dataset.component='PageHeader';
+    const heading=element('div','up1-heading');
+    if (typeof onBack==='function'){
+      const back=element('button','up1-back');
+      back.type='button';
+      back.setAttribute('aria-label',backLabel);
+      if (backIcon instanceof global.Node) append(back,backIcon);
+      back.addEventListener('click',onBack);
+      append(heading,back);
+    }
+    const text=element('div');
+    const titleRow=element('div','up1-title');
+    if (pageIcon instanceof global.Node) append(titleRow,pageIcon);
+    append(titleRow,element('h1','',title));
+    const sub=element('div','up1-subtitle-v1',subtitle);
+    sub.dataset.component='PageSubtitle';
+    append(text,titleRow,sub);
+    append(heading,text);
+    append(header,heading);
+    const actionNodes=Array.isArray(actions)?actions:actions?[actions]:[];
+    if(actionNodes.length){
+      const row=element('div','up1-actions');
+      row.setAttribute('role','group');
+      row.setAttribute('aria-label',actionsLabel);
+      actionNodes.forEach(action=>{
+        if (!(action instanceof global.Node)) throw new TypeError('PageHeaderV1 actions must be DOM nodes');
+        append(row,action);
+      });
+      append(header,row);
+    }
+    return header;
+  }
+
   /** Section Parent — title/subtitle and optional action around arbitrary content. */
   function Section({title,subtitle,actionLabel='View All',onAction,content,kind=''}={}) {
     if (!visible(title)) throw new TypeError('Section requires title');
@@ -308,7 +379,7 @@
   }
 
   global.GameTraceComponents=Object.freeze({
-    version:'0.2.0',Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.2.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
