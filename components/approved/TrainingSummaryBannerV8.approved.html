@@ -1,0 +1,187 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GameTrace · Training Summary Banner V8 · Transparent Details · Review</title><style>
+:root{--gt-ink:#172119;--gt-muted:#59655b;--gt-edge:#d0dbd1;--gt-accent:#087d42;--gt-surface:#fff;--gt-secondary:#f2f5f0}body{margin:0;background:#f7faf8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gt-ink)}main{max-width:780px;margin:0 auto;padding:30px 18px 65px}.label{font-size:10px;font-weight:800;letter-spacing:1.2px;color:#087d42}.heading{margin:7px 0;font-size:24px;letter-spacing:-.5px}.desc{font-size:13px;line-height:1.55;color:#59655b;margin:0 0 20px}.sample{background:#e8f1e9;color:#59655b;font-size:11px;border-radius:8px;padding:10px 12px;margin-bottom:20px}.footer{font-size:11px;line-height:1.5;color:#59655b;margin-top:20px}@media(max-width:450px){main{padding:20px 11px 35px}.heading{font-size:21px}}
+</style><style>/* Training Summary Banner V5: approved Section/SharedBanner structure; two visible primary cells. */
+.gttsv2-section{min-width:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gt-ink,#172119)}
+.gttsv2-section *{box-sizing:border-box}
+.gttsv2-section-head{margin-bottom:13px}
+.gttsv2-titles h2{margin:0;font-size:18px;line-height:1.3;letter-spacing:-.35px;font-weight:800}
+.gttsv2-titles p{margin:4px 0 0;font-size:12px;line-height:1.5;color:var(--gt-muted,#59655b)}
+.gttsv2-banner{width:100%;min-width:0;background:var(--gt-surface,#fff);border:1px solid var(--gt-edge,#cbd3c8);border-radius:14px;overflow:hidden}
+.gttsv2-row{display:grid;grid-template-columns:minmax(0,1.07fr) minmax(0,.93fr)}
+.gttsv2-cell{min-width:0;padding:22px 19px;overflow-wrap:anywhere}
+.gttsv2-primary-one{display:flex;flex-direction:column;justify-content:flex-start}
+.gttsv2-primary-two{border-left:1px solid var(--gt-edge,#d0dbd1);background:var(--gt-secondary,#f2f5f0);display:flex;flex-direction:column;justify-content:flex-start}
+.gttsv2-eyebrow{font-size:10px;line-height:1.35;color:var(--gt-accent,#087d42);font-weight:800;letter-spacing:.62px}
+.gttsv2-hero{display:flex;flex-direction:column;gap:3px;margin:19px 0 10px}
+.gttsv2-hero-number{font-size:clamp(56px,9vw,76px);line-height:1;font-weight:850;letter-spacing:-3px;font-variant-numeric:tabular-nums}
+.gttsv2-hero-copy{font-size:17px;line-height:1.25;font-weight:780;letter-spacing:-.25px}
+.gttsv2-intro{margin:4px 0 0;font-size:12px;color:var(--gt-muted,#59655b);line-height:1.55;max-width:28em}
+.gttsv2-statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:22px 0 20px}
+.gttsv2-stat{min-width:0;display:flex;flex-direction:column;gap:6px}
+.gttsv2-stat+.gttsv2-stat{padding-left:12px;border-left:1px solid var(--gt-edge,#d0dbd1)}
+.gttsv2-stat-number{font-size:clamp(24px,4vw,33px);line-height:1.1;font-weight:850;letter-spacing:-.8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gttsv2-stat-number small{font-size:11px;font-weight:700;color:var(--gt-muted,#59655b);letter-spacing:0;margin-left:4px}
+.gttsv2-stat-label{font-size:11px;line-height:1.4;color:var(--gt-muted,#59655b)}
+.gttsv2-full-row{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--gt-edge,#d0dbd1)}
+.gttsv2-milestone{min-width:0;padding:18px 19px 20px;background:var(--gt-surface,#fff)}
+.gttsv2-milestone-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.gttsv2-milestone-top strong{font-size:11px;font-weight:800}
+.gttsv2-milestone-top span{font-size:10px;color:var(--gt-muted,#59655b);font-variant-numeric:tabular-nums}
+.gttsv2-progress{height:8px;background:#d6e2d7;border-radius:30px;overflow:hidden}
+.gttsv2-progress-fill{height:100%;display:block;background:var(--gt-accent,#087d42);border-radius:30px}
+.gttsv2-milestone-text{font-size:11px;color:var(--gt-muted,#59655b);line-height:1.5;margin:8px 0 0}
+@media(max-width:560px){.gttsv2-cell{padding:16px 12px}.gttsv2-banner-head{padding:12px}.gttsv2-hero{margin-top:17px}.gttsv2-hero-number{font-size:51px}.gttsv2-hero-copy{font-size:14px}.gttsv2-intro{font-size:11px}.gttsv2-message{padding:10px;margin-top:15px}.gttsv2-statgrid{margin:18px 0}.gttsv2-stat-number{font-size:23px}.gttsv2-stat-number small{display:block;margin-left:0;margin-top:3px}.gttsv2-stat-label{font-size:10px}.gttsv2-milestone-top span{font-size:10px}.gttsv2-milestone{padding:15px 12px 17px}}
+@media(max-width:340px){.gttsv2-row{grid-template-columns:1fr}.gttsv2-primary-two{border-left:0;border-top:1px solid var(--gt-edge,#d0dbd1)}.gttsv2-stat-number small{display:inline;margin-left:4px}}
+
+/* Always-visible details row: third BannerRowV1, never an accordion. */
+.gttsv2-details-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--gt-edge,#d0dbd1);background:var(--gt-secondary,#f2f5f0)}
+.gttsv2-details-cell{min-width:0;padding:17px 19px 18px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}
+.gttsv2-details-cell + .gttsv2-details-cell{border-left:1px solid var(--gt-edge,#d0dbd1)}
+.gttsv2-details-label{display:block;min-height:28px;font-weight:800;font-size:10px;letter-spacing:.5px;color:var(--gt-accent,#087d42);margin-bottom:10px}
+.gttsv2-breakdown{display:grid;grid-template-columns:1fr auto;gap:5px 8px;margin:0;font-size:11px;line-height:1.45}
+.gttsv2-breakdown dt{color:var(--gt-muted,#59655b)}.gttsv2-breakdown dd{margin:0;font-weight:750;text-align:right;font-variant-numeric:tabular-nums}
+.gttsv2-detail-number{font-size:25px;letter-spacing:-.5px;font-weight:850;line-height:1.1}
+.gttsv2-detail-unit{font-size:11px;color:var(--gt-muted,#59655b);font-weight:650;margin-left:4px}
+.gttsv2-detail-description{font-size:11px;line-height:1.45;margin:7px 0 0;color:var(--gt-muted,#59655b)}
+.gttsv2-achievements{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.gttsv2-achievement{font-size:10px;border:1px solid var(--gt-edge,#d0dbd1);background:var(--gt-surface,#fff);border-radius:20px;padding:5px 8px;font-weight:750}
+@media(max-width:560px){.gttsv2-details-cell{padding:13px 11px}.gttsv2-details-row{grid-template-columns:repeat(2,minmax(0,1fr))}.gttsv2-details-cell:nth-child(3){grid-column:1/-1;border-left:0;border-top:1px solid var(--gt-edge,#d0dbd1)}.gttsv2-detail-number{font-size:22px}}
+@media(max-width:340px){.gttsv2-details-row{grid-template-columns:1fr}.gttsv2-details-cell{grid-column:auto!important;border-left:0!important}.gttsv2-details-cell + .gttsv2-details-cell{border-top:1px solid var(--gt-edge,#d0dbd1)}}
+
+/* Locked component alignment rule: all cell headings align to the top.
+   Detailed row cell 1 and cell 3 center-align content, while headings keep an identical top baseline. */
+.gttsv2-row > .gttsv2-cell{justify-content:flex-start;align-items:stretch}
+.gttsv2-details-centered{text-align:center;align-items:center}
+.gttsv2-details-centered .gttsv2-details-label{width:100%;text-align:center}
+.gttsv2-details-centered .gttsv2-breakdown{width:min(100%,175px);text-align:left}
+.gttsv2-details-centered .gttsv2-achievements{justify-content:center}
+.gttsv2-skills-list{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start}
+.gttsv2-skill-tag{display:inline-flex;align-items:center;gap:5px;background:var(--gt-surface,#fff);border:1px solid var(--gt-edge,#d0dbd1);border-radius:14px;padding:5px 8px;font-size:10px;font-weight:650;color:var(--gt-ink,#172119)}
+.gttsv2-skill-tag small{font-size:10px;color:var(--gt-muted,#59655b)}
+.gttsv2-best-streak{font-size:10px;color:var(--gt-muted,#59655b)}
+@media(max-width:560px){.gttsv2-details-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gttsv2-details-cell:nth-child(3){grid-column:auto;border-left:1px solid var(--gt-edge,#d0dbd1);border-top:0}.gttsv2-details-cell{padding:13px 8px}.gttsv2-details-label{font-size:9px;min-height:35px}.gttsv2-breakdown{font-size:10px}.gttsv2-skill-tag{font-size:9px;padding:4px 6px}.gttsv2-details-centered .gttsv2-achievements{gap:4px}}
+@media(max-width:340px){.gttsv2-details-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gttsv2-details-cell{grid-column:auto!important;border-top:0!important}.gttsv2-details-cell+.gttsv2-details-cell{border-left:1px solid var(--gt-edge,#d0dbd1)!important}.gttsv2-details-cell{padding:10px 5px}.gttsv2-details-label{font-size:8px;letter-spacing:0}.gttsv2-skill-tag{font-size:8px}}
+</style><style id="gttsv6-all-cells-centered">
+/* Approved alignment: headings stay at top; all banner cells centered. */
+.gttsv2-banner [data-component="BannerCellV1"]{text-align:center}
+.gttsv2-row>.gttsv2-cell{display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center}
+.gttsv2-eyebrow,.gttsv2-details-label{width:100%;text-align:center}
+.gttsv2-hero{align-items:center;text-align:center}
+.gttsv2-intro{max-width:100%;text-align:center}
+.gttsv2-statgrid{width:100%;align-self:stretch}
+.gttsv2-stat{align-items:center;text-align:center}
+.gttsv2-stat+.gttsv2-stat{padding-left:0}
+.gttsv2-details-cell{align-items:center;text-align:center;justify-content:flex-start}
+.gttsv2-details-centered .gttsv2-breakdown{margin-inline:auto}
+.gttsv2-skills-list{justify-content:center}
+.gttsv2-detail-description{text-align:center}
+.gttsv2-achievements{justify-content:center}
+.gttsv2-milestone{text-align:center}
+.gttsv2-milestone-top{justify-content:center;gap:6px 16px}
+.gttsv2-milestone-text{text-align:center}
+</style><style id="gttsv7-unified-green-background">
+/* V7: use one consistent GameTrace soft green background in every banner cell.
+   All content, alignment, and rows are unchanged. */
+.gttsv2-banner,
+.gttsv2-banner .gttsv2-cell,
+.gttsv2-banner .gttsv2-primary-one,
+.gttsv2-banner .gttsv2-primary-two,
+.gttsv2-banner .gttsv2-milestone,
+.gttsv2-banner .gttsv2-details-row,
+.gttsv2-banner .gttsv2-details-cell {background:#e6efe8!important;}
+</style><style id="gttsv8-transparent-pills">
+/* V8: skills and achievement chips are part of the unified green banner,
+   not white, raised or button-like surfaces. Preserve centered layout. */
+.gttsv2-banner .gttsv2-skill-tag,
+.gttsv2-banner .gttsv2-achievement {
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  border-color:color-mix(in srgb,var(--gt-edge,#d0dbd1) 70%,transparent)!important;
+}
+</style></head><body><main><div class="label">GAMETRACE · COMPONENT REVIEW</div><h1 class="heading">Training Summary Banner V8</h1><p class="desc">Two primary columns, a full-width milestone, and three aligned detailed-work cells including Skills Worked On. Approved Section V1 → SharedBanner V2 structure. Not integrated into the application.</p><p class="sample">Illustrative values only: 26 sessions, 42.5 hours, four-week streak, next milestone at 50 hours.</p><div id="preview"></div><p class="footer">Design review only. All three banner rows remain visible. Sample figures only; no data writes, network requests, or Show Details controls.</p></main><script>/* TrainingSummaryBanner V6 — standalone review component; not integrated.
+   Section V1 -> SharedBanner V2 -> BannerPrimaryContent -> BannerRowV1 -> 2 BannerCellV1.
+   Supplied aggregates are read-only. No persistence, cloud calls, or game writes. */
+(function(global){
+'use strict';
+function createTrainingSummaryBannerV6(data={}){
+ const el=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=String(value);return n};
+ const num=v=>Number.isFinite(Number(v))?Math.max(0,Number(v)):0;
+ const fmt=v=>num(v).toLocaleString(undefined,{maximumFractionDigits:1});
+ const totalMinutes=num(data.totalMinutes),hours=totalMinutes/60;
+ const sessions=Math.round(num(data.sessions)),streak=Math.round(num(data.currentStreakWeeks));
+ const goal=Number.isFinite(Number(data.nextMilestoneHours))&&Number(data.nextMilestoneHours)>0?Number(data.nextMilestoneHours):0;
+ const progress=goal?Math.min(100,Math.round(hours/goal*100)):100;
+ const section=el('section','gttsv2-section');section.dataset.component='SectionV1';section.dataset.child='TrainingSummaryBannerV6';
+ const sh=el('header','gttsv2-section-head');sh.dataset.component='SectionHeaderV1';
+ const titles=el('div','gttsv2-titles');titles.append(el('h2','', 'Training Summary'),el('p','', 'Every session is a step forward.'));sh.append(titles);section.append(sh);
+ const banner=el('article','gttsv2-banner');banner.dataset.component='TrainingSummaryBannerV6';banner.dataset.parent='SharedBannerV2';
+ const primary=el('div','gttsv2-primary');primary.dataset.component='BannerPrimaryContent';
+ const row=el('div','gttsv2-row');row.dataset.component='BannerRowV1';
+ const left=el('div','gttsv2-cell gttsv2-primary-one');left.dataset.component='BannerCellV1';left.dataset.area='primary-1';
+ left.append(el('span','gttsv2-eyebrow','THE WORK YOU’VE PUT IN'));
+ const hero=el('div','gttsv2-hero');hero.append(el('strong','gttsv2-hero-number',sessions),el('span','gttsv2-hero-copy','times you showed up'));
+ left.append(hero,el('p','gttsv2-intro','Every effort matters.'));
+ const right=el('div','gttsv2-cell gttsv2-primary-two');right.dataset.component='BannerCellV1';right.dataset.area='primary-2';
+ right.append(el('span','gttsv2-eyebrow','YOUR EFFORT IN MOTION'));
+ const statgrid=el('div','gttsv2-statgrid');
+ const hrs=el('div','gttsv2-stat');const hrnum=el('strong','gttsv2-stat-number',fmt(hours));hrnum.append(el('small','', 'hrs'));hrs.append(hrnum,el('span','gttsv2-stat-label','Time invested'));
+ const streakbox=el('div','gttsv2-stat');const snum=el('strong','gttsv2-stat-number',streak);snum.append(el('small','',streak===1?'week':'weeks'));streakbox.append(snum,el('span','gttsv2-stat-label','Consistency streak'));
+ const best=Math.round(num(data.longestStreakWeeks));
+ streakbox.append(el('span','gttsv2-best-streak','Best: '+best+' '+(best===1?'week':'weeks')));
+ statgrid.append(hrs,streakbox);right.append(statgrid);
+ const milestone=el('div','gttsv2-milestone gttsv2-milestone-row');
+ const topline=el('div','gttsv2-milestone-top');topline.append(el('strong','',goal?'Your next milestone':'Your milestones'),el('span','',goal?fmt(hours)+' / '+fmt(goal)+' hrs':'All achieved'));
+ milestone.append(topline);
+ const bar=el('div','gttsv2-progress');bar.setAttribute('role','progressbar');bar.setAttribute('aria-label','Training hours milestone progress');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','100');bar.setAttribute('aria-valuenow',String(progress));
+ const fill=el('span','gttsv2-progress-fill');fill.style.width=progress+'%';bar.append(fill);milestone.append(bar);
+ milestone.append(el('p','gttsv2-milestone-text',goal?fmt(Math.max(0,goal-hours))+' more hours until your next achievement.':'Look how much effort you have invested.'));
+ row.append(left,right);primary.append(row);
+ const milestoneRow=el('div','gttsv2-full-row');milestoneRow.dataset.component='BannerRowV1';
+ milestone.dataset.component='BannerCellV1';milestone.dataset.area='milestone';
+ milestoneRow.append(milestone);primary.append(milestoneRow);
+ // Third, always-visible BannerRowV1: a clear record of the different work invested.
+ const details=el('div','gttsv2-details-row');details.dataset.component='BannerRowV1';details.dataset.area='detailed-work';
+ const breakdown=el('div','gttsv2-details-cell gttsv2-details-centered');breakdown.dataset.component='BannerCellV1';
+ breakdown.append(el('span','gttsv2-details-label','WHERE YOU SHOWED UP'));
+ const mix=el('dl','gttsv2-breakdown');
+ const types=Array.isArray(data.sessionTypes)?data.sessionTypes:[];
+ for(const item of types){
+   if(!item||!item.label)continue;
+   mix.append(el('dt','',item.label),el('dd','',Math.round(num(item.count))));
+ }
+ if(!mix.children.length)mix.append(el('dt','','Session breakdown'),el('dd','','Not recorded'));
+ breakdown.append(mix);
+ const skills=el('div','gttsv2-details-cell gttsv2-skills');skills.dataset.component='BannerCellV1';
+ skills.append(el('span','gttsv2-details-label','SKILLS WORKED ON'));
+ const skillList=el('div','gttsv2-skills-list');
+ const skillsData=Array.isArray(data.skillsWorkedOn)?data.skillsWorkedOn:[];
+ for(const skill of skillsData){
+  const label=typeof skill==='string'?skill:skill?.label;
+  if(!label)continue;
+  const count=typeof skill==='object'&&Number.isFinite(Number(skill.count))?Math.round(num(skill.count)):null;
+  const item=el('span','gttsv2-skill-tag',label);
+  if(count!==null)item.append(el('small','',String(count)));
+  skillList.append(item);
+ }
+ if(!skillList.children.length)skillList.append(el('span','gttsv2-detail-description','Skills appear as you log them.'));
+ skills.append(skillList);
+ const achievements=el('div','gttsv2-details-cell gttsv2-details-centered');achievements.dataset.component='BannerCellV1';
+ achievements.append(el('span','gttsv2-details-label','MILESTONES EARNED'));
+ const earned=Array.isArray(data.milestonesEarned)?data.milestonesEarned:[];
+ const earnedCount=el('strong','gttsv2-detail-number',earned.length);achievements.append(earnedCount);
+ achievements.append(el('span','gttsv2-detail-unit',earned.length===1?'achievement':'achievements'));
+ const badges=el('div','gttsv2-achievements');
+ for(const value of earned)badges.append(el('span','gttsv2-achievement',fmt(value)+' hrs'));
+ if(!earned.length)badges.append(el('span','gttsv2-detail-description','Your achievements start with your first milestone.'));
+ achievements.append(badges);
+ details.append(breakdown,skills,achievements);primary.append(details);
+ banner.append(primary);section.append(banner);
+ return section;
+}
+global.GameTraceTrainingSummaryBannerV6={create:createTrainingSummaryBannerV6};
+})(window);
+
+const sample={sessions:26,totalMinutes:2550,currentStreakWeeks:4,longestStreakWeeks:7,nextMilestoneHours:50,sessionTypes:[{label:'Skills',count:14},{label:'Performance',count:7},{label:'Camps',count:3},{label:'Other',count:2}],skillsWorkedOn:[{label:'Shooting',count:12},{label:'Finishing',count:9},{label:'Ball handling',count:8},{label:'Defense',count:6}],milestonesEarned:[10,25]};
+document.getElementById('preview').append(window.GameTraceTrainingSummaryBannerV6.create(sample));
+</script></body></html>
