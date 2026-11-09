@@ -4278,7 +4278,8 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
 
 </style>
 <!-- GT_APPROVED_TRAINING_SUMMARY_V8_STYLES_END -->
-<script id='gt-approved-section-v1-runtime'>\n/**
+<script id='gt-approved-section-v1-runtime'>
+/**
  * GameTrace reusable presentation components — foundation v0.1.
  * Pure DOM views; does not load records, modify app state, or perform network calls.
  * Existing app icons are injected by the integration layer (iconNode).
@@ -4493,7 +4494,8 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
-\n</script>
+
+</script>
 <style id="gt-global-banner-cell-alignment-qa">
 /* SharedBanner V2: horizontal-only centering, without vertical recentering. */
 .gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent) {
@@ -10195,7 +10197,8 @@ function gtTrainingSummaryBannerSectionV8(){
   section.dataset.parent='SectionV1';
   return section;
 }
-\n body.append(gtTrainingSummaryBannerSectionV8());
+
+ body.append(gtTrainingSummaryBannerSectionV8());
  body.append(gtTrainingsRecentAllTypesV1());
  const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
  const one=node('span'),two=node('span');one.textContent='SHOW UP. PUT IN THE WORK.';two.textContent='TRUST THE JOURNEY.';
