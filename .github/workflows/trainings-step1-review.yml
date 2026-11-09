@@ -18,3 +18,5 @@ jobs:
         run: node tests/governance.cjs
       - name: Trainings isolated artifact validation
         run: node tests/trainings-step1-governed.cjs
+      - name: Recent Trainings all-types section validation
+        run: node tests/trainings-recent-alltypes.cjs
