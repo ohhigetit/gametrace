@@ -1,0 +1,20 @@
+name: Trainings Step 1 Review QA
+on:
+  push:
+    branches: [review/trainings-step1-governed-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  trainings-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Governance contract
+        run: node tests/governance.cjs
+      - name: Trainings isolated artifact validation
+        run: node tests/trainings-step1-governed.cjs
