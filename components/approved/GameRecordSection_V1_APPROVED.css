@@ -1,0 +1,59 @@
+/* GameRecordSection V1 approved Section parent layers — extracted verbatim from the user-approved full-app preview.
+ Reference only. Do not load duplicate rules alongside its inline CSS. */
+
+/* === gt-gamerecord-section-v1-approved-parent-composition === */
+
+/* GameRecordSection V1: same parent-section heading system as approved
+   GameCircleSection and TimelineSection. Child GameRecord V1 is unmodified. */
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 {
+  margin:24px 0 0; padding:0; min-width:0; border:0;
+  background:transparent; box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:12px; padding:0 0 14px; min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 .gt-grs-heading {
+  min-width:0; flex:1;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 .gt-grs-heading h2 {
+  margin:0!important; color:var(--gt-ink)!important;
+  font-size:18px!important; font-weight:800!important;
+  line-height:1.3!important; letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 .gt-grs-heading p {
+  margin:4px 0 0; color:var(--gt-muted);font-size:12px;
+  line-height:1.45; font-weight:450;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-content {
+  width:100%; min-width:0; padding:0; margin:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 [data-component="GameRecordV1"] {
+  margin:0!important;min-width:0;
+}
+
+
+/* === gt-gamerecord-section-v1-clean-header-spacing === */
+
+/* Refines spacing ONLY within GameRecordSection V1.
+   Preserve the approved file-folder tabs, records, drag handles and forms. */
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header {
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header::after,
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header::before {
+  content:none!important;
+  display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-content,
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-content > .report-record {
+  border-top:0!important;
+  padding-top:0!important;
+  margin-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs {
+  margin-top:5px!important;
+}
