@@ -2959,76 +2959,582 @@ html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcomp
 @media(max-width:375px){
  html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-match{gap:3px!important}
 }
-</style><style id="gtgd-gamecircles-section-v1">
-/* Game Details SectionV1 wraps the original GameCircles component without
-   changing the approved drawing, swipe arrows, labels, or timeline behavior. */
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"]{
- width:100%;min-width:0;margin:24px 0 0;padding:0;
+</style><style id="gt-approved-circle-timeline-styles">
+/* SOURCE components/approved/GameCircle_V1_APPROVED.css SHA 617fe81cf7f24bbe5e1ffca6bc727309ab2fc54e */
+/* Approved GameCircle V1 — canonical CSS from 2026-11-08 approved full-app preview.
+   This is a version-locked reference, NOT a stylesheet to load alongside the
+   approved app's inline CSS. Extract into the reusable component only after
+   verifying real visual/runtime parity. The SVG rendering and all analytics
+   logic deliberately remain in the existing application. */
+
+/* === gt-gamecircle-v1-original-size-typography-preview === */
+
+/* Presentation-only GameCircle refinement. Original game-circle colors, SVG geometry,
+   analytics, events, and other page designs are unchanged. */
+html[data-theme] #app.gt-app #statsContent .report-circles {
+  padding-top:20px;
+}
+/* The circle no longer fills the entire phone: reserve room for browsing controls. */
+html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator {
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 44px;
+  gap:6px;
+  align-items:center;
+  width:100%;
+  max-width:416px;
+  margin:6px auto 0;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator .report-circle-svg {
+  display:block;
+  width:100%;
+  max-width:300px !important;
+  aspect-ratio:1;
+  margin:0 auto;
+  overflow:visible;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles > .report-circle-svg {
+  width:min(100%,300px);
+  max-width:300px;
+  margin:8px auto 0;
+}
+/* Court-time text follows the same font and numerical rhythm as the rest of the app. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-court {
+  font-family:inherit;
+  font-size:clamp(12px,3.25vw,14px);
+  font-weight:500;
+  line-height:1.45;
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+  color:var(--gt-muted);
+  text-align:center;
+  margin:12px 0 14px;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-timing-note {
+  font-family:inherit;
+  font-size:12px;
+  line-height:1.5;
+}
+/* Legend reads like compact app metadata, not tiny chart annotations. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-legend {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  column-gap:14px;
+  row-gap:9px;
+  font-family:inherit;
+  font-size:clamp(11px,3.05vw,13px);
+  line-height:1.4;
+  font-weight:500;
+  letter-spacing:0;
+  color:var(--gt-muted);
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-key {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+  font:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-key i {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  flex:0 0 9px;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-legend+.report-legend {
+  margin-top:10px;
+}
+@media(max-width:360px){
+ html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator {
+  grid-template-columns:40px minmax(0,1fr) 40px;
+  gap:4px;
+ }
+ html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator .report-circle-svg {
+  max-width:270px !important;
+ }
+ html[data-theme] #app.gt-app #statsContent .report-circles .report-legend {
+  column-gap:11px;
+ }
+}
+
+
+/* === gt-gamecircle-v1-quiet-label-and-legend-preview === */
+
+/* GameCircle content only. Approved original SVG palette, geometry and drawing logic remain intact. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-court {
+ display:block;
+ width:fit-content;
+ max-width:calc(100% - 24px);
+ margin:9px auto 13px;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-family:inherit;
+ font-size:11px;
+ font-weight:500;
+ line-height:1.5;
+ letter-spacing:.01em;
+ text-align:center;
+ font-variant-numeric:tabular-nums;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-timing-note {
+ max-width:330px;
+ margin:0 auto 10px;
+ font-size:11px;
+ line-height:1.35;
+ opacity:.78;
+ text-align:center;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:7px 13px;
+ max-width:360px;
+ margin:0 auto;
+ padding:0;
+ color:var(--gt-muted);
+ font-family:inherit;
+ font-size:11px;
+ font-weight:400;
+ line-height:1.4;
+ letter-spacing:0;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key .report-key {
+ display:inline-flex;
+ gap:5px;
+ align-items:center;
+ opacity:.86;
+ white-space:nowrap;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key .report-key i {
+ width:6px;
+ height:6px;
+ flex:0 0 6px;
+ border-radius:50%;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys {
+ max-width:355px;
+ margin:9px auto 0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary {
+ display:block;
+ width:fit-content;
+ min-height:32px;
+ margin:0 auto;
+ padding:7px 10px;
+ list-style:none;
+ text-align:center;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-size:11px;
+ font-weight:500;
+ cursor:pointer;
+ opacity:.85;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary::-webkit-details-marker { display:none; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary::after { content:'  ▾'; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys[open] > summary::after { content:'  ▴'; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary:focus-visible { outline:2px solid var(--gt-accent);border-radius:7px; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys .report-legend {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:8px 13px;
+ margin:5px auto 0;
+ padding:8px 12px 3px;
+ border-top:1px solid var(--gt-edge);
+ background:transparent;
+ color:var(--gt-muted);
+ font-size:11px;
+ font-weight:400;
+ line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys .report-key i {
+ width:7px;height:7px;flex:0 0 7px;
+}
+@media(max-width:350px){
+ html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key {gap:6px 10px;}
+}
+
+
+/* === gt-gamecircle-collapsed-left-aligned-details-preview === */
+
+/* Scoped presentation only: hide all supporting labels/legends until expanded. */
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details {
+ width:min(100%,360px);
+ max-width:100%;
+ margin:8px auto 0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-family:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary {
+ display:flex;
+ justify-content:flex-start;
+ align-items:center;
+ width:100%;
+ min-height:44px;
+ padding:8px 2px;
+ margin:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ text-align:left;
+ font-family:inherit;
+ font-size:12px;
+ font-weight:600;
+ line-height:1.4;
+ letter-spacing:0;
+ list-style:none;
+ cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary::-webkit-details-marker {display:none;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary::before {
+ content:'▸';display:inline-block;margin-right:9px;font-size:12px;line-height:1;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details[open] > summary::before {content:'▾';}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary:focus-visible {outline:2px solid var(--gt-accent);outline-offset:2px;border-radius:5px;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body {
+ width:100%; padding:1px 2px 12px;text-align:left;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-court,
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-timing-note {
+ display:block;width:100%;max-width:100%;margin:5px 0 10px;padding:0;
+ border:0;background:transparent;text-align:left;
+ font-family:inherit;font-size:12px;font-weight:500;line-height:1.45;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-timing-note {font-size:11px;font-weight:400;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-legend {
+ display:flex; flex-wrap:wrap;justify-content:flex-start;align-items:center;
+ gap:8px 13px;max-width:100%;width:100%;margin:0;padding:8px 0;
+ border:0;background:transparent;color:var(--gt-muted);text-align:left;
+ font-family:inherit;font-size:11px;font-weight:500;line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-key {
+ display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-key i {
+ display:inline-block;width:7px;height:7px;flex:0 0 7px;border-radius:50%;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .gt-circle-stats-key {
+ margin-top:5px;padding-top:11px;border-top:1px solid var(--gt-edge);
+}
+
+
+/* SOURCE components/approved/GameCircleSection_V1_APPROVED.css SHA b5ea0a5464079aae454eabf3d3f9d2fd4e5b8ed6 */
+/* Approved GameCircleSection V1 parent wrapper styles. Content is the
+   already-approved GameCircle V1. The parent exclusively owns section heading,
+   subtitle and section spacing; child owns circle, labels and legend. */
+
+/* GameCircle Section V1: approved Home Court Section V1 header system.
+   Parent owns header / spacing; child GameCircle owns SVG and collapsible details.
+   No changes to SVG drawing code, tokens, game navigation, or analytics calculations. */
+html[data-theme] #app.gt-app #statsContent .report-circles.gt-gcs-v1 {
+  margin:24px 0 0!important;
+  padding:0!important;
+  min-width:0;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 > .gt-gcs-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 0 14px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading {min-width:0;flex:1;}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading h2 {
+  margin:0!important;
+  color:var(--gt-ink)!important;
+  font-size:18px!important;
+  font-weight:800!important;
+  line-height:1.3!important;
+  letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading p {
+  margin:4px 0 0!important;
+  color:var(--gt-muted)!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-content {min-width:0;width:100%;}
+
+
+/* SOURCE components/approved/TimelineSection_V1_APPROVED.css SHA 0901b7677bafc0d66d9fd2317a11468771264e43 */
+/* TimelineSection V1 — approved Section V1 composition and native filter controls.
+   View + Team score + Opponent score + Player events, under horizontal sliders icon.
+   This source is a reference for future extraction; does not change DEV. */
+
+/* === gt-timeline-section-v1-parent-preview === */
+
+/* Game Timeline: approved Section V1 parent. Reuses existing Timeline DOM and logic. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1{
+ margin:24px 0 0; padding:0; min-width:0; border:0;
+ background:transparent;box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 > .gt-tls-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+ padding:0 0 14px;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-heading{min-width:0;flex:1}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-heading h2{
+ margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;
+ font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-heading p{
+ margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;
+ font-weight:400!important;line-height:1.5!important;letter-spacing:normal!important;
+ text-transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-content{min-width:0;width:100%}
+/* Child timeline owns its own controls, chart, strips, and entries. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .report-timeline.gt-tls-timeline{
+ margin:0!important;padding:0!important;border:0!important;background:transparent;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary{
+ color:var(--gt-muted);border:0;border-radius:0;margin:0;
+ padding:7px 2px 10px;min-height:44px;font:inherit;font-size:12px;
+ font-weight:600;line-height:1.4;letter-spacing:0;list-style:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary small{
+ font-size:11px;font-weight:500;color:var(--gt-muted);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-period-label{
+ color:var(--gt-muted);font-size:12px;font-weight:600;line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-note,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-legend,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-court-legend{
+ color:var(--gt-muted);font-family:inherit;font-size:11px;line-height:1.5;
+}
+
+
+/* === gt-timeline-section-filter-v1-preview === */
+
+/* Timeline Section V1: header-level event filter, using the shared section action slot. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button{
+ flex:none;min-height:40px;min-width:72px;padding:8px 13px;border-radius:10px;
+ border:1px solid var(--gt-border, #d6ddd5);color:var(--gt-ink);
+ background:transparent;font:inherit;font-size:12px;font-weight:700;cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button.is-active{
+ border-color:var(--gt-accent);color:var(--gt-accent);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button:focus-visible,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-reset:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel{
+ padding:13px 12px 11px;margin:0 0 12px;border:1px solid var(--gt-border,#d6ddd5);
+ border-radius:12px;background:var(--gt-surface,var(--gt-bg));
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel[hidden],
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 [hidden]{display:none!important}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-options{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-option{
+ display:flex;align-items:center;gap:8px;min-height:40px;min-width:0;
+ font-size:12px;font-weight:500;line-height:1.35;color:var(--gt-ink);cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-option input{
+ width:17px;height:17px;flex:none;accent-color:var(--gt-accent);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-reset{
+ margin-top:8px;border:0;background:transparent;color:var(--gt-accent);
+ font-size:12px;font-weight:700;min-height:36px;cursor:pointer;padding:3px 1px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-status{
+ margin:2px 0 0;color:var(--gt-muted);font-size:11px;line-height:1.3;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-empty{
+ font-size:11px;color:var(--gt-muted);align-self:center;white-space:nowrap;
+}
+@media (min-width:500px){html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-options{
+ grid-template-columns:repeat(4,minmax(0,1fr));
+}}
+
+
+/* === gt-timeline-section-filter-canonical-v1-correction === */
+
+/* Approved original timeline display controls in the Section V1 filter slot. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel > .gt-tls-native-score-filters{
+ margin:0;padding:0;border:0;min-width:0;background:transparent;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters > legend{
+ float:none;grid-column:1/-1;padding:0;margin:0 0 2px;
+ color:var(--gt-muted);font:inherit;font-size:12px;font-weight:600;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters > label{
+ display:flex;align-items:center;gap:7px;min-width:0;min-height:36px;
+ font:inherit;font-size:12px;line-height:1.35;white-space:normal;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters input{
+ width:18px;height:18px;flex:none;accent-color:var(--gt-accent);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-actions{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-done{
+ border:0;background:transparent;color:var(--gt-accent);font:inherit;
+ font-size:12px;font-weight:700;min-height:40px;padding:5px 8px;
+}
+@media(max-width:410px){
+ html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters{grid-template-columns:1fr;gap:2px;}
+}
+
+
+/* === gt-timeline-section-filter-native-view-v1-preview === */
+
+/* View is a fourth original Timeline control (Whole game / period zoom).
+   It lives alongside the three original checkboxes, in the Section filter. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ width:100%;margin:0 0 13px;padding:0 0 13px;
+ border-bottom:1px solid var(--gt-edge);color:var(--gt-ink);
+ font:inherit;font-size:12px;font-weight:650;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select{
+ flex:0 1 auto;min-width:0;width:auto;max-width:70%;min-height:40px;
+ padding:7px 26px 7px 10px;font:inherit;font-size:12px;
+ font-weight:550;color:var(--gt-ink);background:var(--gt-bg);
+ border:1px solid var(--gt-edge);border-radius:9px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+
+/* === gt-timeline-filter-horizontal-sliders-icon-v1 === */
+
+/* Timeline Section V1: icon-only approved-style trigger. Preserve existing filter logic. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button.gt-tls-filter-icon{
+ position:relative;display:grid;place-items:center;justify-self:end;
+ width:44px;min-width:44px;height:44px;min-height:44px;
+ padding:9px;border:1px solid var(--gt-edge);border-radius:10px;
+ background:transparent;color:var(--gt-ink);line-height:1;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-icon svg{
+ width:22px;height:22px;display:block;pointer-events:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-icon .gt-tls-filter-status:not([hidden]){
+ position:absolute;top:5px;right:5px;width:7px;height:7px;
+ border-radius:50%;background:var(--gt-accent);pointer-events:none;
+}
+
+
+/* SOURCE components/approved/Timeline_V1_APPROVED.css SHA 0b9f28ff37c0b61abf131999c8963a3f60b6844e */
+/* Timeline V1 — approved content component. Source: full-app locked reference.
+   This is an extract/reference, not yet wired into DEV as a standalone stylesheet.
+   Scope excludes section header/filters. Legacy chart geometry and logic preserved. */
+
+/* === gt-timeline-component-v1-in-section-preview === */
+
+/* TimelineSectionV1 parent controls the header and filter; TimelineV1 owns
+   original chart, periods, score/plays visualization, native toggle and states. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1{
+ display:block;width:100%;min-width:0;margin:0;padding:0;
  background:transparent;border:0;box-shadow:none;
 }
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"]>.gtglv1-header{
- display:flex;align-items:flex-start;justify-content:space-between;
- gap:10px;margin:0 0 14px;padding:0;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .gtglv1-heading{
- flex:1;min-width:0;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .gtglv1-heading h2{
- font-size:18px!important;line-height:1.3!important;letter-spacing:-.3px!important;
- font-weight:800!important;color:var(--gt-ink)!important;margin:0!important;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"]>.report-circles{
- margin:0!important;padding:0!important;width:100%;min-width:0;
- background:none!important;border:0!important;box-shadow:none!important;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .circle-navigator{
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .report-timeline{
  width:100%;min-width:0;
 }
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .report-circle-svg{
- display:block;width:100%;min-width:0;max-width:350px;aspect-ratio:1;margin:-5px auto 0;
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .score-journey-chart{
+ min-width:0;max-width:100%;
 }
-html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .report-legend{
- display:flex;justify-content:center;flex-wrap:wrap;gap:7px 14px;
+
+
+/* === gt-timeline-v1-single-collapse-control === */
+
+/* Timeline V1: one collapsible control, right aligned. No redundant left label. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary{
+  justify-content:flex-end!important;
+  text-align:right!important;
+  list-style:none!important;
 }
-</style><style id="gtgd-gametimeline-section-v1">
-/* Shared SectionV1 + native Game Timeline (Game Details only).
-   The timeline itself stays fully visible. No new analytics or event model. */
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]{
- display:block;width:100%;min-width:0;margin:24px 0 0;padding:0;
- border:0;background:transparent;box-shadow:none;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]>.gtglv1-header{
- display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
- margin:0 0 14px;padding:0;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .gtglv1-heading{
- flex:1;min-width:0;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .gtglv1-heading h2{
- font-size:18px!important;line-height:1.3!important;
- letter-spacing:-.3px!important;font-weight:800!important;
- color:var(--gt-ink)!important;margin:0!important;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]>.report-timeline{
- display:block!important;min-width:0;width:100%;margin:0!important;padding:0!important;
- border:0!important;box-shadow:none!important;background:transparent!important;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]>.report-timeline>summary{
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary::marker{content:"";}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary::-webkit-details-marker{display:none;}
+
+
+/* === gt-timeline-v1-always-visible-approved-direction === */
+
+/* Timeline V1: chart always visible; no Expand/Collapse/Hide timeline UI.
+   The Section V1 header still owns View + score/event filters. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary[hidden] {
  display:none!important;
 }
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-scroll{
- min-width:0;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-periods{
- min-width:100%;width:max-content;
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-note{
- margin:0 0 10px;color:var(--gt-muted);
-}
-html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-court-legend{
- max-width:100%;
-}
-</style></head><body>
+
+</style>
+<script id="gt-approved-timeline-v1-module">
+/**
+ * GameTrace Timeline V1 — reusable content component (review candidate).
+ *
+ * Renders the existing, unmodified GameTrace timeline DOM/graph through a
+ * supplied renderTimeline(game) adapter. The legacy renderer creates the
+ * View and score/event checkboxes; we DETACH those intact native controls
+ * and return them to TimelineSection V1. Their original event listeners and
+ * state survive moving the nodes. The Timeline V1 DOM itself contains no
+ * filters, view selector, or section header.
+ *
+ * No game data or analytics calculations are modified.
+ */
+(function(global){
+ 'use strict';
+ if(global.GameTraceTimelineV1) return;
+ function create(options){
+   if(!options || typeof options.renderTimeline !== 'function'){
+     throw new TypeError('Timeline V1 needs a renderTimeline(game) adapter');
+   }
+   const native = options.renderTimeline(options.game);
+   if(!(native instanceof global.HTMLElement)){
+     throw new TypeError('Timeline V1 renderer must return an HTMLElement');
+   }
+   const view = native.querySelector('.timeline-focus');
+   const filters = native.querySelector('.score-journey-filters');
+   // Preserve original DOM elements and attached listeners; don't clone.
+   view?.remove();
+   filters?.remove();
+   const host = global.document.createElement('div');
+   host.className = 'gt-tlc-v1';
+   host.dataset.component = 'TimelineV1';
+   host.dataset.slot = 'timeline';
+   native.classList.add('gt-tls-timeline');
+   // Timeline V1 is always visible. Keep native <details> wrapper only for
+   // renderer compatibility; its summary is hidden and disclosure is locked open.
+   native.open = true;
+   const toggle = native.querySelector(':scope > summary');
+   if(toggle) toggle.hidden = true;
+   native.addEventListener('toggle',()=>{ if(!native.open) native.open = true; });
+   host.append(native);
+   return {element:host, native, view, filters};
+ }
+ global.GameTraceTimelineV1=Object.freeze({create});
+})(window);
+</script></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -3809,9 +4315,83 @@ function renderStats(){const g=game();if(!g)return;const root=$('statsContent'),
  const summary=button('',()=>gameForm(g.id),'report-summary',{'aria-label':'Edit game details'}),text=el('span',{class:'report-summary-text'}),match=el('strong',{class:'report-matchup'},'vs '+g.opponent);match.append(reportIcon('pencil'));text.append(match,el('span',{class:'report-meta'},g.player+(g.number?' #'+g.number:'')+(g.team?' · '+g.team:'')),el('span',{class:'report-meta'},friendlyDate(g.date)+' · '+C.GAME_TYPES[g.gameType||'regular']+(g.league?' · '+g.league:'')));const result=g.finalScore?(g.finalScore.team>g.finalScore.opponent?'Win':g.finalScore.team<g.finalScore.opponent?'Loss':'Draw'):'Score not recorded',score=el('span',{class:'report-score'},el('strong',{},g.finalScore?g.finalScore.team+' – '+g.finalScore.opponent:'—'),el('small',{},(g.status==='completed'?'Final':'In progress')+(g.finalScore?' · '+result:'')));summary.append(text,score);root.append(summary);
  const performance=el('section',{class:'report-performance'},el('h2',{},'Performance')),row=el('div',{class:'report-stats'}),items=[['PTS',t.pts,'pts'],['FG',t.fga?Math.round(t.fgm/t.fga*100)+'%':'—','fg'],['REB',t.reb,'reb'],['AST',t.ast,'ast'],['STL',t.stl,'stl'],['TOV',t.to,'to'],['PF',t.pf,'pf']];for(const[label,value,key]of items){const b=button('',()=>{reportState.expanded=reportState.expanded===key?null:key;renderStats()},'report-stat',{'data-report-stat':key,'aria-label':STAT_NAMES[key]+': '+value,'aria-expanded':reportState.expanded===key});b.append(el('strong',{},value),el('span',{},label));row.append(b)}performance.append(row);
  if(reportState.expanded){const key=reportState.expanded,detail=el('div',{class:'report-secondary','aria-live':'polite'}),shoot=[['3PT',t.m3+' / '+t.a3+' · '+C.pctText(t.m3,t.a3),'three'],['2PT',t.m2+' / '+t.a2+' · '+C.pctText(t.m2,t.a2),'two'],['FT',t.mft+' / '+t.aft+' · '+C.pctText(t.mft,t.aft),'ft']],values={pts:shoot,fg:[['FG',t.fgm+' / '+t.fga+' · '+C.pctText(t.fgm,t.fga),'fg'],...shoot],reb:[['Offensive',t.oreb,'oreb'],['Defensive',t.dreb,'dreb'],['Box-outs',t.boxout,'boxout']],ast:[['Assists',t.ast,'ast'],['Passes',t.pass,'pass'],['Touches',t.touch,'touch'],['Drives',t.drive,'drive']],stl:[['Steals',t.stl,'stl'],['Blocks',t.blk,'blk'],['Defensive stops',t.defstop,'defstop'],['Deflections',t.deflection,'deflection']],to:Object.entries(C.REASONS).map(([k,name])=>[name,t.turnovers[k],'to:'+k]),pf:[['Fouls',t.pf,'pf']]};for(const[name,value,stat]of values[key]||[])detail.append(button('',()=>showHistory(stat,'all'),'report-secondary-row').appendChild(el('span',{},name,el('strong',{},value))).parentElement);performance.append(detail)}root.append(performance);
- const circles=el('section',{class:'report-circles'},el('h2',{},'Game Circles')),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('report-circle-svg');svg.setAttribute('role','img');circles.append(svg,el('p',{class:'report-court'},timing.known?'Court time '+elapsedText(timing.courtSeconds)+' / '+elapsedText(timing.periodSeconds)+' · '+Math.round(timing.visualShare*100)+'%':'Court time incomplete · 50% visual assumption'));if(!timing.known)circles.append(el('p',{class:'report-timing-note'},timing.problems.join(' · ')||'Record period boundaries to measure court time.'));
- const legend=(entries)=>{const list=el('div',{class:'report-legend'});for(const[key,name]of entries)list.append(el('span',{class:'report-key'},el('i',{style:'background:var(--gc-'+key+')'}),name));return list};circles.append(legend([['three','3PT'],['two','2PT'],['ft','FT'],['make','Make'],['miss','Miss']]),legend([['reb','REB '+t.reb],['foul','PF '+t.pf],['to','TOV '+t.to],['ast','AST '+t.ast],['stl','STL '+t.stl]]));root.append(circles);
- root.append(reportTimeline(g));
+ const circles=el('section',{class:'report-circles gt-gcs-v1','data-component':'SectionV1'},el('div',{class:'gt-gcs-header'},el('div',{class:'gt-gcs-heading'},el('h2',{},'Game Circles'),el('p',{},'Your game at a glance.')))),circleContent=el('div',{class:'gt-gcs-content','data-slot':'content','data-component':'GameCircleV1'}),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('report-circle-svg');svg.setAttribute('role','img');circleContent.append(svg);circles.append(circleContent);
+ // Labels and all legend keys are grouped in one collapsed, left-aligned disclosure.
+ // Timing and computed statistics are unchanged; only their presentation moves inside it.
+ const circleDetails=el('details',{class:'gt-circle-details'});
+ circleDetails.append(el('summary',{},'Labels & legend'));
+ const detailsBody=el('div',{class:'gt-circle-details-body'});
+ detailsBody.append(el('p',{class:'report-court'},timing.known?'Court time '+elapsedText(timing.courtSeconds)+' / '+elapsedText(timing.periodSeconds)+' · '+Math.round(timing.visualShare*100)+'%':'Court time incomplete · 50% visual assumption'));
+ if(!timing.known)detailsBody.append(el('p',{class:'report-timing-note'},timing.problems.join(' · ')||'Record period boundaries to measure court time.'));
+ const legend=(entries)=>{const list=el('div',{class:'report-legend'});for(const[key,name]of entries)list.append(el('span',{class:'report-key'},el('i',{style:'background:var(--gc-'+key+')'}),name));return list};
+ const scoringKey=legend([['three','3PT'],['two','2PT'],['ft','FT'],['make','Made'],['miss','Missed']]);scoringKey.classList.add('gt-circle-scoring-key');
+ const statKey=legend([['reb','REB '+t.reb],['foul','PF '+t.pf],['to','TOV '+t.to],['ast','AST '+t.ast],['stl','STL '+t.stl]]);statKey.classList.add('gt-circle-stats-key');
+ detailsBody.append(scoringKey,statKey);circleDetails.append(detailsBody);circleContent.append(circleDetails);root.append(circles);
+ // TimelineSection V1 composes the original, fully functional Timeline V1.
+ // The Section owns title/subtitle/spacing; Timeline retains period events,
+ // timestamps, court/bench strips, details toggle and editing handlers.
+ const timelineSection=el('section',{class:'gt-tls-v1','data-component':'SectionV1'},
+  el('div',{class:'gt-tls-header'},el('div',{class:'gt-tls-heading'},
+   el('h2',{},'Game Timeline'),el('p',{},'The game, play by play.'))));
+ // The Section owns the Filter action. The controls and graph state are the ORIGINAL
+ // timeline controls (Team score, Opponent score, Player events), not invented event categories.
+ const timelineHeader=timelineSection.querySelector('.gt-tls-header');
+ const filterButton=button('',()=>{},'gt-tls-filter-button gt-tls-filter-icon',{'aria-label':'Show timeline filters','aria-expanded':'false','title':'Timeline filters'});
+ // GameTrace approved outline-icon family; horizontal sliders (filter/settings).
+ // SVG remains constant when the filter state updates (no textContent replacement).
+ filterButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h5m4 0h7M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg><span class="gt-tls-filter-status" aria-hidden="true" hidden></span>';
+ const filterPanel=el('div',{class:'gt-tls-filter-panel',hidden:'','aria-label':'Timeline display filters'});
+ timelineHeader.append(filterButton);
+ const timelineContent=el('div',{class:'gt-tls-content','data-slot':'content','data-component':'TimelineV1'});
+ // Timeline V1: actual reusable component API. TimelineSection owns all
+ // filters and the View selector; the child owns only native chart/content.
+ const timelineParts=window.GameTraceTimelineV1.create({game:g,renderTimeline:reportTimeline});
+ const timeline=timelineParts.native;
+ const nativeFilters=timelineParts.filters;
+ const nativeView=timelineParts.view;
+ if(nativeView){nativeView.classList.add('gt-tls-native-view');filterPanel.append(nativeView)}
+ if(nativeFilters){
+   nativeFilters.classList.add('gt-tls-native-score-filters');
+   filterPanel.append(nativeFilters);
+   const controls=el('div',{class:'gt-tls-filter-actions'});
+   const reset=button('Reset to all',()=>{
+     for(const input of nativeFilters.querySelectorAll('input[type="checkbox"]')){
+       if(!input.checked){input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}))}
+     }
+     const viewSelect=nativeView?.querySelector('select');
+     if(viewSelect&&viewSelect.value!=='all'){
+       viewSelect.value='all';viewSelect.dispatchEvent(new Event('change',{bubbles:true}));
+     }
+     syncFilterCount();
+   },'gt-tls-filter-reset');
+   const done=button('Done',()=>{filterPanel.hidden=true;filterButton.setAttribute('aria-expanded','false')},'gt-tls-filter-done');
+   controls.append(reset,done);filterPanel.append(controls);
+   nativeFilters.addEventListener('change',syncFilterCount);
+ }
+ nativeView?.querySelector('select')?.addEventListener('change',syncFilterCount);
+ function syncFilterCount(){
+   if(!nativeFilters)return;
+   const inputs=[...nativeFilters.querySelectorAll('input[type="checkbox"]')];
+   const selected=inputs.filter(input=>input.checked).length;
+   const viewValue=nativeView?.querySelector('select')?.value||'all';
+   const active=selected<inputs.length||viewValue!=='all';
+   filterButton.querySelector('.gt-tls-filter-status').hidden=!active;
+   filterButton.classList.toggle('is-active',active);
+   filterButton.setAttribute('aria-label',active?'Timeline display customized. Open filters':'Show timeline filters');
+ }
+ filterButton.addEventListener('click',()=>{
+   const opening=filterPanel.hidden;
+   filterPanel.hidden=!opening;
+   filterButton.setAttribute('aria-expanded',String(opening));
+ });
+ timelineContent.append(filterPanel);
+ // Timeline V1 has no expand/collapse affordance: always show content.
+ // Preserve the native timeline event handlers and filter/view adapters.
+ timeline.open = true;
+ reportState.timelineOpen = true;
+ timelineContent.append(timelineParts.element); // Single TimelineV1 instance; no legacy sibling timeline.
+ timelineSection.append(timelineContent);root.append(timelineSection);
+ syncFilterCount();
  const records=el('section',{class:'report-record'},el('h2',{},'Game Record')),details=el('details',{'data-record-list':''}),title=el('summary',{},el('span',{},'Recorded plays'),el('small',{},g.events.length+' records'));details.open=reportState.recordOpen;details.addEventListener('toggle',()=>reportState.recordOpen=details.open);details.append(title);const body=el('div',{class:'report-record-body'});body.append(el('div',{class:'report-record-toolbar'},button('',()=>{reportState.adding=true;reportState.editorId=null;reportState.recordOpen=true;reportEditorActive=true;renderStats()},'report-tool',{'aria-label':'Add play'}).appendChild(el('span',{},reportIcon('plus'),'Add play')).parentElement),el('p',{class:'report-order-hint'},'Drag handles to reorder · timestamps adjust automatically'),el('p',{class:'report-record-status',role:'status'},reportState.status));if(reportState.adding)body.append(recordForm(g,null,true));let lastKey=null;
  for(const e of C.ordered(g)){const key=C.periodKey(e.period);if(key!==lastKey&&!e.code.startsWith('game_')){body.append(el('div',{class:'report-period-heading'},e.period.label));lastKey=key}const boundary=C.isBoundary(e)||['in','out'].includes(e.code),container=el('div',{class:'report-play','data-record-id':e.id,'data-code':e.code,'data-period':key,'data-timestamp':C.occurred(e),'data-boundary':boundary}),head=el('div',{class:'report-play-head'}),handle=button('',()=>{},'report-drag',{'data-drag-id':e.id,'aria-label':'Move '+C.eventLabel(e)+'. Drag or use arrow keys.'});handle.append(reportIcon('grip-vertical'));const info=el('div',{class:'report-play-label'},el('span',{},C.eventLabel(e)),el('small',{},(e.code.startsWith('game_')?'':e.period.label+' · ')+recordTime(e)),e.note?el('small',{},e.note):null);if(reportState.adjustedId===e.id)info.append(el('small',{class:'report-adjusted'},'Time adjusted · editable'));head.append(handle,info,button('Edit',()=>{reportState.editorId=e.id;reportState.adding=false;reportEditorActive=true;renderStats()},'report-tool',{'data-edit-record':e.id}));container.append(head);if(reportState.editorId===e.id)container.append(recordForm(g,e,true));body.append(container)}if(!g.events.length)body.append(el('p',{class:'view-note'},'No records yet.'));details.append(body);records.append(details);root.append(records);
  circleObserver?.disconnect();const draw=()=>drawGameCircles(svg,g,t,timing);circleObserver=new ResizeObserver(draw);circleObserver.observe(svg);requestAnimationFrame(draw);
@@ -8103,62 +8683,25 @@ function gtGameDetailsUniversalV1(){
  summarySection.dataset.component='SectionV1';
  summarySection.querySelector('.gtgames-banner')?.setAttribute('data-usage','game-details');
  body.append(summarySection);
- // Game Circles section: MOVE the original SVG/legend/navigation DOM rather than
- // recreating the analytics engine. The existing renderStats pipeline already drew
- // circles for the selected game and bound previous/next report controls.
- const existingCircles=root.querySelector('.report-circles');
- if(existingCircles){
-   const circlesSection=node('section','gtgd-gamecircles-section');
-   circlesSection.dataset.component='SectionV1';
-   circlesSection.dataset.section='game-circles';
-   circlesSection.dataset.childComponent='GameCircles';
-   const circlesHeader=node('header','gtglv1-header');
-   circlesHeader.dataset.component='SectionHeader';
-   const circlesHeading=node('div','gtglv1-heading');
-   const h2=node('h2');h2.textContent='Game Circles';
-   circlesHeading.append(h2);circlesHeader.append(circlesHeading);
-   // Do not duplicate the legacy heading. All visualization components remain
-   // original, including the SVG, legend, court time, arrows and event bindings.
-   existingCircles.querySelector(':scope > h2')?.remove();
-   existingCircles.dataset.component='GameCircles';
-   circlesSection.append(circlesHeader,existingCircles);
-   body.append(circlesSection);
-   // The native circle renderer observes and draws the same moved SVG.
-   const originalSvg=existingCircles.querySelector('.report-circle-svg');
-   if(originalSvg)requestAnimationFrame(()=>{
-     if(originalSvg.isConnected && ui.screen==='stats') {
-       const current=game();
-       if(current&&current.id===g.id) {
-         // Retain the native observer/redraw pipeline: no speculative time model.
-         circleObserver?.unobserve?.(originalSvg);
-         circleObserver?.observe?.(originalSvg);
-       }
+ // Component-library-approved section DOM is already rendered by renderStats.
+ // Move those nodes intact into UniversalPage; never replace their internal
+ // headings, collapsible circle labels or timeline filter/view controls.
+ const circles=root.querySelector('.report-circles.gt-gcs-v1[data-component="SectionV1"]');
+ if(circles){
+   circles.dataset.section='game-circles';
+   body.append(circles);
+   const svg=circles.querySelector('.report-circle-svg');
+   if(svg)requestAnimationFrame(()=>{
+     if(svg.isConnected&&ui.screen==='stats'&&game()?.id===g.id){
+       circleObserver?.unobserve?.(svg);
+       circleObserver?.observe?.(svg);
      }
    });
  }
- // Timeline SectionV1: reuse the existing timeline DOM and its event edit,
- // elapsed-time placement, court/bench bands and legends for this selected game.
- // The approved Game Timeline section is always expanded (no nested accordion).
- const nativeTimeline=root.querySelector('[data-timeline].report-timeline');
- if(nativeTimeline){
-   const timelineSection=node('section','gtgd-gametimeline-section');
-   timelineSection.dataset.component='SectionV1';
-   timelineSection.dataset.section='game-timeline';
-   timelineSection.dataset.childComponent='GameTimeline';
-   const timelineHeader=node('header','gtglv1-header');
-   timelineHeader.dataset.component='SectionHeader';
-   const timelineHeading=node('div','gtglv1-heading');
-   const timelineTitle=node('h2');
-   timelineTitle.textContent='Game Timeline';
-   timelineHeading.append(timelineTitle);
-   timelineHeader.append(timelineHeading);
-   // The original report uses <details> but the new SectionV1 owns the title.
-   // Retain the original events rather than reconstructing the timeline.
-   nativeTimeline.open=true;
-   nativeTimeline.dataset.component='GameTimeline';
-   nativeTimeline.querySelector(':scope > summary')?.setAttribute('hidden','');
-   timelineSection.append(timelineHeader,nativeTimeline);
-   body.append(timelineSection);
+ const timeline=root.querySelector('.gt-tls-v1[data-component="SectionV1"]');
+ if(timeline){
+   timeline.dataset.section='game-timeline';
+   body.append(timeline);
  }
  const footer=node('footer','up1-footer');
  footer.dataset.component='PageFooter';
