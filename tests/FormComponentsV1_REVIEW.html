@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>GameTrace — Reusable Form V1 Review</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8faf8;color:#172920;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.45}
+.demo-wrap{max-width:860px;margin:auto;padding:25px clamp(12px,4vw,45px) 60px}.preview-label{display:inline-flex;border-radius:999px;border:1px solid #d0ddd3;color:#516959;font-size:12px;font-weight:700;padding:6px 11px;margin-bottom:22px;background:white}
+.page-head{max-width:760px;margin:0 auto 22px;display:flex;gap:13px;align-items:flex-start}.page-back{flex:none;width:42px;height:42px;border-radius:14px;border:1px solid #d4e1d6;background:white;font-size:21px;color:#243c2f}.page-head h1{font-weight:850;letter-spacing:-.65px;font-size:32px;line-height:1.12;margin:0 0 8px}.page-head p{margin:0;color:#73857a;font-size:17px}
+.gtf-demo-chipbox{display:flex;flex-wrap:wrap;gap:9px}.gtf-demo-chip{border:1px solid #c2d3c6;background:white;border-radius:999px;padding:10px 14px;font-size:13px;color:#415a48;cursor:pointer}.gtf-demo-chip[aria-pressed="true"]{background:#d8ede1;border-color:#409a65;color:#155b36;font-weight:750}
+.demo-chip-label{font-size:14px;font-weight:700;color:#465d50;margin:0 0 9px}.demo-chip-help{font-size:13px;color:#465d50;margin:0}.demo-controls{display:grid;gap:12px}.demo-status{font-size:14px;color:#175c35;min-height:20px;margin:10px auto;max-width:760px}.demo-status[hidden]{display:none}
+.demo-foot{max-width:760px;margin:22px auto 0;font-size:12px;color:#71857a}.demo-foot strong{color:#466454}
+</style><style>/* GameTrace Reusable Form V1 — design reference: approved New Session V46.9.5. */
+.gtf-form-v1 {
+  --gtf-bg: transparent;
+  --gtf-card: #eff6f1;
+  --gtf-border: #cbdbcf;
+  --gtf-ink: #172920;
+  --gtf-muted: #465d50;
+  --gtf-subtle: #73857a;
+  --gtf-field-bg: #ffffff;
+  --gtf-field-border: #c5d7ca;
+  --gtf-primary-bg: #dcefe3;
+  --gtf-primary-border: #c4d7c9;
+  --gtf-error: #a6232c;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  background:var(--gtf-bg);
+  max-width:760px;
+  width:100%;
+  margin-inline:auto;
+  color:var(--gtf-ink);
+  font:inherit;
+}
+.gtf-form-v1 *, .gtf-form-v1 *::before, .gtf-form-v1 *::after { box-sizing:border-box; }
+.gtf-form-v1 [hidden] { display:none!important; }
+.gtf-form-v1 .gtf-stack-v1 { display:flex;flex-direction:column;gap:16px; }
+.gtf-form-v1 .gtf-section-v1 {
+  min-width:0;
+  margin:0;
+  padding:20px;
+  background:var(--gtf-card);
+  border:1px solid var(--gtf-border);
+  border-radius:21px;
+}
+.gtf-form-v1 .gtf-section-head-v1 { margin:0 0 23px; }
+.gtf-form-v1 .gtf-section-title-v1 {
+  color:var(--gtf-ink);font-size:22px;font-weight:800;
+  letter-spacing:-.5px;line-height:1.24;margin:0;
+}
+.gtf-form-v1 .gtf-section-subtitle-v1 {
+  color:var(--gtf-subtle);font-size:14px;line-height:1.45;margin:7px 0 0;
+}
+.gtf-form-v1 .gtf-fields-v1 { display:grid;grid-template-columns:minmax(0,1fr);gap:19px;min-width:0; }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] > .gtf-width-full { grid-column:1/-1; }
+.gtf-form-v1 .gtf-field-v1 {display:flex;flex-direction:column;gap:9px;min-width:0;}
+.gtf-form-v1 .gtf-label-v1 {color:var(--gtf-muted);font-size:14px;line-height:1.35;font-weight:700;}
+.gtf-form-v1 .gtf-required-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-field-v1 > :is(input,textarea,select) {
+  color:var(--gtf-ink);background:var(--gtf-field-bg);font:inherit;
+  border:1px solid var(--gtf-field-border);
+  border-radius:13px;padding:14px 15px;width:100%;min-width:0;
+  max-width:100%;min-height:52px;line-height:1.3;
+}
+.gtf-form-v1 .gtf-field-v1 > textarea { min-height:100px;line-height:1.5;resize:vertical; }
+.gtf-form-v1 :is(input,select,textarea,button):focus-visible {outline:3px solid #4d9b72;outline-offset:2px;}
+.gtf-form-v1 .gtf-field-v1[data-invalid="true"] > :is(input,select,textarea) {border-color:var(--gtf-error);}
+.gtf-form-v1 .gtf-help-v1,.gtf-form-v1 .gtf-error-v1 {font-size:13px;line-height:1.4;margin:0;}
+.gtf-form-v1 .gtf-help-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-error-v1 {color:var(--gtf-error);font-weight:650;}
+.gtf-form-v1 .gtf-actions-v1 {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;}
+.gtf-form-v1 .gtf-actions-v1 > button {
+  min-width:0;min-height:52px;border-radius:13px;padding:14px 8px;
+  font:inherit;font-size:17px;font-weight:750;cursor:pointer;
+}
+.gtf-form-v1 .gtf-action-primary-v1 {background:var(--gtf-primary-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-action-secondary-v1 {background:var(--gtf-field-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-actions-v1 > button:disabled {opacity:.55;cursor:not-allowed;}
+@media (max-width:370px) {
+  .gtf-form-v1 .gtf-section-v1 {padding:16px;}
+  .gtf-form-v1 .gtf-actions-v1 {gap:10px;}
+  .gtf-form-v1 .gtf-actions-v1 > button {font-size:16px;}
+}
+/* Apps may override tokens from their theme; no page-specific selector is needed. */
+</style><script>/**
+ * GameTrace Reusable Form V1 — presentation only.
+ * Approved visual contract: transparent form parent, individual rounded section cards,
+ * responsive full/half fields, two equal bottom actions (Cancel left, Save right).
+ * Does not save data, validate domain values, synchronize records, or navigate.
+ * Pass existing form/control/button nodes to preserve native event listeners.
+ */
+(function (global) {
+  'use strict';
+  const doc = global.document;
+  if (!doc) return;
+  let serial = 0;
+  const node = value => value && typeof value.nodeType === 'number';
+  const make = (tag, className, value) => {
+    const el = doc.createElement(tag);
+    if (className) el.className = className;
+    if (value !== undefined && value !== null) el.textContent = String(value);
+    return el;
+  };
+  const asNodes = (value, name) => {
+    if (value === undefined || value === null) return [];
+    const list = Array.isArray(value) ? value : [value];
+    if (!list.every(node)) throw new TypeError(name + ' must contain DOM nodes');
+    return list;
+  };
+  const put = (target, values) => asNodes(values, 'Content').forEach(child => target.appendChild(child));
+
+  /** Form Parent V1: layout shell; accepts a native form to keep its event handlers. */
+  function FormParentV1({form,sections=[],actions=null,error=null,ariaLabel='Form'}={}) {
+    const root = form || make('form');
+    if (root.tagName !== 'FORM') throw new TypeError('FormParentV1 needs a form element');
+    const content = asNodes(sections, 'sections');
+    const actionNodes = asNodes(actions, 'actions');
+    const errorNodes = asNodes(error, 'error');
+    root.classList.add('gtf-form-v1');
+    root.dataset.component = 'FormParentV1';
+    root.dataset.version = 'V1';
+    root.setAttribute('aria-label',String(ariaLabel));
+    const stack = make('div','gtf-stack-v1');
+    stack.dataset.component = 'FormSections';
+    put(stack,content);
+    // This is an explicit composition operation. Any legacy controls that must
+    // remain live should be included in sections, not silently duplicated.
+    root.replaceChildren(...errorNodes,stack,...actionNodes);
+    return root;
+  }
+
+  /** Form Section V1: independently rounded card with optional title and subtitle. */
+  function FormSectionV1({title='',subtitle='',content=[],columns=1,ariaLabel=''}={}) {
+    if (columns !== 1 && columns !== 2) throw new TypeError('columns must be 1 or 2');
+    const section = make('section','gtf-section-v1');
+    section.dataset.component = 'FormSectionV1';
+    if (title || subtitle) {
+      const head = make('div','gtf-section-head-v1');
+      if (title) {
+        const h = make('h2','gtf-section-title-v1',title);
+        h.id = 'gtf-section-'+(++serial);
+        section.setAttribute('aria-labelledby',h.id);
+        head.appendChild(h);
+      }
+      if (subtitle) head.appendChild(make('p','gtf-section-subtitle-v1',subtitle));
+      section.appendChild(head);
+    } else if (ariaLabel) section.setAttribute('aria-label',ariaLabel);
+    const body = make('div','gtf-fields-v1');
+    body.dataset.columns = String(columns);
+    put(body,asNodes(content,'content'));
+    section.appendChild(body);
+    return section;
+  }
+
+  /** Form Field V1: labels/control states without owning their values. */
+  function FormFieldV1({label,control,required,helper='',error='',width='full',placeholder}={}) {
+    if (!label || !String(label).trim()) throw new TypeError('FormFieldV1 needs a label');
+    if (!node(control) || !['INPUT','TEXTAREA','SELECT'].includes(control.tagName))
+      throw new TypeError('FormFieldV1 needs an input, textarea or select');
+    if (!['full','half'].includes(width)) throw new TypeError('width must be full or half');
+    const field = make('div','gtf-field-v1 gtf-width-'+width);
+    field.dataset.component = 'FormFieldV1';
+    if (!control.id) control.id = 'gtf-input-'+(++serial);
+    if (required !== undefined) control.required = Boolean(required);
+    if (placeholder !== undefined && 'placeholder' in control) control.placeholder = String(placeholder);
+    const text = make('label','gtf-label-v1',label);
+    text.htmlFor = control.id;
+    if (control.required) {
+      const star = make('span','gtf-required-v1',' *');
+      star.setAttribute('aria-hidden','true');
+      text.appendChild(star);
+    }
+    field.append(text,control);
+    const descriptions = [];
+    const previous = control.getAttribute('aria-describedby');
+    if (previous) descriptions.push(...previous.split(/\s+/).filter(Boolean));
+    if (helper) {
+      const help = make('p','gtf-help-v1',helper);
+      help.id = control.id+'-help';
+      field.appendChild(help);
+      descriptions.push(help.id);
+    }
+    if (error) {
+      const message = make('p','gtf-error-v1',error);
+      message.id = control.id+'-error';
+      message.setAttribute('role','alert');
+      field.appendChild(message);
+      descriptions.push(message.id);
+      control.setAttribute('aria-invalid','true');
+      field.dataset.invalid = 'true';
+    }
+    if (descriptions.length) control.setAttribute('aria-describedby',[...new Set(descriptions)].join(' '));
+    return field;
+  }
+
+  function action(spec,kind) {
+    if (node(spec)) {
+      if (spec.tagName !== 'BUTTON') throw new TypeError('Form action must be a button');
+      return spec;
+    }
+    if (!spec || !String(spec.label||'').trim()) throw new TypeError(kind+' action needs a label');
+    const button = make('button','',spec.label);
+    button.type = spec.type || (kind === 'primary' ? 'submit' : 'button');
+    if (typeof spec.onClick === 'function') button.addEventListener('click',spec.onClick);
+    if (spec.disabled) button.disabled = true;
+    return button;
+  }
+
+  /** Form Actions V1: two equally wide buttons in approved order. */
+  function FormActionsV1({primary,secondary,busy=false}={}) {
+    const second = action(secondary,'secondary');
+    const first = action(primary,'primary');
+    const root = make('div','gtf-actions-v1');
+    root.dataset.component = 'FormActionsV1';
+    second.classList.add('gtf-action-secondary-v1');
+    first.classList.add('gtf-action-primary-v1');
+    if (busy) {
+      first.disabled = true;
+      root.setAttribute('aria-busy','true');
+    }
+    root.append(second,first);
+    return root;
+  }
+
+  global.GameTraceFormComponents = Object.freeze({
+    version:'1.0.0',FormParentV1,FormSectionV1,FormFieldV1,FormActionsV1
+  });
+})(typeof window !== 'undefined' ? window : globalThis);
+</script></head>
+<body><div class="demo-wrap"><span class="preview-label">FORM COMPONENTS V1 · REVIEW BUILD · NO APP CHANGES</span>
+<header class="page-head"><button class="page-back" type="button" aria-label="Back" disabled>‹</button><div><h1>New Training</h1><p>Log the work behind the game.</p></div></header>
+<div id="previewMount"></div><p class="demo-status" id="status" aria-live="polite" hidden></p>
+<p class="demo-foot"><strong>Component-only preview.</strong> No training records are saved; Cancel and Log Session are demonstration actions. Existing app logic has not been replaced.</p></div>
+<script>
+const {FormParentV1,FormSectionV1,FormFieldV1,FormActionsV1}=window.GameTraceFormComponents;
+const el=(tag,props={})=>{const x=document.createElement(tag);Object.entries(props).forEach(([k,v])=>{if(k==='text')x.textContent=v;else if(k==='options')v.forEach(([value,label])=>x.add(new Option(label,value)));else x[k]=v});return x};
+const field=(label,control,opts={})=>FormFieldV1({label,control,...opts});
+const input=(type,attrs={})=>el('input',{type,...attrs});
+const player=field('Player Name',input('text',{value:'Georgina'}),{required:true});
+const type=el('select',{options:[['training','Training'],['camp','Camp'],['custom','Custom']]});
+const custom=field('Custom Session Type',input('text',{placeholder:'Enter custom type'}),{required:true});custom.hidden=true;custom.querySelector('input').required=false;
+type.addEventListener('change',()=>{custom.hidden=type.value!=='custom';custom.querySelector('input').required=!custom.hidden});
+const name=field('Session Name',input('text',{placeholder:'e.g. Shooting Workout'}),{required:true});
+const date=field('Date',input('date',{value:'2026-11-09'}),{required:true});
+const hours=field('Hours',input('number',{min:'0',max:'24',value:'1'}),{width:'half'});
+const mins=field('Minutes',input('number',{min:'0',max:'59',value:'30'}),{width:'half'});
+const coach=field('Coach / Organization',input('text',{placeholder:'Optional'}));
+const locationField=field('Location',input('text',{placeholder:'Optional'}));
+const skillsBox=el('div',{className:'demo-controls'}),chips=el('div',{className:'gtf-demo-chipbox'});
+const heading=el('p',{className:'demo-chip-label',text:'Skills Worked On'});skillsBox.append(heading,chips);
+['Shooting','Ball Handling','Finishing','Footwork','Defense','Conditioning'].forEach((label,i)=>{const b=el('button',{type:'button',className:'gtf-demo-chip',text:(i===0?'✓ ':'')+label});b.dataset.name=label;b.setAttribute('aria-pressed',String(i===0));b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.textContent=(on?'✓ ':'')+label});chips.append(b)});
+skillsBox.append(field('Custom Skills',input('text',{placeholder:'Add another focus area'})),el('p',{className:'demo-chip-help',text:'Select all that apply. This is a presentation-only skills example.'}));
+const feedback=['What I Saw','What I Became','What I Want to Become More','Additional Feedback'].map(label=>field(label,el('textarea',{rows:3,placeholder:'Optional reflection'})));
+const status=document.getElementById('status');const show=text=>{status.hidden=false;status.textContent=text};
+const original=el('form');original.addEventListener('submit',e=>{e.preventDefault();show('Demo only: Log Session clicked. No data was saved.')});
+const actions=FormActionsV1({secondary:{label:'Cancel',onClick:()=>{original.reset();custom.hidden=true;custom.querySelector('input').required=false;chips.querySelectorAll('button').forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===0));b.textContent=(i===0?'✓ ':'')+b.dataset.name});show('Demo only: Form reset. No records changed.')}},primary:{label:'Log Session',type:'submit'}});
+const form=FormParentV1({form:original,ariaLabel:'Log New Training',sections:[
+ FormSectionV1({title:'Player Information',content:[player]}),
+ FormSectionV1({title:'Session Information',columns:2,content:[field('Session Type',type,{required:true}),custom,name,date,hours,mins,coach,locationField]}),
+ FormSectionV1({title:'Skills & Focus',content:[skillsBox]}),
+ FormSectionV1({title:"Player's Feedback",content:feedback})
+],actions});
+document.getElementById('previewMount').append(form);
+</script></body></html>
