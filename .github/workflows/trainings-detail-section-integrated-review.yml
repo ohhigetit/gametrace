@@ -1,0 +1,24 @@
+name: Trainings Detail Banner section integration review
+on:
+  push:
+    branches: [review/trainings-detail-section-integrated-v1-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated DOM test dependency
+        run: npm install --prefix /tmp/gt-trainings-detail-test jsdom@24 --no-save --no-package-lock
+      - name: Validate reusable Training Detail section and no regressions
+        env:
+          NODE_PATH: /tmp/gt-trainings-detail-test/node_modules
+        run: node tests/trainings-detail-section-integrated.cjs
