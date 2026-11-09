@@ -40,6 +40,77 @@
     else b.disabled = true;
     return b;
   }
+
+  /**
+   * UniversalPageV1 — approved page-shell parent.
+   * Renders structure only; callers supply a page-specific PageHeader and
+   * reusable content sections without copying the page shell markup.
+   */
+  function UniversalPageV1({page,header,content=[],contentLabel='Page content',
+                            footerLines=[]}={}) {
+    if (!visible(page)) throw new TypeError('UniversalPageV1 requires page');
+    if (!(header instanceof global.Node)) throw new TypeError('UniversalPageV1 requires PageHeader');
+    const root=element('div','up1-page');
+    root.dataset.component='UniversalPage';
+    root.dataset.version='V1';
+    root.dataset.page=String(page);
+    const primary=element('main','up1-content');
+    primary.dataset.component='PrimaryContent';
+    primary.setAttribute('aria-label',String(contentLabel));
+    const sections=Array.isArray(content)?content:content?[content]:[];
+    sections.forEach(section=>{
+      if (!(section instanceof global.Node)) throw new TypeError('UniversalPageV1 content must be DOM nodes');
+      append(primary,section);
+    });
+    const footer=element('footer','up1-footer');
+    footer.dataset.component='PageFooter';
+    footerLines.forEach(line=>append(footer,element('span','',line)));
+    append(root,header,primary,footer);
+    return root;
+  }
+
+  /**
+   * PageHeaderV1 — real reusable parent for the approved UniversalPage header.
+   * Page-specific icon/navigation/CTA are passed in; typography remains CSS-owned.
+   */
+  function PageHeaderV1({title,subtitle='',pageIcon,backIcon,
+                         backLabel='Back',onBack,actions=[],
+                         actionsLabel='Page actions'}={}) {
+    if (!visible(title)) throw new TypeError('PageHeaderV1 requires title');
+    const header=element('header','up1-header');
+    header.dataset.component='PageHeader';
+    const heading=element('div','up1-heading');
+    if (typeof onBack==='function'){
+      const back=element('button','up1-back');
+      back.type='button';
+      back.setAttribute('aria-label',backLabel);
+      if (backIcon instanceof global.Node) append(back,backIcon);
+      back.addEventListener('click',onBack);
+      append(heading,back);
+    }
+    const text=element('div');
+    const titleRow=element('div','up1-title');
+    if (pageIcon instanceof global.Node) append(titleRow,pageIcon);
+    append(titleRow,element('h1','',title));
+    const sub=element('div','up1-subtitle-v1',subtitle);
+    sub.dataset.component='PageSubtitle';
+    append(text,titleRow,sub);
+    append(heading,text);
+    append(header,heading);
+    const actionNodes=Array.isArray(actions)?actions:actions?[actions]:[];
+    if(actionNodes.length){
+      const row=element('div','up1-actions');
+      row.setAttribute('role','group');
+      row.setAttribute('aria-label',actionsLabel);
+      actionNodes.forEach(action=>{
+        if (!(action instanceof global.Node)) throw new TypeError('PageHeaderV1 actions must be DOM nodes');
+        append(row,action);
+      });
+      append(header,row);
+    }
+    return header;
+  }
+
   /** Section Parent — title/subtitle and optional action around arbitrary content. */
   function Section({title,subtitle,actionLabel='View All',onAction,content,kind=''}={}) {
     if (!visible(title)) throw new TypeError('Section requires title');
@@ -214,10 +285,10 @@
    * Ownership: presentation DOM only. No storage, global game state, or analytics.
    * It preserves the existing approved gtgames-* DOM/CSS contract.
    */
-  function SharedBannerV2({gameId,primary,details}={}) {
+  function SharedBannerV2({gameId,primary,details,rootClass='gtgames-banner',componentName='GameBannerV2'}={}) {
     if (!(primary instanceof global.Node)) throw new TypeError('SharedBannerV2 requires a primary row');
-    const root=element('article','gtgames-banner');
-    root.dataset.component='GameBannerV2';
+    const root=element('article',rootClass);
+    root.dataset.component=componentName;
     root.dataset.parent='SharedBannerV2';
     if (gameId !== undefined && gameId !== null) root.dataset.gameId=String(gameId);
     append(root,primary);
@@ -282,6 +353,116 @@
     append(extra,secondary);
     return SharedBannerV2({gameId,primary:row,details:extra});
   }
+  function BannerSectionV1({title,subtitle='',banner,emptyText='',
+                            actionLabel='',onAction,
+                            sectionClass='banner-section',
+                            headerTag='header',headerClass='section-head',
+                            headingClass='',titleClass='section-title',
+                            subtitleClass='section-sub',actionClass='section-action',
+                            componentName='BannerSectionV1'}={}) {
+    if (!visible(title)) throw new TypeError('BannerSectionV1 requires title');
+    const content=banner||element('p','gt-banner-section-empty',emptyText);
+    const section=Section({title,subtitle,content,kind:sectionClass});
+    const header=element(headerTag,headerClass);
+    const heading=headingClass?element('div',headingClass):header;
+    append(heading,element('h2',titleClass,title));
+    if (visible(subtitle)) append(heading,element('p',subtitleClass,subtitle));
+    if (heading!==header) append(header,heading);
+    if (typeof onAction==='function') {
+      const button=element('button',actionClass,actionLabel);
+      button.type='button';
+      button.addEventListener('click',onAction);
+      append(header,button);
+    }
+    section.querySelector('.gtc-section-header').replaceWith(header);
+    section.querySelector('.gtc-section-content').replaceWith(content);
+    section.className=sectionClass;
+    section.dataset.component=componentName;
+    section.dataset.parent='BannerSectionV1';
+    section.dataset.foundation='SectionV1';
+    return section;
+  }
+  /**
+   * Training Detail Banner V1 — approved individual session presentation.
+   * No player notes, storage access, state mutation, or network calls.
+   */
+  function TrainingDetailBannerV1({id,name,date,kind='Training',minutes,
+                                    coach='',location='',skills=[],
+                                    expanded=false}={}) {
+    const rootRow=element('div','primary');
+    rootRow.dataset.component='BannerRowV1';
+    const summary=element('div','cell');
+    const time=element('div','cell');
+    summary.dataset.component=time.dataset.component='BannerCellV1';
+    append(summary,element('span','eyebrow','Session'),
+      element('div','session-name',visible(name)?name:'Untitled session'),
+      element('div','session-meta',safeDate(date)),
+      element('span','inline-chip',visible(kind)?kind:'Training'));
+    const duration=Number(minutes);
+    const valid=minutes!==undefined&&minutes!==null&&minutes!==''&&Number.isFinite(duration)&&duration>=0;
+    const inHours=valid&&duration>=180&&duration%60===0;
+    const count=valid?Math.round(inHours?duration/60:duration):'—';
+    const unit=inHours?'HOURS':'MINUTES';
+    const skillList=Array.isArray(skills)?skills.filter(visible).map(String):[];
+    append(time,element('span','eyebrow','Time Invested'),
+      element('strong','minutes',count),
+      element('span','unit',unit),
+      element('div','time-note',skillList.length+' focus '+(skillList.length===1?'area':'areas')));
+    append(rootRow,summary,time);
+    const disclosure=element('details','detail-disclosure');
+    const toggle=element('summary');
+    append(toggle,element('span','show','Show Details'),
+      element('span','hide','Hide Details'),
+      element('span','chev','⌄'));
+    toggle.querySelector('.chev').setAttribute('aria-hidden','true');
+    append(disclosure,toggle);
+    const details=element('div','details');
+    const info=element('div','detail-cell');
+    const areas=element('div','detail-cell');
+    info.dataset.component=areas.dataset.component='BannerCellV1';
+    append(info,element('div','detail-title','SESSION DETAILS'));
+    const field=(label,value)=>{
+      if(!visible(value))return;
+      const item=element('div','info');
+      append(item,element('span','info-label',label),element('span','info-value',value));
+      append(info,item);
+    };
+    field('Coach / Organization',coach);
+    field('Location',location);
+    field('Type',kind);
+    append(areas,element('div','detail-title','SKILLS WORKED ON'));
+    const tags=element('div','tag-row');
+    if(skillList.length)for(const skill of skillList)append(tags,element('span','tag',skill));
+    else append(tags,element('span','info-label','No skills recorded.'));
+    append(areas,tags);
+    append(details,info,areas);
+    append(disclosure,details);
+    if(expanded)disclosure.open=true;
+    return SharedBannerV2({
+      gameId:id,primary:rootRow,details:disclosure,
+      rootClass:'training-banner',componentName:'TrainingDetailBannerV1'
+    });
+  }
+  /**
+   * Training Detail Banner Section V1 inherits BannerSectionV1, which
+   * inherits the real Section V1 parent. Caller selects session/CTA.
+   */
+  function TrainingDetailBannerSectionV1({session, title='Latest Training',
+                           subtitle='Every session is a step forward.',
+                           actionLabel='View Session',onAction,
+                           emptyText='No training sessions yet.',expanded=false}={}) {
+    const banner=session?TrainingDetailBannerV1({...session,expanded}):null;
+    const section=BannerSectionV1({
+      title,subtitle,banner,emptyText,actionLabel,onAction:session?onAction:null,
+      sectionClass:'banner-section gt-training-detail-section',
+      headerTag:'header',headerClass:'section-head',headingClass:'',
+      titleClass:'section-title',subtitleClass:'section-sub',
+      actionClass:'section-action',
+      componentName:'TrainingDetailBannerSectionV1'
+    });
+    section.setAttribute('aria-label','Training detail');
+    return section;
+  }
   /**
    * GameBannerSection V1: reuse the approved Section V1 constructor but
    * retain its existing Games/Game Details header and spacing markup exactly.
@@ -308,7 +489,7 @@
   }
 
   global.GameTraceComponents=Object.freeze({
-    version:'0.2.0',Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.3.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,BannerSectionV1,GameBannerV2,GameBannerSectionV1,TrainingDetailBannerV1,TrainingDetailBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
