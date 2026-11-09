@@ -44,7 +44,7 @@ for(const [name,scope,style,anchor] of required){
  check(html.includes(anchor),'Missing '+name+' page');
  const css=cssBlock(style);
  for(const selector of ['.up1-page','.up1-header','.up1-heading','.up1-back','.up1-title','.up1-subtitle-v1','.up1-content','.up1-footer']){
-  check(css.includes(scope+' ' +selector)||css.includes(scope+'>.'+selector),'Missing '+name+' scoped '+selector+' CSS; classes alone are insufficient');
+  check(css.includes(scope+' ' +selector)||css.includes(scope+'>'+selector),'Missing '+name+' scoped '+selector+' CSS; classes alone are insufficient');
  }
 }
 for(const [label,anchor] of [
