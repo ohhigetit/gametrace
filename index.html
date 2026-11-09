@@ -11740,4 +11740,174 @@ window.addEventListener('pagehide',()=>{if(recording)return;stream?.getTracks().
 
 
 })();
-</script></body></html>
+</script>
+<!-- Approved reusable GameTrace Menu V1.4, review integration only -->
+<style id="gt-menu-component-v1-4-css">
+/* Approved GameTrace Menu V1.4: shared typography/theme and Home Court quick action styling. */
+.gtm-root{
+  --gtm-bg:var(--gt-bg,#f7f8f5);--gtm-surface:var(--gt-surface,#fff);
+  --gtm-ink:var(--gt-ink,#172119);--gtm-muted:var(--gt-muted,#59655b);
+  --gtm-edge:var(--gt-edge,#cbd3c8);--gtm-accent:var(--gt-accent,#087d42);
+  font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--gtm-ink);background:var(--gtm-bg);display:flex;flex-direction:column;
+  min-width:0;width:100%;height:100%;overflow:hidden;box-sizing:border-box;
+}
+.gtm-root *{box-sizing:border-box}
+.gtm-root button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
+.gtm-header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px 10px;background:var(--gtm-bg)}
+.gtm-brand{display:flex;align-items:center;gap:10px;min-width:0}
+.gtm-logo{width:44px;height:44px;object-fit:contain;background:#101211;border-radius:10px;flex:none}
+.gtm-logo-unavailable{font-size:9px}
+.gtm-brand-name{display:flex;flex-direction:column;min-width:0;gap:2px}
+.gtm-wordmark{font-size:23px;font-weight:800;letter-spacing:-.8px;line-height:1.1}
+.gtm-tagline{font-size:10px;line-height:1.3;color:var(--gtm-muted)}
+.gtm-close{width:44px;height:44px;flex:none;border:1px solid var(--gtm-edge);border-radius:12px;background:var(--gtm-surface);font-size:23px!important}
+.gtm-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:8px 16px 18px;border-bottom:1px solid var(--gtm-edge)}
+.gtm-action{min-height:56px!important;display:flex;align-items:center;justify-content:center;gap:8px;
+ padding:10px 6px!important;border:1.5px solid #c8d8cb!important;border-radius:16px!important;
+ background:#e3efe5!important;color:#172119!important;font-size:15px!important;font-weight:550!important;letter-spacing:0!important;
+ text-align:center;min-width:0;white-space:normal}
+.gtm-action:disabled{opacity:.42;cursor:not-allowed}
+.gtm-icon{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;flex:0 0 23px;color:inherit}
+.gtm-icon svg,.gtm-icon.menu-icon svg{width:100%;height:100%;stroke-width:1.8;display:block}
+.gtm-icon-missing{border:1px dashed currentColor;border-radius:4px;font-size:10px}
+.gtm-scroll{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.gtm-nav{padding:7px 16px 20px}
+.gtm-group{padding:8px 0 15px}
+.gtm-group+.gtm-group{padding-top:11px}
+.gtm-group:last-child{border-top:1px solid var(--gtm-edge);padding-top:20px;margin-top:1px}
+.gtm-group-heading{margin:6px 6px 10px;color:var(--gtm-accent);font-size:10px;line-height:1.35;font-weight:820;
+ letter-spacing:.65px;text-transform:uppercase}
+.gtm-item{display:flex;align-items:center;gap:13px;width:100%;min-height:50px;padding:9px 12px!important;
+ text-align:left;border:0!important;border-radius:12px;background:transparent!important;color:var(--gtm-ink)!important;
+ font-size:15px!important;font-weight:650!important;line-height:1.35}
+.gtm-item .gtm-icon{color:var(--gtm-ink)}
+.gtm-item.is-active{background:var(--gt-control,#edf0e9)!important;color:var(--gtm-ink)!important;font-weight:780!important}
+.gtm-item.is-active .gtm-icon{color:var(--gtm-accent)}
+.gtm-item.gtm-signout{margin-top:8px}
+.gtm-root button:focus-visible{outline:2px solid var(--gtm-accent);outline-offset:2px}
+@media(hover:hover){.gtm-item:hover{background:var(--gt-control,#edf0e9)!important}}
+@media(max-width:350px){.gtm-actions{padding-inline:10px;gap:6px}.gtm-action{font-size:13px!important;gap:5px}.gtm-nav{padding-inline:11px}}
+[data-appearance=dark] .gtm-action{background:#283d2e!important;border-color:#45684f!important;color:#f0f4ef!important}
+
+
+/* GameTrace V1.4 integration specificity: retain cell-heading sizes despite global h2 rules. */
+html[data-theme] #app.gt-app .gtm-root{height:clamp(240px,calc(100dvh - 130px),760px);max-height:calc(100dvh - 95px);overflow:hidden}
+html[data-theme] #app.gt-app .gtm-group-heading{font-size:10px!important;line-height:1.35!important;font-weight:820!important;letter-spacing:.65px!important;margin:6px 6px 10px!important;color:var(--gt-accent)!important}
+html[data-theme] #app.gt-app .gtm-item{font-size:15px!important;font-weight:650!important}
+html[data-theme] #app.gt-app .gtm-item.is-active{font-weight:780!important}
+html[data-theme] #app.gt-app .gtm-action{border-radius:16px!important;min-height:56px!important;font-size:15px!important}
+html[data-theme] #app.gt-app .gtm-wordmark{font-size:23px!important;line-height:1.1!important}
+html[data-theme] #app.gt-app .gtm-tagline{font-size:10px!important;color:var(--gt-muted)!important}
+html[data-theme] #app.gt-app .gtm-logo{display:block;width:44px;height:44px;object-fit:contain;border-radius:10px}
+html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
+
+</style>
+<script id="gt-menu-component-v1-4-js">
+/* GameTrace Menu V1.4 — presentation-only child of existing App Navigation.
+ * Actual page-header icons are supplied by the integration layer.
+ * Approved standalone component; not integrated into the full app.
+ */
+(function(global){
+ 'use strict';
+ const routes={home:'court',games:'home',training:'training',schedule:'schedule',scoreboard:'reports',playbook:'goals',wall:'trophies',notebook:'notebook',huddle:'family',settings:'settings',cloud:'family',signout:'signout'};
+ const groups=[
+  ['YOUR GAME',[['home','Home Court'],['games','Games'],['training','Training'],['schedule','Schedule']]],
+  ['YOUR PROGRESS',[['scoreboard','Scoreboard'],['playbook','Playbook'],['wall','The Wall'],['notebook','Notebook']]],
+  ['YOUR TEAM',[['huddle','Family Huddle']]],
+  ['ACCOUNT & SETTINGS',[['settings','Settings'],['cloud','Family Cloud'],['signout','Sign Out']]]
+ ];
+ const elt=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!=null)n.textContent=value;return n};
+ function iconFor(screen,iconFactory){
+  let node=null;
+  if(typeof iconFactory==='function')node=iconFactory(screen);
+  else if(typeof global.menuIcon==='function'&&global.pageIcons43?.[screen])node=global.menuIcon(global.pageIcons43[screen]);
+  if(!(node instanceof global.Node)){
+   node=elt('span','gtm-icon-missing','?');node.title='Missing approved page-header icon: '+screen;
+  }
+  node.classList.add('gtm-icon');node.setAttribute('aria-hidden','true');return node;
+ }
+ function MenuComponentV1({active='home',onNavigate=()=>{},onClose=()=>{},onQuickAction=()=>{},iconFactory=null,logo=null,canCreateGame=true}={}){
+  const root=elt('aside','gtm-root');root.dataset.component='MenuComponent';root.dataset.version='V1.4';root.setAttribute('aria-label','GameTrace menu');
+  const header=elt('header','gtm-header'),brand=elt('div','gtm-brand');
+  if(logo instanceof global.Node)brand.append(logo);
+  else{
+   const mark=elt('img','gtm-logo');mark.src='https://raw.githubusercontent.com/ohhigetit/gametrace/development/icons/gametrace-official-192.png';mark.alt='GameTrace official mark';mark.loading='eager';brand.append(mark);
+   mark.addEventListener('error',()=>{mark.alt='GameTrace logo unavailable offline';mark.classList.add('gtm-logo-unavailable')});
+  }
+  const name=elt('div','gtm-brand-name');name.append(elt('strong','gtm-wordmark','GameTrace'),elt('span','gtm-tagline','Follow the Play. The Game. The Journey.'));brand.append(name);
+  const close=elt('button','gtm-close','×');close.type='button';close.setAttribute('aria-label','Close menu');close.addEventListener('click',onClose);
+  header.append(brand,close);root.append(header);
+  const actions=elt('div','gtm-actions');actions.setAttribute('aria-label','Quick actions');actions.setAttribute('role','group');
+  for(const [id,label,screen] of [['newGame','New Game','setup'],['newTraining','New Training','training']]){
+   const b=elt('button','gtm-action');b.type='button';b.dataset.action=id;b.append(iconFor(screen,iconFactory),elt('span','',label));
+   if(id==='newGame'&&!canCreateGame){b.disabled=true;b.title='An unfinished game is already active';}
+   b.addEventListener('click',()=>onQuickAction(id));actions.append(b);
+  }
+  root.append(actions);
+  const scroll=elt('div','gtm-scroll'),nav=elt('nav','gtm-nav');nav.setAttribute('aria-label','Main navigation');
+  for(const [heading,items] of groups){
+   const section=elt('section','gtm-group'),title=elt('h2','gtm-group-heading',heading);section.append(title);
+   for(const [id,label] of items){
+    const b=elt('button','gtm-item');b.type='button';b.dataset.nav=id;b.append(iconFor(routes[id],iconFactory),elt('span','gtm-item-label',label));
+    if(id===active){b.classList.add('is-active');b.setAttribute('aria-current','page');}
+    if(id==='signout')b.classList.add('gtm-signout');
+    b.addEventListener('click',()=>onNavigate(id));section.append(b);
+   }
+   nav.append(section);
+  }
+  scroll.append(nav);root.append(scroll);
+  root.setActive=function(next){root.querySelectorAll('.gtm-item').forEach(b=>{const selected=b.dataset.nav===next;b.classList.toggle('is-active',selected);if(selected)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})};
+  return root;
+ }
+ global.GameTraceMenuComponentV1=MenuComponentV1;
+})(window);
+
+/* GameTrace Menu V1.4: review-only integration. Routes and record storage unchanged. */
+(function(){
+ 'use strict';
+ const menuTargets={
+  home:'court',games:'home',training:'training',schedule:'schedule',
+  scoreboard:'reports',playbook:'goals',wall:'trophies',notebook:'notebook',
+  huddle:'family',settings:'settings',cloud:'family'
+ };
+ const menuSelected=()=>{
+  const screen=ui.menuReturn||'court';
+  return ({court:'home',home:'games',live:'games',stats:'games',history:'games',setup:'games',
+   training:'training',session:'training',reports:'scoreboard',schedule:'schedule',scheduleDetail:'schedule',
+   goals:'playbook',trophies:'wall',notebook:'notebook',family:'huddle',settings:'settings'})[screen]||'home';
+ };
+ const goTo=id=>{
+  if(id==='signout'){
+   if(typeof familyAuth!=='undefined' && familyAuth?.access_token){
+     if(window.confirm('Sign out of Family Cloud on this device?')) familyAction(()=>signOutFamily());
+   }else courtOpen('family');
+   return;
+  }
+  const target=menuTargets[id];
+  if(target)courtOpen(target);
+ };
+ const quick=id=>{
+  if(id==='newGame')gameForm();
+  else if(id==='newTraining')recordTrainingFromCourt();
+ };
+ renderMenu=function(){
+  const root=$('menuContent');
+  root.replaceChildren();
+  const brand=document.querySelector('.top .app-brand-icon');
+  const logo=brand?brand.cloneNode(true):null;
+  const active=liveGame();
+  const component=window.GameTraceMenuComponentV1({
+   active:menuSelected(), logo,
+   canCreateGame:!active&&!unfinishedGames().length,
+   iconFactory:screen=>menuIcon(pageIcons43[screen]||'layers'),
+   onNavigate:goTo,
+   onQuickAction:quick,
+   onClose:()=>navigate(ui.menuReturn||'court')
+  });
+  root.append(component);
+ };
+})();
+
+</script>
+</body></html>
