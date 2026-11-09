@@ -189,3 +189,26 @@ The user approved **two independent components**, stored only on `feature/compon
 **Implementation boundaries:** The approved preview is not a DEV/production deployment. Reusable adapter requires the existing app's `reportTimeline` renderer. It is not an independent pure-rendering replacement for the old analytics engine. Maintain native callbacks/state while moving filters into Section. Validate on real games, iPhone portrait/landscape, both themes, and no duplicated Timeline sections before integration/deployment.
 
 **Git status:** Saved in `feature/component-library`; DEV baseline `630f723` and production unchanged. Do not infer authorization to merge or deploy from component approval.
+
+## GameRecord V1 + GameRecordSection V1 — APPROVED / LOCKED (Nov 8, 2026)
+
+The user approved **two distinct components** after review of the full application. Both are stored as source/design references in the isolated `feature/component-library` branch. **No DEV or production deployment is authorized or implied.**
+
+**GameRecord V1 — content-only component**
+- Uses two visually connected **file-folder tabs**, **Play Records** and **Score Journey**. Retains the approved continuous rounded tab edge, with **no cut/notch on the tab's right side**, no redundant divider beneath the tabs, and a single content surface.
+- Displays **short, compact rows**, grouped into **Q1–Q4 or H1–H2** accordions depending on the game format. Groups are **collapsed initially**.
+- **Tap a record to reveal its inline accordion editor**; no separate Edit link. Existing Save/Cancel/Delete behavior and record data semantics are preserved.
+- **+ Add Record** is contextual to the selected tab: play record or Score Journey; both use an **inline accordion form**, not a modal.
+- Record rows have **drag handles always available** for reordering. **No Arrange / Done mode or button**. Preserve timestamp/order adjustment logic and prevent drag taps from opening the editor accidentally.
+- Preserve existing Play Records and Score Journey data paths, event records, timestamps, calculations and synchronization behavior. Do not split either folder tab into a separate page section.
+
+**GameRecordSection V1 — approved Section V1 composition**
+- Inherits the preapproved **Section V1 parent**, which owns title **Game Record**, optional subtitle, section layout and spacing.
+- Contains exactly **one GameRecord V1 content child**. Avoid duplicating the legacy Game Record heading.
+- Approved final visual refinement: **no dividing line below the section heading and no large vertical gap** before the folder tabs. Maintain the tight spacing of the final approved preview.
+
+**Exact approved app reference:** [`approved/GameRecord_V1_GameRecordSection_V1_FULL_APP_APPROVED.html`](approved/GameRecord_V1_GameRecordSection_V1_FULL_APP_APPROVED.html).
+
+**Version-locked CSS:** [`approved/GameRecord_V1_APPROVED.css`](approved/GameRecord_V1_APPROVED.css) and [`approved/GameRecordSection_V1_APPROVED.css`](approved/GameRecordSection_V1_APPROVED.css) are verbatim layer extracts from the reference. These CSS files are not standalone replacements for the application's game-record JS data/edit/rendering logic. Reuse actual approved handlers and game data when integrating.
+
+**Integration guardrails:** The approval locks the look and interaction contract, not a confirmed production extraction. Before replacing the Game Details section, verify both folder tabs, empty cases, quarter/half variants, tap-to-edit, inline add, draggable reordering, timestamp corrections, data sync, iPhone touch behavior and absence of duplicate headings or sections. Retain the approved GameCircle and Timeline compositions. Keep DEV (baseline `630f723`) and production untouched until separate deployment approval.
