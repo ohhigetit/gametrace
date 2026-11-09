@@ -1,0 +1,271 @@
+/* Approved GameCircle V1 — canonical CSS from 2026-11-08 approved full-app preview.
+   This is a version-locked reference, NOT a stylesheet to load alongside the
+   approved app's inline CSS. Extract into the reusable component only after
+   verifying real visual/runtime parity. The SVG rendering and all analytics
+   logic deliberately remain in the existing application. */
+
+/* === gt-gamecircle-v1-original-size-typography-preview === */
+
+/* Presentation-only GameCircle refinement. Original game-circle colors, SVG geometry,
+   analytics, events, and other page designs are unchanged. */
+html[data-theme] #app.gt-app #statsContent .report-circles {
+  padding-top:20px;
+}
+/* The circle no longer fills the entire phone: reserve room for browsing controls. */
+html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator {
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 44px;
+  gap:6px;
+  align-items:center;
+  width:100%;
+  max-width:416px;
+  margin:6px auto 0;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator .report-circle-svg {
+  display:block;
+  width:100%;
+  max-width:300px !important;
+  aspect-ratio:1;
+  margin:0 auto;
+  overflow:visible;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles > .report-circle-svg {
+  width:min(100%,300px);
+  max-width:300px;
+  margin:8px auto 0;
+}
+/* Court-time text follows the same font and numerical rhythm as the rest of the app. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-court {
+  font-family:inherit;
+  font-size:clamp(12px,3.25vw,14px);
+  font-weight:500;
+  line-height:1.45;
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+  color:var(--gt-muted);
+  text-align:center;
+  margin:12px 0 14px;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-timing-note {
+  font-family:inherit;
+  font-size:12px;
+  line-height:1.5;
+}
+/* Legend reads like compact app metadata, not tiny chart annotations. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-legend {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  column-gap:14px;
+  row-gap:9px;
+  font-family:inherit;
+  font-size:clamp(11px,3.05vw,13px);
+  line-height:1.4;
+  font-weight:500;
+  letter-spacing:0;
+  color:var(--gt-muted);
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-key {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+  font:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-key i {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  flex:0 0 9px;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-legend+.report-legend {
+  margin-top:10px;
+}
+@media(max-width:360px){
+ html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator {
+  grid-template-columns:40px minmax(0,1fr) 40px;
+  gap:4px;
+ }
+ html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator .report-circle-svg {
+  max-width:270px !important;
+ }
+ html[data-theme] #app.gt-app #statsContent .report-circles .report-legend {
+  column-gap:11px;
+ }
+}
+
+
+/* === gt-gamecircle-v1-quiet-label-and-legend-preview === */
+
+/* GameCircle content only. Approved original SVG palette, geometry and drawing logic remain intact. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-court {
+ display:block;
+ width:fit-content;
+ max-width:calc(100% - 24px);
+ margin:9px auto 13px;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-family:inherit;
+ font-size:11px;
+ font-weight:500;
+ line-height:1.5;
+ letter-spacing:.01em;
+ text-align:center;
+ font-variant-numeric:tabular-nums;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-timing-note {
+ max-width:330px;
+ margin:0 auto 10px;
+ font-size:11px;
+ line-height:1.35;
+ opacity:.78;
+ text-align:center;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:7px 13px;
+ max-width:360px;
+ margin:0 auto;
+ padding:0;
+ color:var(--gt-muted);
+ font-family:inherit;
+ font-size:11px;
+ font-weight:400;
+ line-height:1.4;
+ letter-spacing:0;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key .report-key {
+ display:inline-flex;
+ gap:5px;
+ align-items:center;
+ opacity:.86;
+ white-space:nowrap;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key .report-key i {
+ width:6px;
+ height:6px;
+ flex:0 0 6px;
+ border-radius:50%;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys {
+ max-width:355px;
+ margin:9px auto 0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary {
+ display:block;
+ width:fit-content;
+ min-height:32px;
+ margin:0 auto;
+ padding:7px 10px;
+ list-style:none;
+ text-align:center;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-size:11px;
+ font-weight:500;
+ cursor:pointer;
+ opacity:.85;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary::-webkit-details-marker { display:none; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary::after { content:'  ▾'; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys[open] > summary::after { content:'  ▴'; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary:focus-visible { outline:2px solid var(--gt-accent);border-radius:7px; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys .report-legend {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:8px 13px;
+ margin:5px auto 0;
+ padding:8px 12px 3px;
+ border-top:1px solid var(--gt-edge);
+ background:transparent;
+ color:var(--gt-muted);
+ font-size:11px;
+ font-weight:400;
+ line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys .report-key i {
+ width:7px;height:7px;flex:0 0 7px;
+}
+@media(max-width:350px){
+ html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key {gap:6px 10px;}
+}
+
+
+/* === gt-gamecircle-collapsed-left-aligned-details-preview === */
+
+/* Scoped presentation only: hide all supporting labels/legends until expanded. */
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details {
+ width:min(100%,360px);
+ max-width:100%;
+ margin:8px auto 0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-family:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary {
+ display:flex;
+ justify-content:flex-start;
+ align-items:center;
+ width:100%;
+ min-height:44px;
+ padding:8px 2px;
+ margin:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ text-align:left;
+ font-family:inherit;
+ font-size:12px;
+ font-weight:600;
+ line-height:1.4;
+ letter-spacing:0;
+ list-style:none;
+ cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary::-webkit-details-marker {display:none;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary::before {
+ content:'▸';display:inline-block;margin-right:9px;font-size:12px;line-height:1;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details[open] > summary::before {content:'▾';}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary:focus-visible {outline:2px solid var(--gt-accent);outline-offset:2px;border-radius:5px;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body {
+ width:100%; padding:1px 2px 12px;text-align:left;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-court,
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-timing-note {
+ display:block;width:100%;max-width:100%;margin:5px 0 10px;padding:0;
+ border:0;background:transparent;text-align:left;
+ font-family:inherit;font-size:12px;font-weight:500;line-height:1.45;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-timing-note {font-size:11px;font-weight:400;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-legend {
+ display:flex; flex-wrap:wrap;justify-content:flex-start;align-items:center;
+ gap:8px 13px;max-width:100%;width:100%;margin:0;padding:8px 0;
+ border:0;background:transparent;color:var(--gt-muted);text-align:left;
+ font-family:inherit;font-size:11px;font-weight:500;line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-key {
+ display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-key i {
+ display:inline-block;width:7px;height:7px;flex:0 0 7px;border-radius:50%;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .gt-circle-stats-key {
+ margin-top:5px;padding-top:11px;border-top:1px solid var(--gt-edge);
+}
