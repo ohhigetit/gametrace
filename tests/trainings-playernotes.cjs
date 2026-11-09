@@ -21,6 +21,6 @@ for(const id of blockIds){
 }
 cleaned=cleaned.replace(adapter,'').replace('\n body.append(gtTrainingsPlayerNotesV1());','');
 // Style insertion was immediately before </head>, and adapter before existing marker.
-cleaned=cleaned.replace('\n\n\n/* GT_TRAININGS_STEP1_START','\n\n\n/* GT_TRAININGS_STEP1_START');
+cleaned=cleaned.replace('\n\n\n/* GT_TRAININGS_STEP1_START','\n\n/* GT_TRAININGS_STEP1_START');
 assert.equal(cleaned,earlier,'Unrelated changes in the full app');
 console.log('PASS Training Player Notes: approved notebook structure/styles, session-safe navigation, no other app changes');
