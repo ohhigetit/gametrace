@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Audit actual Section V1 reuse
+        run: python3 tests/audit_section_parent.py
       - name: Build full standalone pending app QA
         run: python3 tests/build_banner_alignment_qa.py
       - name: Preserve Training V8 and regression-check other banners
