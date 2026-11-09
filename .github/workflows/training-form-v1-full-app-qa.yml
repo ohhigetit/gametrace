@@ -29,6 +29,7 @@ jobs:
       - name: Full-app workflow regression
         env:
           NODE_PATH: /tmp/gt-training-v1/node_modules
+          GAMETRACE_TEST_MODULES: /tmp/gt-training-v1/node_modules
         run: node tests/session-workflow-ui.cjs
       - name: Upload exact complete HTML app for review (no deployment)
         if: always()
