@@ -212,3 +212,24 @@ The user approved **two distinct components** after review of the full applicati
 **Version-locked CSS:** [`approved/GameRecord_V1_APPROVED.css`](approved/GameRecord_V1_APPROVED.css) and [`approved/GameRecordSection_V1_APPROVED.css`](approved/GameRecordSection_V1_APPROVED.css) are verbatim layer extracts from the reference. These CSS files are not standalone replacements for the application's game-record JS data/edit/rendering logic. Reuse actual approved handlers and game data when integrating.
 
 **Integration guardrails:** The approval locks the look and interaction contract, not a confirmed production extraction. Before replacing the Game Details section, verify both folder tabs, empty cases, quarter/half variants, tap-to-edit, inline add, draggable reordering, timestamp corrections, data sync, iPhone touch behavior and absence of duplicate headings or sections. Retain the approved GameCircle and Timeline compositions. Keep DEV (baseline `630f723`) and production untouched until separate deployment approval.
+
+## PlayerNotes V1 + PlayerNotesSection V1 — APPROVED / LOCKED (Nov 8, 2026)
+
+User approved both components after reviewing the **18px answer typography** variant of the single-notebook design. These are **two distinct components**, with the section implementing approved Section V1 conventions and PlayerNotes V1 providing content only. Approval does not authorize DEV/production deployment.
+
+**PlayerNotes V1 — content-only**
+- **No internal title, heading or subtitle**; parent section owns the header.
+- Render the existing **three player reflection themes**: *What I Saw*, *What I Became*, *What I Want to Become More*. Preserve the existing prompts, stored responses, history, and game association; do not introduce a duplicate legacy Question/Feedback table.
+- **Answer-first**: answer text is the visual priority, in italicized quotation marks and **18px text at all screen widths**, line-height 1.6. Labels are subdued and inherit typography references from HomeCourt's approved **Words to Remember**.
+- All three reflections share **one unified notebook container**, not separate boxed answer fields: a subtle left notebook-margin line, restrained row dividers, softly rounded canvas, and approved GameTrace **banner gradient** (Day/Courtside theme treatments).
+- Read view is journal-like, not a text field. **Tap an answer** for the existing inline editing flow (Save/Cancel). Empty answers present their appropriate prompts. No change to persistent game data.
+
+**PlayerNotesSection V1 — Section V1 parent composition**
+- Inherits approved **Section V1** with title **Player's Notes**, subtitle **The game, in my own words.**, and content area containing **PlayerNotes V1**.
+- Only one heading in the parent section; do not nest legacy Player's Notes markup. Maintain the compact heading-to-notebook spacing.
+
+**Approved exact full-app reference:** [`approved/PlayerNotes_V1_PlayerNotesSection_V1_FULL_APP_APPROVED.html`](approved/PlayerNotes_V1_PlayerNotesSection_V1_FULL_APP_APPROVED.html).
+
+**Approved layered CSS extracts:** [`approved/PlayerNotes_V1_APPROVED.css`](approved/PlayerNotes_V1_APPROVED.css) and [`approved/PlayerNotesSection_V1_APPROVED.css`](approved/PlayerNotesSection_V1_APPROVED.css). Reference CSS is extracted verbatim from the approved app; it does not replace data/render/edit logic. For actual integration reuse main app handlers in the same application scope, and verify the content renders instead of the obsolete Question/Feedback table.
+
+**Regression checks before integration/deployment:** populated and blank reflection answers, save/cancel, existing historical reflections, game-switch rerenders, responsive iPhone layout, Day/Courtside themes, no duplicate heading/table, 18px answer sizing, and no regressions to approved GameCircle, Timeline, GameRecord or HomeCourt. DEV and production remain untouched by this library commit.
