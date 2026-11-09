@@ -493,8 +493,141 @@
     return section;
   }
 
+
+  /**
+   * PlayerNotesV1 — the approved three-answer notebook presentation, made
+   * record-agnostic. Saving is delegated to onSave(key,text), never performed
+   * inside the component; Games retains its previously approved implementation.
+   */
+  function PlayerNotesV1({feedback={},context='session',onSave}={}) {
+    const values=feedback&&typeof feedback==='object'?feedback:{};
+    const prompts=context==='game'
+      ? [['see','WHAT I SAW','What did I notice during the game?'],
+         ['became','WHAT I BECAME','How did I respond to the game?'],
+         ['more','WHAT I WANT TO BECOME MORE','What will I work on next?']]
+      : [['see','WHAT I SAW','What did I see during training?'],
+         ['became','WHAT I BECAME','How did I become more during training?'],
+         ['more','WHAT I WANT TO BECOME MORE','What do I want to become more of?']];
+    const root=element('div','gt-playernotes-v1');
+    root.dataset.component='PlayerNotesV1';
+    root.setAttribute('aria-label',"Player's reflections");
+    let active=null;
+    function beginEditing(item,key,prompt) {
+      if (active && active!==item) {
+        const previous=active.querySelector('.pn-edit');
+        if (previous) previous.remove();
+        const oldAnswer=active.querySelector('.pn-answer');
+        if(oldAnswer)oldAnswer.hidden=false;
+      }
+      active=item;
+      const answer=item.querySelector('.pn-answer');
+      answer.hidden=true;
+      const form=element('form','pn-edit');
+      const textarea=element('textarea');
+      textarea.rows=4;textarea.maxLength=3000;
+      textarea.setAttribute('aria-label',prompt);
+      textarea.value=String(values[key]||'');
+      const error=element('p','pn-error');
+      error.setAttribute('role','alert');error.hidden=true;
+      const actions=element('div','pn-actions');
+      const cancel=element('button','','Cancel');
+      cancel.type='button';
+      const save=element('button','pn-save','Save Note');
+      save.type='submit';
+      function close() {form.remove();answer.hidden=false;active=null;}
+      cancel.addEventListener('click',close);
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();
+        if(typeof onSave!=='function')return close();
+        save.disabled=true;
+        try {
+          const text=textarea.value.trim();
+          await onSave(key,text);
+          values[key]=text;
+          answer.textContent=text?'“'+text+'”':prompt+'  ·  Tap to write';
+          answer.classList.toggle('pn-empty',!text);
+          answer.setAttribute('aria-label',(text?'Edit ':'Add ')+item.querySelector('.pn-label').textContent);
+          let hint=item.querySelector('.pn-prompt');
+          if(text&&!hint){hint=element('p','pn-prompt');item.append(hint);}
+          if(hint){hint.textContent=prompt;hint.hidden=!text;}
+          close();
+        }catch(ex){
+          error.textContent=ex?.message||'Could not save note.';
+          error.hidden=false;
+        }finally{save.disabled=false;}
+      });
+      append(actions,cancel,save);
+      append(form,textarea,error,actions);
+      append(item,form);
+      textarea.focus();
+    }
+    for(const [key,label,prompt]of prompts){
+      const val=String(values[key]||'').trim();
+      const item=element('div','pn-item');
+      item.dataset.noteKey=key;
+      const heading=element('p','pn-label',label);
+      const answer=element('button','pn-answer'+(val?'':' pn-empty'),
+        val?'“'+val+'”':prompt+'  ·  Tap to write');
+      answer.type='button';
+      answer.setAttribute('aria-label',(val?'Edit ':'Add ')+label);
+      if(typeof onSave!=='function')answer.disabled=true;
+      else answer.addEventListener('click',()=>{
+        if(active===item){
+          item.querySelector('.pn-edit')?.remove();
+          answer.hidden=false;active=null;
+        }else beginEditing(item,key,prompt);
+      });
+      append(item,heading,answer);
+      if(val)append(item,element('p','pn-prompt',prompt));
+      append(root,item);
+    }
+    const earlier=[['well','What went well?'],
+                   ['challenge','What was challenging?'],
+                   ['next','What will I focus on next?']]
+      .filter(([key])=>visible(values[key]));
+    if(earlier.length){
+      const details=element('details','pn-legacy');
+      append(details,element('summary','','Earlier reflections'));
+      for(const [key,label]of earlier){
+        const entry=element('div','pn-legacy-entry');
+        append(entry,element('div','pn-label',label),
+          element('p','',values[key]));
+        append(details,entry);
+      }
+      append(root,details);
+    }
+    return root;
+  }
+
+  /**
+   * PlayerNotesSectionV1 — real SectionV1 parent and approved notebook wrapper.
+   * Keep header outside PlayerNotesV1; no duplicate title or extra CTA.
+   */
+  function PlayerNotesSectionV1({feedback={},context='session',
+                         title="Player's Notes",
+                         subtitle='The work, in my own words.',
+                         onSave}={}) {
+    const notes=PlayerNotesV1({feedback,context,onSave});
+    const section=Section({title,subtitle,content:notes,kind:'gt-pns-v1'});
+    const header=element('header','gt-pns-header');
+    const heading=element('div','gt-pns-heading');
+    append(heading,element('h2','',title));
+    if(visible(subtitle))append(heading,element('p','',subtitle));
+    append(header,heading);
+    const content=element('div','gt-pns-content');
+    content.dataset.component='SectionV1Content';
+    notes.dataset.parent='PlayerNotesSectionV1';
+    append(content,notes);
+    section.querySelector('.gtc-section-header').replaceWith(header);
+    section.querySelector('.gtc-section-content').replaceWith(content);
+    section.className='gt-pns-v1';
+    section.dataset.component='PlayerNotesSectionV1';
+    section.dataset.parent='SectionV1';
+    return section;
+  }
+
   global.GameTraceComponents=Object.freeze({
-    version:'0.3.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,BannerSectionV1,GameBannerV2,GameBannerSectionV1,TrainingDetailBannerV1,TrainingDetailBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.3.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,BannerSectionV1,GameBannerV2,GameBannerSectionV1,TrainingDetailBannerV1,TrainingDetailBannerSectionV1,PlayerNotesV1,PlayerNotesSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
