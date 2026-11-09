@@ -1,0 +1,24 @@
+name: GameTrace Games Banner V2 reusable review
+on:
+  push:
+    branches: [review/games-banner-reusable-v2-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test-only DOM dependency
+        run: npm install --prefix /tmp/gt-banner-parity jsdom@24 --no-save --no-package-lock
+      - name: Compare approved baseline DOM and interaction parity
+        env:
+          NODE_PATH: /tmp/gt-banner-parity/node_modules
+        run: node tests/game-banner-reuse.cjs
