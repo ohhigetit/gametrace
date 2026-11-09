@@ -208,8 +208,107 @@
     }
     return root;
   }
+
+  /**
+   * SharedBanner V2 parent (Games presentation).
+   * Ownership: presentation DOM only. No storage, global game state, or analytics.
+   * It preserves the existing approved gtgames-* DOM/CSS contract.
+   */
+  function SharedBannerV2({gameId,primary,details}={}) {
+    if (!(primary instanceof global.Node)) throw new TypeError('SharedBannerV2 requires a primary row');
+    const root=element('article','gtgames-banner');
+    root.dataset.component='GameBannerV2';
+    root.dataset.parent='SharedBannerV2';
+    if (gameId !== undefined && gameId !== null) root.dataset.gameId=String(gameId);
+    append(root,primary);
+    if (details) append(root,details);
+    return root;
+  }
+  /** GameBanner V2: approved read-only, reusable game summary presentation. */
+  function GameBannerV2({gameId,team,opponent,score,contextDate,gameType,
+                         badgeText,tone='',period=null,stats={},details={},note=''}={}) {
+    const row=element('div','gtgames-compact-primary');
+    row.dataset.component='BannerRowV1';
+    const left=element('div','gtgames-compact-cell gtcompact-game-summary');
+    left.dataset.component='BannerCellV1';
+    append(left,element('span','gtgames-label','GAME SUMMARY'));
+    const match=element('div','gtcompact-match');
+    append(match,element('span','gtcompact-team',team||'Your Team'),
+      element('span','gtcompact-vs','vs'),element('span','gtcompact-team',opponent||'Opponent'));
+    append(left,match,element('div','gtcompact-score',score[0]+' – '+score[1]));
+    const meta=element('div','gtcompact-meta');
+    append(meta,element('span','',contextDate+(gameType?' · '+gameType:'')),
+      element('span','gtgames-badge '+tone,badgeText));
+    if (period !== null) append(meta,element('span','',period));
+    append(left,meta);
+    const right=element('div','gtgames-compact-cell gtcompact-quick-stats');
+    right.dataset.component='BannerCellV1';
+    append(right,element('span','gtgames-label gtcompact-stats-caption','TOP STATS'));
+    const quick=element('div','gtcompact-stats-grid');
+    [['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl']].forEach(([label,key])=>{
+      const stat=element('div','gtcompact-stat');
+      append(stat,element('span','gtcompact-stat-label',label),
+        element('strong','gtcompact-stat-number',integer(stats[key])));
+      append(quick,stat);
+    });
+    append(right,quick);
+    append(row,left,right);
+    const extra=element('details','gtgames-details');
+    const toggle=element('summary','','Show Details');
+    extra.addEventListener('toggle',()=>{toggle.firstChild.textContent=extra.open?'Hide Details':'Show Details'});
+    append(extra,toggle);
+    const secondary=element('div','gtgames-secondary');
+    const info=element('div','gtgames-detail-cell');
+    const secondaryStats=element('div','gtgames-detail-cell');
+    info.dataset.component=secondaryStats.dataset.component='BannerCellV1';
+    append(info,element('strong','gtgames-label','MORE GAME DETAILS'));
+    append(secondaryStats,element('strong','gtgames-label','MORE PLAYER STATS'));
+    const field=(target,label,value)=>{
+      if(value===undefined||value===null||value==='')return;
+      const line=element('div','gtgames-detail');
+      append(line,element('span','',label),element('b','',String(value)));
+      append(target,line);
+    };
+    field(info,'Date',details.date);
+    field(info,'League',details.league);
+    field(info,'Game type',details.gameType);
+    field(info,'Player',details.player);
+    for(const [label,key] of [['FT','ft'],['Fouls','foul'],['Turnovers','tov']]){
+      const val=details[key];
+      if(val!==undefined&&val!==null&&Number.isFinite(Number(val)))
+        field(secondaryStats,label,Math.round(Number(val)));
+    }
+    append(secondary,info,secondaryStats,element('div','gtgames-note',note));
+    append(extra,secondary);
+    return SharedBannerV2({gameId,primary:row,details:extra});
+  }
+  /**
+   * GameBannerSection V1: reuse the approved Section V1 constructor but
+   * retain its existing Games/Game Details header and spacing markup exactly.
+   */
+  function GameBannerSectionV1({title='Latest Game',banner,emptyText='No games recorded yet.',
+                                actionLabel='View Game →',onAction}={}) {
+    const content=banner||element('div','gtgames-no-game',emptyText);
+    const section=Section({title,content,kind:'gtgames-featured'});
+    const heading=element('div','gtgames-featured-heading');
+    append(heading,element('h2','',title));
+    if(typeof onAction==='function'){
+      const button=element('button','gtgames-open gtgames-header-action',actionLabel);
+      button.type='button';
+      button.addEventListener('click',onAction);
+      append(heading,button);
+    }
+    section.querySelector('.gtc-section-header').replaceWith(heading);
+    section.querySelector('.gtc-section-content').replaceWith(content);
+    section.className='gtgames-featured';
+    section.dataset.component='SectionV1';
+    section.dataset.parent='SectionV1';
+    section.dataset.implementation='GameBannerSectionV1';
+    return section;
+  }
+
   global.GameTraceComponents=Object.freeze({
-    version:'0.1.0',Section,List,SharedBanner,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.2.0',Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
