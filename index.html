@@ -2990,6 +2990,44 @@ html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .report
 html[data-theme] #app.gt-app #statsContent [data-section="game-circles"] .report-legend{
  display:flex;justify-content:center;flex-wrap:wrap;gap:7px 14px;
 }
+</style><style id="gtgd-gametimeline-section-v1">
+/* Shared SectionV1 + native Game Timeline (Game Details only).
+   The timeline itself stays fully visible. No new analytics or event model. */
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]{
+ display:block;width:100%;min-width:0;margin:24px 0 0;padding:0;
+ border:0;background:transparent;box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]>.gtglv1-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+ margin:0 0 14px;padding:0;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .gtglv1-heading{
+ flex:1;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .gtglv1-heading h2{
+ font-size:18px!important;line-height:1.3!important;
+ letter-spacing:-.3px!important;font-weight:800!important;
+ color:var(--gt-ink)!important;margin:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]>.report-timeline{
+ display:block!important;min-width:0;width:100%;margin:0!important;padding:0!important;
+ border:0!important;box-shadow:none!important;background:transparent!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"]>.report-timeline>summary{
+ display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-scroll{
+ min-width:0;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-periods{
+ min-width:100%;width:max-content;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-note{
+ margin:0 0 10px;color:var(--gt-muted);
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-timeline"] .timeline-court-legend{
+ max-width:100%;
+}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -8097,6 +8135,30 @@ function gtGameDetailsUniversalV1(){
        }
      }
    });
+ }
+ // Timeline SectionV1: reuse the existing timeline DOM and its event edit,
+ // elapsed-time placement, court/bench bands and legends for this selected game.
+ // The approved Game Timeline section is always expanded (no nested accordion).
+ const nativeTimeline=root.querySelector('[data-timeline].report-timeline');
+ if(nativeTimeline){
+   const timelineSection=node('section','gtgd-gametimeline-section');
+   timelineSection.dataset.component='SectionV1';
+   timelineSection.dataset.section='game-timeline';
+   timelineSection.dataset.childComponent='GameTimeline';
+   const timelineHeader=node('header','gtglv1-header');
+   timelineHeader.dataset.component='SectionHeader';
+   const timelineHeading=node('div','gtglv1-heading');
+   const timelineTitle=node('h2');
+   timelineTitle.textContent='Game Timeline';
+   timelineHeading.append(timelineTitle);
+   timelineHeader.append(timelineHeading);
+   // The original report uses <details> but the new SectionV1 owns the title.
+   // Retain the original events rather than reconstructing the timeline.
+   nativeTimeline.open=true;
+   nativeTimeline.dataset.component='GameTimeline';
+   nativeTimeline.querySelector(':scope > summary')?.setAttribute('hidden','');
+   timelineSection.append(timelineHeader,nativeTimeline);
+   body.append(timelineSection);
  }
  const footer=node('footer','up1-footer');
  footer.dataset.component='PageFooter';
