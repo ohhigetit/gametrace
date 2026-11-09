@@ -176,3 +176,16 @@ Two independently approved components, saved without any DEV or production deplo
 **Functional invariants:** `drawGameCircles(svg,g,t,timing)`, calculations, 3PT/2PT/FT, makes/misses, court time and bench time, statistical dials, win/loss ring, game navigation, filtering and game records are unchanged. No green-heavy palette, alternate color themes, 3D effects, or standalone Recorded Plays/Score Journey redesigns were approved as part of these components.
 
 **Integration status:** V1 components approved and saved to `feature/component-library` only. The current DEV baseline remains `630f723`; this documentation commit does not deploy, replace Game Details, modify shared Section V1 source, or claim fully extracted reusable JS modules. A later Game Details integration must reuse these locked designs, preserve the live data adapters and test in both Day/Courtside themes and mobile portrait/landscape before deployment.
+
+## Timeline V1 + TimelineSection V1 — APPROVED / LOCKED (Nov 8, 2026)
+
+The user approved **two independent components**, stored only on `feature/component-library` and not deployed:
+
+- **Timeline V1** — Reusable timeline **content** component, based on the existing Game Details timeline. Preserve original elapsed-time event placement, period markers, score journey, player-event display, timeouts, taps/zoom, calculations and live record data. The timeline is **always visible**: remove both "Show/Hide timeline" and "Expand/Collapse" controls. No View or score/event filter controls inside Timeline V1. Approved CSS reference: [`approved/Timeline_V1_APPROVED.css`](approved/Timeline_V1_APPROVED.css). Approved reusable DOM adapter: [`approved/Timeline_V1_APPROVED.js`](approved/Timeline_V1_APPROVED.js).
+- **TimelineSection V1** — Reuse the approved **Section V1 parent**, with Game Timeline header, subtitle, and **horizontal-sliders outline icon** filter action. The filter owns four *existing* timeline settings: **View** (Whole game or Q/H period), **Team score**, **Opponent score**, and **Player events**. Checkboxes enabled and Whole game selected by default. Filter settings alter display only; no recorded data changes. Timeline V1 is the **single content child**. Reference: [`approved/TimelineSection_V1_APPROVED.css`](approved/TimelineSection_V1_APPROVED.css).
+
+**Exact visual/functional approval reference:** [`approved/Timeline_V1_TimelineSection_V1_FULL_APP_APPROVED.html`](approved/Timeline_V1_TimelineSection_V1_FULL_APP_APPROVED.html) is the full GameTrace HTML preview approved by the user. The CSS and adapter JS files are extracted source references. The original Game Details timeline should not remain duplicated outside TimelineSection when this composition is integrated.
+
+**Implementation boundaries:** The approved preview is not a DEV/production deployment. Reusable adapter requires the existing app's `reportTimeline` renderer. It is not an independent pure-rendering replacement for the old analytics engine. Maintain native callbacks/state while moving filters into Section. Validate on real games, iPhone portrait/landscape, both themes, and no duplicated Timeline sections before integration/deployment.
+
+**Git status:** Saved in `feature/component-library`; DEV baseline `630f723` and production unchanged. Do not infer authorization to merge or deploy from component approval.
