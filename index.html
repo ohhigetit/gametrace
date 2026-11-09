@@ -11624,7 +11624,7 @@ window.addEventListener('load',function(){
   const logo=brand?brand.cloneNode(true):null;
   const active=liveGame();
   const component=window.GameTraceMenuComponentV1({
-   active:menuSelected(), logo,
+   active:menuSelected(), logo, showHeader:false,
    canCreateGame:!active&&!unfinishedGames().length,
    iconFactory:screen=>menuIcon(pageIcons43[screen]||'layers'),
    onNavigate:goTo,
@@ -11878,7 +11878,7 @@ html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
   }
   node.classList.add('gtm-icon');node.setAttribute('aria-hidden','true');return node;
  }
- function MenuComponentV1({active='home',onNavigate=()=>{},onClose=()=>{},onQuickAction=()=>{},iconFactory=null,logo=null,canCreateGame=true}={}){
+ function MenuComponentV1({active='home',onNavigate=()=>{},onClose=()=>{},onQuickAction=()=>{},iconFactory=null,logo=null,canCreateGame=true,showHeader=true}={}){
   const root=elt('aside','gtm-root');root.dataset.component='MenuComponent';root.dataset.version='V1.4';root.setAttribute('aria-label','GameTrace menu');
   const header=elt('header','gtm-header'),brand=elt('div','gtm-brand');
   if(logo instanceof global.Node)brand.append(logo);
@@ -11888,7 +11888,7 @@ html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
   }
   const name=elt('div','gtm-brand-name');name.append(elt('strong','gtm-wordmark','GameTrace'),elt('span','gtm-tagline','Follow the Play. The Game. The Journey.'));brand.append(name);
   const close=elt('button','gtm-close','×');close.type='button';close.setAttribute('aria-label','Close menu');close.addEventListener('click',onClose);
-  header.append(brand,close);root.append(header);
+  header.append(brand,close);if(showHeader)root.append(header);
   const actions=elt('div','gtm-actions');actions.setAttribute('aria-label','Quick actions');actions.setAttribute('role','group');
   for(const [id,label,screen] of [['newGame','New Game','setup'],['newTraining','New Training','training']]){
    const b=elt('button','gtm-action');b.type='button';b.dataset.action=id;b.append(iconFor(screen,iconFactory),elt('span','',label));
