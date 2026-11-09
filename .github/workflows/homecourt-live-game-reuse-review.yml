@@ -1,0 +1,28 @@
+name: GameTrace Home Court reusable Live Game review
+on:
+  push:
+    branches: [review/homecourt-live-game-reuse-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated DOM dependency
+        run: npm install --prefix /tmp/gt-reuse-test jsdom@24 --no-save --no-package-lock
+      - name: Verify Games and Game Details are preserved
+        env:
+          NODE_PATH: /tmp/gt-reuse-test/node_modules
+        run: node tests/game-banner-reuse.cjs
+      - name: Verify Live Game uses exact same shared component
+        env:
+          NODE_PATH: /tmp/gt-reuse-test/node_modules
+        run: node tests/homecourt-live-banner-reuse.cjs
