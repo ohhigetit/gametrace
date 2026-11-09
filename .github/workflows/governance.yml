@@ -1,0 +1,20 @@
+name: GameTrace Governance Gate
+on:
+  pull_request:
+    branches: [development, main]
+  push:
+    branches: [governance/**]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  component-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate approved component and page contracts
+        run: node tests/governance.cjs
