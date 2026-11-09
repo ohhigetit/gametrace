@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "effectiveDate": "2026-11-09",
+  "baseline": {
+    "branch": "development",
+    "commit": "04d07aff1c72458c6bfe929bc0aab3fbb20c238f",
+    "application": "index.html",
+    "applicationBlob": "cd1549307d72f3c0f185e93ed4333f4905d5a24b",
+    "note": "This is a pinned audit snapshot, not a claim that development stays at this commit. Always recheck HEAD before implementing."
+  },
+  "rule": "Reuse existing approved runtime components at their canonical source. Do not infer approval solely from similarly named CSS classes. Do not overwrite approved versions.",
+  "entries": [
+    {
+      "id": "universal-page-v1",
+      "name": "UniversalPage",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function up1ComposeHomeCourt()",
+        "style": "up1-home-court-css"
+      },
+      "implementations": [
+        {
+          "page": "games",
+          "anchor": "function gtGamesBuildUniversalV1()",
+          "style": "gt-games-rebuild-universal-v1"
+        },
+        {
+          "page": "game-details",
+          "anchor": "function gtGameDetailsUniversalV1()",
+          "style": "up1-game-details-css"
+        }
+      ],
+      "domContract": [
+        "up1-page",
+        "up1-header",
+        "up1-heading",
+        "up1-content",
+        "up1-footer"
+      ],
+      "dataContract": [
+        "UniversalPage",
+        "PageHeader",
+        "PrimaryContent",
+        "PageFooter"
+      ],
+      "notes": "Canonical pattern and selectors must be carried together. Classes alone do not transfer page-scoped CSS."
+    },
+    {
+      "id": "page-header-v1",
+      "name": "PageHeader",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function gtGameDetailsUniversalV1()",
+        "style": "up1-game-details-css"
+      },
+      "domContract": [
+        "up1-heading",
+        "up1-title",
+        "up1-back",
+        "up1-subtitle-v1"
+      ],
+      "notes": "Title, subtitle, icon and actions vary per page; typography and structure remain locked."
+    },
+    {
+      "id": "shared-banner-v1",
+      "name": "SharedBanner",
+      "version": "V1",
+      "status": "approved-design-runtime-mapping-pending",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function gtGamesFeaturedBannerV1(",
+        "style": "gt-games-rebuild-universal-v1"
+      },
+      "notes": "Approved parent/banner design is recorded in discussions; do not claim independent extracted component. Verify actual child/parent inheritance before reuse."
+    },
+    {
+      "id": "game-summary-v1",
+      "name": "GameSummaryBanner",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function gtGamesFeaturedBannerV1(",
+        "style": "gt-games-rebuild-universal-v1"
+      },
+      "notes": "Runtime reuse in Game Details. Do not substitute a similar banner."
+    },
+    {
+      "id": "activity-list-v1",
+      "name": "ActivityList",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function gtALV1Section("
+      },
+      "notes": "Approved Section V1 + List V1 composition; existing data adapter and native interaction must be retained."
+    },
+    {
+      "id": "game-record-section-v1",
+      "name": "GameRecordSection",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function gtGameRecordV1Mount("
+      },
+      "notes": "Move original working DOM rather than clone; keep native record handlers."
+    },
+    {
+      "id": "player-notes-v1",
+      "name": "PlayerNotes",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function playerNotesV1("
+      },
+      "notes": "Content-only component; page/section header external."
+    },
+    {
+      "id": "player-notes-section-v1",
+      "name": "PlayerNotesSection",
+      "version": "V1",
+      "status": "approved-embedded",
+      "canonical": {
+        "path": "index.html",
+        "anchor": "function playerNotesSectionV1("
+      },
+      "notes": "Approved SectionV1 wrapper includes PlayerNotes content."
+    }
+  ],
+  "pages": [
+    {
+      "id": "home-court",
+      "root": "#courtContent",
+      "canonicalAnchor": "function up1ComposeHomeCourt()",
+      "status": "approved"
+    },
+    {
+      "id": "games",
+      "root": "#homeContent",
+      "canonicalAnchor": "function gtGamesBuildUniversalV1()",
+      "status": "approved"
+    },
+    {
+      "id": "game-details",
+      "root": "#statsContent",
+      "canonicalAnchor": "function gtGameDetailsUniversalV1()",
+      "status": "approved"
+    },
+    {
+      "id": "trainings",
+      "root": "#trainingContent",
+      "status": "in-review",
+      "rule": "Use the approved UniversalPage/PageHeader DOM and copy or reuse the canonical page-scoped CSS; preserve trainingForm, session detail and cloud paths."
+    }
+  ]
+}
