@@ -4084,6 +4084,452 @@ html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1 .pn-ans
   line-height:1.6!important;
 }
 </style>
+<!-- GT_TRAININGS_STEP1_STYLE_START -->
+<style id="gt-trainings-step1-up1-approved">/* UniversalPage Parent V1 – Trainings Step 1 integration, page-scoped */
+html[data-theme] #app.gt-app #trainingContent>.up1-page{display:flex;flex-direction:column;min-height:100%;min-width:0}
+html[data-theme] #app.gt-app #trainingContent .up1-header{padding:12px 0 20px;flex:0 0 auto}
+html[data-theme] #app.gt-app #trainingContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}
+html[data-theme] #app.gt-app #trainingContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #trainingContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #trainingContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #trainingContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important;min-width:0}
+html[data-theme] #app.gt-app #trainingContent .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #trainingContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;text-align:left!important;max-width:100%!important;white-space:normal!important}
+html[data-theme] #app.gt-app #trainingContent .up1-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #trainingContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #trainingContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #trainingContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #trainingContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #trainingContent .up1-footer{flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #trainingContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #trainingContent .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #trainingContent :is(.up1-back,.up1-action):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:365px){html[data-theme] #app.gt-app #trainingContent .up1-action{font-size:10px;flex-direction:column;gap:2px;min-height:57px}html[data-theme] #app.gt-app #trainingContent .up1-actions{gap:5px}html[data-theme] #app.gt-app #trainingContent .up1-footer span{letter-spacing:.5px}}
+
+/* Trainings PageHeader: left navigation, compact title/subtitle, right edit action. */
+html[data-theme] #app.gt-app #trainingContent .up1-heading{
+ grid-template-columns:34px minmax(0,1fr)!important;
+ gap:9px!important;align-items:start!important;
+}
+html[data-theme] #app.gt-app #trainingContent .up1-title>span{
+ display:flex;align-items:center;justify-content:center;flex:0 0 25px;
+}
+html[data-theme] #app.gt-app #trainingContent .up1-title svg{
+ display:block!important;width:25px!important;height:25px!important;max-width:25px!important;
+}
+html[data-theme] #app.gt-app #trainingContent .up1-heading>[data-component="PageHeaderAction"]{
+ width:40px!important;min-width:40px!important;max-width:40px!important;
+ height:44px!important;min-height:44px!important;padding:9px!important;
+ margin:0!important;display:grid!important;place-items:center!important;
+ border-radius:9px!important;color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #trainingContent .up1-heading>[data-component="PageHeaderAction"] svg{
+ display:block!important;width:20px!important;height:20px!important;
+}
+html[data-theme] #app.gt-app #trainingContent .up1-content{
+ min-height:140px;
+}
+html[data-theme] #app.gt-app #trainingContent .up1-footer span{
+ white-space:normal!important;
+}
+html[data-theme] #app.gt-app #trainingContent>.up1-page{width:100%;max-width:100%;overflow:hidden}
+
+/* Exact approved page styling scoped to Trainings only; single action CTA. */
+html[data-theme] #app.gt-app #trainingContent .up1-actions{grid-template-columns:minmax(0,1fr)}
+html[data-theme] #app.gt-app #trainingContent .up1-title>span{display:flex;align-items:center;justify-content:center;flex:0 0 25px}
+html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!important;width:25px!important;height:25px!important;max-width:25px!important}
+</style>
+<!-- GT_TRAININGS_STEP1_STYLE_END -->
+<style id="gt-trainings-activitylist-approved-v1">/* Copied from approved Home Court ActivityList V1 CSS; selector scoped to Trainings. */
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section{background:transparent!important;border:0!important;box-shadow:none!important;min-width:0;margin:24px 0 0!important;padding:0!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:0 0 14px;min-width:0}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-heading{min-width:0;flex:1}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-heading h2{margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-heading p{margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;line-height:1.5!important;font-weight:400!important;letter-spacing:normal!important;text-transform:none!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-action{border:0!important;box-shadow:none!important;background:transparent!important;color:var(--gt-accent)!important;font-size:12px!important;line-height:1.4!important;font-weight:700!important;min-height:44px;padding:9px 0 9px 8px!important;flex:0 0 auto;text-align:right}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-list{min-width:0}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-row{position:relative;display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:10px;align-items:center;padding:14px 0;min-height:72px;width:100%;background:transparent!important;border:0!important;box-shadow:none!important;text-align:left;color:var(--gt-ink);border-radius:0!important;cursor:pointer}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-row + .gtal-row{border-top:1px solid var(--gt-edge)!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-icon{width:50px;height:50px;display:grid;place-items:center;color:var(--gt-ink);background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-icon svg{width:26px;height:26px;display:block;fill:currentColor;stroke:none}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-main{min-width:0;display:flex;flex-direction:column;gap:3px}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-type{font-size:10px!important;line-height:1.3!important;font-weight:700!important;color:var(--gt-muted)!important;text-transform:uppercase!important;letter-spacing:.5px!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-title{font-size:14px!important;font-weight:740!important;line-height:1.35!important;color:var(--gt-ink)!important;min-width:0;overflow-wrap:anywhere}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-sub{color:var(--gt-muted)!important;font-size:12px!important;line-height:1.4!important;overflow-wrap:anywhere}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-support{color:var(--gt-muted)!important;font-size:11px!important;line-height:1.4!important;overflow-wrap:anywhere}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-trailing{min-width:0;align-self:center;display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right;white-space:nowrap}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-value{font-size:14px!important;font-weight:750!important;line-height:1.3!important;color:var(--gt-ink)!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-value[data-result=win]{color:var(--gt-positive,#087d42)!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-value[data-result=loss]{color:var(--gt-negative,#b53b36)!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-meta{font-size:11px!important;color:var(--gt-muted)!important;line-height:1.35!important}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-empty{padding:16px 0 20px;color:var(--gt-muted);font-size:13px;line-height:1.6}
+#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-row:focus-visible,#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-action:focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:370px){#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-row{grid-template-columns:42px minmax(0,1fr) auto;gap:7px;padding:12px 0}#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-icon{width:42px;height:44px}#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-icon svg{width:23px;height:23px}#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-value{font-size:12px!important}#app.gt-app #trainingContent [data-page="trainings"] .gtal-section .gtal-title{font-size:13px!important}}
+</style><!-- GT_APPROVED_TRAINING_SUMMARY_V8_STYLES_START -->
+<style id="gt-training-summary-v8-approved-1">
+/* Training Summary Banner V5: approved Section/SharedBanner structure; two visible primary cells. */
+.gttsv2-section{min-width:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gt-ink,#172119)}
+.gttsv2-section *{box-sizing:border-box}
+.gttsv2-section-head{margin-bottom:13px}
+.gttsv2-titles h2{margin:0;font-size:18px;line-height:1.3;letter-spacing:-.35px;font-weight:800}
+.gttsv2-titles p{margin:4px 0 0;font-size:12px;line-height:1.5;color:var(--gt-muted,#59655b)}
+.gttsv2-banner{width:100%;min-width:0;background:var(--gt-surface,#fff);border:1px solid var(--gt-edge,#cbd3c8);border-radius:14px;overflow:hidden}
+.gttsv2-row{display:grid;grid-template-columns:minmax(0,1.07fr) minmax(0,.93fr)}
+.gttsv2-cell{min-width:0;padding:22px 19px;overflow-wrap:anywhere}
+.gttsv2-primary-one{display:flex;flex-direction:column;justify-content:flex-start}
+.gttsv2-primary-two{border-left:1px solid var(--gt-edge,#d0dbd1);background:var(--gt-secondary,#f2f5f0);display:flex;flex-direction:column;justify-content:flex-start}
+.gttsv2-eyebrow{font-size:10px;line-height:1.35;color:var(--gt-accent,#087d42);font-weight:800;letter-spacing:.62px}
+.gttsv2-hero{display:flex;flex-direction:column;gap:3px;margin:19px 0 10px}
+.gttsv2-hero-number{font-size:clamp(56px,9vw,76px);line-height:1;font-weight:850;letter-spacing:-3px;font-variant-numeric:tabular-nums}
+.gttsv2-hero-copy{font-size:17px;line-height:1.25;font-weight:780;letter-spacing:-.25px}
+.gttsv2-intro{margin:4px 0 0;font-size:12px;color:var(--gt-muted,#59655b);line-height:1.55;max-width:28em}
+.gttsv2-statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:22px 0 20px}
+.gttsv2-stat{min-width:0;display:flex;flex-direction:column;gap:6px}
+.gttsv2-stat+.gttsv2-stat{padding-left:12px;border-left:1px solid var(--gt-edge,#d0dbd1)}
+.gttsv2-stat-number{font-size:clamp(24px,4vw,33px);line-height:1.1;font-weight:850;letter-spacing:-.8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gttsv2-stat-number small{font-size:11px;font-weight:700;color:var(--gt-muted,#59655b);letter-spacing:0;margin-left:4px}
+.gttsv2-stat-label{font-size:11px;line-height:1.4;color:var(--gt-muted,#59655b)}
+.gttsv2-full-row{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--gt-edge,#d0dbd1)}
+.gttsv2-milestone{min-width:0;padding:18px 19px 20px;background:var(--gt-surface,#fff)}
+.gttsv2-milestone-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.gttsv2-milestone-top strong{font-size:11px;font-weight:800}
+.gttsv2-milestone-top span{font-size:10px;color:var(--gt-muted,#59655b);font-variant-numeric:tabular-nums}
+.gttsv2-progress{height:8px;background:#d6e2d7;border-radius:30px;overflow:hidden}
+.gttsv2-progress-fill{height:100%;display:block;background:var(--gt-accent,#087d42);border-radius:30px}
+.gttsv2-milestone-text{font-size:11px;color:var(--gt-muted,#59655b);line-height:1.5;margin:8px 0 0}
+@media(max-width:560px){.gttsv2-cell{padding:16px 12px}.gttsv2-banner-head{padding:12px}.gttsv2-hero{margin-top:17px}.gttsv2-hero-number{font-size:51px}.gttsv2-hero-copy{font-size:14px}.gttsv2-intro{font-size:11px}.gttsv2-message{padding:10px;margin-top:15px}.gttsv2-statgrid{margin:18px 0}.gttsv2-stat-number{font-size:23px}.gttsv2-stat-number small{display:block;margin-left:0;margin-top:3px}.gttsv2-stat-label{font-size:10px}.gttsv2-milestone-top span{font-size:10px}.gttsv2-milestone{padding:15px 12px 17px}}
+@media(max-width:340px){.gttsv2-row{grid-template-columns:1fr}.gttsv2-primary-two{border-left:0;border-top:1px solid var(--gt-edge,#d0dbd1)}.gttsv2-stat-number small{display:inline;margin-left:4px}}
+
+/* Always-visible details row: third BannerRowV1, never an accordion. */
+.gttsv2-details-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--gt-edge,#d0dbd1);background:var(--gt-secondary,#f2f5f0)}
+.gttsv2-details-cell{min-width:0;padding:17px 19px 18px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}
+.gttsv2-details-cell + .gttsv2-details-cell{border-left:1px solid var(--gt-edge,#d0dbd1)}
+.gttsv2-details-label{display:block;min-height:28px;font-weight:800;font-size:10px;letter-spacing:.5px;color:var(--gt-accent,#087d42);margin-bottom:10px}
+.gttsv2-breakdown{display:grid;grid-template-columns:1fr auto;gap:5px 8px;margin:0;font-size:11px;line-height:1.45}
+.gttsv2-breakdown dt{color:var(--gt-muted,#59655b)}.gttsv2-breakdown dd{margin:0;font-weight:750;text-align:right;font-variant-numeric:tabular-nums}
+.gttsv2-detail-number{font-size:25px;letter-spacing:-.5px;font-weight:850;line-height:1.1}
+.gttsv2-detail-unit{font-size:11px;color:var(--gt-muted,#59655b);font-weight:650;margin-left:4px}
+.gttsv2-detail-description{font-size:11px;line-height:1.45;margin:7px 0 0;color:var(--gt-muted,#59655b)}
+.gttsv2-achievements{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.gttsv2-achievement{font-size:10px;border:1px solid var(--gt-edge,#d0dbd1);background:var(--gt-surface,#fff);border-radius:20px;padding:5px 8px;font-weight:750}
+@media(max-width:560px){.gttsv2-details-cell{padding:13px 11px}.gttsv2-details-row{grid-template-columns:repeat(2,minmax(0,1fr))}.gttsv2-details-cell:nth-child(3){grid-column:1/-1;border-left:0;border-top:1px solid var(--gt-edge,#d0dbd1)}.gttsv2-detail-number{font-size:22px}}
+@media(max-width:340px){.gttsv2-details-row{grid-template-columns:1fr}.gttsv2-details-cell{grid-column:auto!important;border-left:0!important}.gttsv2-details-cell + .gttsv2-details-cell{border-top:1px solid var(--gt-edge,#d0dbd1)}}
+
+/* Locked component alignment rule: all cell headings align to the top.
+   Detailed row cell 1 and cell 3 center-align content, while headings keep an identical top baseline. */
+.gttsv2-row > .gttsv2-cell{justify-content:flex-start;align-items:stretch}
+.gttsv2-details-centered{text-align:center;align-items:center}
+.gttsv2-details-centered .gttsv2-details-label{width:100%;text-align:center}
+.gttsv2-details-centered .gttsv2-breakdown{width:min(100%,175px);text-align:left}
+.gttsv2-details-centered .gttsv2-achievements{justify-content:center}
+.gttsv2-skills-list{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start}
+.gttsv2-skill-tag{display:inline-flex;align-items:center;gap:5px;background:var(--gt-surface,#fff);border:1px solid var(--gt-edge,#d0dbd1);border-radius:14px;padding:5px 8px;font-size:10px;font-weight:650;color:var(--gt-ink,#172119)}
+.gttsv2-skill-tag small{font-size:10px;color:var(--gt-muted,#59655b)}
+.gttsv2-best-streak{font-size:10px;color:var(--gt-muted,#59655b)}
+@media(max-width:560px){.gttsv2-details-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gttsv2-details-cell:nth-child(3){grid-column:auto;border-left:1px solid var(--gt-edge,#d0dbd1);border-top:0}.gttsv2-details-cell{padding:13px 8px}.gttsv2-details-label{font-size:9px;min-height:35px}.gttsv2-breakdown{font-size:10px}.gttsv2-skill-tag{font-size:9px;padding:4px 6px}.gttsv2-details-centered .gttsv2-achievements{gap:4px}}
+@media(max-width:340px){.gttsv2-details-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gttsv2-details-cell{grid-column:auto!important;border-top:0!important}.gttsv2-details-cell+.gttsv2-details-cell{border-left:1px solid var(--gt-edge,#d0dbd1)!important}.gttsv2-details-cell{padding:10px 5px}.gttsv2-details-label{font-size:8px;letter-spacing:0}.gttsv2-skill-tag{font-size:8px}}
+
+</style>
+<style id="gt-training-summary-v8-approved-2">
+
+/* Approved alignment: headings stay at top; all banner cells centered. */
+.gttsv2-banner [data-component="BannerCellV1"]{text-align:center}
+.gttsv2-row>.gttsv2-cell{display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center}
+.gttsv2-eyebrow,.gttsv2-details-label{width:100%;text-align:center}
+.gttsv2-hero{align-items:center;text-align:center}
+.gttsv2-intro{max-width:100%;text-align:center}
+.gttsv2-statgrid{width:100%;align-self:stretch}
+.gttsv2-stat{align-items:center;text-align:center}
+.gttsv2-stat+.gttsv2-stat{padding-left:0}
+.gttsv2-details-cell{align-items:center;text-align:center;justify-content:flex-start}
+.gttsv2-details-centered .gttsv2-breakdown{margin-inline:auto}
+.gttsv2-skills-list{justify-content:center}
+.gttsv2-detail-description{text-align:center}
+.gttsv2-achievements{justify-content:center}
+.gttsv2-milestone{text-align:center}
+.gttsv2-milestone-top{justify-content:center;gap:6px 16px}
+.gttsv2-milestone-text{text-align:center}
+
+</style>
+<style id="gt-training-summary-v8-approved-3">
+
+/* V7: use one consistent GameTrace soft green background in every banner cell.
+   All content, alignment, and rows are unchanged. */
+.gttsv2-banner,
+.gttsv2-banner .gttsv2-cell,
+.gttsv2-banner .gttsv2-primary-one,
+.gttsv2-banner .gttsv2-primary-two,
+.gttsv2-banner .gttsv2-milestone,
+.gttsv2-banner .gttsv2-details-row,
+.gttsv2-banner .gttsv2-details-cell {background:#e6efe8!important;}
+
+</style>
+<style id="gt-training-summary-v8-approved-4">
+
+/* V8: skills and achievement chips are part of the unified green banner,
+   not white, raised or button-like surfaces. Preserve centered layout. */
+.gttsv2-banner .gttsv2-skill-tag,
+.gttsv2-banner .gttsv2-achievement {
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  border-color:color-mix(in srgb,var(--gt-edge,#d0dbd1) 70%,transparent)!important;
+}
+
+</style>
+<!-- GT_APPROVED_TRAINING_SUMMARY_V8_STYLES_END -->
+<script id='gt-approved-section-v1-runtime'>
+/**
+ * GameTrace reusable presentation components — foundation v0.1.
+ * Pure DOM views; does not load records, modify app state, or perform network calls.
+ * Existing app icons are injected by the integration layer (iconNode).
+ */
+(function (global) {
+  'use strict';
+  const doc = global.document;
+  if (!doc) return;
+  const element = (tag, className, text) => {
+    const node = doc.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  };
+  const append = (parent, ...children) => {
+    children.flat().forEach(child => {
+      if (child instanceof global.Node) parent.appendChild(child);
+      else if (child !== null && child !== undefined) parent.appendChild(doc.createTextNode(String(child)));
+    });
+    return parent;
+  };
+  const visible = value => value !== undefined && value !== null && String(value).trim() !== '';
+  const detail = (...parts) => parts.filter(visible).join(' · ');
+  const integer = value => Number.isFinite(Number(value)) ? String(Math.round(Number(value))) : '—';
+  const safeDate = date => {
+    if (!date) return '';
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      const [y,m,d] = date.split('-').map(Number);
+      const dt = new Date(Date.UTC(y,m-1,d));
+      if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m-1 || dt.getUTCDate() !== d) return '';
+      return dt.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}).toUpperCase();
+    }
+    return String(date);
+  };
+  function actionButton(label, action, extraClass) {
+    const b = element('button', 'gtc-action ' + (extraClass || ''), label);
+    b.type = 'button';
+    if (typeof action === 'function') b.addEventListener('click', action);
+    else b.disabled = true;
+    return b;
+  }
+  /** Section Parent — title/subtitle and optional action around arbitrary content. */
+  function Section({title,subtitle,actionLabel='View All',onAction,content,kind=''}={}) {
+    if (!visible(title)) throw new TypeError('Section requires title');
+    const root = element('section','gtc-section ' + kind);
+    const header = element('div','gtc-section-header');
+    const titles = element('div','gtc-section-titles');
+    append(titles, element('h2','gtc-section-title',title));
+    if (visible(subtitle)) append(titles,element('p','gtc-section-subtitle',subtitle));
+    append(header,titles);
+    if (typeof onAction === 'function') append(header,actionButton(actionLabel,onAction,'gtc-section-action'));
+    append(root,header);
+    if (content) append(root,element('div','gtc-section-content'));
+    if (content) append(root.lastChild,content);
+    return root;
+  }
+  /** List Parent — shared row divisions and no global list mutation. */
+  function List({items=[],renderItem,emptyText='Nothing recorded yet.'}={}) {
+    if (!Array.isArray(items) || typeof renderItem !== 'function') throw new TypeError('List needs items and renderItem');
+    const root=element('div','gtc-list');
+    if (!items.length) append(root,element('p','gtc-empty',emptyText));
+    items.forEach((item,index)=>{
+      const row=renderItem(item,index);
+      if (!(row instanceof global.Node)) throw new TypeError('renderItem must return a DOM node');
+      row.classList.add('gtc-list-row');
+      append(root,row);
+    });
+    return root;
+  }
+  function iconSlot(iconNode) {
+    const slot=element('span','gtc-row-icon');
+    slot.setAttribute('aria-hidden','true');
+    if (iconNode instanceof global.Node) append(slot,iconNode.cloneNode(true));
+    return slot;
+  }
+  function rowShell({iconNode,category,title,metadata,description,value,valueLabel,tone='neutral',onOpen}={}) {
+    const root=typeof onOpen==='function' ? element('button','gtc-activity-row') : element('div','gtc-activity-row');
+    if (root.tagName==='BUTTON') {root.type='button';root.addEventListener('click',onOpen);}
+    append(root,iconSlot(iconNode));
+    const copy=element('div','gtc-row-copy');
+    if (visible(category)) append(copy,element('span','gtc-row-category',category));
+    if (visible(title)) append(copy,element('strong','gtc-row-title',title));
+    if (visible(metadata)) append(copy,element('span','gtc-row-meta',metadata));
+    if (visible(description)) append(copy,element('span','gtc-row-description',description));
+    append(root,copy);
+    const trailing=element('span','gtc-row-trailing');
+    if (visible(value)) append(trailing,element('strong','gtc-row-value gtc-tone-'+(tone==='win'?'win':tone==='loss'?'loss':'neutral'),value));
+    if (visible(valueLabel)) append(trailing,element('span','gtc-row-value-label',valueLabel));
+    append(root,trailing);
+    return root;
+  }
+  function durationText(minutes) {
+    const n=Number(minutes);
+    if (!Number.isFinite(n) || n<0) return '';
+    if (n>=60 && n%60===0) return integer(n/60)+' HR';
+    return integer(n)+' MIN';
+  }
+  /**
+   * ActivityList v0.1: mixed game/session/camp rows, chronological by date.
+   * Adapter supplies already-sanitized data, callbacks and icon nodes.
+   */
+  function ActivityList({items=[],existingRows=null,icons={},onOpen,emptyText='No recent activity.'}={}) {
+    // Preserve existing app row nodes and their listeners when integrating an approved legacy list.
+    // No data parsing, cloning or callback recreation is needed.
+    if (Array.isArray(existingRows)) return List({items:existingRows,emptyText,renderItem:row=>row});
+    const sorted=items.map((item,index)=>({...item,__index:index})).sort((a,b)=>{
+      const x=String(a.date||''),y=String(b.date||'');
+      return y.localeCompare(x)||a.__index-b.__index;
+    });
+    return List({items:sorted,emptyText,renderItem:item=>{
+      const type=String(item.type||'').toLowerCase();
+      const game=type==='game', camp=type==='camp';
+      const category=game?'GAME':camp?'CAMP':String(item.category||'TRAINING').toUpperCase();
+      let value=item.value, tone=item.tone||'neutral', valueLabel=item.valueLabel;
+      if(game) {
+        if(!visible(value) && Number.isFinite(Number(item.homeScore)) && Number.isFinite(Number(item.awayScore))) {
+          const prefix=item.result==='W'?'W':item.result==='L'?'L':item.result==='T'?'T':'';
+          value=detail(prefix,integer(item.homeScore)+'–'+integer(item.awayScore)).replace(' · ',' ');
+        }
+        tone=item.result==='W'?'win':item.result==='L'?'loss':'neutral';
+        valueLabel=valueLabel||'Final score';
+      } else {value=value||durationText(item.durationMinutes);valueLabel=valueLabel||'Duration';}
+      const metadata=visible(item.metadata)?item.metadata:detail(item.context,safeDate(item.date));
+      return rowShell({
+        iconNode:item.iconNode||icons[type]||icons.training,category,
+        title:item.title||'',metadata,
+        description:item.description||'',
+        value,valueLabel,tone,
+        onOpen:typeof onOpen==='function'?()=>onOpen(item):undefined
+      });
+    }});
+  }
+  function GoalsList({items=[],icons={},onOpen}={}) {
+    return List({items,renderItem:item=>rowShell({
+      iconNode:item.iconNode||icons.goal,category:item.category||'GOAL',
+      title:item.title,metadata:detail(item.priority,item.progressLabel),
+      description:item.description,value:item.value||'',
+      valueLabel:item.valueLabel||'',onOpen:onOpen?()=>onOpen(item):undefined
+    }),emptyText:'No goals yet.'});
+  }
+  function NotesList({items=[],icons={},onOpen}={}) {
+    return List({items,renderItem:item=>{
+      const root=rowShell({iconNode:item.iconNode||icons.note,
+        category:item.noteType||'NOTE',title:item.question||'',
+        metadata:detail(item.origin,safeDate(item.date)),
+        description:'',onOpen:onOpen?()=>onOpen(item):undefined});
+      const copy=root.querySelector('.gtc-row-copy');
+      const quote=element('blockquote','gtc-note-quote',item.note||'');
+      copy.appendChild(quote);
+      return root;
+    },emptyText:'No notes yet.'});
+  }
+  /** Approved AchievementList V1 icon — B Championship, outline only.
+   * Matches ActivityList neutral ink; no fill, background, or icon box.
+   * Source of truth: approved/AchievementList_V1_Championship_Outline_APPROVED.html
+   */
+  function championshipTrophyIcon() {
+    const svg=doc.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 256 256');
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','12');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+    svg.setAttribute('aria-hidden','true');
+    svg.classList.add('gtc-achievement-trophy');
+    const d=["M73 34h110v75c0 38-24 65-55 65s-55-27-55-65V34Z","M73 57H39v35c0 31 18 51 46 51M183 57h34v35c0 31-18 51-46 51","M128 174v32M94 221h68M106 206h44","m128 70 7 15 17 2-12 12 3 17-15-8-15 8 3-17-12-12 17-2Z"];
+    d.forEach(value=>{
+      const path=doc.createElementNS(svg.namespaceURI,'path');
+      path.setAttribute('d',value);
+      path.setAttribute('fill','none');
+      svg.appendChild(path);
+    });
+    return svg;
+  }
+  function AchievementList({items=[],icons={},onOpen}={}) {
+    return List({items,renderItem:item=>rowShell({
+      iconNode:item.iconNode||icons.achievement||championshipTrophyIcon(),category:item.category||'ACHIEVEMENT',
+      title:item.title,metadata:detail(item.origin,safeDate(item.date)),
+      description:item.description||'',value:item.value||'',valueLabel:item.valueLabel||'',
+      onOpen:onOpen?()=>onOpen(item):undefined
+    }),emptyText:'No achievements yet.'});
+  }
+  /** SharedBanner Parent v1 scaffold. Slots are DOM nodes to avoid unsafe HTML. */
+  function SharedBanner({title,subtitle,status,actionLabel,onAction,primaryLeft,primaryRight,secondaryLeft,secondaryRight,secondaryLabel='Show Details'}={}) {
+    if(!visible(title)) throw new TypeError('SharedBanner requires title');
+    const root=element('section','gtc-banner');
+    const head=element('div','gtc-banner-head');
+    const copy=element('div','gtc-banner-heading');
+    append(copy,element('h2','gtc-banner-title',title));
+    if(visible(subtitle)) append(copy,element('p','gtc-banner-subtitle',subtitle));
+    append(head,copy);
+    if(visible(status)) append(head,element('span','gtc-banner-status',status));
+    if(typeof onAction==='function') append(head,actionButton(actionLabel||'Open',onAction));
+    append(root,head);
+    const primary=element('div','gtc-banner-primary');
+    append(primary,append(element('div','gtc-banner-column'),primaryLeft||''));
+    if(primaryRight) append(primary,append(element('div','gtc-banner-column'),primaryRight));
+    append(root,primary);
+    if(secondaryLeft||secondaryRight){
+      const details=element('details','gtc-banner-details');
+      append(details,element('summary','gtc-banner-toggle',secondaryLabel));
+      const secondary=element('div','gtc-banner-secondary');
+      append(secondary,append(element('div','gtc-banner-column'),secondaryLeft||''));
+      if(secondaryRight) append(secondary,append(element('div','gtc-banner-column'),secondaryRight));
+      append(details,secondary);append(root,details);
+    }
+    return root;
+  }
+  global.GameTraceComponents=Object.freeze({
+    version:'0.1.0',Section,List,SharedBanner,ActivityList,GoalsList,NotesList,AchievementList,
+    formatDate:safeDate,formatDuration:durationText
+  });
+})(window);
+
+</script>
+<style id="gt-global-banner-cell-alignment-qa">
+/* SharedBanner V2: horizontal-only centering, without vertical recentering. */
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent) {
+  align-items:center!important;text-align:center!important;justify-content:flex-start!important;
+}
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent)>.gtv2-content {
+  align-items:center!important;text-align:center!important;width:100%;
+}
+.gtv2-banner .gtv2-banner-cell:not(.gtv2-team-vs-opponent) .gtv2-progress-dots {
+  justify-content:center!important;
+}
+/* TrainingSummaryBanner V8: preserve approved soft green + transparent chips. */
+.gttsv2-banner [data-component="BannerCellV1"] {text-align:center!important;}
+.gttsv2-banner .gttsv2-cell,
+.gttsv2-banner .gttsv2-details-cell {
+  align-items:center!important;text-align:center!important;justify-content:flex-start!important;
+}
+.gttsv2-banner .gttsv2-eyebrow,
+.gttsv2-banner .gttsv2-details-label {
+  width:100%;text-align:center!important;
+}
+.gttsv2-banner .gttsv2-skills-list,
+.gttsv2-banner .gttsv2-achievements {justify-content:center!important;}
+/* Small green labels: 4.56:1 on #e6efe8; the locked #087d42 was 4.44:1. */
+.gttsv2-banner .gttsv2-eyebrow,
+.gttsv2-banner .gttsv2-details-label {color:#087b40!important;}
+/* Game compact stats centered, matchups retain their asymmetric alignment. */
+.gtcompact-quick-stats,.gtcompact-stat {text-align:center!important;}
+.gtcompact-stat {align-items:center!important;}
+.gtcompact-match .gtcompact-team:first-child {text-align:right!important;}
+.gtcompact-match .gtcompact-team:last-child {text-align:left!important;}
+.gtcompact-match .gtcompact-vs {text-align:center!important;}
+/* Portrait and landscape: no changes to row grids, sizes, or overflow. */
+</style>
 </head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -9538,6 +9984,239 @@ function playerNotesSectionV1(g){
  content.append(notes);section.append(header,content);
  return section;
 }
+
+
+
+/* TRAININGS_RECENT_ALL_TYPES_V1: approved ActivityList V1 + Section V1/List V1.
+   Reads saved sessions only. Type is never used as an inclusion filter. */
+function gtTrainingsRecentAllTypesV1(){
+ const selected=trainingUI.player||'';
+ const samePlayer=s=>!selected||T.playerKey(s.player||'')===T.playerKey(selected);
+ const sessions=(db.trainingSessions||[])
+  .filter(s=>s&&!s.deletedAt&&samePlayer(s))
+  .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||
+        String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+ const items=sessions.map(s=>{
+  const rawType=String(s.customType||s.type||'training').trim();
+  const camp=s.type==='camp';
+  const performance=!camp&&/performance|strength|conditioning|agility/i.test([rawType,s.name].join(' '));
+  const icon=camp?'camp':performance?'performance':'training';
+  const label=camp?'Camp':s.customType?'Custom · '+s.customType:
+    performance?'Performance Training':s.type==='training'?'Training':
+    rawType.replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  const date=s.date?friendlyDate(String(s.date).slice(0,10)):'';
+  const context=[s.coach||s.trainer||s.location||'',date].filter(Boolean).join(' · ');
+  const minutes=Number(s.minutes);
+  const hasDuration=s.minutes!==null&&s.minutes!==undefined&&s.minutes!==''&&Number.isFinite(minutes)&&minutes>=0;
+  const skills=Array.isArray(s.tags)?s.tags.join(' · '):'';
+  return {id:s.id,kind:camp?'camp':'training',icon,typeLabel:label,
+   title:s.name||'Session',subtitle:context,support:skills,
+   value:hasDuration?trainingDuration(minutes):'',valueLabel:hasDuration?'Duration':'',
+   open:()=>openSession(s.id,'training')};
+ });
+ const section=gtALV1Section({
+  key:'trainings-recent-all',title:'Recent Trainings',
+  subtitle:'Every session. Every step forward.',
+  items,empty:'No completed sessions yet. Log a training, camp, or custom session to get started.'
+ });
+ section.dataset.component='ActivityList';
+ section.dataset.parent='SectionV1';
+ section.dataset.pageSection='recent-trainings';
+ section.dataset.sessionScope='all-types';
+ return section;
+}
+
+/* GT_APPROVED_TRAINING_SUMMARY_V8_COMPONENT_START */
+/* TrainingSummaryBanner V6 — standalone review component; not integrated.
+   Section V1 -> SharedBanner V2 -> BannerPrimaryContent -> BannerRowV1 -> 2 BannerCellV1.
+   Supplied aggregates are read-only. No persistence, cloud calls, or game writes. */
+(function(global){
+'use strict';
+function createTrainingSummaryBannerV6(data={}){
+ const el=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=String(value);return n};
+ const num=v=>Number.isFinite(Number(v))?Math.max(0,Number(v)):0;
+ const fmt=v=>num(v).toLocaleString(undefined,{maximumFractionDigits:1});
+ const totalMinutes=num(data.totalMinutes),hours=totalMinutes/60;
+ const sessions=Math.round(num(data.sessions)),streak=Math.round(num(data.currentStreakWeeks));
+ const goal=Number.isFinite(Number(data.nextMilestoneHours))&&Number(data.nextMilestoneHours)>0?Number(data.nextMilestoneHours):0;
+ const progress=goal?Math.min(100,Math.round(hours/goal*100)):100;
+ const section=el('section','gttsv2-section');section.dataset.component='SectionV1';section.dataset.child='TrainingSummaryBannerV6';
+ const sh=el('header','gttsv2-section-head');sh.dataset.component='SectionHeaderV1';
+ const titles=el('div','gttsv2-titles');titles.append(el('h2','', 'Training Summary'),el('p','', 'Every session is a step forward.'));sh.append(titles);section.append(sh);
+ const banner=el('article','gttsv2-banner');banner.dataset.component='TrainingSummaryBannerV6';banner.dataset.parent='SharedBannerV2';
+ const primary=el('div','gttsv2-primary');primary.dataset.component='BannerPrimaryContent';
+ const row=el('div','gttsv2-row');row.dataset.component='BannerRowV1';
+ const left=el('div','gttsv2-cell gttsv2-primary-one');left.dataset.component='BannerCellV1';left.dataset.area='primary-1';
+ left.append(el('span','gttsv2-eyebrow','THE WORK YOU’VE PUT IN'));
+ const hero=el('div','gttsv2-hero');hero.append(el('strong','gttsv2-hero-number',sessions),el('span','gttsv2-hero-copy','times you showed up'));
+ left.append(hero,el('p','gttsv2-intro','Every effort matters.'));
+ const right=el('div','gttsv2-cell gttsv2-primary-two');right.dataset.component='BannerCellV1';right.dataset.area='primary-2';
+ right.append(el('span','gttsv2-eyebrow','YOUR EFFORT IN MOTION'));
+ const statgrid=el('div','gttsv2-statgrid');
+ const hrs=el('div','gttsv2-stat');const hrnum=el('strong','gttsv2-stat-number',fmt(hours));hrnum.append(el('small','', 'hrs'));hrs.append(hrnum,el('span','gttsv2-stat-label','Time invested'));
+ const streakbox=el('div','gttsv2-stat');const snum=el('strong','gttsv2-stat-number',streak);snum.append(el('small','',streak===1?'week':'weeks'));streakbox.append(snum,el('span','gttsv2-stat-label','Consistency streak'));
+ const best=Math.round(num(data.longestStreakWeeks));
+ streakbox.append(el('span','gttsv2-best-streak','Best: '+best+' '+(best===1?'week':'weeks')));
+ statgrid.append(hrs,streakbox);right.append(statgrid);
+ const milestone=el('div','gttsv2-milestone gttsv2-milestone-row');
+ const topline=el('div','gttsv2-milestone-top');topline.append(el('strong','',goal?'Your next milestone':'Your milestones'),el('span','',goal?fmt(hours)+' / '+fmt(goal)+' hrs':'All achieved'));
+ milestone.append(topline);
+ const bar=el('div','gttsv2-progress');bar.setAttribute('role','progressbar');bar.setAttribute('aria-label','Training hours milestone progress');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','100');bar.setAttribute('aria-valuenow',String(progress));
+ const fill=el('span','gttsv2-progress-fill');fill.style.width=progress+'%';bar.append(fill);milestone.append(bar);
+ milestone.append(el('p','gttsv2-milestone-text',goal?fmt(Math.max(0,goal-hours))+' more hours until your next achievement.':'Look how much effort you have invested.'));
+ row.append(left,right);primary.append(row);
+ const milestoneRow=el('div','gttsv2-full-row');milestoneRow.dataset.component='BannerRowV1';
+ milestone.dataset.component='BannerCellV1';milestone.dataset.area='milestone';
+ milestoneRow.append(milestone);primary.append(milestoneRow);
+ // Third, always-visible BannerRowV1: a clear record of the different work invested.
+ const details=el('div','gttsv2-details-row');details.dataset.component='BannerRowV1';details.dataset.area='detailed-work';
+ const breakdown=el('div','gttsv2-details-cell gttsv2-details-centered');breakdown.dataset.component='BannerCellV1';
+ breakdown.append(el('span','gttsv2-details-label','WHERE YOU SHOWED UP'));
+ const mix=el('dl','gttsv2-breakdown');
+ const types=Array.isArray(data.sessionTypes)?data.sessionTypes:[];
+ for(const item of types){
+   if(!item||!item.label)continue;
+   mix.append(el('dt','',item.label),el('dd','',Math.round(num(item.count))));
+ }
+ if(!mix.children.length)mix.append(el('dt','','Session breakdown'),el('dd','','Not recorded'));
+ breakdown.append(mix);
+ const skills=el('div','gttsv2-details-cell gttsv2-skills');skills.dataset.component='BannerCellV1';
+ skills.append(el('span','gttsv2-details-label','SKILLS WORKED ON'));
+ const skillList=el('div','gttsv2-skills-list');
+ const skillsData=Array.isArray(data.skillsWorkedOn)?data.skillsWorkedOn:[];
+ for(const skill of skillsData){
+  const label=typeof skill==='string'?skill:skill?.label;
+  if(!label)continue;
+  const count=typeof skill==='object'&&Number.isFinite(Number(skill.count))?Math.round(num(skill.count)):null;
+  const item=el('span','gttsv2-skill-tag',label);
+  if(count!==null)item.append(el('small','',String(count)));
+  skillList.append(item);
+ }
+ if(!skillList.children.length)skillList.append(el('span','gttsv2-detail-description','Skills appear as you log them.'));
+ skills.append(skillList);
+ const achievements=el('div','gttsv2-details-cell gttsv2-details-centered');achievements.dataset.component='BannerCellV1';
+ achievements.append(el('span','gttsv2-details-label','MILESTONES EARNED'));
+ const earned=Array.isArray(data.milestonesEarned)?data.milestonesEarned:[];
+ const earnedCount=el('strong','gttsv2-detail-number',earned.length);achievements.append(earnedCount);
+ achievements.append(el('span','gttsv2-detail-unit',earned.length===1?'achievement':'achievements'));
+ const badges=el('div','gttsv2-achievements');
+ for(const value of earned)badges.append(el('span','gttsv2-achievement',fmt(value)+' hrs'));
+ if(!earned.length)badges.append(el('span','gttsv2-detail-description','Your achievements start with your first milestone.'));
+ achievements.append(badges);
+ details.append(breakdown,skills,achievements);primary.append(details);
+ banner.append(primary);section.append(banner);
+ return section;
+}
+global.GameTraceTrainingSummaryBannerV6={create:createTrainingSummaryBannerV6};
+})(window);
+
+/* TRAININGS_SUMMARY_BANNER_V8: approved exact V8 presentation,
+   backed only by saved sessions and the established T.summarize model.
+   Placed FIRST in PrimaryContent, before approved Recent Trainings. */
+function gtTrainingSummaryBannerSectionV8Original(){
+ const samePlayer=s=>!trainingUI.player||T.playerKey(s.player||'')===T.playerKey(trainingUI.player);
+ const records=(db.trainingSessions||[]).filter(s=>s&&!s.deletedAt&&samePlayer(s));
+ const summary=T.summarize(records);
+ // Match the existing training summarizer's completed-date scope.
+ const sessions=summary.sessions;
+ const counts=new Map(),skills=new Map();
+ for(const s of sessions){
+  const type=String(s.customType||s.type||'training').trim();
+  const category=s.type==='camp'?'Camps':/performance|strength|conditioning|agility/i.test([type,s.name||''].join(' '))?'Performance':s.customType?'Other':'Skills';
+  counts.set(category,(counts.get(category)||0)+1);
+  for(const skill of (Array.isArray(s.tags)?s.tags:[])){
+   const label=String(skill||'').trim();if(!label)continue;
+   skills.set(label,(skills.get(label)||0)+1);
+  }
+ }
+ // Every saved session type is included: Training, Camp and Custom.
+ const sessionTypes=[...counts.entries()].map(([label,count])=>({label,count}));
+ const skillsWorkedOn=[...skills.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))
+  .map(([label,count])=>({label,count}));
+ const data={
+  sessions:sessions.length,totalMinutes:summary.totalMinutes,
+  currentStreakWeeks:summary.current,longestStreakWeeks:summary.longest,
+  nextMilestoneHours:summary.next||0,sessionTypes,skillsWorkedOn,
+  milestonesEarned:summary.earned
+ };
+ const section=window.GameTraceTrainingSummaryBannerV6.create(data);
+ section.dataset.version='V8';
+ section.dataset.component='TrainingSummaryBannerSectionV8';
+ section.dataset.parent='SectionV1';
+ section.setAttribute('aria-label','Training Summary');
+ const banner=section.querySelector('.gttsv2-banner');
+ if(banner){banner.dataset.component='TrainingSummaryBannerV8';banner.dataset.parent='SharedBannerV2';}
+ return section;
+}
+
+/* GT_APPROVED_TRAINING_SUMMARY_V8_COMPONENT_END */
+/* GT_TRAININGS_STEP1_START
+   UniversalPage V1 + PageHeader V1. The approved PageShell structure and
+   page-scoped typography are reused from Game Details (no new design).
+   No Sections in Step 1. Existing editor persists unmodified. */
+const gtTrainingsStep1Original=renderTraining;
+function gtTrainingsStep1Universal(){
+ if(ui.screen!=='training'||trainingUI.editing)return;
+ const root=document.getElementById('trainingContent');
+ if(!root||root.querySelector('form.training-form'))return;
+ const node=(tag,cls)=>{const n=document.createElement(tag);if(cls)n.className=cls;return n;};
+ const page=node('div','up1-page');page.dataset.component='UniversalPage';page.dataset.version='V1';page.dataset.page='trainings';
+ const header=node('header','up1-header');header.dataset.component='PageHeader';
+ const heading=node('div','up1-heading');
+ const back=node('button','up1-back');back.type='button';back.setAttribute('aria-label','Back to Home Court');
+ back.append(up1Icon('back'));back.addEventListener('click',()=>navigate('court'));
+ const text=node('div'),row=node('div','up1-title');row.append(up1Icon('session'));
+ const h=node('h1');h.textContent='Trainings';row.append(h);
+ const subtitle=node('div','up1-subtitle-v1');subtitle.dataset.component='PageSubtitle';
+ subtitle.textContent='THE WORK YOU PUT IN. THE PROGRESS YOU MAKE.';
+ text.append(row,subtitle);heading.append(back,text);header.append(heading);
+ const actions=node('div','up1-actions');actions.setAttribute('role','group');actions.setAttribute('aria-label','Trainings actions');
+ const log=node('button','up1-action');log.type='button';log.setAttribute('aria-label','Log Session');
+ log.append(up1Icon('session'),document.createTextNode('Log Session'));
+ log.addEventListener('click',()=>trainingForm());actions.append(log);header.append(actions);
+ const body=node('main','up1-content');body.dataset.component='PrimaryContent';
+ body.setAttribute('aria-label','Trainings page content');
+ 
+function gtTrainingSummaryBannerSectionV8(){
+  const legacy=gtTrainingSummaryBannerSectionV8Original();
+  const approvedHeaderSource=gtALV1Section({
+    title:'Training Summary',
+    subtitle:'Every session is a step forward.',
+    items:[],empty:'',key:'training-summary-header'
+  });
+  const approvedHeader=approvedHeaderSource.querySelector('.gtal-header');
+  const banner=legacy.querySelector('.gttsv2-banner');
+  if(!approvedHeader||!banner||!window.GameTraceComponents?.Section)
+    throw new Error('Approved Training Summary / Section V1 missing');
+  const section=window.GameTraceComponents.Section({
+    title:'Training Summary',
+    subtitle:'Every session is a step forward.',
+    content:banner,
+    kind:'gttsv2-section'
+  });
+  section.querySelector('.gtc-section-header').replaceWith(approvedHeader);
+  section.querySelector('.gtc-section-content').replaceWith(banner);
+  // Identical approved DOM, sourced from the real shared Section V1 constructor.
+  // Pair the canonical Section V1 root with the exact approved
+  // Recent Trainings SectionHeader styling and typography.
+  section.className=legacy.className+' gtal-section';
+  section.dataset.component=legacy.dataset.component;
+  section.dataset.parent='SectionV1';
+  return section;
+}
+
+ body.append(gtTrainingSummaryBannerSectionV8());
+ body.append(gtTrainingsRecentAllTypesV1());
+ const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
+ const one=node('span'),two=node('span');one.textContent='SHOW UP. PUT IN THE WORK.';two.textContent='TRUST THE JOURNEY.';
+ footer.append(one,two);page.append(header,body,footer);root.replaceChildren(page);
+}
+renderTraining=function(...args){
+ const result=gtTrainingsStep1Original.apply(this,args);
+ gtTrainingsStep1Universal();
+ return result;
+};
+/* GT_TRAININGS_STEP1_END */
 
 const gtGameDetailsPriorRender=renderStats;
 renderStats=function(...args){
