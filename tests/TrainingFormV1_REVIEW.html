@@ -1,0 +1,465 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>GameTrace — Training Form V1 Review</title>
+<style>
+*{box-sizing:border-box}body{background:#f8faf8;color:#172920;font:16px/1.45 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0}
+.review-wrap{max-width:860px;margin:0 auto;padding:22px clamp(12px,4vw,46px) 60px}
+.eyebrow{display:inline-flex;font-size:12px;font-weight:700;color:#536b5c;border:1px solid #ccdcd0;background:white;padding:6px 11px;border-radius:999px;margin-bottom:16px}
+.mode-label{font-size:13px;font-weight:700;color:#60766a;margin:0 0 8px}
+.mode-switch{display:flex;gap:9px;flex-wrap:wrap;margin:0 auto 28px;max-width:760px}
+.mode-switch button{border-radius:12px;background:#fff;border:1px solid #ccdbcf;color:#375440;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer}
+.mode-switch button[aria-pressed=true]{background:#d8ede1;border-color:#409a65;color:#155b36}
+.page-heading{max-width:760px;margin:0 auto 24px;display:flex;gap:13px;align-items:flex-start}
+.page-back{flex:none;width:42px;height:42px;border:1px solid #d2ded5;border-radius:13px;background:#fff;color:#263f30;font-size:21px;cursor:default}
+.page-heading h1{font-size:32px;font-weight:850;letter-spacing:-.65px;line-height:1.12;margin:0 0 8px}
+.page-heading p{font-size:17px;color:#73857a;line-height:1.45;margin:0}
+.notice{margin:22px auto 0;max-width:760px;color:#6a806f;font-size:13px}
+.demo-result{max-width:760px;margin:20px auto 0;padding:16px;border-radius:14px;border:1px solid #c8ddcf;background:#f0f8f2}
+.demo-result[hidden]{display:none}.demo-result h2{margin:0 0 8px;font-size:16px}.demo-result pre{font-size:12px;line-height:1.5;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+</style>
+<style>/* GameTrace Reusable Form V1 — design reference: approved New Session V46.9.5. */
+.gtf-form-v1 {
+  --gtf-bg: transparent;
+  --gtf-card: #eff6f1;
+  --gtf-border: #cbdbcf;
+  --gtf-ink: #172920;
+  --gtf-muted: #465d50;
+  --gtf-subtle: #73857a;
+  --gtf-field-bg: #ffffff;
+  --gtf-field-border: #c5d7ca;
+  --gtf-primary-bg: #dcefe3;
+  --gtf-primary-border: #c4d7c9;
+  --gtf-error: #a6232c;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  background:var(--gtf-bg);
+  max-width:760px;
+  width:100%;
+  margin-inline:auto;
+  color:var(--gtf-ink);
+  font:inherit;
+}
+.gtf-form-v1 *, .gtf-form-v1 *::before, .gtf-form-v1 *::after { box-sizing:border-box; }
+.gtf-form-v1 [hidden] { display:none!important; }
+.gtf-form-v1 .gtf-stack-v1 { display:flex;flex-direction:column;gap:16px; }
+.gtf-form-v1 .gtf-section-v1 {
+  min-width:0;
+  margin:0;
+  padding:20px;
+  background:var(--gtf-card);
+  border:1px solid var(--gtf-border);
+  border-radius:21px;
+}
+.gtf-form-v1 .gtf-section-head-v1 { margin:0 0 23px; }
+.gtf-form-v1 .gtf-section-title-v1 {
+  color:var(--gtf-ink);font-size:22px;font-weight:800;
+  letter-spacing:-.5px;line-height:1.24;margin:0;
+}
+.gtf-form-v1 .gtf-section-subtitle-v1 {
+  color:var(--gtf-subtle);font-size:14px;line-height:1.45;margin:7px 0 0;
+}
+.gtf-form-v1 .gtf-fields-v1 { display:grid;grid-template-columns:minmax(0,1fr);gap:19px;min-width:0; }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] > .gtf-width-full { grid-column:1/-1; }
+.gtf-form-v1 .gtf-field-v1 {display:flex;flex-direction:column;gap:9px;min-width:0;}
+.gtf-form-v1 .gtf-label-v1 {color:var(--gtf-muted);font-size:14px;line-height:1.35;font-weight:700;}
+.gtf-form-v1 .gtf-required-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-field-v1 > :is(input,textarea,select) {
+  color:var(--gtf-ink);background:var(--gtf-field-bg);font:inherit;
+  border:1px solid var(--gtf-field-border);
+  border-radius:13px;padding:14px 15px;width:100%;min-width:0;
+  max-width:100%;min-height:52px;line-height:1.3;
+}
+.gtf-form-v1 .gtf-field-v1 > textarea { min-height:100px;line-height:1.5;resize:vertical; }
+.gtf-form-v1 :is(input,select,textarea,button):focus-visible {outline:3px solid #4d9b72;outline-offset:2px;}
+.gtf-form-v1 .gtf-field-v1[data-invalid="true"] > :is(input,select,textarea) {border-color:var(--gtf-error);}
+.gtf-form-v1 .gtf-help-v1,.gtf-form-v1 .gtf-error-v1 {font-size:13px;line-height:1.4;margin:0;}
+.gtf-form-v1 .gtf-help-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-error-v1 {color:var(--gtf-error);font-weight:650;}
+.gtf-form-v1 .gtf-actions-v1 {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;}
+.gtf-form-v1 .gtf-actions-v1 > button {
+  min-width:0;min-height:52px;border-radius:13px;padding:14px 8px;
+  font:inherit;font-size:17px;font-weight:750;cursor:pointer;
+}
+.gtf-form-v1 .gtf-action-primary-v1 {background:var(--gtf-primary-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-action-secondary-v1 {background:var(--gtf-field-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-actions-v1 > button:disabled {opacity:.55;cursor:not-allowed;}
+@media (max-width:370px) {
+  .gtf-form-v1 .gtf-section-v1 {padding:16px;}
+  .gtf-form-v1 .gtf-actions-v1 {gap:10px;}
+  .gtf-form-v1 .gtf-actions-v1 > button {font-size:16px;}
+}
+/* Apps may override tokens from their theme; no page-specific selector is needed. */
+</style><style>/* Training Form V1 only adds training-specific controls. Parent cards/fields/actions
+   are styled by the LOCKED form-components-v1.css without overrides. */
+.gt-training-form-v1 .gt-training-skills-area-v1{display:grid;gap:12px;min-width:0}
+.gt-training-form-v1 .gt-training-skills-heading-v1{margin:0;font-size:14px;font-weight:700;color:var(--gtf-muted)}
+.gt-training-form-v1 .gt-training-skills-v1{display:flex;flex-wrap:wrap;gap:9px}
+.gt-training-form-v1 .gt-training-skill-v1,
+.gt-training-form-v1 .gt-training-add-v1{
+  cursor:pointer;border:1px solid #c2d3c6;background:var(--gtf-field-bg);
+  border-radius:999px;padding:10px 14px;color:#415a48;font-size:13px;line-height:1.35;
+}
+.gt-training-form-v1 .gt-training-skill-v1[aria-pressed="true"]{background:#d8ede1;border-color:#409a65;color:#155b36;font-weight:750}
+.gt-training-form-v1 .gt-training-skills-help-v1{font-size:13px;color:var(--gtf-muted);margin:0}
+.gt-training-form-v1 .gt-training-custom-row-v1{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px}
+.gt-training-form-v1 .gt-training-add-v1{border-radius:13px;min-height:52px;white-space:nowrap}
+.gt-training-form-v1 .gt-training-form-status-v1{border:1px solid #d7999d;color:var(--gtf-error);background:#fff5f5;border-radius:13px;padding:12px 14px;margin:0;font-size:14px}
+.gt-training-form-v1 .gt-training-form-status-v1[hidden]{display:none}
+@media (max-width:370px){.gt-training-form-v1 .gt-training-custom-row-v1{grid-template-columns:minmax(0,1fr)}.gt-training-form-v1 .gt-training-add-v1{justify-self:start}}
+</style>
+<script>/**
+ * GameTrace Reusable Form V1 — presentation only.
+ * Approved visual contract: transparent form parent, individual rounded section cards,
+ * responsive full/half fields, two equal bottom actions (Cancel left, Save right).
+ * Does not save data, validate domain values, synchronize records, or navigate.
+ * Pass existing form/control/button nodes to preserve native event listeners.
+ */
+(function (global) {
+  'use strict';
+  const doc = global.document;
+  if (!doc) return;
+  let serial = 0;
+  const node = value => value && typeof value.nodeType === 'number';
+  const make = (tag, className, value) => {
+    const el = doc.createElement(tag);
+    if (className) el.className = className;
+    if (value !== undefined && value !== null) el.textContent = String(value);
+    return el;
+  };
+  const asNodes = (value, name) => {
+    if (value === undefined || value === null) return [];
+    const list = Array.isArray(value) ? value : [value];
+    if (!list.every(node)) throw new TypeError(name + ' must contain DOM nodes');
+    return list;
+  };
+  const put = (target, values) => asNodes(values, 'Content').forEach(child => target.appendChild(child));
+
+  /** Form Parent V1: layout shell; accepts a native form to keep its event handlers. */
+  function FormParentV1({form,sections=[],actions=null,error=null,ariaLabel='Form'}={}) {
+    const root = form || make('form');
+    if (root.tagName !== 'FORM') throw new TypeError('FormParentV1 needs a form element');
+    const content = asNodes(sections, 'sections');
+    const actionNodes = asNodes(actions, 'actions');
+    const errorNodes = asNodes(error, 'error');
+    root.classList.add('gtf-form-v1');
+    root.dataset.component = 'FormParentV1';
+    root.dataset.version = 'V1';
+    root.setAttribute('aria-label',String(ariaLabel));
+    const stack = make('div','gtf-stack-v1');
+    stack.dataset.component = 'FormSections';
+    put(stack,content);
+    // This is an explicit composition operation. Any legacy controls that must
+    // remain live should be included in sections, not silently duplicated.
+    root.replaceChildren(...errorNodes,stack,...actionNodes);
+    return root;
+  }
+
+  /** Form Section V1: independently rounded card with optional title and subtitle. */
+  function FormSectionV1({title='',subtitle='',content=[],columns=1,ariaLabel=''}={}) {
+    if (columns !== 1 && columns !== 2) throw new TypeError('columns must be 1 or 2');
+    const section = make('section','gtf-section-v1');
+    section.dataset.component = 'FormSectionV1';
+    if (title || subtitle) {
+      const head = make('div','gtf-section-head-v1');
+      if (title) {
+        const h = make('h2','gtf-section-title-v1',title);
+        h.id = 'gtf-section-'+(++serial);
+        section.setAttribute('aria-labelledby',h.id);
+        head.appendChild(h);
+      }
+      if (subtitle) head.appendChild(make('p','gtf-section-subtitle-v1',subtitle));
+      section.appendChild(head);
+    } else if (ariaLabel) section.setAttribute('aria-label',ariaLabel);
+    const body = make('div','gtf-fields-v1');
+    body.dataset.columns = String(columns);
+    put(body,asNodes(content,'content'));
+    section.appendChild(body);
+    return section;
+  }
+
+  /** Form Field V1: labels/control states without owning their values. */
+  function FormFieldV1({label,control,required,helper='',error='',width='full',placeholder}={}) {
+    if (!label || !String(label).trim()) throw new TypeError('FormFieldV1 needs a label');
+    if (!node(control) || !['INPUT','TEXTAREA','SELECT'].includes(control.tagName))
+      throw new TypeError('FormFieldV1 needs an input, textarea or select');
+    if (!['full','half'].includes(width)) throw new TypeError('width must be full or half');
+    const field = make('div','gtf-field-v1 gtf-width-'+width);
+    field.dataset.component = 'FormFieldV1';
+    if (!control.id) control.id = 'gtf-input-'+(++serial);
+    if (required !== undefined) control.required = Boolean(required);
+    if (placeholder !== undefined && 'placeholder' in control) control.placeholder = String(placeholder);
+    const text = make('label','gtf-label-v1',label);
+    text.htmlFor = control.id;
+    if (control.required) {
+      const star = make('span','gtf-required-v1',' *');
+      star.setAttribute('aria-hidden','true');
+      text.appendChild(star);
+    }
+    field.append(text,control);
+    const descriptions = [];
+    const previous = control.getAttribute('aria-describedby');
+    if (previous) descriptions.push(...previous.split(/\s+/).filter(Boolean));
+    if (helper) {
+      const help = make('p','gtf-help-v1',helper);
+      help.id = control.id+'-help';
+      field.appendChild(help);
+      descriptions.push(help.id);
+    }
+    if (error) {
+      const message = make('p','gtf-error-v1',error);
+      message.id = control.id+'-error';
+      message.setAttribute('role','alert');
+      field.appendChild(message);
+      descriptions.push(message.id);
+      control.setAttribute('aria-invalid','true');
+      field.dataset.invalid = 'true';
+    }
+    if (descriptions.length) control.setAttribute('aria-describedby',[...new Set(descriptions)].join(' '));
+    return field;
+  }
+
+  function action(spec,kind) {
+    if (node(spec)) {
+      if (spec.tagName !== 'BUTTON') throw new TypeError('Form action must be a button');
+      return spec;
+    }
+    if (!spec || !String(spec.label||'').trim()) throw new TypeError(kind+' action needs a label');
+    const button = make('button','',spec.label);
+    button.type = spec.type || (kind === 'primary' ? 'submit' : 'button');
+    if (typeof spec.onClick === 'function') button.addEventListener('click',spec.onClick);
+    if (spec.disabled) button.disabled = true;
+    return button;
+  }
+
+  /** Form Actions V1: two equally wide buttons in approved order. */
+  function FormActionsV1({primary,secondary,busy=false}={}) {
+    const second = action(secondary,'secondary');
+    const first = action(primary,'primary');
+    const root = make('div','gtf-actions-v1');
+    root.dataset.component = 'FormActionsV1';
+    second.classList.add('gtf-action-secondary-v1');
+    first.classList.add('gtf-action-primary-v1');
+    if (busy) {
+      first.disabled = true;
+      root.setAttribute('aria-busy','true');
+    }
+    root.append(second,first);
+    return root;
+  }
+
+  global.GameTraceFormComponents = Object.freeze({
+    version:'1.0.0',FormParentV1,FormSectionV1,FormFieldV1,FormActionsV1
+  });
+})(typeof window !== 'undefined' ? window : globalThis);
+</script><script>/**
+ * GameTrace TrainingFormV1 — reusable, presentation-first Training/Camp editor.
+ * Depends on the LOCKED GameTraceFormComponents V1 source; never substitutes a copy.
+ * Modes: new, edit, repeat. Delegates persistence, IDs, sync, awards and navigation
+ * to the host application's existing onSubmit/onCancel callbacks.
+ */
+(function(global) {
+  'use strict';
+  const F = global.GameTraceFormComponents;
+  if (!F || !['FormParentV1','FormSectionV1','FormFieldV1','FormActionsV1'].every(k=>typeof F[k]==='function'))
+    throw new Error('TrainingFormV1 requires approved GameTraceFormComponents V1');
+  const doc=global.document;
+  const {FormParentV1,FormSectionV1,FormFieldV1,FormActionsV1}=F;
+  const DEFAULT_SKILLS=['Shooting','Ball Handling','Finishing','Footwork','Defense','Conditioning'];
+  const REFLECTION_KEYS=[
+    ['see','What I Saw','What did I see?'],
+    ['became','What I Became','How did I become more?'],
+    ['more','What I Want to Become More','What do I want to become more of?'],
+    ['additional','Additional Feedback','Additional Feedback']
+  ];
+  const make=(tag,attrs={})=>{
+    const n=doc.createElement(tag);
+    Object.entries(attrs).forEach(([k,v])=>{
+      if (k==='text') n.textContent=String(v);
+      else if (k==='className') n.className=String(v);
+      else if (v!==null&&v!==undefined) n[k]=v;
+    });
+    return n;
+  };
+  const txt=(v)=>String(v===undefined||v===null?'':v);
+  const safeList=(values)=>Array.isArray(values)?values.filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim()):[];
+  const localToday=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+  const focusError=(control,message)=>{
+    if (control){control.setAttribute('aria-invalid','true');control.focus();}
+    return message;
+  };
+  const integerOrZero=(v)=>v===''?0:Number(v);
+
+  function TrainingFormV1({mode='new',session=null,defaults={},skills=DEFAULT_SKILLS,
+                            today=localToday(),onSubmit,onCancel,form:existingForm=null}={}) {
+    if(!['new','edit','repeat'].includes(mode)) throw new TypeError('Unsupported training form mode');
+    if(mode!=='new'&&(!session||typeof session!=='object')) throw new TypeError('Edit and Repeat require a session');
+    if(typeof onSubmit!=='function') throw new TypeError('TrainingFormV1 requires an onSubmit callback');
+    const source=session||{};
+    const data=mode==='new'?{...defaults}:source;
+    const repeat=mode==='repeat';
+    const backendType=data.type==='camp'?'camp':'training';
+    const chosenType=data.customType?'custom':backendType;
+    const duration=repeat||mode==='new'&&data.minutes===undefined?null:Number(data.minutes);
+    const initialHours=duration===null?'':String(Math.floor(duration/60));
+    const initialMinutes=duration===null?'':String(duration%60);
+    const dateValue=repeat?today:(data.date||today);
+    const feedback=repeat?{}:data.feedback||{};
+    const selected=new Set(safeList(data.tags));
+    const known=new Map();
+    [...safeList(skills),...selected].forEach(s=>known.set(s.toLowerCase(),s));
+    const form=existingForm||make('form');
+    if(form.tagName!=='FORM') throw new TypeError('form must be a native form');
+    form.noValidate=true;
+    form.dataset.trainingFormMode=mode;
+    form.dataset.trainingComponent='TrainingFormV1';
+    const title=mode==='edit'?'Edit Training':mode==='repeat'?'Repeat Training':'New Training';
+    const status=make('p',{className:'gt-training-form-status-v1'});
+    status.hidden=true;
+    status.setAttribute('role','alert');
+    const input=(type,opts={})=>make('input',{type,...opts});
+    const field=(label,control,opts={})=>F.FormFieldV1({label,control,...opts});
+    const controls={};
+    const remember=(key,el)=>{controls[key]=el;return el};
+    const playerField=field('Player Name',remember('player',input('text',{value:txt(data.player),maxLength:100,autocomplete:'name'})),{required:true});
+    const type=remember('uiType',make('select'));
+    [['training','Training'],['camp','Camp'],['custom','Custom']].forEach(([val,label])=>type.add(new Option(label,val)));
+    type.value=chosenType;
+    const typeField=field('Session Type',type,{required:true});
+    const custom=remember('customType',input('text',{value:txt(data.customType),maxLength:200,placeholder:'Enter session type'}));
+    const customField=field('Custom Session Type',custom,{required:chosenType==='custom'});
+    const toggleCustom=()=>{
+      customField.hidden=type.value!=='custom';
+      custom.required=type.value==='custom';
+      if(customField.hidden)custom.removeAttribute('aria-invalid');
+    };
+    type.addEventListener('change',toggleCustom);
+    toggleCustom();
+    const nameField=field('Session Name',remember('name',input('text',{value:txt(data.name),maxLength:200,placeholder:'e.g. Shooting Workout'})),{required:true});
+    const dateField=field('Date',remember('date',input('date',{value:dateValue,max:today})),{required:true});
+    const hoursField=field('Hours',remember('hours',input('number',{value:initialHours,min:'0',max:'24',step:'1',inputMode:'numeric'})),{width:'half'});
+    const minutesField=field('Minutes',remember('minutePart',input('number',{value:initialMinutes,min:'0',max:'59',step:'1',inputMode:'numeric'})),{width:'half'});
+    const coachField=field('Coach / Organization',remember('coach',input('text',{value:txt(data.coach),maxLength:200,placeholder:'Optional'})));
+    const locationField=field('Location',remember('location',input('text',{value:txt(data.location),maxLength:200,placeholder:'Optional'})));
+    const chips=make('div',{className:'gt-training-skills-v1'});
+    chips.setAttribute('role','group'); chips.setAttribute('aria-label','Skills Worked On');
+    const skillHeading=make('p',{className:'gt-training-skills-heading-v1',text:'Skills Worked On'});
+    const skillsHelp=make('p',{className:'gt-training-skills-help-v1',text:'Select all that apply.'});
+    const refreshSkills=()=>{
+      chips.replaceChildren();
+      for(const skill of known.values()){
+        const active=selected.has(skill);
+        const button=make('button',{type:'button',className:'gt-training-skill-v1',text:(active?'✓ ':'')+skill});
+        button.setAttribute('aria-pressed',String(active));
+        button.addEventListener('click',()=>{if(selected.has(skill))selected.delete(skill);else selected.add(skill);refreshSkills()});
+        chips.append(button);
+      }
+    };
+    refreshSkills();
+    const customSkill=remember('customSkill',input('text',{maxLength:100,placeholder:'Type a skill'}));
+    const addSkill=make('button',{type:'button',className:'gt-training-add-v1',text:'+ Add Skill'});
+    const addCustom=()=>{
+      const newValue=customSkill.value.trim();if(!newValue)return;
+      const key=newValue.toLowerCase();const normalized=known.get(key)||newValue;
+      if(!known.has(key))known.set(key,normalized);
+      selected.add(normalized);customSkill.value='';refreshSkills();customSkill.focus();
+    };
+    addSkill.addEventListener('click',addCustom);
+    customSkill.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();addCustom()}});
+    const skillsArea=make('div',{className:'gt-training-skills-area-v1'});
+    const addRow=make('div',{className:'gt-training-custom-row-v1'});
+    addRow.append(field('Custom Skills',customSkill),addSkill);
+    skillsArea.append(skillHeading,chips,skillsHelp,addRow);
+    const reflectionFields=REFLECTION_KEYS.map(([key,label])=>{
+      const val=txt(feedback[key]);
+      const control=remember('feedback_'+key,make('textarea',{rows:3,value:val,placeholder:'Optional reflection',maxLength:3000}));
+      control.value=val;
+      return field(label,control);
+    });
+    const sections=[
+      FormSectionV1({title:'Player Information',content:[playerField]}),
+      FormSectionV1({title:'Session Information',columns:2,content:[typeField,customField,nameField,dateField,hoursField,minutesField,coachField,locationField]}),
+      FormSectionV1({title:'Skills & Focus',content:[skillsArea]}),
+      FormSectionV1({title:"Player's Feedback",content:reflectionFields})
+    ];
+    const actions=FormActionsV1({
+      secondary:{label:'Cancel',onClick:()=>{if(typeof onCancel==='function')onCancel({mode,sourceId:source.id||null})}},
+      primary:{label:mode==='edit'?'Save Changes':mode==='repeat'?'Log Again':'Log Training',type:'submit'}
+    });
+    const primary=actions.querySelector('.gtf-action-primary-v1');
+    const composed=FormParentV1({form,sections,actions,error:status,ariaLabel:title});
+    composed.classList.add('gt-training-form-v1');
+    const getValues=()=>({
+      type:type.value==='camp'?'camp':'training',
+      customType:type.value==='custom'?custom.value.trim():'',
+      name:controls.name.value.trim(),
+      date:controls.date.value,
+      minutes:integerOrZero(controls.hours.value)*60+integerOrZero(controls.minutePart.value),
+      player:controls.player.value.trim(),
+      coach:controls.coach.value.trim(),location:controls.location.value.trim(),
+      tags:[...selected],
+      feedback:Object.fromEntries(REFLECTION_KEYS.map(([key])=>[key,controls['feedback_'+key].value.trim()]))
+    });
+    const showError=(message,control)=>{
+      status.hidden=false;status.textContent=String(message);
+      focusError(control,message);
+    };
+    const clearError=()=>{status.hidden=true;status.textContent='';Object.values(controls).forEach(control=>control?.removeAttribute('aria-invalid'))};
+    form.addEventListener('input',()=>{if(!status.hidden)clearError()});
+    form.addEventListener('change',()=>{if(!status.hidden)clearError()});
+    let submitting=false;
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();
+      if(submitting)return;
+      clearError();
+      if(!controls.player.value.trim())return showError('Enter a player name.',controls.player);
+      if(type.value==='custom'&&!custom.value.trim())return showError('Enter a custom session type.',custom);
+      if(!controls.name.value.trim())return showError('Enter a session name.',controls.name);
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(controls.date.value) || controls.date.value>today)
+        return showError('Enter today or an earlier valid date.',controls.date);
+      const h=controls.hours.value,m=controls.minutePart.value;
+      if(!/^\d*$/.test(h)||!/^\d*$/.test(m)||!Number.isInteger(Number(h))||!Number.isInteger(Number(m))||+m>59||+h>24||+h*60+(+m)<1||+h*60+(+m)>1440)
+        return showError('Enter a duration between 1 minute and 24 hours.',controls.minutePart);
+      submitting=true;primary.disabled=true;actions.setAttribute('aria-busy','true');
+      try {
+        await onSubmit(getValues(),{mode,sourceId:source.id||null,existingSession:mode==='edit'?source:null});
+      } catch(error) {
+        showError(error instanceof Error?error.message:String(error));
+      } finally {
+        submitting=false;primary.disabled=false;actions.removeAttribute('aria-busy');
+      }
+    });
+    return Object.freeze({element:composed,mode,controls,getValues,showError,clearError});
+  }
+  global.GameTraceTrainingForm=Object.freeze({version:'1.0.0',TrainingFormV1});
+})(typeof window!=='undefined'?window:globalThis);
+</script></head><body>
+<main class="review-wrap"><span class="eyebrow">TRAINING FORM V1 · REVIEW ONLY · NO APP CHANGES</span>
+<div class="mode-switch" role="group" aria-label="Preview training mode">
+<button type="button" data-mode="new" aria-pressed="true">New Training</button>
+<button type="button" data-mode="edit" aria-pressed="false">Edit Training</button>
+<button type="button" data-mode="repeat" aria-pressed="false">Repeat Training</button></div>
+<header class="page-heading"><button class="page-back" type="button" aria-label="Back" disabled>‹</button><div><h1 id="pageTitle">New Training</h1><p id="pageSubtitle">Log the work behind the game.</p></div></header>
+<div id="mount"></div><div id="result" class="demo-result" aria-live="polite" hidden><h2 id="resultTitle"></h2><pre id="resultText"></pre></div>
+<p class="notice">Component-only preview. Demonstration mode does not create, change, or sync any GameTrace record. The page header and navigation are illustrative; only TrainingFormV1 and its approved parent components are tested here.</p>
+</main><script>
+const sample={id:'training-sample-001',type:'training',name:'Shooting & Finishing',player:'Georgina',date:'2026-11-07',minutes:90,coach:'Coach Cam',location:'Training Gym',tags:['Shooting','Finishing'],feedback:{see:'I noticed space near the baseline.',became:'More decisive on my drives.',more:'Confident finishing through contact.',additional:'Strong effort across the session.'}};
+const sampleSkills=['Shooting','Ball Handling','Finishing','Footwork','Defense','Conditioning'];
+let instance;
+const result=document.getElementById('result');const show=(heading,text)=>{document.getElementById('resultTitle').textContent=heading;document.getElementById('resultText').textContent=text;result.hidden=false};
+function mount(mode){
+ const opts={mode,today:'2026-11-09',skills:sampleSkills,session:mode==='new'?null:sample,
+  defaults:{player:'Georgina'},
+  onSubmit:async(values,meta)=>show('Demo only — not saved',JSON.stringify({mode:meta.mode,sourceId:meta.sourceId,values},null,2)),
+  onCancel:()=>show('Demo only — Cancel','No data changed. This page preview does not navigate or save.')
+ };
+ instance=window.GameTraceTrainingForm.TrainingFormV1(opts);
+ document.getElementById('mount').replaceChildren(instance.element);
+ document.getElementById('pageTitle').textContent=mode==='new'?'New Training':mode==='edit'?'Edit Training':'Repeat Training';
+ document.getElementById('pageSubtitle').textContent=mode==='edit'?'Update the work already recorded.':mode==='repeat'?'Log another session with the same focus.':'Log the work behind the game.';
+ document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
+ result.hidden=true;
+}
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>mount(b.dataset.mode)));
+mount('new');window.trainingFormReview={mount,instance:()=>instance,sample};
+</script></body></html>
