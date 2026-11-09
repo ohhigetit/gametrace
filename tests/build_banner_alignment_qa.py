@@ -42,6 +42,9 @@ css="""
 }
 .gttsv2-banner .gttsv2-skills-list,
 .gttsv2-banner .gttsv2-achievements {justify-content:center!important;}
+/* Small green labels: 4.56:1 on #e6efe8; the locked #087d42 was 4.44:1. */
+.gttsv2-banner .gttsv2-eyebrow,
+.gttsv2-banner .gttsv2-details-label {color:#087b40!important;}
 /* Game compact stats centered, matchups retain their asymmetric alignment. */
 .gtcompact-quick-stats,.gtcompact-stat {text-align:center!important;}
 .gtcompact-stat {align-items:center!important;}
