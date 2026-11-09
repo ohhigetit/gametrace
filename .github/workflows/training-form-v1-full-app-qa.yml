@@ -1,0 +1,39 @@
+name: Training Form V1 Full App QA
+on:
+  push:
+    branches:
+      - review/training-form-v1-fullpage-20261109
+permissions:
+  contents: read
+jobs:
+  integrated-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated test dependency
+        run: npm install --no-save --no-package-lock --prefix /tmp/gt-training-v1 jsdom@24
+      - name: Governance structural regression
+        run: node tests/governance.cjs
+      - name: Original session UI regression
+        env:
+          NODE_PATH: /tmp/gt-training-v1/node_modules
+        run: node tests/v495-session-ui.cjs
+      - name: Training Form V1 native editor regression
+        env:
+          NODE_PATH: /tmp/gt-training-v1/node_modules
+        run: node tests/training-form-page-v1.cjs
+      - name: Full-app workflow regression
+        env:
+          NODE_PATH: /tmp/gt-training-v1/node_modules
+        run: node tests/session-workflow-ui.cjs
+      - name: Upload exact complete HTML app for review (no deployment)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GameTrace-TrainingFormV1-FULL-APP-REVIEW
+          path: index.html
+          retention-days: 7
