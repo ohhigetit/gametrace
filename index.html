@@ -2769,7 +2769,1322 @@ html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-score{
 html[data-theme] #app.gt-app :is(#courtContent,#homeContent) .gtcompact-meta{
  width:100%;justify-content:center!important;text-align:center!important;
 }
-</style></head><body>
+</style><style id="up1-game-details-css">/* UniversalPage Parent V1 – Game Details integration, page-scoped */
+html[data-theme] #app.gt-app #statsContent>.up1-page{display:flex;flex-direction:column;min-height:100%;min-width:0}
+html[data-theme] #app.gt-app #statsContent .up1-header{padding:12px 0 20px;flex:0 0 auto}
+html[data-theme] #app.gt-app #statsContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}
+html[data-theme] #app.gt-app #statsContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #statsContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #statsContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #statsContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important;min-width:0}
+html[data-theme] #app.gt-app #statsContent .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #statsContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;text-align:left!important;max-width:100%!important;white-space:normal!important}
+html[data-theme] #app.gt-app #statsContent .up1-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #statsContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #statsContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #statsContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #statsContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #statsContent .up1-footer{flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #statsContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #statsContent .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #statsContent :is(.up1-back,.up1-action):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:365px){html[data-theme] #app.gt-app #statsContent .up1-action{font-size:10px;flex-direction:column;gap:2px;min-height:57px}html[data-theme] #app.gt-app #statsContent .up1-actions{gap:5px}html[data-theme] #app.gt-app #statsContent .up1-footer span{letter-spacing:.5px}}
+
+/* Game Details header: left navigation, compact title/subtitle, right edit action. */
+html[data-theme] #app.gt-app #statsContent .up1-heading{
+ grid-template-columns:34px minmax(0,1fr) 40px!important;
+ gap:9px!important;align-items:start!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-title>span{
+ display:flex;align-items:center;justify-content:center;flex:0 0 25px;
+}
+html[data-theme] #app.gt-app #statsContent .up1-title svg{
+ display:block!important;width:25px!important;height:25px!important;max-width:25px!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-heading>[data-component="PageHeaderAction"]{
+ width:40px!important;min-width:40px!important;max-width:40px!important;
+ height:44px!important;min-height:44px!important;padding:9px!important;
+ margin:0!important;display:grid!important;place-items:center!important;
+ border-radius:9px!important;color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-heading>[data-component="PageHeaderAction"] svg{
+ display:block!important;width:20px!important;height:20px!important;
+}
+html[data-theme] #app.gt-app #statsContent .up1-content{
+ min-height:140px;
+}
+html[data-theme] #app.gt-app #statsContent .up1-footer span{
+ white-space:normal!important;
+}
+html[data-theme] #app.gt-app #statsContent>.up1-page{width:100%;max-width:100%;overflow:hidden}
+</style><style id="gt-game-details-summary-section-v1">
+/* Share the approved Games banner styling without changing Games. */
+/* Games migration step 2: approved GameBanner V1, scoped to Games only. */
+html[data-theme] #app.gt-app #statsContent .gtgames-featured{padding:5px 0 18px;min-width:0}
+html[data-theme] #app.gt-app #statsContent .gtgames-featured-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 13px}
+html[data-theme] #app.gt-app #statsContent .gtgames-featured-heading h2{font-size:17px!important;line-height:1.25;font-weight:780;margin:0!important;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #statsContent .gtgames-banner{border:1px solid #cbd3c8;border-radius:14px;background:#fff;overflow:hidden;min-width:0;color:#172119}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-banner{background:#1b1e1c;color:#f0f4ef;border-color:#3b453d}
+html[data-theme] #app.gt-app #statsContent .gtgames-teamrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-theme] #app.gt-app #statsContent .gtgames-team{min-width:0;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;justify-content:center;padding:18px 10px;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #statsContent .gtgames-team+.gtgames-team{border-left:1px solid #e2e7df}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-team+.gtgames-team{border-color:#313a33}
+html[data-theme] #app.gt-app #statsContent .gtgames-label{font-size:10px;font-weight:800;letter-spacing:.75px;text-transform:uppercase;color:#087d42;line-height:1.3}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-label{color:#19c66a}
+html[data-theme] #app.gt-app #statsContent .gtgames-teamname{font-size:clamp(14px,3.5vw,19px);font-weight:800;line-height:1.23;min-height:2.4em;display:flex;align-items:center;justify-content:center}
+html[data-theme] #app.gt-app #statsContent .gtgames-teamscore{font-size:clamp(36px,9vw,52px);font-weight:850;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+html[data-theme] #app.gt-app #statsContent .gtgames-context{border-top:1px solid #e2e7df;padding:10px 12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#59655b}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-context{border-color:#313a33;color:#a4b0a5}
+html[data-theme] #app.gt-app #statsContent .gtgames-badge{display:inline-flex;align-items:center;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:850;background:#e3efe5;color:#174c2d}
+html[data-theme] #app.gt-app #statsContent .gtgames-badge.live{background:#fff0d9;color:#965400}
+html[data-theme] #app.gt-app #statsContent .gtgames-badge.loss{background:#f9e7e7;color:#a23b3b}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-badge{background:#284733;color:#e5f6e7}
+html[data-theme] #app.gt-app #statsContent .gtgames-progress{height:5px;border-radius:99px;background:#edf0e9;margin:0 14px 10px;overflow:hidden}
+html[data-theme] #app.gt-app #statsContent .gtgames-progress>span{display:block;height:100%;background:#087d42}
+html[data-theme] #app.gt-app #statsContent .gtgames-statsrow{border-top:1px solid #e2e7df;padding:14px 12px 15px}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-statsrow{border-color:#313a33}
+html[data-theme] #app.gt-app #statsContent .gtgames-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:7px}
+html[data-theme] #app.gt-app #statsContent .gtgames-stat{text-align:center;min-width:0;display:flex;flex-direction:column;gap:4px}
+html[data-theme] #app.gt-app #statsContent .gtgames-stat strong{font-size:clamp(20px,5vw,27px);font-weight:850;line-height:1.1;font-variant-numeric:tabular-nums}
+html[data-theme] #app.gt-app #statsContent .gtgames-stat small{font-size:10px;letter-spacing:.45px;font-weight:800;color:#59655b}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-stat small{color:#a4b0a5}
+html[data-theme] #app.gt-app #statsContent .gtgames-open{width:100%;background:transparent;border:0;border-top:1px solid #e2e7df;padding:13px 14px;min-height:44px;text-align:left;font-size:12px;font-weight:750;color:#087d42}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-open{border-color:#313a33;color:#19c66a}
+html[data-theme] #app.gt-app #statsContent .gtgames-details{border-top:1px solid #cbd3c8}
+html[data-theme] #app.gt-app #statsContent .gtgames-details summary{list-style:none;min-height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:750;color:#087d42;padding:10px}
+html[data-theme] #app.gt-app #statsContent .gtgames-details summary::-webkit-details-marker{display:none}
+html[data-theme] #app.gt-app #statsContent .gtgames-details summary::after{content:'⌄';margin-left:6px}
+html[data-theme] #app.gt-app #statsContent .gtgames-details[open] summary::after{content:'⌃'}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-details{border-color:#3b453d}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-details summary{color:#19c66a}
+html[data-theme] #app.gt-app #statsContent .gtgames-secondary{background:#f2f5f0;border-top:1px solid #cbd3c8;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-secondary{background:#252c27;border-color:#3b453d}
+html[data-theme] #app.gt-app #statsContent .gtgames-detail-cell{padding:15px 12px;min-width:0;display:flex;flex-direction:column;gap:8px}
+html[data-theme] #app.gt-app #statsContent .gtgames-detail-cell+.gtgames-detail-cell{border-left:1px solid #cbd3c8}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-detail-cell+.gtgames-detail-cell{border-color:#3b453d}
+html[data-theme] #app.gt-app #statsContent .gtgames-detail{font-size:11px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px;line-height:1.5}
+html[data-theme] #app.gt-app #statsContent .gtgames-detail span{color:#59655b}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-detail span{color:#a4b0a5}
+html[data-theme] #app.gt-app #statsContent .gtgames-note{grid-column:1/-1;border-top:1px solid #cbd3c8;padding:13px 12px;font-size:11px;color:#59655b;line-height:1.5}
+html[data-theme=courtside] #app.gt-app #statsContent .gtgames-note{border-color:#3b453d;color:#a4b0a5}
+html[data-theme] #app.gt-app #statsContent .gtgames-no-game{border:1px dashed var(--gt-edge);padding:22px 15px;border-radius:12px;font-size:13px;color:var(--gt-muted)}
+@media(max-width:390px){html[data-theme] #app.gt-app #statsContent .gtgames-team{padding:15px 7px}html[data-theme] #app.gt-app #statsContent .gtgames-teamscore{font-size:36px}html[data-theme] #app.gt-app #statsContent .gtgames-stats{gap:3px}}
+
+
+
+/* GameBanner V2: shared primary content dimensions; no second primary row. */
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-row,
+html[data-theme] #app.gt-app #statsContent .gtgames-compact-primary{
+ display:grid!important;grid-template-columns:minmax(0,2fr) minmax(0,1fr)!important;align-items:stretch;
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-row>.gtv2-banner-cell,
+html[data-theme] #app.gt-app #statsContent .gtgames-compact-cell{padding:14px 12px!important;min-width:0;overflow-wrap:anywhere;}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-row>.gtv2-banner-cell+.gtv2-banner-cell,
+html[data-theme] #app.gt-app #statsContent .gtgames-compact-cell+.gtgames-compact-cell{border-left:1px solid var(--gt-edge,#cbd3c8)}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-game-summary{display:flex;flex-direction:column;gap:7px;align-items:flex-start;justify-content:center;text-align:left}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-match{display:block;max-width:100%;font-weight:780;font-size:clamp(12px,3.2vw,16px);line-height:1.32;overflow-wrap:anywhere;letter-spacing:-.2px}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-score{font-size:clamp(26px,7.7vw,39px);font-weight:840;line-height:1.12;letter-spacing:-1.1px;font-variant-numeric:tabular-nums;white-space:nowrap}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:5px 7px;font-size:10px;line-height:1.4;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-meta .gtgames-badge,
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-meta .gtgbv1-status{font-size:9px!important;padding:3px 6px!important;line-height:1.4;max-width:100%;white-space:normal}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-quick-stats{display:flex;flex-direction:column;justify-content:center;gap:12px;align-items:stretch;min-width:0}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-stats-caption{display:block!important;text-align:center;font-size:9px!important;letter-spacing:.65px!important}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 4px;min-width:0}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-stat{min-width:0;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-stat-label{font-size:9px;letter-spacing:.35px;font-weight:760;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-stat-number{font-size:clamp(17px,4.4vw,23px);font-weight:850;line-height:1.08;color:var(--gt-ink,#172119);font-variant-numeric:tabular-nums}
+@media(max-width:375px){html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-row>.gtv2-banner-cell,html[data-theme] #app.gt-app #statsContent .gtgames-compact-cell{padding:12px 8px!important}html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-match{font-size:12px}html[data-theme] #app.gt-app :is(#courtContent,#statsContent) .gtcompact-score{font-size:27px}}
+
+
+/* Cross-page parity: values are copied from approved Home Court SharedBanner V2 and PageFooter V1. */
+html[data-theme] #app.gt-app #statsContent [data-page="game-details"] .gtgames-banner{
+ background:linear-gradient(135deg,#f3f7f4,#e6efe8)!important;
+ border-color:#cedbd2!important;
+ box-shadow:none;
+}
+html[data-theme="courtside"] #app.gt-app #statsContent [data-page="game-details"] .gtgames-banner{
+ background:linear-gradient(135deg,#27352e,#202c26)!important;
+ border-color:#455a4d!important;
+}
+/* Same footer typography, stacked text, divider and padding as Home Court. */
+html[data-theme] #app.gt-app #statsContent [data-page="game-details"] .up1-footer{
+ flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);
+ background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px;
+}
+html[data-theme] #app.gt-app #statsContent [data-page="game-details"] .up1-footer span{
+ display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;
+ letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink);
+}
+html[data-theme] #app.gt-app #statsContent [data-page="game-details"] .up1-footer span:last-child{color:var(--gt-accent)}
+/* Dribbling-ball list icon: stroke-only, neutral inherited ink, no filled icon tile. */
+html[data-theme] #app.gt-app #statsContent [data-page="game-details"] .gtal-icon svg[data-gt-icon="dribble-basketball"]{
+ fill:none;stroke:currentColor;stroke-width:11;stroke-linecap:round;stroke-linejoin:round;
+}
+
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"]{margin:0!important;padding:6px 0 16px!important}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtgames-featured-heading h2{font-size:18px!important;font-weight:800!important}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtgames-banner{width:100%;min-width:0}
+</style><style id="gt-game-details-gamebanner-center-fix">
+/* Apply approved GameBanner V2 first-cell centering on Game Details only.
+   The Games and Home Court banners are intentionally unchanged. */
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-game-summary{
+ display:flex!important; flex-direction:column!important; justify-content:center!important;
+ align-items:center!important; text-align:center!important; gap:7px;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-game-summary>.gtgames-label{
+ display:block!important;width:100%!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-match{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;
+ width:100%!important;max-width:100%!important;gap:4px!important;
+ align-items:start!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-team{
+ min-width:0;overflow-wrap:anywhere;line-height:1.28;align-self:start!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-team:first-child{text-align:right!important}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-team:last-child{text-align:left!important}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-vs{
+ display:block!important;justify-self:center!important;align-self:start!important;
+ text-align:center!important;font-size:10px;font-weight:650;line-height:1.28;
+ padding-top:2px;color:var(--gt-muted,#59655b);text-transform:lowercase;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-score{
+ display:block!important;width:100%!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-meta{
+ width:100%!important;justify-content:center!important;text-align:center!important;
+}
+@media(max-width:375px){
+ html[data-theme] #app.gt-app #statsContent [data-section="game-summary"] .gtcompact-match{gap:3px!important}
+}
+</style><style id="gt-approved-circle-timeline-styles">
+/* SOURCE components/approved/GameCircle_V1_APPROVED.css SHA 617fe81cf7f24bbe5e1ffca6bc727309ab2fc54e */
+/* Approved GameCircle V1 — canonical CSS from 2026-11-08 approved full-app preview.
+   This is a version-locked reference, NOT a stylesheet to load alongside the
+   approved app's inline CSS. Extract into the reusable component only after
+   verifying real visual/runtime parity. The SVG rendering and all analytics
+   logic deliberately remain in the existing application. */
+
+/* === gt-gamecircle-v1-original-size-typography-preview === */
+
+/* Presentation-only GameCircle refinement. Original game-circle colors, SVG geometry,
+   analytics, events, and other page designs are unchanged. */
+html[data-theme] #app.gt-app #statsContent .report-circles {
+  padding-top:20px;
+}
+/* The circle no longer fills the entire phone: reserve room for browsing controls. */
+html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator {
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 44px;
+  gap:6px;
+  align-items:center;
+  width:100%;
+  max-width:416px;
+  margin:6px auto 0;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator .report-circle-svg {
+  display:block;
+  width:100%;
+  max-width:300px !important;
+  aspect-ratio:1;
+  margin:0 auto;
+  overflow:visible;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles > .report-circle-svg {
+  width:min(100%,300px);
+  max-width:300px;
+  margin:8px auto 0;
+}
+/* Court-time text follows the same font and numerical rhythm as the rest of the app. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-court {
+  font-family:inherit;
+  font-size:clamp(12px,3.25vw,14px);
+  font-weight:500;
+  line-height:1.45;
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+  color:var(--gt-muted);
+  text-align:center;
+  margin:12px 0 14px;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-timing-note {
+  font-family:inherit;
+  font-size:12px;
+  line-height:1.5;
+}
+/* Legend reads like compact app metadata, not tiny chart annotations. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-legend {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  column-gap:14px;
+  row-gap:9px;
+  font-family:inherit;
+  font-size:clamp(11px,3.05vw,13px);
+  line-height:1.4;
+  font-weight:500;
+  letter-spacing:0;
+  color:var(--gt-muted);
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-key {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+  font:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-key i {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  flex:0 0 9px;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-legend+.report-legend {
+  margin-top:10px;
+}
+@media(max-width:360px){
+ html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator {
+  grid-template-columns:40px minmax(0,1fr) 40px;
+  gap:4px;
+ }
+ html[data-theme] #app.gt-app #statsContent .report-circles .circle-navigator .report-circle-svg {
+  max-width:270px !important;
+ }
+ html[data-theme] #app.gt-app #statsContent .report-circles .report-legend {
+  column-gap:11px;
+ }
+}
+
+
+/* === gt-gamecircle-v1-quiet-label-and-legend-preview === */
+
+/* GameCircle content only. Approved original SVG palette, geometry and drawing logic remain intact. */
+html[data-theme] #app.gt-app #statsContent .report-circles .report-court {
+ display:block;
+ width:fit-content;
+ max-width:calc(100% - 24px);
+ margin:9px auto 13px;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-family:inherit;
+ font-size:11px;
+ font-weight:500;
+ line-height:1.5;
+ letter-spacing:.01em;
+ text-align:center;
+ font-variant-numeric:tabular-nums;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .report-timing-note {
+ max-width:330px;
+ margin:0 auto 10px;
+ font-size:11px;
+ line-height:1.35;
+ opacity:.78;
+ text-align:center;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:7px 13px;
+ max-width:360px;
+ margin:0 auto;
+ padding:0;
+ color:var(--gt-muted);
+ font-family:inherit;
+ font-size:11px;
+ font-weight:400;
+ line-height:1.4;
+ letter-spacing:0;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key .report-key {
+ display:inline-flex;
+ gap:5px;
+ align-items:center;
+ opacity:.86;
+ white-space:nowrap;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key .report-key i {
+ width:6px;
+ height:6px;
+ flex:0 0 6px;
+ border-radius:50%;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys {
+ max-width:355px;
+ margin:9px auto 0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary {
+ display:block;
+ width:fit-content;
+ min-height:32px;
+ margin:0 auto;
+ padding:7px 10px;
+ list-style:none;
+ text-align:center;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-size:11px;
+ font-weight:500;
+ cursor:pointer;
+ opacity:.85;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary::-webkit-details-marker { display:none; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary::after { content:'  ▾'; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys[open] > summary::after { content:'  ▴'; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys > summary:focus-visible { outline:2px solid var(--gt-accent);border-radius:7px; }
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys .report-legend {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:8px 13px;
+ margin:5px auto 0;
+ padding:8px 12px 3px;
+ border-top:1px solid var(--gt-edge);
+ background:transparent;
+ color:var(--gt-muted);
+ font-size:11px;
+ font-weight:400;
+ line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-extra-keys .report-key i {
+ width:7px;height:7px;flex:0 0 7px;
+}
+@media(max-width:350px){
+ html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-scoring-key {gap:6px 10px;}
+}
+
+
+/* === gt-gamecircle-collapsed-left-aligned-details-preview === */
+
+/* Scoped presentation only: hide all supporting labels/legends until expanded. */
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details {
+ width:min(100%,360px);
+ max-width:100%;
+ margin:8px auto 0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ font-family:inherit;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary {
+ display:flex;
+ justify-content:flex-start;
+ align-items:center;
+ width:100%;
+ min-height:44px;
+ padding:8px 2px;
+ margin:0;
+ border:0;
+ background:transparent;
+ color:var(--gt-muted);
+ text-align:left;
+ font-family:inherit;
+ font-size:12px;
+ font-weight:600;
+ line-height:1.4;
+ letter-spacing:0;
+ list-style:none;
+ cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary::-webkit-details-marker {display:none;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary::before {
+ content:'▸';display:inline-block;margin-right:9px;font-size:12px;line-height:1;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details[open] > summary::before {content:'▾';}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details > summary:focus-visible {outline:2px solid var(--gt-accent);outline-offset:2px;border-radius:5px;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body {
+ width:100%; padding:1px 2px 12px;text-align:left;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-court,
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-timing-note {
+ display:block;width:100%;max-width:100%;margin:5px 0 10px;padding:0;
+ border:0;background:transparent;text-align:left;
+ font-family:inherit;font-size:12px;font-weight:500;line-height:1.45;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-timing-note {font-size:11px;font-weight:400;}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-legend {
+ display:flex; flex-wrap:wrap;justify-content:flex-start;align-items:center;
+ gap:8px 13px;max-width:100%;width:100%;margin:0;padding:8px 0;
+ border:0;background:transparent;color:var(--gt-muted);text-align:left;
+ font-family:inherit;font-size:11px;font-weight:500;line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-key {
+ display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .report-key i {
+ display:inline-block;width:7px;height:7px;flex:0 0 7px;border-radius:50%;
+}
+html[data-theme] #app.gt-app #statsContent .report-circles .gt-circle-details-body .gt-circle-stats-key {
+ margin-top:5px;padding-top:11px;border-top:1px solid var(--gt-edge);
+}
+
+
+/* SOURCE components/approved/GameCircleSection_V1_APPROVED.css SHA b5ea0a5464079aae454eabf3d3f9d2fd4e5b8ed6 */
+/* Approved GameCircleSection V1 parent wrapper styles. Content is the
+   already-approved GameCircle V1. The parent exclusively owns section heading,
+   subtitle and section spacing; child owns circle, labels and legend. */
+
+/* GameCircle Section V1: approved Home Court Section V1 header system.
+   Parent owns header / spacing; child GameCircle owns SVG and collapsible details.
+   No changes to SVG drawing code, tokens, game navigation, or analytics calculations. */
+html[data-theme] #app.gt-app #statsContent .report-circles.gt-gcs-v1 {
+  margin:24px 0 0!important;
+  padding:0!important;
+  min-width:0;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 > .gt-gcs-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 0 14px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading {min-width:0;flex:1;}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading h2 {
+  margin:0!important;
+  color:var(--gt-ink)!important;
+  font-size:18px!important;
+  font-weight:800!important;
+  line-height:1.3!important;
+  letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading p {
+  margin:4px 0 0!important;
+  color:var(--gt-muted)!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-content {min-width:0;width:100%;}
+
+
+/* SOURCE components/approved/TimelineSection_V1_APPROVED.css SHA 0901b7677bafc0d66d9fd2317a11468771264e43 */
+/* TimelineSection V1 — approved Section V1 composition and native filter controls.
+   View + Team score + Opponent score + Player events, under horizontal sliders icon.
+   This source is a reference for future extraction; does not change DEV. */
+
+/* === gt-timeline-section-v1-parent-preview === */
+
+/* Game Timeline: approved Section V1 parent. Reuses existing Timeline DOM and logic. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1{
+ margin:24px 0 0; padding:0; min-width:0; border:0;
+ background:transparent;box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 > .gt-tls-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+ padding:0 0 14px;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-heading{min-width:0;flex:1}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-heading h2{
+ margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;
+ font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-heading p{
+ margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;
+ font-weight:400!important;line-height:1.5!important;letter-spacing:normal!important;
+ text-transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-content{min-width:0;width:100%}
+/* Child timeline owns its own controls, chart, strips, and entries. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .report-timeline.gt-tls-timeline{
+ margin:0!important;padding:0!important;border:0!important;background:transparent;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary{
+ color:var(--gt-muted);border:0;border-radius:0;margin:0;
+ padding:7px 2px 10px;min-height:44px;font:inherit;font-size:12px;
+ font-weight:600;line-height:1.4;letter-spacing:0;list-style:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary small{
+ font-size:11px;font-weight:500;color:var(--gt-muted);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-period-label{
+ color:var(--gt-muted);font-size:12px;font-weight:600;line-height:1.5;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-note,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-legend,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .timeline-court-legend{
+ color:var(--gt-muted);font-family:inherit;font-size:11px;line-height:1.5;
+}
+
+
+/* === gt-timeline-section-filter-v1-preview === */
+
+/* Timeline Section V1: header-level event filter, using the shared section action slot. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button{
+ flex:none;min-height:40px;min-width:72px;padding:8px 13px;border-radius:10px;
+ border:1px solid var(--gt-border, #d6ddd5);color:var(--gt-ink);
+ background:transparent;font:inherit;font-size:12px;font-weight:700;cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button.is-active{
+ border-color:var(--gt-accent);color:var(--gt-accent);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button:focus-visible,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-reset:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel{
+ padding:13px 12px 11px;margin:0 0 12px;border:1px solid var(--gt-border,#d6ddd5);
+ border-radius:12px;background:var(--gt-surface,var(--gt-bg));
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel[hidden],
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 [hidden]{display:none!important}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-options{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-option{
+ display:flex;align-items:center;gap:8px;min-height:40px;min-width:0;
+ font-size:12px;font-weight:500;line-height:1.35;color:var(--gt-ink);cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-option input{
+ width:17px;height:17px;flex:none;accent-color:var(--gt-accent);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-reset{
+ margin-top:8px;border:0;background:transparent;color:var(--gt-accent);
+ font-size:12px;font-weight:700;min-height:36px;cursor:pointer;padding:3px 1px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-status{
+ margin:2px 0 0;color:var(--gt-muted);font-size:11px;line-height:1.3;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-empty{
+ font-size:11px;color:var(--gt-muted);align-self:center;white-space:nowrap;
+}
+@media (min-width:500px){html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-options{
+ grid-template-columns:repeat(4,minmax(0,1fr));
+}}
+
+
+/* === gt-timeline-section-filter-canonical-v1-correction === */
+
+/* Approved original timeline display controls in the Section V1 filter slot. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel > .gt-tls-native-score-filters{
+ margin:0;padding:0;border:0;min-width:0;background:transparent;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters > legend{
+ float:none;grid-column:1/-1;padding:0;margin:0 0 2px;
+ color:var(--gt-muted);font:inherit;font-size:12px;font-weight:600;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters > label{
+ display:flex;align-items:center;gap:7px;min-width:0;min-height:36px;
+ font:inherit;font-size:12px;line-height:1.35;white-space:normal;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters input{
+ width:18px;height:18px;flex:none;accent-color:var(--gt-accent);
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-actions{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-done{
+ border:0;background:transparent;color:var(--gt-accent);font:inherit;
+ font-size:12px;font-weight:700;min-height:40px;padding:5px 8px;
+}
+@media(max-width:410px){
+ html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-native-score-filters{grid-template-columns:1fr;gap:2px;}
+}
+
+
+/* === gt-timeline-section-filter-native-view-v1-preview === */
+
+/* View is a fourth original Timeline control (Whole game / period zoom).
+   It lives alongside the three original checkboxes, in the Section filter. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ width:100%;margin:0 0 13px;padding:0 0 13px;
+ border-bottom:1px solid var(--gt-edge);color:var(--gt-ink);
+ font:inherit;font-size:12px;font-weight:650;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select{
+ flex:0 1 auto;min-width:0;width:auto;max-width:70%;min-height:40px;
+ padding:7px 26px 7px 10px;font:inherit;font-size:12px;
+ font-weight:550;color:var(--gt-ink);background:var(--gt-bg);
+ border:1px solid var(--gt-edge);border-radius:9px;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+
+/* === gt-timeline-filter-horizontal-sliders-icon-v1 === */
+
+/* Timeline Section V1: icon-only approved-style trigger. Preserve existing filter logic. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-button.gt-tls-filter-icon{
+ position:relative;display:grid;place-items:center;justify-self:end;
+ width:44px;min-width:44px;height:44px;min-height:44px;
+ padding:9px;border:1px solid var(--gt-edge);border-radius:10px;
+ background:transparent;color:var(--gt-ink);line-height:1;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-icon svg{
+ width:22px;height:22px;display:block;pointer-events:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-filter-icon .gt-tls-filter-status:not([hidden]){
+ position:absolute;top:5px;right:5px;width:7px;height:7px;
+ border-radius:50%;background:var(--gt-accent);pointer-events:none;
+}
+
+
+/* SOURCE components/approved/Timeline_V1_APPROVED.css SHA 0b9f28ff37c0b61abf131999c8963a3f60b6844e */
+/* Timeline V1 — approved content component. Source: full-app locked reference.
+   This is an extract/reference, not yet wired into DEV as a standalone stylesheet.
+   Scope excludes section header/filters. Legacy chart geometry and logic preserved. */
+
+/* === gt-timeline-component-v1-in-section-preview === */
+
+/* TimelineSectionV1 parent controls the header and filter; TimelineV1 owns
+   original chart, periods, score/plays visualization, native toggle and states. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1{
+ display:block;width:100%;min-width:0;margin:0;padding:0;
+ background:transparent;border:0;box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .report-timeline{
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .score-journey-chart{
+ min-width:0;max-width:100%;
+}
+
+
+/* === gt-timeline-v1-single-collapse-control === */
+
+/* Timeline V1: one collapsible control, right aligned. No redundant left label. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary{
+  justify-content:flex-end!important;
+  text-align:right!important;
+  list-style:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary::marker{content:"";}
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tls-timeline > summary::-webkit-details-marker{display:none;}
+
+
+/* === gt-timeline-v1-always-visible-approved-direction === */
+
+/* Timeline V1: chart always visible; no Expand/Collapse/Hide timeline UI.
+   The Section V1 header still owns View + score/event filters. */
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary,
+html[data-theme] #app.gt-app #statsContent .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary[hidden] {
+ display:none!important;
+}
+
+</style>
+<script id="gt-approved-timeline-v1-module">
+/**
+ * GameTrace Timeline V1 — reusable content component (review candidate).
+ *
+ * Renders the existing, unmodified GameTrace timeline DOM/graph through a
+ * supplied renderTimeline(game) adapter. The legacy renderer creates the
+ * View and score/event checkboxes; we DETACH those intact native controls
+ * and return them to TimelineSection V1. Their original event listeners and
+ * state survive moving the nodes. The Timeline V1 DOM itself contains no
+ * filters, view selector, or section header.
+ *
+ * No game data or analytics calculations are modified.
+ */
+(function(global){
+ 'use strict';
+ if(global.GameTraceTimelineV1) return;
+ function create(options){
+   if(!options || typeof options.renderTimeline !== 'function'){
+     throw new TypeError('Timeline V1 needs a renderTimeline(game) adapter');
+   }
+   const native = options.renderTimeline(options.game);
+   if(!(native instanceof global.HTMLElement)){
+     throw new TypeError('Timeline V1 renderer must return an HTMLElement');
+   }
+   const view = native.querySelector('.timeline-focus');
+   const filters = native.querySelector('.score-journey-filters');
+   // Preserve original DOM elements and attached listeners; don't clone.
+   view?.remove();
+   filters?.remove();
+   const host = global.document.createElement('div');
+   host.className = 'gt-tlc-v1';
+   host.dataset.component = 'TimelineV1';
+   host.dataset.slot = 'timeline';
+   native.classList.add('gt-tls-timeline');
+   // Timeline V1 is always visible. Keep native <details> wrapper only for
+   // renderer compatibility; its summary is hidden and disclosure is locked open.
+   native.open = true;
+   const toggle = native.querySelector(':scope > summary');
+   if(toggle) toggle.hidden = true;
+   native.addEventListener('toggle',()=>{ if(!native.open) native.open = true; });
+   host.append(native);
+   return {element:host, native, view, filters};
+ }
+ global.GameTraceTimelineV1=Object.freeze({create});
+})(window);
+</script><style id="gt-gamerecord-v1-content-preview">
+/* GameRecord V1 content preview — approved existing record behavior is canonical.
+   Parent Section V1 deliberately NOT created in this checkpoint. */
+html[data-theme] #app.gt-app #statsContent .gt-grv1-preview-heading{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin:24px 0 12px;color:var(--gt-ink);font-size:var(--gt-title-size,18px);
+  font-weight:700;line-height:1.3;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grv1-preview-heading h2{
+  margin:0;font:inherit;letter-spacing:inherit;color:inherit;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"]{
+  min-width:0;margin-top:0;overflow:visible;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs{
+  min-width:0;max-width:100%;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-play-label,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-play-head{
+  min-width:0;
+}
+</style>
+<style id="gt-gamerecord-v1-folder-tabs-compact-accordion-preview">
+/* Scoped GameRecord preview. The original GameTrace event handlers and record data remain intact. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs,
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs{
+ display:flex!important;gap:5px!important;align-items:end!important;max-width:100%;
+ background:transparent!important;border-bottom:1px solid var(--gt-edge)!important;
+ padding:0 5px!important;margin:10px 0 0!important;border-radius:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button,
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button{
+ flex:1;min-width:0;min-height:46px!important;padding:10px 8px!important;
+ font-size:13px!important;font-weight:650!important;letter-spacing:0!important;
+ border:1px solid var(--gt-edge)!important;border-bottom:0!important;
+ border-radius:12px 12px 0 0!important;
+ color:var(--gt-muted)!important;background:var(--gt-surface-2,var(--gt-surface))!important;
+ box-shadow:none!important;transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button[aria-selected="true"],
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button[aria-selected="true"]{
+ color:var(--gt-ink)!important;background:var(--gt-surface)!important;
+ box-shadow:inset 0 3px 0 var(--gt-accent)!important;
+ position:relative;top:1px;border-bottom:1px solid var(--gt-surface)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-body{padding:0 2px 7px!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-toolbar{display:flex!important;align-items:center!important;gap:8px!important;margin:12px 0!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-toolbar .v42-add-record{
+ width:auto!important;min-width:0!important;margin:0!important;padding:9px 13px!important;min-height:42px!important;
+ font-size:13px!important;border-radius:10px!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-arrange{
+ min-height:42px;min-width:84px;margin-left:auto;padding:8px 12px;
+ background:var(--gt-surface);border:1px solid var(--gt-edge);color:var(--gt-ink);
+ border-radius:10px;font:inherit;font-size:13px;font-weight:650;cursor:pointer;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period{
+ margin:7px 0;border:1px solid var(--gt-edge);border-radius:11px;
+ background:var(--gt-surface);overflow:hidden;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary{
+ display:flex;align-items:center;gap:9px;cursor:pointer;list-style:none;
+ min-height:47px;padding:10px 12px;font-weight:680;font-size:13px;color:var(--gt-ink);
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary::-webkit-details-marker{display:none}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary:before{content:'›';font-size:22px;line-height:14px;color:var(--gt-muted);transition:transform .15s ease}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period[open]>summary:before{transform:rotate(90deg)}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary .gtgr-count{margin-left:auto;color:var(--gt-muted);font-size:12px;font-weight:500}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows{padding:0 9px 6px;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows>.report-play{
+ min-height:0!important;margin:0!important;padding:0!important;border-bottom:1px solid var(--gt-edge)!important;border-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows>.report-play:last-child{border-bottom:0!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row,
+html[data-theme] #app.app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row{
+ min-height:43px!important;padding:5px 3px!important;grid-template-columns:28px minmax(0,1fr) auto!important;
+ align-items:center!important;gap:6px!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row .report-play-label{font-size:13px!important;line-height:1.2!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row .report-play-label small{display:inline;font-size:11px!important;color:var(--gt-muted);margin-left:8px}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row .v42-record-score{font-size:12px!important;margin:0!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-drag{width:28px!important;min-width:28px!important;height:34px!important;padding:5px!important;touch-action:none}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"]:not(.gtgr-arranging) .report-drag{visibility:hidden!important;pointer-events:none}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-order-hint{display:none!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-inline-editor{padding:9px 8px 15px;border-top:1px solid var(--gt-edge)}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-row-expanded{background:var(--gt-surface-2,var(--gt-surface))}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-row-expanded>.v42-event-row{font-weight:650}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-row-expanded>.v42-event-row:after{content:'⌄';color:var(--gt-muted);font-size:13px}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period>summary:focus-visible,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .v42-event-row:focus-visible,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-arrange:focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:380px){html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button{font-size:12px!important;padding:8px 4px!important}}
+</style>
+<style id="gt-gamerecord-v1-folder-depth-inline-drag-refinement">
+/* Folder visual treatment: active folder tab joins the content, no stray horizontal rules. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs{
+ position:relative!important;display:flex!important;gap:0!important;
+ margin:14px 0 0!important;padding:0 10px!important;
+ border:0!important;border-bottom:1px solid var(--gt-edge)!important;
+ background:transparent!important;overflow:visible!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button{
+ position:relative;z-index:1;flex:0 1 50%;margin:0 2px -1px 0!important;
+ border:1px solid var(--gt-edge)!important;border-bottom:1px solid var(--gt-edge)!important;
+ border-radius:10px 15px 0 0!important;box-shadow:none!important;
+ background:var(--gt-surface-2,var(--gt-surface))!important;
+ min-height:42px!important;font-size:13px!important;
+ clip-path:polygon(0 12%,5% 0,91% 0,100% 17%,100% 100%,0 100%)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs button[aria-selected="true"]{
+ z-index:3!important;background:var(--gt-surface)!important;
+ border-bottom-color:var(--gt-surface)!important;
+ box-shadow:inset 0 3px 0 var(--gt-accent)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs + [data-record-list],
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .review-tabs ~ .score-journey-section{
+ border:0!important;border-top:0!important;margin-top:0!important;padding-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] [data-record-list] > summary,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .score-journey-section > details > summary{
+ display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-record-body,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .score-journey-section .report-record-body{
+ border-top:0!important;margin-top:0!important;padding-top:4px!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-arrange{display:none!important}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"]:not(.gtgr-arranging) .report-drag,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .report-drag{
+ display:flex!important;visibility:visible!important;pointer-events:auto!important;
+ align-items:center;justify-content:center;opacity:.67;touch-action:none;cursor:grab;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-period-rows>.report-play{
+ min-height:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-add-inline{
+ margin:0 0 12px;padding:13px;background:var(--gt-surface);border:1px solid var(--gt-edge);
+ border-radius:11px;min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-add-heading{
+ display:flex;justify-content:space-between;align-items:center;gap:8px;
+ font-size:14px;font-weight:700;color:var(--gt-ink);padding:0 0 12px;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-inline-cancel{
+ border:1px solid var(--gt-edge);border-radius:9px;padding:7px 12px;background:transparent;
+ font:inherit;font-size:12px;color:var(--gt-ink);min-height:36px;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-score-choices{
+ display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-score-choices button{
+ flex:1 1 100px;min-width:0;border:1px solid var(--gt-edge);border-radius:9px;
+ padding:9px 7px;min-height:42px;font:inherit;font-size:12px;font-weight:650;
+ color:var(--gt-ink);background:var(--gt-surface-2,var(--gt-surface));
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-score-choices button[aria-pressed="true"]{
+ border-color:var(--gt-accent);box-shadow:inset 0 0 0 1px var(--gt-accent);
+ color:var(--gt-ink);background:var(--gt-surface);
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"] .gtgr-add-form-slot form{
+ max-width:100%;min-width:0;margin:0;padding:0;background:transparent;
+}
+</style>
+<style id="gt-gamerecord-v1-designer-folder-tabs-review">
+/* DESIGN REVIEW: archival file-folder silhouette. No logic, event or data changes.
+   The outer tabs are reduced to short folder labels, sit directly on the raised
+   paper body and intentionally create an unbroken tab-to-folder surface. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 {
+ --gr-paper:var(--gt-surface,#fff);
+ --gr-back:var(--gt-surface-2,#edf1ed);
+ --gr-stroke:var(--gt-edge,#cdd7cd);
+ --gr-ink:var(--gt-ink,#233128);
+ --gr-muted:var(--gt-muted,#657369);
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs {
+ display:flex!important;
+ align-items:flex-end!important;
+ gap:8px!important;
+ padding:0 12px!important;
+ margin:18px 0 -1px!important;
+ height:48px!important;
+ border:0!important;
+ background:transparent!important;
+ position:relative!important;
+ overflow:visible!important;
+ isolation:isolate;
+}
+/* Light folder spine extends across the complete paper body. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs::after {
+ content:'';position:absolute;z-index:0;
+ bottom:0;left:0;right:0;
+ border-bottom:1px solid var(--gr-stroke);pointer-events:none;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button {
+ flex:0 1 auto!important;
+ min-width:0!important;
+ width:auto!important;
+ max-width:calc(50% - 4px);
+ min-height:36px!important;
+ height:36px!important;
+ margin:0!important;
+ padding:8px 16px!important;
+ border:1px solid var(--gr-stroke)!important;
+ border-radius:11px 10px 0 0!important;
+ background:var(--gr-back)!important;
+ color:var(--gr-muted)!important;
+ box-shadow:none!important;
+ clip-path:none!important;
+ transform:none!important;
+ position:relative!important;
+ z-index:1!important;
+ font-size:12px!important;
+ font-weight:660!important;
+ letter-spacing:.005em!important;
+ white-space:nowrap;
+ overflow:visible;
+ line-height:1.2!important;
+}
+/* Folders have a sloping shoulder that joins the short labeled tab to its body. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button::after {
+ content:'';position:absolute;pointer-events:none;
+ width:19px;height:21px;
+ right:-13px;bottom:-1px;
+ background:inherit;
+ border-top:1px solid var(--gr-stroke);
+ border-right:1px solid var(--gr-stroke);
+ border-radius:0 6px 0 0;
+ transform:skewX(29deg);
+ transform-origin:bottom left;
+ z-index:-1;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button[aria-selected="false"] {
+ bottom:0!important;
+ color:var(--gr-muted)!important;
+ background:var(--gr-back)!important;
+ box-shadow:inset 0 -3px 0 rgba(60,80,65,.04)!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button[aria-selected="true"] {
+ z-index:3!important;
+ bottom:0!important;
+ color:var(--gr-ink)!important;
+ background:var(--gr-paper)!important;
+ border-bottom-color:var(--gr-paper)!important;
+ box-shadow:inset 0 3px 0 var(--gt-accent,#168348)!important;
+ font-weight:760!important;
+}
+/* The active folder and its paper body read as ONE connected physical object. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list],
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section {
+ margin-top:0!important;
+ border-top:0!important;
+ padding-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list] > .report-record-body,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section .report-record-body {
+ background:var(--gr-paper)!important;
+ border:1px solid var(--gr-stroke)!important;
+ border-radius:0 11px 11px 11px!important;
+ padding:14px 12px 15px!important;
+ margin:0!important;
+ min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list] > .report-record-body::before,
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section .report-record-body::before {
+ content:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .report-record-toolbar {
+ margin:2px 0 12px!important;
+ padding:0!important;
+ border:0!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .gtgr-period {
+ margin:6px 0!important;
+}
+/* No unrequested tab or content redesign on small iPhone widths. */
+@media (max-width:390px){
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs {padding:0 8px!important;gap:7px!important;}
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button {font-size:11px!important;padding-inline:12px!important;}
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ [data-record-list] > .report-record-body,
+ html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs ~ .score-journey-section .report-record-body {padding:12px 8px!important;}
+}
+</style>
+<style id="gt-gamerecord-v1-clean-continuous-folder-tabs">
+/* Approved design refinement candidate: remove the right-hand slanted
+   shoulder/cut only. Preserve the original GameRecord forms, grouping,
+   dragging, typography, and parent Section. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button::after {
+ content:none!important;
+ display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button {
+ border-radius:12px 12px 0 0!important;
+}
+/* The active tab still meets the folder body without a dividing seam. */
+html[data-theme] #app.gt-app #statsContent [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs button[aria-selected="true"] {
+ border-bottom-color:var(--gr-paper)!important;
+}
+</style>
+<style id="gt-gamerecord-section-v1-approved-parent-composition">
+/* GameRecordSection V1: same parent-section heading system as approved
+   GameCircleSection and TimelineSection. Child GameRecord V1 is unmodified. */
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 {
+  margin:24px 0 0; padding:0; min-width:0; border:0;
+  background:transparent; box-shadow:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:12px; padding:0 0 14px; min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 .gt-grs-heading {
+  min-width:0; flex:1;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 .gt-grs-heading h2 {
+  margin:0!important; color:var(--gt-ink)!important;
+  font-size:18px!important; font-weight:800!important;
+  line-height:1.3!important; letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 .gt-grs-heading p {
+  margin:4px 0 0; color:var(--gt-muted);font-size:12px;
+  line-height:1.45; font-weight:450;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-content {
+  width:100%; min-width:0; padding:0; margin:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 [data-component="GameRecordV1"] {
+  margin:0!important;min-width:0;
+}
+</style>
+<style id="gt-gamerecord-section-v1-clean-header-spacing">
+/* Refines spacing ONLY within GameRecordSection V1.
+   Preserve the approved file-folder tabs, records, drag handles and forms. */
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header {
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header::after,
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-header::before {
+  content:none!important;
+  display:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-content,
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 > .gt-grs-content > .report-record {
+  border-top:0!important;
+  padding-top:0!important;
+  margin-top:0!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-grs-v1 [data-component="GameRecordV1"].gtgr-folder-v2 .review-tabs {
+  margin-top:5px!important;
+}
+</style>
+<style id="gt-playernotes-v1-content-only">
+/* PlayerNotes V1: content only. Header/title belong to the parent section. */
+.gt-playernotes-v1{display:grid;gap:0;width:100%;min-width:0;color:var(--gt-text,inherit)}
+.gt-playernotes-v1 [hidden]{display:none!important}
+.gt-playernotes-v1 .pn-item{position:relative;padding:15px 0 16px;border-bottom:1px solid var(--gt-edge,#dde4e1)}
+.gt-playernotes-v1 .pn-item:first-child{padding-top:5px}
+.gt-playernotes-v1 .pn-item:last-child{border-bottom:none;padding-bottom:4px}
+.gt-playernotes-v1 .pn-label{font-size:12px;letter-spacing:.035em;text-transform:uppercase;font-weight:720;color:var(--gt-muted,#74817b);margin:0 0 6px}
+.gt-playernotes-v1 .pn-answer{display:block;width:100%;padding:0;border:0;background:transparent;color:var(--gt-ink,var(--gt-text,#222e29));font:inherit;font-size:16px;font-weight:500;font-style:italic;line-height:1.5;letter-spacing:normal;text-align:left;overflow-wrap:anywhere;cursor:pointer;white-space:pre-wrap}
+.gt-playernotes-v1 .pn-answer:hover{color:var(--gt-green,var(--gt-accent,#157c64))}
+.gt-playernotes-v1 .pn-answer:focus-visible{outline:2px solid var(--gt-green,var(--gt-accent,#157c64));outline-offset:5px;border-radius:4px}
+.gt-playernotes-v1 .pn-answer.pn-empty{font-size:15px;letter-spacing:normal;font-weight:430;font-style:normal;color:var(--gt-muted,#74817b);padding:6px 0}
+.gt-playernotes-v1 .pn-prompt{font-size:12px;line-height:1.4;margin:6px 0 0;color:var(--gt-muted,#74817b);opacity:.9}
+.gt-playernotes-v1 .pn-edit{display:grid;gap:10px;margin:4px 0 0}
+.gt-playernotes-v1 .pn-edit textarea{display:block;width:100%;box-sizing:border-box;min-height:120px;resize:vertical;background:var(--gt-surface,#fff);color:var(--gt-ink,var(--gt-text,#222e29));border:1px solid var(--gt-edge,#dde4e1);border-radius:11px;padding:12px;font:inherit;font-size:16px;line-height:1.5}
+.gt-playernotes-v1 .pn-edit textarea:focus-visible{outline:2px solid var(--gt-green,var(--gt-accent,#157c64));outline-offset:2px}
+.gt-playernotes-v1 .pn-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.gt-playernotes-v1 .pn-actions button{min-height:40px;padding:8px 15px;border:1px solid var(--gt-edge,#dde4e1);border-radius:10px;background:var(--gt-surface,#fff);color:inherit;font:inherit;cursor:pointer}
+.gt-playernotes-v1 .pn-actions button.pn-save{background:var(--gt-accent,#147c65);color:white;border-color:transparent;font-weight:650}
+.gt-playernotes-v1 .pn-error{margin:0;color:#b33037;font-size:13px}
+.gt-playernotes-v1 .pn-legacy{border-top:1px solid var(--gt-edge,#dde4e1);padding-top:13px;margin-top:14px}
+.gt-playernotes-v1 .pn-legacy summary{cursor:pointer;font-size:13px;color:var(--gt-muted,#74817b)}
+.gt-playernotes-v1 .pn-legacy-entry{padding:10px 0 0}
+.gt-playernotes-v1 .pn-legacy-entry p{margin:4px 0;font-size:14px;line-height:1.5;white-space:pre-wrap}
+@media(max-width:600px){.gt-playernotes-v1 .pn-answer{font-size:16px}.gt-playernotes-v1 .pn-item{padding:14px 0}}
+</style>
+<style id="gt-playernotes-v1-remove-legacy-fallback">
+/* In the unlikely case a legacy renderer inserts its table after replacement,
+   never show the obsolete Player's Notes table as a second component. */
+#statsContent [data-player-feedback]{display:none!important}
+</style>
+<style id="gt-playernotes-v1-words-to-remember-type-match">
+/* Exact typography reference: HomeCourt's approved Words to Remember / NotesList V1.
+   Only PlayerNotes V1; no header and no changes to other approved components. */
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-item {
+  padding:17px 0 18px!important;
+}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-item:first-child {padding-top:5px!important}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-item:last-child {border-bottom:0!important;padding-bottom:4px!important}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-label {
+  color:var(--gt-ink)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+  font-weight:750!important;
+  text-transform:none!important;
+  margin:0 0 8px!important;
+}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-answer {
+  margin:0!important;
+  color:var(--gt-ink)!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  font-style:italic!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-answer:hover {color:var(--gt-accent)!important}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-answer.pn-empty {
+  font-size:13px!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  line-height:1.6!important;
+  color:var(--gt-muted)!important;
+}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-prompt {
+  color:var(--gt-muted)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+  font-weight:600!important;
+}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-legacy summary {
+  font-size:11px!important;
+  line-height:1.5!important;
+}
+#app.gt-app #statsContent .gt-playernotes-v1 .pn-legacy-entry p {
+  font-size:14px!important;
+  line-height:1.6!important;
+}
+@media(max-width:380px) {
+  #app.gt-app #statsContent .gt-playernotes-v1 .pn-answer {font-size:13px!important}
+}
+</style>
+<style id="gt-playernotes-section-v1-parent-and-unboxed-answers">
+/* PlayerNotesSection V1 inherits the approved Section V1 typographic hierarchy. */
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 {
+ margin:24px 0 0!important;padding:0!important;min-width:0;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 > .gt-pns-header {
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+ padding:0 0 8px!important;margin:0!important;border:0!important;
+ box-shadow:none!important;background:transparent!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-pns-heading {min-width:0;flex:1}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-pns-heading h2 {
+ margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;
+ font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-pns-heading p {
+ margin:4px 0 0!important;color:var(--gt-muted)!important;
+ font-size:12px!important;line-height:1.45!important;font-weight:450!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 > .gt-pns-content {
+ margin:0!important;padding:0!important;min-width:0;width:100%;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+}
+/* Answers read like quotations, not input fields or isolated cards. */
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1,
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-item,
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-answer {
+ background:transparent!important;box-shadow:none!important;border-radius:0!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-answer {
+ padding:0!important;border:0!important;min-height:0!important;
+ text-align:left!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-item {
+ margin:0!important;border-top:0!important;border-left:0!important;border-right:0!important;
+}
+</style>
+<style id="gt-playernotes-v1-notebook-banner-refinement">
+/* PlayerNotes V1: one unified notebook canvas using GameTrace's approved
+   SharedBanner V2 background; no individual answer cards or form styling.
+   Header remains owned by PlayerNotesSection V1. */
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 > .gt-pns-content {
+  margin-top:3px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1 {
+  --pn-paper-line:color-mix(in srgb,var(--gt-accent,#4c9174) 25%,transparent);
+  --pn-paper-edge:#cedbd2;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:block;
+  padding:5px 18px 7px 34px;
+  border:1px solid var(--pn-paper-edge)!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+  background:linear-gradient(135deg,#f3f7f4,#e6efe8)!important;
+}
+/* Notebook margin line: unobtrusive, intentionally NOT a row border. */
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1::before {
+  content:"";
+  position:absolute;
+  top:0;bottom:0;left:23px;
+  width:1px;
+  background:var(--pn-paper-line);
+  pointer-events:none;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-item {
+  position:relative;
+  padding:13px 0 14px!important;
+  border:0!important;
+  border-bottom:1px solid color-mix(in srgb,var(--gt-edge,#cedbd2) 75%,transparent)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-item:last-of-type {
+  border-bottom:0!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-label {
+  margin-bottom:6px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-answer {
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-legacy {
+  border-top:1px solid var(--gt-edge)!important;
+  margin-top:3px!important;
+  padding:12px 0!important;
+}
+/* Keep editable inputs unmistakably distinct from the read-only journal text. */
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-edit textarea {
+  border-radius:10px!important;
+  background:var(--gt-surface,#fff)!important;
+}
+html[data-theme="courtside"] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1 {
+  --pn-paper-edge:#455a4d;
+  --pn-paper-line:rgba(152,194,164,.26);
+  background:linear-gradient(135deg,#27352e,#202c26)!important;
+}
+@media(max-width:420px) {
+ html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1 {padding:4px 13px 5px 28px!important}
+ html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1::before {left:18px!important}
+ html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .pn-item {padding:12px 0 13px!important}
+}
+</style>
+<style id="gt-playernotes-v1-answer-type-small-increase">
+/* Notebook/banner design unchanged; answer typography now 18px on all screen widths. */
+html[data-theme] #app.gt-app #statsContent .gt-pns-v1 .gt-playernotes-v1 .pn-answer:not(.pn-empty) {
+  font-size:18px!important;
+  line-height:1.6!important;
+}
+</style>
+</head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -3550,9 +4865,83 @@ function renderStats(){const g=game();if(!g)return;const root=$('statsContent'),
  const summary=button('',()=>gameForm(g.id),'report-summary',{'aria-label':'Edit game details'}),text=el('span',{class:'report-summary-text'}),match=el('strong',{class:'report-matchup'},'vs '+g.opponent);match.append(reportIcon('pencil'));text.append(match,el('span',{class:'report-meta'},g.player+(g.number?' #'+g.number:'')+(g.team?' · '+g.team:'')),el('span',{class:'report-meta'},friendlyDate(g.date)+' · '+C.GAME_TYPES[g.gameType||'regular']+(g.league?' · '+g.league:'')));const result=g.finalScore?(g.finalScore.team>g.finalScore.opponent?'Win':g.finalScore.team<g.finalScore.opponent?'Loss':'Draw'):'Score not recorded',score=el('span',{class:'report-score'},el('strong',{},g.finalScore?g.finalScore.team+' – '+g.finalScore.opponent:'—'),el('small',{},(g.status==='completed'?'Final':'In progress')+(g.finalScore?' · '+result:'')));summary.append(text,score);root.append(summary);
  const performance=el('section',{class:'report-performance'},el('h2',{},'Performance')),row=el('div',{class:'report-stats'}),items=[['PTS',t.pts,'pts'],['FG',t.fga?Math.round(t.fgm/t.fga*100)+'%':'—','fg'],['REB',t.reb,'reb'],['AST',t.ast,'ast'],['STL',t.stl,'stl'],['TOV',t.to,'to'],['PF',t.pf,'pf']];for(const[label,value,key]of items){const b=button('',()=>{reportState.expanded=reportState.expanded===key?null:key;renderStats()},'report-stat',{'data-report-stat':key,'aria-label':STAT_NAMES[key]+': '+value,'aria-expanded':reportState.expanded===key});b.append(el('strong',{},value),el('span',{},label));row.append(b)}performance.append(row);
  if(reportState.expanded){const key=reportState.expanded,detail=el('div',{class:'report-secondary','aria-live':'polite'}),shoot=[['3PT',t.m3+' / '+t.a3+' · '+C.pctText(t.m3,t.a3),'three'],['2PT',t.m2+' / '+t.a2+' · '+C.pctText(t.m2,t.a2),'two'],['FT',t.mft+' / '+t.aft+' · '+C.pctText(t.mft,t.aft),'ft']],values={pts:shoot,fg:[['FG',t.fgm+' / '+t.fga+' · '+C.pctText(t.fgm,t.fga),'fg'],...shoot],reb:[['Offensive',t.oreb,'oreb'],['Defensive',t.dreb,'dreb'],['Box-outs',t.boxout,'boxout']],ast:[['Assists',t.ast,'ast'],['Passes',t.pass,'pass'],['Touches',t.touch,'touch'],['Drives',t.drive,'drive']],stl:[['Steals',t.stl,'stl'],['Blocks',t.blk,'blk'],['Defensive stops',t.defstop,'defstop'],['Deflections',t.deflection,'deflection']],to:Object.entries(C.REASONS).map(([k,name])=>[name,t.turnovers[k],'to:'+k]),pf:[['Fouls',t.pf,'pf']]};for(const[name,value,stat]of values[key]||[])detail.append(button('',()=>showHistory(stat,'all'),'report-secondary-row').appendChild(el('span',{},name,el('strong',{},value))).parentElement);performance.append(detail)}root.append(performance);
- const circles=el('section',{class:'report-circles'},el('h2',{},'Game Circles')),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('report-circle-svg');svg.setAttribute('role','img');circles.append(svg,el('p',{class:'report-court'},timing.known?'Court time '+elapsedText(timing.courtSeconds)+' / '+elapsedText(timing.periodSeconds)+' · '+Math.round(timing.visualShare*100)+'%':'Court time incomplete · 50% visual assumption'));if(!timing.known)circles.append(el('p',{class:'report-timing-note'},timing.problems.join(' · ')||'Record period boundaries to measure court time.'));
- const legend=(entries)=>{const list=el('div',{class:'report-legend'});for(const[key,name]of entries)list.append(el('span',{class:'report-key'},el('i',{style:'background:var(--gc-'+key+')'}),name));return list};circles.append(legend([['three','3PT'],['two','2PT'],['ft','FT'],['make','Make'],['miss','Miss']]),legend([['reb','REB '+t.reb],['foul','PF '+t.pf],['to','TOV '+t.to],['ast','AST '+t.ast],['stl','STL '+t.stl]]));root.append(circles);
- root.append(reportTimeline(g));
+ const circles=el('section',{class:'report-circles gt-gcs-v1','data-component':'SectionV1'},el('div',{class:'gt-gcs-header'},el('div',{class:'gt-gcs-heading'},el('h2',{},'Game Circles'),el('p',{},'Your game at a glance.')))),circleContent=el('div',{class:'gt-gcs-content','data-slot':'content','data-component':'GameCircleV1'}),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('report-circle-svg');svg.setAttribute('role','img');circleContent.append(svg);circles.append(circleContent);
+ // Labels and all legend keys are grouped in one collapsed, left-aligned disclosure.
+ // Timing and computed statistics are unchanged; only their presentation moves inside it.
+ const circleDetails=el('details',{class:'gt-circle-details'});
+ circleDetails.append(el('summary',{},'Labels & legend'));
+ const detailsBody=el('div',{class:'gt-circle-details-body'});
+ detailsBody.append(el('p',{class:'report-court'},timing.known?'Court time '+elapsedText(timing.courtSeconds)+' / '+elapsedText(timing.periodSeconds)+' · '+Math.round(timing.visualShare*100)+'%':'Court time incomplete · 50% visual assumption'));
+ if(!timing.known)detailsBody.append(el('p',{class:'report-timing-note'},timing.problems.join(' · ')||'Record period boundaries to measure court time.'));
+ const legend=(entries)=>{const list=el('div',{class:'report-legend'});for(const[key,name]of entries)list.append(el('span',{class:'report-key'},el('i',{style:'background:var(--gc-'+key+')'}),name));return list};
+ const scoringKey=legend([['three','3PT'],['two','2PT'],['ft','FT'],['make','Made'],['miss','Missed']]);scoringKey.classList.add('gt-circle-scoring-key');
+ const statKey=legend([['reb','REB '+t.reb],['foul','PF '+t.pf],['to','TOV '+t.to],['ast','AST '+t.ast],['stl','STL '+t.stl]]);statKey.classList.add('gt-circle-stats-key');
+ detailsBody.append(scoringKey,statKey);circleDetails.append(detailsBody);circleContent.append(circleDetails);root.append(circles);
+ // TimelineSection V1 composes the original, fully functional Timeline V1.
+ // The Section owns title/subtitle/spacing; Timeline retains period events,
+ // timestamps, court/bench strips, details toggle and editing handlers.
+ const timelineSection=el('section',{class:'gt-tls-v1','data-component':'SectionV1'},
+  el('div',{class:'gt-tls-header'},el('div',{class:'gt-tls-heading'},
+   el('h2',{},'Game Timeline'),el('p',{},'The game, play by play.'))));
+ // The Section owns the Filter action. The controls and graph state are the ORIGINAL
+ // timeline controls (Team score, Opponent score, Player events), not invented event categories.
+ const timelineHeader=timelineSection.querySelector('.gt-tls-header');
+ const filterButton=button('',()=>{},'gt-tls-filter-button gt-tls-filter-icon',{'aria-label':'Show timeline filters','aria-expanded':'false','title':'Timeline filters'});
+ // GameTrace approved outline-icon family; horizontal sliders (filter/settings).
+ // SVG remains constant when the filter state updates (no textContent replacement).
+ filterButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h5m4 0h7M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg><span class="gt-tls-filter-status" aria-hidden="true" hidden></span>';
+ const filterPanel=el('div',{class:'gt-tls-filter-panel',hidden:'','aria-label':'Timeline display filters'});
+ timelineHeader.append(filterButton);
+ const timelineContent=el('div',{class:'gt-tls-content','data-slot':'content','data-component':'TimelineV1'});
+ // Timeline V1: actual reusable component API. TimelineSection owns all
+ // filters and the View selector; the child owns only native chart/content.
+ const timelineParts=window.GameTraceTimelineV1.create({game:g,renderTimeline:reportTimeline});
+ const timeline=timelineParts.native;
+ const nativeFilters=timelineParts.filters;
+ const nativeView=timelineParts.view;
+ if(nativeView){nativeView.classList.add('gt-tls-native-view');filterPanel.append(nativeView)}
+ if(nativeFilters){
+   nativeFilters.classList.add('gt-tls-native-score-filters');
+   filterPanel.append(nativeFilters);
+   const controls=el('div',{class:'gt-tls-filter-actions'});
+   const reset=button('Reset to all',()=>{
+     for(const input of nativeFilters.querySelectorAll('input[type="checkbox"]')){
+       if(!input.checked){input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}))}
+     }
+     const viewSelect=nativeView?.querySelector('select');
+     if(viewSelect&&viewSelect.value!=='all'){
+       viewSelect.value='all';viewSelect.dispatchEvent(new Event('change',{bubbles:true}));
+     }
+     syncFilterCount();
+   },'gt-tls-filter-reset');
+   const done=button('Done',()=>{filterPanel.hidden=true;filterButton.setAttribute('aria-expanded','false')},'gt-tls-filter-done');
+   controls.append(reset,done);filterPanel.append(controls);
+   nativeFilters.addEventListener('change',syncFilterCount);
+ }
+ nativeView?.querySelector('select')?.addEventListener('change',syncFilterCount);
+ function syncFilterCount(){
+   if(!nativeFilters)return;
+   const inputs=[...nativeFilters.querySelectorAll('input[type="checkbox"]')];
+   const selected=inputs.filter(input=>input.checked).length;
+   const viewValue=nativeView?.querySelector('select')?.value||'all';
+   const active=selected<inputs.length||viewValue!=='all';
+   filterButton.querySelector('.gt-tls-filter-status').hidden=!active;
+   filterButton.classList.toggle('is-active',active);
+   filterButton.setAttribute('aria-label',active?'Timeline display customized. Open filters':'Show timeline filters');
+ }
+ filterButton.addEventListener('click',()=>{
+   const opening=filterPanel.hidden;
+   filterPanel.hidden=!opening;
+   filterButton.setAttribute('aria-expanded',String(opening));
+ });
+ timelineContent.append(filterPanel);
+ // Timeline V1 has no expand/collapse affordance: always show content.
+ // Preserve the native timeline event handlers and filter/view adapters.
+ timeline.open = true;
+ reportState.timelineOpen = true;
+ timelineContent.append(timelineParts.element); // Single TimelineV1 instance; no legacy sibling timeline.
+ timelineSection.append(timelineContent);root.append(timelineSection);
+ syncFilterCount();
  const records=el('section',{class:'report-record'},el('h2',{},'Game Record')),details=el('details',{'data-record-list':''}),title=el('summary',{},el('span',{},'Recorded plays'),el('small',{},g.events.length+' records'));details.open=reportState.recordOpen;details.addEventListener('toggle',()=>reportState.recordOpen=details.open);details.append(title);const body=el('div',{class:'report-record-body'});body.append(el('div',{class:'report-record-toolbar'},button('',()=>{reportState.adding=true;reportState.editorId=null;reportState.recordOpen=true;reportEditorActive=true;renderStats()},'report-tool',{'aria-label':'Add play'}).appendChild(el('span',{},reportIcon('plus'),'Add play')).parentElement),el('p',{class:'report-order-hint'},'Drag handles to reorder · timestamps adjust automatically'),el('p',{class:'report-record-status',role:'status'},reportState.status));if(reportState.adding)body.append(recordForm(g,null,true));let lastKey=null;
  for(const e of C.ordered(g)){const key=C.periodKey(e.period);if(key!==lastKey&&!e.code.startsWith('game_')){body.append(el('div',{class:'report-period-heading'},e.period.label));lastKey=key}const boundary=C.isBoundary(e)||['in','out'].includes(e.code),container=el('div',{class:'report-play','data-record-id':e.id,'data-code':e.code,'data-period':key,'data-timestamp':C.occurred(e),'data-boundary':boundary}),head=el('div',{class:'report-play-head'}),handle=button('',()=>{},'report-drag',{'data-drag-id':e.id,'aria-label':'Move '+C.eventLabel(e)+'. Drag or use arrow keys.'});handle.append(reportIcon('grip-vertical'));const info=el('div',{class:'report-play-label'},el('span',{},C.eventLabel(e)),el('small',{},(e.code.startsWith('game_')?'':e.period.label+' · ')+recordTime(e)),e.note?el('small',{},e.note):null);if(reportState.adjustedId===e.id)info.append(el('small',{class:'report-adjusted'},'Time adjusted · editable'));head.append(handle,info,button('Edit',()=>{reportState.editorId=e.id;reportState.adding=false;reportEditorActive=true;renderStats()},'report-tool',{'data-edit-record':e.id}));container.append(head);if(reportState.editorId===e.id)container.append(recordForm(g,e,true));body.append(container)}if(!g.events.length)body.append(el('p',{class:'view-note'},'No records yet.'));details.append(body);records.append(details);root.append(records);
  circleObserver?.disconnect();const draw=()=>drawGameCircles(svg,g,t,timing);circleObserver=new ResizeObserver(draw);circleObserver.observe(svg);requestAnimationFrame(draw);
@@ -4766,7 +6155,7 @@ scoreCorrectionForm=function(g,original,done){const form=correctionBefore40(g,or
 const statsBefore40=renderStats;
 renderStats=function(){
  statsBefore40();const g=game(),root=$('statsContent');if(!g)return;
- const circles=root.querySelector('.report-circles'),timeline=root.querySelector('[data-timeline]');if(circles&&timeline)circles.after(timeline);
+ const circles=root.querySelector('.report-circles'),timeline=root.querySelector('[data-timeline]');if(circles&&timeline&&!timeline.closest('.gt-tls-v1'))circles.after(timeline);
  const record=[...root.querySelectorAll('.report-record')].find(n=>!n.classList.contains('score-journey-section')),journey=root.querySelector('.score-journey-section');
  if(record&&journey){record.append(journey);const toolbar=record.querySelector('.report-record-toolbar');toolbar?.append(button('Arrange',()=>arrangeRecords40(g),'report-tool',{'data-arrange-plays':''}));const body=journey.querySelector('.report-record-body');body?.prepend(el('div',{class:'report-record-toolbar'},button('Add score event',()=>addJourney40(g),'report-tool'),button('Arrange',()=>arrangeRecords40(g,true),'report-tool',{'data-arrange-journey':''})));}
  const heading=root.querySelector('.report-heading');if(heading&&!heading.querySelector('[data-edit-game]'))heading.append(button('Edit Game',()=>gameForm(g.id),'journey-button',{'data-edit-game':g.id}));
@@ -7644,15 +9033,15 @@ if(document.readyState==='loading'){
 
 /* Games Step 2 — approved GameBanner V1 on the already approved UniversalPage.
    Read existing game records; do not seed, store, sync or mutate data. */
-function gtGamesFeaturedBannerV1(){
+function gtGamesFeaturedBannerV1(selectedGame=null, options={}){
  const section=document.createElement('section');section.className='gtgames-featured';section.dataset.component='SectionV1';
  const titleWrap=document.createElement('div');titleWrap.className='gtgames-featured-heading';
- const heading=document.createElement('h2');heading.textContent='Latest Game';titleWrap.append(heading);section.append(titleWrap);
+ const heading=document.createElement('h2');heading.textContent=options.title||'Latest Game';titleWrap.append(heading);section.append(titleWrap);
  const current=liveGame();
  const completed=gt46Games();
- const g=current||completed[0];
+ const g=selectedGame||current||completed[0];
  if(!g){const empty=document.createElement('div');empty.className='gtgames-no-game';empty.textContent='No games recorded yet.';section.append(empty);return section;}
- const isLive=!!current;
+ const isLive=!!current&&current.id===g.id&&g.status!=='completed';
  const banner=document.createElement('article');banner.className='gtgames-banner';banner.dataset.component='GameBannerV1';banner.dataset.parent='SharedBannerV2';banner.dataset.gameId=g.id;
  const add=(tag,cl,content)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(content!=null)n.textContent=String(content);return n;};
  const score=isLive?gt4684GameScore(g):[g.finalScore?.team,g.finalScore?.opponent].map(v=>v===null||v===undefined||v===''?'—':Number.isFinite(Number(v))?String(Math.round(Number(v))):'—');
@@ -7681,7 +9070,7 @@ function gtGamesFeaturedBannerV1(){
    const item=add('div','gtcompact-stat');item.append(add('span','gtcompact-stat-label',label),add('strong','gtcompact-stat-number',Number.isFinite(Number(totals[key]))?Math.round(Number(totals[key])):'—'));quickGrid.append(item);
  });
  rightCell.append(quickGrid);compactPrimary.append(leftCell,rightCell);banner.append(compactPrimary);
- const action=add('button','gtgames-open gtgames-header-action',isLive?'Open Game →':'View Game →');action.type='button';action.addEventListener('click',()=>chooseGame(g.id,isLive?'live':'stats'));titleWrap.append(action);
+ if(!options.hideOpenAction){const action=add('button','gtgames-open gtgames-header-action',isLive?'Open Game →':'View Game →');action.type='button';action.addEventListener('click',()=>chooseGame(g.id,isLive?'live':'stats'));titleWrap.append(action);}
  const date=contextDate;
  const more=add('details','gtgames-details');const summary=add('summary','','Show Details');more.addEventListener('toggle',()=>{summary.firstChild.textContent=more.open?'Hide Details':'Show Details'});more.append(summary);
  const secondary=add('div','gtgames-secondary');
@@ -7790,6 +9179,372 @@ const gtGamesNativePriorRender=renderHome;
 renderHome=function(...args){const result=gtGamesNativePriorRender.apply(this,args);gtGamesBuildUniversalV1();return result;};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='home')renderHome()}),{once:true});
 else requestAnimationFrame(()=>{if(ui.screen==='home')renderHome()});
+
+
+/* Game Details — Phase 1: approved UniversalPage V1 shell with a Game Details
+   PageHeader. The content area is deliberately EMPTY until separately approved
+   section integrations. Legacy renderStats remains intact and callable, while
+   only the rendered statsContent DOM is replaced. No game/data mutations. */
+function gtGameDetailsUniversalV1(){
+ if(ui.screen!=='stats')return;
+ const root=document.getElementById('statsContent'),g=game();
+ if(!root||!g)return;
+ const node=(tag,cls)=>{const n=document.createElement(tag);if(cls)n.className=cls;return n};
+ const page=node('div','up1-page');
+ page.dataset.component='UniversalPage';
+ page.dataset.version='V1';
+ page.dataset.page='game-details';
+ page.dataset.gameId=g.id;
+ const header=node('header','up1-header');
+ header.dataset.component='PageHeader';
+ const heading=node('div','up1-heading');
+ const back=node('button','up1-back');
+ back.type='button';
+ back.setAttribute('aria-label','Back to Games');
+ back.append(up1Icon('back'));
+ back.addEventListener('click',()=>navigate('home'));
+ const text=node('div');
+ const row=node('div','up1-title');
+ row.append(up1Icon('basketball'));
+ const title=node('h1');
+ title.textContent='Game Details';
+ row.append(title);
+ const subtitle=node('div','up1-subtitle-v1');
+ subtitle.dataset.component='PageSubtitle';
+ subtitle.textContent='THE GAME. THE MOMENTS. THE JOURNEY.';
+ text.append(row,subtitle);
+ heading.append(back,text);
+ const edit=node('button','gt467-trigger gt468-icon-trigger');
+ edit.type='button';
+ edit.dataset.component='PageHeaderAction';
+ edit.setAttribute('aria-label','Edit Game');
+ edit.title='Edit Game';
+ edit.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z"/></svg>';
+ edit.addEventListener('click',()=>gameForm(g.id));
+ heading.append(edit);
+ header.append(heading);
+ const body=node('main','up1-content');
+ body.dataset.component='PrimaryContent';
+ body.setAttribute('aria-label','Game Details page content');
+ // Approved Game Summary Section V1 reuses the Games GameBanner component,
+ // with the currently selected game, never the latest game by accident.
+ const summarySection=gtGamesFeaturedBannerV1(g,{title:'Game Summary',hideOpenAction:true});
+ summarySection.dataset.section='game-summary';
+ summarySection.dataset.component='SectionV1';
+ summarySection.querySelector('.gtgames-banner')?.setAttribute('data-usage','game-details');
+ body.append(summarySection);
+ // Component-library-approved section DOM is already rendered by renderStats.
+ // Move those nodes intact into UniversalPage; never replace their internal
+ // headings, collapsible circle labels or timeline filter/view controls.
+ const circles=root.querySelector('.report-circles.gt-gcs-v1[data-component="SectionV1"]');
+ if(circles){
+   circles.dataset.section='game-circles';
+   body.append(circles);
+   const svg=circles.querySelector('.report-circle-svg');
+   if(svg)requestAnimationFrame(()=>{
+     if(svg.isConnected&&ui.screen==='stats'&&game()?.id===g.id){
+       circleObserver?.unobserve?.(svg);
+       circleObserver?.observe?.(svg);
+     }
+   });
+ }
+ const timeline=root.querySelector('.gt-tls-v1[data-component="SectionV1"]');
+ if(timeline){
+   // Compatibility with legacy V40 postprocessing: preserve the *approved*
+   // TimelineV1 child beneath TimelineSectionV1. Older renderStats wrappers
+   // may have reparented [data-timeline] to a former top-level position.
+   const timelineHost=timeline.querySelector('.gt-tlc-v1[data-component="TimelineV1"]');
+   const strayTimeline=root.querySelector(':scope > [data-timeline].report-timeline');
+   if(timelineHost && !timelineHost.querySelector('[data-timeline]') && strayTimeline){
+     timelineHost.append(strayTimeline); // move, never clone: preserve native bindings
+   }
+   timeline.dataset.section='game-timeline';
+   body.append(timeline);
+ }
+ // Move the original approved Game Record Section into UniversalPage.
+ // The records and their native handlers are moved, never cloned or rebuilt.
+ const approvedRecords=root.querySelector('.gt-grs-v1[data-component="GameRecordSectionV1"]');
+ if(approvedRecords){approvedRecords.dataset.section="game-records";body.append(approvedRecords);}
+ // PlayerNotesSection V1 embeds the approved PlayerNotes V1 child.
+ // Explicit placement after Game Records, preserving all other content unchanged.
+ const priorNotes=root.querySelector('[data-player-feedback]');
+ const approvedNotes=playerNotesSectionV1(g);
+ if(priorNotes)priorNotes.remove();
+ approvedNotes.dataset.section="player-notes";
+ body.append(approvedNotes);
+ const footer=node('footer','up1-footer');
+ footer.dataset.component='PageFooter';
+ const one=node('span'),two=node('span');
+ one.textContent='SHOW UP. PUT IN THE WORK.';
+ two.textContent='TRUST THE JOURNEY.';
+ footer.append(one,two);
+ page.append(header,body,footer);
+ root.replaceChildren(page);
+}
+// GameRecord V1 CONTENT COMPONENT — adapter of the existing fully working Game Record.
+// No new data handling, filters, Section V1 parent, or duplicate record panels.
+const gtGameRecordV1Before = renderStats;
+function gtGameRecordV1Mount(root) {
+  if (!root) return null;
+  const record = [...root.querySelectorAll('.report-record')]
+    .find(node=>!node.classList.contains('score-journey-section'));
+  if (!record) return null;
+  // Compose a SINGLE approved Section V1 parent and content component.
+  // This reuses the original record node (and its event handlers); no clone,
+  // extra legacy Game Record section, or replacement edit/dragging engine.
+  const heading = record.querySelector(':scope > h2');
+  const section = document.createElement('section');
+  section.className = 'gt-grs-v1';
+  section.dataset.component = 'GameRecordSectionV1';
+  section.dataset.parent = 'SectionV1';
+  const header = document.createElement('header');
+  header.className = 'gt-grs-header';
+  const headingWrap = document.createElement('div');
+  headingWrap.className = 'gt-grs-heading';
+  const title = heading || document.createElement('h2');
+  title.textContent = 'Game Record';
+  headingWrap.appendChild(title);
+  const subtitle = document.createElement('p');
+  subtitle.textContent = 'The plays behind the game.';
+  headingWrap.appendChild(subtitle);
+  header.appendChild(headingWrap);
+  const content = document.createElement('div');
+  content.className = 'gt-grs-content';
+  content.dataset.component = 'SectionV1Content';
+  record.before(section);
+  section.append(header,content);
+  content.appendChild(record);
+  record.dataset.component='GameRecordV1';
+  record.dataset.parent='GameRecordSectionV1';
+  const tabs=record.querySelector('.review-tabs');
+  if (tabs) {
+    tabs.dataset.component='GameRecordV1Tabs';
+    tabs.setAttribute('aria-label','Game record: Recorded Plays or Score Journey');
+  }
+  // Existing tab state, Add/Edit/Delete, drag/reorder, and sync stay untouched.
+  record.querySelectorAll('[data-record-list],.score-journey-section').forEach(node=>{
+    node.dataset.gameRecordView=node.matches('[data-record-list]')?'plays':'scores';
+  });
+  return record;
+}
+renderStats=function(...args){
+  const result=gtGameRecordV1Before.apply(this,args);
+  gtGameRecordV1Mount($('statsContent'));
+  return result;
+};
+
+
+// GameRecord V1 folder-tabs / compact-accordion REVIEW. Keeps original records, dragging and forms.
+const gtGrV1View={periods:new Set(),editor:null,adding:null,addType:null};
+function gtGrV1Enhance(root){
+ const record=root?.querySelector('[data-component="GameRecordV1"]');if(!record)return;
+ const g=game();if(!g)return;
+ record.classList.add('gtgr-refined','gtgr-folder-v2');
+ record.classList.remove('gtgr-arranging');
+ // The existing click-to-switch tab functionality remains authoritative.
+ const tabs=record.querySelector('.review-tabs');if(tabs){
+  tabs.dataset.component='GameRecordFolderTabsV1';
+  for(const b of tabs.querySelectorAll('button')){
+   if(b.dataset.recordTab==='plays')b.textContent='Play Records';
+   if(b.dataset.recordTab==='scores')b.textContent='Score Journey';
+  }
+ }
+ for(const [tab,panel] of [['plays',record.querySelector('[data-record-list]')],['scores',record.querySelector('.score-journey-section>details')]]){
+  if(!panel)continue;
+  const body=panel.querySelector('.report-record-body');if(!body)continue;
+  const bar=body.querySelector(':scope>.report-record-toolbar');
+  if(bar){
+   // No Arrange mode: existing drag handles are always available.
+   bar.querySelectorAll('[data-arrange-plays],[data-arrange-journey],.gtgr-arrange').forEach(n=>n.remove());
+   const oldAdd=bar.querySelector('.v42-add-record')||[...bar.querySelectorAll('button')].find(b=>/add play|add score event/i.test(b.textContent));
+   if(oldAdd){
+    const add=oldAdd.cloneNode(true);add.textContent='+ Add Record';
+    oldAdd.replaceWith(add);
+    add.addEventListener('click',()=>{
+     if(reportEditorActive||gtGrV1View.adding)return announce('Save or cancel the current edit first.');
+     if(g.pendingStart)return announce('Start the game before adding a record.');
+     // Both tabs use a native inline accordion, never a modal.
+     gtGrV1View.adding=tab;
+     gtGrV1View.addType=tab==='scores'?'score_set':'play';
+     gtGrV1View.periods.add(tab+'::'+(g.settings?.format==='2H'?'H1':'Q1'));
+     renderStats();
+    });
+   }
+   const addOld=bar.parentElement.querySelector(':scope>.gtgr-add-inline');
+   addOld?.remove();
+   if(gtGrV1View.adding===tab){
+    const container=document.createElement('div');container.className='gtgr-add-inline';
+    container.dataset.component='GameRecordAddAccordion';
+    const heading=document.createElement('div');heading.className='gtgr-add-heading';
+    heading.textContent=tab==='scores'?'Add Score Record':'Add Play Record';
+    const close=document.createElement('button');close.type='button';close.className='gtgr-inline-cancel';
+    close.textContent='Close';close.addEventListener('click',()=>{gtGrV1View.adding=null;gtGrV1View.addType=null;reportEditorActive=false;reportState.adding=false;renderStats()});
+    heading.append(close);container.append(heading);
+    const formSlot=document.createElement('div');formSlot.className='gtgr-add-form-slot';
+    if(tab==='scores'){
+     const choices=document.createElement('div');choices.className='gtgr-score-choices';
+     for(const [type,label] of [['score_set','Score checkpoint'],['team','Team points'],['opponent','Opponent points']]){
+      const choice=document.createElement('button');choice.type='button';choice.textContent=label;
+      choice.setAttribute('aria-pressed',String(gtGrV1View.addType===type));
+      choice.addEventListener('click',()=>{gtGrV1View.addType=type;renderStats()});choices.append(choice);
+     }
+     container.append(choices);
+     if(gtGrV1View.addType==='score_set'){
+      formSlot.append(scoreCorrectionForm(g,null,()=>{gtGrV1View.adding=null;gtGrV1View.addType=null;reportEditorActive=false;renderStats()}));
+     } else {
+      const side=gtGrV1View.addType;
+      const form=recordForm(g,null,true),select=form.querySelector('[aria-label="Action"]');
+      if(select){for(const option of [...select.options])if(!option.value.startsWith(side+'_'))option.remove();
+       select.value=side+'_2';select.dispatchEvent(new Event('change'))}
+      formSlot.append(form);
+     }
+    }else{
+     formSlot.append(recordForm(g,null,true));
+    }
+    container.append(formSlot);bar.after(container);
+    // Existing form saves update the game revision synchronously. Close the
+    // temporary add accordion only after a successful record write.
+    const openedRevision=g.revision;
+    container.addEventListener('click',evt=>{
+      const control=evt.target.closest('button');
+      if(!control||!/^(Add play|Save changes|Save score correction)$/i.test(control.textContent.trim()))return;
+      queueMicrotask(()=>{
+       const current=game();
+       if(current&&current.id===g.id&&current.revision!==openedRevision&&gtGrV1View.adding===tab){
+        gtGrV1View.adding=null;gtGrV1View.addType=null;reportEditorActive=false;renderStats();
+       }
+      });
+    });
+    container.addEventListener('click',evt=>{
+      const b=evt.target.closest('button');
+      if(b&&/^(Cancel|Close)$/i.test(b.textContent.trim())){
+       gtGrV1View.adding=null;gtGrV1View.addType=null;
+      }
+    },true);
+   }
+  }
+  // Wrap the existing record nodes into independently collapsible game periods.
+  const children=[...body.children];const periods=[];let current=null;
+  for(const item of children){
+   if(item.matches('.report-period-heading')){
+    const label=item.textContent.trim();current={label,nodes:[]};periods.push(current);item.remove();
+   } else if(item.classList.contains('report-play')){
+    if(!current){current={label:g.settings?.format==='2H'?'H1':'Q1',nodes:[]};periods.push(current)}
+    current.nodes.push(item);
+   }
+  }
+  for(const period of periods){
+   const details=document.createElement('details');details.className='gtgr-period';
+   details.dataset.tab=tab;details.dataset.period=period.label;
+   const key=tab+'::'+period.label;details.open=gtGrV1View.periods.has(key);
+   const summary=document.createElement('summary');summary.append(document.createTextNode(period.label));
+   const count=document.createElement('span');count.className='gtgr-count';
+   count.textContent=period.nodes.length+' '+(period.nodes.length===1?'record':'records');summary.append(count);
+   const rows=document.createElement('div');rows.className='gtgr-period-rows';
+   period.nodes.forEach(node=>{
+    rows.append(node);
+    const id=node.dataset.recordId;if(!id)return;
+    const head=node.querySelector('.v42-event-row');if(!head)return;
+    const drag=head.querySelector('[data-drag-id]');if(drag){drag.hidden=false;drag.setAttribute('aria-label','Drag to reorder record');}
+    head.setAttribute('aria-expanded',String(gtGrV1View.editor===id));
+    const open=(evt)=>{
+      if(reportDrag)return;
+      if(evt?.target?.closest?.('[data-drag-id],button,input,select,textarea,a'))return;
+      evt?.preventDefault?.();evt?.stopPropagation?.();
+      if(reportEditorActive&&gtGrV1View.editor!==id)return announce('Save or cancel your edit first.');
+      if(gtGrV1View.editor===id){gtGrV1View.editor=null;reportState.editorId=null;reportState.adding=false;reportEditorActive=false;renderStats();return;}
+      gtGrV1View.editor=id;gtGrV1View.periods.add(key);
+      if(tab==='plays'){
+       reportUI41.tab='plays';reportState.editorId=id;reportState.recordOpen=true;reportEditorActive=true;renderStats();
+      }else{
+       const event=g.events.find(e=>e.id===id);if(!event)return;
+       const done=()=>{gtGrV1View.editor=null;reportEditorActive=false;renderStats()};
+       const openForm=event.code==='score_set'?scoreCorrectionForm(g,event,done):
+        event.code.startsWith('timeout_')?timeoutForm(g,event,done):recordForm(g,event,true);
+       const holder=document.createElement('div');holder.className='gtgr-inline-editor';holder.append(openForm);
+       if(!node.querySelector('.gtgr-inline-editor'))node.append(holder);
+       node.classList.add('gtgr-row-expanded');head.setAttribute('aria-expanded','true');reportEditorActive=true;
+      }
+    };
+    head.onclick=open;
+    head.onkeydown=e=>{if(e.target===head&&['Enter',' '].includes(e.key)){e.preventDefault();open(e)}};
+    if(tab==='plays'&&reportState.editorId===id){
+     node.classList.add('gtgr-row-expanded');gtGrV1View.editor=id;gtGrV1View.periods.add(key);details.open=true;
+    }
+   });
+   details.append(summary,rows);body.append(details);
+   details.addEventListener('toggle',()=>{if(details.open)gtGrV1View.periods.add(key);else gtGrV1View.periods.delete(key)});
+  }
+ }
+}
+const gtGrV1BeforeRefine=renderStats;
+renderStats=function(...args){const result=gtGrV1BeforeRefine.apply(this,args);gtGrV1Enhance($('statsContent'));return result};
+
+/* PlayerNotes V1 — content-only component. Keep the parent section heading external. */
+function playerNotesV1(g){
+ const root=el('div',{class:'gt-playernotes-v1','data-component':'PlayerNotesV1','aria-label':"Player's reflections"});
+ const questions=[
+  ['see','WHAT I SAW','What did I notice during the game?'],
+  ['became','WHAT I BECAME','How did I respond to the game?'],
+  ['more','WHAT I WANT TO BECOME MORE','What will I work on next?']
+ ];
+ let active=null;
+ function openEditor(item,key,question){
+  if(active&&active!==item){const old=active.querySelector('.pn-edit');if(old){old.remove();active.querySelector('.pn-answer').hidden=false;} }
+  active=item;
+  const view=item.querySelector('.pn-answer');view.hidden=true;
+  const form=el('form',{class:'pn-edit'});
+  const ta=el('textarea',{rows:4,maxlength:3000,'aria-label':question});
+  ta.value=g.feedback?.[key]||'';
+  const err=el('p',{class:'pn-error',role:'alert'});err.hidden=true;
+  const actions=el('div',{class:'pn-actions'});
+  const cancel=el('button',{type:'button'},'Cancel');
+  const save=el('button',{type:'submit',class:'pn-save'},'Save Note');
+  const close=()=>{form.remove();view.hidden=false;active=null};
+  cancel.addEventListener('click',close);
+  form.addEventListener('submit',e=>{
+   e.preventDefault();
+   try{
+    const current=db.games.find(x=>x.id===g.id);if(!current)throw Error('Game not found.');
+    transaction(g.id,target=>{target.feedback=T.feedback({...target.feedback,[key]:ta.value.trim()})});
+    renderStats();announce('Player note saved');
+   }catch(ex){err.textContent=ex.message;err.hidden=false}
+  });
+  actions.append(cancel,save);form.append(ta,err,actions);item.append(form);ta.focus();
+ }
+ for(const [key,label,question] of questions){
+  const val=String(g.feedback?.[key]||'').trim();
+  const item=el('div',{class:'pn-item','data-note-key':key});
+  const eyebrow=el('p',{class:'pn-label'},label);
+  const answer=el('button',{type:'button',class:'pn-answer'+(val?'':' pn-empty'),'aria-label':val?'Edit '+label:'Add '+label},val?'“'+val+'”':question+'  ·  Tap to write');
+  answer.addEventListener('click',()=>{if(active===item){item.querySelector('.pn-edit')?.remove();answer.hidden=false;active=null;}else openEditor(item,key,question)});
+  item.append(eyebrow,answer);if(val)item.append(el('p',{class:'pn-prompt'},question));root.append(item);
+ }
+ const older=[['well','What went well?'],['challenge','What was challenging?'],['next','What will I focus on next?']].filter(([k])=>g.feedback?.[k]);
+ if(older.length){const details=el('details',{class:'pn-legacy'},el('summary',{},'Earlier reflections'));for(const[k,label]of older)details.append(el('div',{class:'pn-legacy-entry'},el('div',{class:'pn-label'},label),el('p',{},g.feedback[k])));root.append(details)}
+ return root;
+}
+/* One canonical replacement path, even when earlier legacy renderers update the DOM. */
+/* PlayerNotesSection V1 inherits the approved Section V1 composition.
+   PlayerNotes V1 remains content-only, and no legacy header or table survives. */
+function playerNotesSectionV1(g){
+ const section=el('section',{class:'gt-pns-v1','data-component':'PlayerNotesSectionV1','data-parent':'SectionV1'});
+ const header=el('header',{class:'gt-pns-header'});
+ const heading=el('div',{class:'gt-pns-heading'});
+ heading.append(el('h2',{},"Player's Notes"),el('p',{},'The game, in my own words.'));
+ header.append(heading);
+ const content=el('div',{class:'gt-pns-content','data-component':'SectionV1Content'});
+ const notes=playerNotesV1(g);notes.dataset.parent='PlayerNotesSectionV1';
+ content.append(notes);section.append(header,content);
+ return section;
+}
+
+const gtGameDetailsPriorRender=renderStats;
+renderStats=function(...args){
+ const result=gtGameDetailsPriorRender.apply(this,args);
+ gtGameDetailsUniversalV1();
+ return result;
+};
 })();
 
 
