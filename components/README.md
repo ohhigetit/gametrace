@@ -163,3 +163,16 @@ const section = window.GameTraceComponents.Section({
 - **Responsive/themes:** iPhone and wide, Day and Courtside, as shown in the user-approved preview.
 - **Data:** Preview uses synthetic example records only; integrating into the app requires existing real game data, score/result semantics, and navigation. No sample values should be written to records.
 - **Compatibility:** SharedBanner V2 is the layout parent; preserve all locked existing GameSummaryBanner V1 and game data behaviors until integration is separately approved.
+
+## GameCircle V1 and GameCircle Section V1 — APPROVED / LOCKED (Nov 8, 2026)
+
+Two independently approved components, saved without any DEV or production deployment:
+
+1. **GameCircle V1 (content component)** — original, previously approved colors and original SVG/circular analytics calculations/geometry; compact responsive circle (300px max), restrained labels and legend, **all legends and court-time label hidden by default**, one accessible left-aligned “Labels & legend” disclosure to reveal them, expanded details left-aligned. The content contains no Section header. Reference: [`approved/GameCircle_V1_APPROVED.css`](approved/GameCircle_V1_APPROVED.css).
+2. **GameCircle Section V1 (composition)** — inherits the existing approved Section V1 parent treatment and supplies the section heading **Game Circles**, subtitle **Your game at a glance.**, and content slot holding the unchanged GameCircle V1. Section owns title/subtitle, spacing, outer layout; GameCircle owns SVG, details, legend, and display. Reference: [`approved/GameCircleSection_V1_APPROVED.css`](approved/GameCircleSection_V1_APPROVED.css).
+
+**Exact, working-source reference:** [`approved/GameCircle_V1_Section_V1_FULL_APP_APPROVED.html`](approved/GameCircle_V1_Section_V1_FULL_APP_APPROVED.html) captures the user-approved full-app HTML containing both components. The two CSS files were extracted from this preview verbatim in original cascade order and are **documentation/extraction references**, not an additional stylesheet to load into production unchanged.
+
+**Functional invariants:** `drawGameCircles(svg,g,t,timing)`, calculations, 3PT/2PT/FT, makes/misses, court time and bench time, statistical dials, win/loss ring, game navigation, filtering and game records are unchanged. No green-heavy palette, alternate color themes, 3D effects, or standalone Recorded Plays/Score Journey redesigns were approved as part of these components.
+
+**Integration status:** V1 components approved and saved to `feature/component-library` only. The current DEV baseline remains `630f723`; this documentation commit does not deploy, replace Game Details, modify shared Section V1 source, or claim fully extracted reusable JS modules. A later Game Details integration must reuse these locked designs, preserve the live data adapters and test in both Day/Courtside themes and mobile portrait/landscape before deployment.
