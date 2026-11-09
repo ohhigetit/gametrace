@@ -1,0 +1,42 @@
+/* Approved GameCircleSection V1 parent wrapper styles. Content is the
+   already-approved GameCircle V1. The parent exclusively owns section heading,
+   subtitle and section spacing; child owns circle, labels and legend. */
+
+/* GameCircle Section V1: approved Home Court Section V1 header system.
+   Parent owns header / spacing; child GameCircle owns SVG and collapsible details.
+   No changes to SVG drawing code, tokens, game navigation, or analytics calculations. */
+html[data-theme] #app.gt-app #statsContent .report-circles.gt-gcs-v1 {
+  margin:24px 0 0!important;
+  padding:0!important;
+  min-width:0;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 > .gt-gcs-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 0 14px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading {min-width:0;flex:1;}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading h2 {
+  margin:0!important;
+  color:var(--gt-ink)!important;
+  font-size:18px!important;
+  font-weight:800!important;
+  line-height:1.3!important;
+  letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-heading p {
+  margin:4px 0 0!important;
+  color:var(--gt-muted)!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+html[data-theme] #app.gt-app #statsContent .gt-gcs-v1 .gt-gcs-content {min-width:0;width:100%;}
