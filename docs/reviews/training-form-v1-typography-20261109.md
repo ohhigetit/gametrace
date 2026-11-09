@@ -1,6 +1,6 @@
 # Training Form V1 — Typography alignment review (November 9, 2026)
 
-Status: **Review requested**. User asked to align Training Form typography with the rest of the GameTrace app. Previous Training Form V1 is not yet locked or integrated.
+Status: **APPROVED and LOCKED — Training Form V1 typography and reusable implementation**. User confirmed the updated review “looks good” on November 9, 2026. Component remains review-branch-only, not integrated into a live page or deployed.
 
 ## Baseline / scope
 - Original DEV baseline: `88a1f6f9fc00b14931649aee65df16ea6f10a009`; `index.html` blob `017441f3d83142e85826ca149bd823e63716c2ea`
