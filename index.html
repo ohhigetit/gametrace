@@ -9497,7 +9497,11 @@ function gtGBV1IntegrateCourtLive(root){
  section.dataset.courtSection='current';
  section.dataset.usage='home-court';
  const details=section.querySelector('.gtgames-details');
- if(details&&wasExpanded)details.open=true;
+ if(details&&wasExpanded){
+   details.open=true;
+   const summary=details.querySelector('summary');
+   if(summary)summary.textContent='Hide Details';
+ }
  old.replaceWith(section);
 }
 

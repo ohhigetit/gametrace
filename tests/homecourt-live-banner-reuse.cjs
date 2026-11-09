@@ -60,6 +60,11 @@ for(const phase of ['live','paused','ready']){
  assert.equal(badge,phase==='paused'?'PAUSED':phase==='ready'?'NOT STARTED':'● LIVE');
  // Reuse the exact Games page adapter and component output.
  const same=w.__games(g,{title:'Live Game',actionLabel:'Resume Game'});
+ // Normalize expansion state when verifying identical component markup.
+ if(section.querySelector('.gtgames-details').open){
+   same.querySelector('.gtgames-details').open=true;
+   same.querySelector('.gtgames-details summary').textContent='Hide Details';
+ }
  const normalize=s=>{const clone=s.cloneNode(true);clone.removeAttribute('data-court-section');clone.removeAttribute('data-usage');return clone.outerHTML};
  assert.equal(normalize(section),normalize(same),'Live Game must be same shared section as Latest Game');
  section.querySelector('.gtgames-header-action').click();
