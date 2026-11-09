@@ -36,7 +36,8 @@ const originalSection=w.GameTraceComponents.Section;
 const spySection=(args)=>{calls++;return originalSection(args)};
 Object.defineProperty(w,'GameTraceComponents',{configurable:true,value:
  Object.freeze({...w.GameTraceComponents,Section:spySection})});
-console.log('DEBUG end code',JSON.stringify(code.slice(-280)),'start wrap',JSON.stringify(wrap.slice(0,120)),'end wrap',JSON.stringify(wrap.slice(-150)));\nw.eval(code+'\n'+wrap+'\nwindow.__original=gtTrainingSummaryBannerSectionV8Original;window.__parent=gtTrainingSummaryBannerSectionV8;');
+console.log('Boundary debug',JSON.stringify(code.slice(-200)),JSON.stringify(wrap.slice(-200)));
+w.eval([code,wrap,'window.__original=gtTrainingSummaryBannerSectionV8Original;window.__parent=gtTrainingSummaryBannerSectionV8;'].join(String.fromCharCode(10)));
 const legacy=w.__original();
 const actual=w.__parent();
 assert.equal(calls,1,'Section V1 constructor must run exactly once');
