@@ -7790,6 +7790,69 @@ const gtGamesNativePriorRender=renderHome;
 renderHome=function(...args){const result=gtGamesNativePriorRender.apply(this,args);gtGamesBuildUniversalV1();return result;};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{if(ui.screen==='home')renderHome()}),{once:true});
 else requestAnimationFrame(()=>{if(ui.screen==='home')renderHome()});
+
+
+/* Game Details — Phase 1: approved UniversalPage V1 shell with a Game Details
+   PageHeader. The content area is deliberately EMPTY until separately approved
+   section integrations. Legacy renderStats remains intact and callable, while
+   only the rendered statsContent DOM is replaced. No game/data mutations. */
+function gtGameDetailsUniversalV1(){
+ if(ui.screen!=='stats')return;
+ const root=document.getElementById('statsContent'),g=game();
+ if(!root||!g)return;
+ const node=(tag,cls)=>{const n=document.createElement(tag);if(cls)n.className=cls;return n};
+ const page=node('div','up1-page');
+ page.dataset.component='UniversalPage';
+ page.dataset.version='V1';
+ page.dataset.page='game-details';
+ page.dataset.gameId=g.id;
+ const header=node('header','up1-header');
+ header.dataset.component='PageHeader';
+ const heading=node('div','up1-heading');
+ const back=node('button','up1-back');
+ back.type='button';
+ back.setAttribute('aria-label','Back to Games');
+ back.append(up1Icon('back'));
+ back.addEventListener('click',()=>navigate('home'));
+ const text=node('div');
+ const row=node('div','up1-title');
+ row.append(up1Icon('basketball'));
+ const title=node('h1');
+ title.textContent='Game Details';
+ row.append(title);
+ const subtitle=node('div','up1-subtitle-v1');
+ subtitle.dataset.component='PageSubtitle';
+ subtitle.textContent='THE GAME. THE MOMENTS. THE JOURNEY.';
+ text.append(row,subtitle);
+ heading.append(back,text);
+ const edit=node('button','gt467-trigger gt468-icon-trigger');
+ edit.type='button';
+ edit.dataset.component='PageHeaderAction';
+ edit.setAttribute('aria-label','Edit Game');
+ edit.title='Edit Game';
+ edit.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4Z"/></svg>';
+ edit.addEventListener('click',()=>gameForm(g.id));
+ heading.append(edit);
+ header.append(heading);
+ const body=node('main','up1-content');
+ body.dataset.component='PrimaryContent';
+ body.setAttribute('aria-label','Game Details page content');
+ // Approved child sections will be inserted here, one at a time.
+ const footer=node('footer','up1-footer');
+ footer.dataset.component='PageFooter';
+ const one=node('span'),two=node('span');
+ one.textContent='SHOW UP. PUT IN THE WORK.';
+ two.textContent='TRUST THE JOURNEY.';
+ footer.append(one,two);
+ page.append(header,body,footer);
+ root.replaceChildren(page);
+}
+const gtGameDetailsPriorRender=renderStats;
+renderStats=function(...args){
+ const result=gtGameDetailsPriorRender.apply(this,args);
+ gtGameDetailsUniversalV1();
+ return result;
+};
 })();
 
 
