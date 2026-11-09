@@ -17,7 +17,7 @@ const block=x=>{const i=x.indexOf(begin),j=x.indexOf(end,i);assert(i>0&&j>i);ret
 const adapter=block(html),beforeAdapter=block(previousHtml);
 assert(html.includes(lib),'App must embed canonical components');
 assert(html.includes(style),'App must embed canonical banner styles');
-assert(html.includes("page:'trainings'"),'Existing Trainings overview must remain in app');
+assert(html.includes("page.dataset.page='trainings'"),'Existing Trainings overview must remain in app');
 assert.equal(html.replace(style,'').replace(lib,previousLib).replace(adapter,beforeAdapter),previousHtml,
   'Only individual Training Details section + canonical reusable code/CSS may change');
 assert(adapter.includes("if(ui.screen!=='session')return"));
