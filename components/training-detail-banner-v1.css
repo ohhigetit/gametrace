@@ -1,0 +1,61 @@
+/* Training Detail Banner V1 — scoped approved no-player-notes design.
+ * Parent: BannerSectionV1 -> SectionV1; banner: SharedBannerV2.
+ * No rules apply to Games, Game Details or Training Summary V8. */
+.gt-training-detail-section{
+ --gtd-ink:#172119;--gtd-muted:#59655b;--gtd-accent:#087b40;
+ --gtd-edge:#cedbd2;--gtd-surface:#e6efe8;--gtd-line:#cbd6cb;
+ min-width:0;color:var(--gtd-ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
+}
+.gt-training-detail-section *{box-sizing:border-box}
+.gt-training-detail-section .section-head{display:flex;align-items:start;justify-content:space-between;gap:10px;margin-bottom:13px}
+.gt-training-detail-section .section-title{font-size:17px;margin:0 0 4px;font-weight:810;letter-spacing:-.3px;line-height:1.3}
+.gt-training-detail-section .section-sub{font-size:12px;color:var(--gtd-muted);line-height:1.4;margin:0}
+.gt-training-detail-section .section-action{border:1px solid #cbd6cb;background:transparent;color:var(--gtd-accent);font-size:11px;font-weight:800;border-radius:9px;white-space:nowrap;padding:9px 10px;min-height:35px;cursor:pointer}
+.gt-training-detail-section .section-action:hover{background:#edf5ee}
+.gt-training-detail-section button:focus-visible,
+.gt-training-detail-section summary:focus-visible{outline:2px solid var(--gtd-accent);outline-offset:3px}
+.gt-training-detail-section .training-banner{background:var(--gtd-surface);border:1px solid var(--gtd-edge);border-radius:14px;overflow:hidden;min-width:0;color:var(--gtd-ink)}
+.gt-training-detail-section .primary{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);min-width:0;align-items:stretch}
+.gt-training-detail-section .cell{min-width:0;padding:18px 13px 17px;text-align:center;display:flex;align-items:center;flex-direction:column;justify-content:flex-start}
+.gt-training-detail-section .cell+.cell{border-left:1px solid var(--gtd-line)}
+.gt-training-detail-section .eyebrow{font-size:10px;line-height:1.35;font-weight:820;letter-spacing:.65px;text-transform:uppercase;color:var(--gtd-accent);min-height:15px}
+.gt-training-detail-section .session-name{font-size:clamp(18px,3vw,23px);line-height:1.18;letter-spacing:-.55px;font-weight:830;margin:17px auto 8px;max-width:260px;overflow-wrap:anywhere}
+.gt-training-detail-section .session-meta{font-size:11px;line-height:1.5;color:var(--gtd-muted)}
+.gt-training-detail-section .inline-chip{display:inline-flex;justify-content:center;align-items:center;font-size:10px;font-weight:770;color:#176139;border:1px solid #acc7b5;border-radius:99px;background:transparent;padding:5px 10px;margin-top:10px}
+.gt-training-detail-section .minutes{font-size:clamp(32px,5vw,45px);line-height:1.05;font-weight:870;letter-spacing:-1.3px;font-variant-numeric:tabular-nums;margin:12px 0 3px;white-space:nowrap}
+.gt-training-detail-section .unit{font-weight:790;font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:var(--gtd-ink)}
+.gt-training-detail-section .time-note{font-size:10px;line-height:1.35;color:var(--gtd-muted);margin-top:10px}
+.gt-training-detail-section .detail-disclosure{border-top:1px solid var(--gtd-edge)}
+.gt-training-detail-section .detail-disclosure summary{list-style:none;min-height:43px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--gtd-accent);font-weight:810;cursor:pointer}
+.gt-training-detail-section .detail-disclosure summary::-webkit-details-marker{display:none}
+.gt-training-detail-section .detail-disclosure summary .chev{font-size:15px;display:inline-block;transition:transform .2s}
+.gt-training-detail-section .detail-disclosure[open] summary .chev{transform:rotate(180deg)}
+.gt-training-detail-section .detail-disclosure[open] summary .show{display:none}
+.gt-training-detail-section .detail-disclosure:not([open]) summary .hide{display:none}
+.gt-training-detail-section .details{border-top:1px solid var(--gtd-line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.gt-training-detail-section .detail-cell{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;padding:17px 13px 19px;min-width:0}
+.gt-training-detail-section .detail-cell+.detail-cell{border-left:1px solid var(--gtd-line)}
+.gt-training-detail-section .detail-title{font-weight:830;letter-spacing:.62px;color:var(--gtd-accent);font-size:10px;margin-bottom:4px}
+.gt-training-detail-section .info{font-size:11px;line-height:1.42;display:flex;flex-direction:column;align-items:center;gap:2px}
+.gt-training-detail-section .info-label{font-size:10px;color:var(--gtd-muted)}
+.gt-training-detail-section .info-value{font-weight:760;overflow-wrap:anywhere}
+.gt-training-detail-section .tag-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px}
+.gt-training-detail-section .tag{background:transparent;border:1px solid #b4cbb9;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:740;color:#2b5135}
+.gt-training-detail-section .gt-banner-section-empty{color:var(--gtd-muted);font-size:12px}
+@media(max-width:450px){
+ .gt-training-detail-section .section-title{font-size:17px}
+ .gt-training-detail-section .section-sub{font-size:11px}
+ .gt-training-detail-section .section-action{font-size:10px;padding:8px}
+ .gt-training-detail-section .cell{padding:15px 8px 14px}
+ .gt-training-detail-section .eyebrow{font-size:9px}
+ .gt-training-detail-section .session-name{font-size:18px;margin-top:14px}
+ .gt-training-detail-section .minutes{font-size:33px}
+ .gt-training-detail-section .time-note{font-size:9px}
+ .gt-training-detail-section .detail-cell{padding:13px 8px}
+ .gt-training-detail-section .tag{padding:5px 7px}
+}
+@media(max-width:350px){
+ .gt-training-detail-section .cell{padding-inline:6px}
+ .gt-training-detail-section .session-name{font-size:16px}
+ .gt-training-detail-section .minutes{font-size:29px}
+}
