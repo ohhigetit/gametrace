@@ -14,7 +14,7 @@ html=source.read_text(encoding="utf-8")
 # metadata as proof of inheritance.
 library=(root/"components/game-trace-components.js").read_text(encoding="utf-8")
 assert "function Section(" in library and "global.GameTraceComponents=" in library
-section_parent_script="<script id='gt-approved-section-v1-runtime'>\\n"+library+"\\n</script>"
+section_parent_script="<script id='gt-approved-section-v1-runtime'>\n"+library+"\n</script>"
 assert "</head>" in html.lower()
 html=re.sub(r"</head>",lambda _:section_parent_script+"</head>",html,count=1,flags=re.I)
 
@@ -49,7 +49,7 @@ function gtTrainingSummaryBannerSectionV8(){
   return section;
 }
 """
-html=html.replace(call,wrapper+"\\n "+call,1)
+html=html.replace(call,wrapper+"\n "+call,1)
 assert len(html)>1000000, "Pending app baseline unexpectedly short"
 for marker in ("gttsv2-banner", "gttsv2-skill-tag", "gttsv2-achievement",
                "gtcompact-team", "gtcompact-vs", "scoreboard"):
