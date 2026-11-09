@@ -4326,6 +4326,77 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
     else b.disabled = true;
     return b;
   }
+
+  /**
+   * UniversalPageV1 — approved page-shell parent.
+   * Renders structure only; callers supply a page-specific PageHeader and
+   * reusable content sections without copying the page shell markup.
+   */
+  function UniversalPageV1({page,header,content=[],contentLabel='Page content',
+                            footerLines=[]}={}) {
+    if (!visible(page)) throw new TypeError('UniversalPageV1 requires page');
+    if (!(header instanceof global.Node)) throw new TypeError('UniversalPageV1 requires PageHeader');
+    const root=element('div','up1-page');
+    root.dataset.component='UniversalPage';
+    root.dataset.version='V1';
+    root.dataset.page=String(page);
+    const primary=element('main','up1-content');
+    primary.dataset.component='PrimaryContent';
+    primary.setAttribute('aria-label',String(contentLabel));
+    const sections=Array.isArray(content)?content:content?[content]:[];
+    sections.forEach(section=>{
+      if (!(section instanceof global.Node)) throw new TypeError('UniversalPageV1 content must be DOM nodes');
+      append(primary,section);
+    });
+    const footer=element('footer','up1-footer');
+    footer.dataset.component='PageFooter';
+    footerLines.forEach(line=>append(footer,element('span','',line)));
+    append(root,header,primary,footer);
+    return root;
+  }
+
+  /**
+   * PageHeaderV1 — real reusable parent for the approved UniversalPage header.
+   * Page-specific icon/navigation/CTA are passed in; typography remains CSS-owned.
+   */
+  function PageHeaderV1({title,subtitle='',pageIcon,backIcon,
+                         backLabel='Back',onBack,actions=[],
+                         actionsLabel='Page actions'}={}) {
+    if (!visible(title)) throw new TypeError('PageHeaderV1 requires title');
+    const header=element('header','up1-header');
+    header.dataset.component='PageHeader';
+    const heading=element('div','up1-heading');
+    if (typeof onBack==='function'){
+      const back=element('button','up1-back');
+      back.type='button';
+      back.setAttribute('aria-label',backLabel);
+      if (backIcon instanceof global.Node) append(back,backIcon);
+      back.addEventListener('click',onBack);
+      append(heading,back);
+    }
+    const text=element('div');
+    const titleRow=element('div','up1-title');
+    if (pageIcon instanceof global.Node) append(titleRow,pageIcon);
+    append(titleRow,element('h1','',title));
+    const sub=element('div','up1-subtitle-v1',subtitle);
+    sub.dataset.component='PageSubtitle';
+    append(text,titleRow,sub);
+    append(heading,text);
+    append(header,heading);
+    const actionNodes=Array.isArray(actions)?actions:actions?[actions]:[];
+    if(actionNodes.length){
+      const row=element('div','up1-actions');
+      row.setAttribute('role','group');
+      row.setAttribute('aria-label',actionsLabel);
+      actionNodes.forEach(action=>{
+        if (!(action instanceof global.Node)) throw new TypeError('PageHeaderV1 actions must be DOM nodes');
+        append(row,action);
+      });
+      append(header,row);
+    }
+    return header;
+  }
+
   /** Section Parent — title/subtitle and optional action around arbitrary content. */
   function Section({title,subtitle,actionLabel='View All',onAction,content,kind=''}={}) {
     if (!visible(title)) throw new TypeError('Section requires title');
@@ -4594,7 +4665,7 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
   }
 
   global.GameTraceComponents=Object.freeze({
-    version:'0.2.0',Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.2.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,GameBannerV2,GameBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
@@ -10187,28 +10258,9 @@ function gtTrainingSummaryBannerSectionV8Original(){
    page-scoped typography are reused from Game Details (no new design).
    No Sections in Step 1. Existing editor persists unmodified. */
 const gtTrainingsStep1Original=renderTraining;
-function gtTrainingsStep1Universal(){
- if(ui.screen!=='training'||trainingUI.editing)return;
- const root=document.getElementById('trainingContent');
- if(!root||root.querySelector('form.training-form'))return;
- const node=(tag,cls)=>{const n=document.createElement(tag);if(cls)n.className=cls;return n;};
- const page=node('div','up1-page');page.dataset.component='UniversalPage';page.dataset.version='V1';page.dataset.page='trainings';
- const header=node('header','up1-header');header.dataset.component='PageHeader';
- const heading=node('div','up1-heading');
- const back=node('button','up1-back');back.type='button';back.setAttribute('aria-label','Back to Home Court');
- back.append(up1Icon('back'));back.addEventListener('click',()=>navigate('court'));
- const text=node('div'),row=node('div','up1-title');row.append(up1Icon('session'));
- const h=node('h1');h.textContent='Trainings';row.append(h);
- const subtitle=node('div','up1-subtitle-v1');subtitle.dataset.component='PageSubtitle';
- subtitle.textContent='THE WORK YOU PUT IN. THE PROGRESS YOU MAKE.';
- text.append(row,subtitle);heading.append(back,text);header.append(heading);
- const actions=node('div','up1-actions');actions.setAttribute('role','group');actions.setAttribute('aria-label','Trainings actions');
- const log=node('button','up1-action');log.type='button';log.setAttribute('aria-label','Log Session');
- log.append(up1Icon('session'),document.createTextNode('Log Session'));
- log.addEventListener('click',()=>trainingForm());actions.append(log);header.append(actions);
- const body=node('main','up1-content');body.dataset.component='PrimaryContent';
- body.setAttribute('aria-label','Trainings page content');
- 
+
+/* The approved Training Summary V8 renderer is preserved intact for the
+   next section-by-section integration, but not inserted at shell stage. */
 function gtTrainingSummaryBannerSectionV8(){
   const legacy=gtTrainingSummaryBannerSectionV8Original();
   const approvedHeaderSource=gtALV1Section({
@@ -10237,11 +10289,40 @@ function gtTrainingSummaryBannerSectionV8(){
   return section;
 }
 
- body.append(gtTrainingSummaryBannerSectionV8());
- body.append(gtTrainingsRecentAllTypesV1());
- const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
- const one=node('span'),two=node('span');one.textContent='SHOW UP. PUT IN THE WORK.';two.textContent='TRUST THE JOURNEY.';
- footer.append(one,two);page.append(header,body,footer);root.replaceChildren(page);
+/* TRAININGS_PAGE_REBUILD_V1: exact approved UniversalPage/PageHeader markup
+   assembled by shared runtime constructors, not duplicated DOM markup.
+   PrimaryContent intentionally starts empty for one-section-at-a-time migration. */
+function gtTrainingsStep1Universal(){
+ if(ui.screen!=='training'||trainingUI.editing)return;
+ const root=document.getElementById('trainingContent');
+ if(!root||root.querySelector('form.training-form'))return;
+ const parent=window.GameTraceComponents;
+ if(!parent?.UniversalPageV1||!parent?.PageHeaderV1)
+   throw new Error('UniversalPageV1 / PageHeaderV1 unavailable');
+ const log=document.createElement('button');
+ log.className='up1-action';
+ log.type='button';
+ log.setAttribute('aria-label','Log Session');
+ log.append(up1Icon('session'),document.createTextNode('Log Session'));
+ log.addEventListener('click',()=>trainingForm());
+ const header=parent.PageHeaderV1({
+   title:'Trainings',
+   subtitle:'THE WORK YOU PUT IN. THE PROGRESS YOU MAKE.',
+   pageIcon:up1Icon('session'),
+   backIcon:up1Icon('back'),
+   backLabel:'Back to Home Court',
+   onBack:()=>navigate('court'),
+   actions:[log],
+   actionsLabel:'Trainings actions'
+ });
+ const page=parent.UniversalPageV1({
+   page:'trainings',
+   header,
+   content:[],
+   contentLabel:'Trainings page content',
+   footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
+ });
+ root.replaceChildren(page);
 }
 renderTraining=function(...args){
  const result=gtTrainingsStep1Original.apply(this,args);

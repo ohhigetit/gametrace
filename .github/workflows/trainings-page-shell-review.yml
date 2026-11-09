@@ -1,0 +1,23 @@
+name: Training page universal shell review
+on:
+  push:
+    branches: [review/trainings-page-shell-v1-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  trainings-shell:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/gt-page-shell-test jsdom@24 --no-save --no-package-lock
+      - name: Verify inherited page template, approved header and behavior
+        env:
+          NODE_PATH: /tmp/gt-page-shell-test/node_modules
+        run: node tests/trainings-page-shell-reuse.cjs
