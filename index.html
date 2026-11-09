@@ -4779,8 +4779,141 @@ html[data-theme] #app.gt-app #trainingContent .up1-title svg{display:block!impor
     return section;
   }
 
+
+  /**
+   * PlayerNotesV1 — the approved three-answer notebook presentation, made
+   * record-agnostic. Saving is delegated to onSave(key,text), never performed
+   * inside the component; Games retains its previously approved implementation.
+   */
+  function PlayerNotesV1({feedback={},context='session',onSave}={}) {
+    const values=feedback&&typeof feedback==='object'?feedback:{};
+    const prompts=context==='game'
+      ? [['see','WHAT I SAW','What did I notice during the game?'],
+         ['became','WHAT I BECAME','How did I respond to the game?'],
+         ['more','WHAT I WANT TO BECOME MORE','What will I work on next?']]
+      : [['see','WHAT I SAW','What did I see during training?'],
+         ['became','WHAT I BECAME','How did I become more during training?'],
+         ['more','WHAT I WANT TO BECOME MORE','What do I want to become more of?']];
+    const root=element('div','gt-playernotes-v1');
+    root.dataset.component='PlayerNotesV1';
+    root.setAttribute('aria-label',"Player's reflections");
+    let active=null;
+    function beginEditing(item,key,prompt) {
+      if (active && active!==item) {
+        const previous=active.querySelector('.pn-edit');
+        if (previous) previous.remove();
+        const oldAnswer=active.querySelector('.pn-answer');
+        if(oldAnswer)oldAnswer.hidden=false;
+      }
+      active=item;
+      const answer=item.querySelector('.pn-answer');
+      answer.hidden=true;
+      const form=element('form','pn-edit');
+      const textarea=element('textarea');
+      textarea.rows=4;textarea.maxLength=3000;
+      textarea.setAttribute('aria-label',prompt);
+      textarea.value=String(values[key]||'');
+      const error=element('p','pn-error');
+      error.setAttribute('role','alert');error.hidden=true;
+      const actions=element('div','pn-actions');
+      const cancel=element('button','','Cancel');
+      cancel.type='button';
+      const save=element('button','pn-save','Save Note');
+      save.type='submit';
+      function close() {form.remove();answer.hidden=false;active=null;}
+      cancel.addEventListener('click',close);
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();
+        if(typeof onSave!=='function')return close();
+        save.disabled=true;
+        try {
+          const text=textarea.value.trim();
+          await onSave(key,text);
+          values[key]=text;
+          answer.textContent=text?'“'+text+'”':prompt+'  ·  Tap to write';
+          answer.classList.toggle('pn-empty',!text);
+          answer.setAttribute('aria-label',(text?'Edit ':'Add ')+item.querySelector('.pn-label').textContent);
+          let hint=item.querySelector('.pn-prompt');
+          if(text&&!hint){hint=element('p','pn-prompt');item.append(hint);}
+          if(hint){hint.textContent=prompt;hint.hidden=!text;}
+          close();
+        }catch(ex){
+          error.textContent=ex?.message||'Could not save note.';
+          error.hidden=false;
+        }finally{save.disabled=false;}
+      });
+      append(actions,cancel,save);
+      append(form,textarea,error,actions);
+      append(item,form);
+      textarea.focus();
+    }
+    for(const [key,label,prompt]of prompts){
+      const val=String(values[key]||'').trim();
+      const item=element('div','pn-item');
+      item.dataset.noteKey=key;
+      const heading=element('p','pn-label',label);
+      const answer=element('button','pn-answer'+(val?'':' pn-empty'),
+        val?'“'+val+'”':prompt+'  ·  Tap to write');
+      answer.type='button';
+      answer.setAttribute('aria-label',(val?'Edit ':'Add ')+label);
+      if(typeof onSave!=='function')answer.disabled=true;
+      else answer.addEventListener('click',()=>{
+        if(active===item){
+          item.querySelector('.pn-edit')?.remove();
+          answer.hidden=false;active=null;
+        }else beginEditing(item,key,prompt);
+      });
+      append(item,heading,answer);
+      if(val)append(item,element('p','pn-prompt',prompt));
+      append(root,item);
+    }
+    const earlier=[['well','What went well?'],
+                   ['challenge','What was challenging?'],
+                   ['next','What will I focus on next?']]
+      .filter(([key])=>visible(values[key]));
+    if(earlier.length){
+      const details=element('details','pn-legacy');
+      append(details,element('summary','','Earlier reflections'));
+      for(const [key,label]of earlier){
+        const entry=element('div','pn-legacy-entry');
+        append(entry,element('div','pn-label',label),
+          element('p','',values[key]));
+        append(details,entry);
+      }
+      append(root,details);
+    }
+    return root;
+  }
+
+  /**
+   * PlayerNotesSectionV1 — real SectionV1 parent and approved notebook wrapper.
+   * Keep header outside PlayerNotesV1; no duplicate title or extra CTA.
+   */
+  function PlayerNotesSectionV1({feedback={},context='session',
+                         title="Player's Notes",
+                         subtitle='The work, in my own words.',
+                         onSave}={}) {
+    const notes=PlayerNotesV1({feedback,context,onSave});
+    const section=Section({title,subtitle,content:notes,kind:'gt-pns-v1'});
+    const header=element('header','gt-pns-header');
+    const heading=element('div','gt-pns-heading');
+    append(heading,element('h2','',title));
+    if(visible(subtitle))append(heading,element('p','',subtitle));
+    append(header,heading);
+    const content=element('div','gt-pns-content');
+    content.dataset.component='SectionV1Content';
+    notes.dataset.parent='PlayerNotesSectionV1';
+    append(content,notes);
+    section.querySelector('.gtc-section-header').replaceWith(header);
+    section.querySelector('.gtc-section-content').replaceWith(content);
+    section.className='gt-pns-v1';
+    section.dataset.component='PlayerNotesSectionV1';
+    section.dataset.parent='SectionV1';
+    return section;
+  }
+
   global.GameTraceComponents=Object.freeze({
-    version:'0.3.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,BannerSectionV1,GameBannerV2,GameBannerSectionV1,TrainingDetailBannerV1,TrainingDetailBannerSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
+    version:'0.3.1',UniversalPageV1,PageHeaderV1,Section,List,SharedBanner,SharedBannerV2,BannerSectionV1,GameBannerV2,GameBannerSectionV1,TrainingDetailBannerV1,TrainingDetailBannerSectionV1,PlayerNotesV1,PlayerNotesSectionV1,ActivityList,GoalsList,NotesList,AchievementList,
     formatDate:safeDate,formatDuration:durationText
   });
 })(window);
@@ -4955,6 +5088,175 @@ html[data-theme] #app.gt-app #sessionContent [data-page="training-details"] .up1
  .gt-training-detail-section .session-name{font-size:16px}
  .gt-training-detail-section .minutes{font-size:29px}
 }
+</style><style id="gt-training-detail-playernotes-v1-css">
+/* Player Notes on Training Details — approved notebook/typography reused without changing Games. */
+/* Approved gt-playernotes-v1-words-to-remember-type-match re-scoped to Training Details only. */
+/* Exact typography reference: HomeCourt's approved Words to Remember / NotesList V1.
+   Only PlayerNotes V1; no header and no changes to other approved components. */
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-item {
+  padding:17px 0 18px!important;
+}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-item:first-child {padding-top:5px!important}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-item:last-child {border-bottom:0!important;padding-bottom:4px!important}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-label {
+  color:var(--gt-ink)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+  font-weight:750!important;
+  text-transform:none!important;
+  margin:0 0 8px!important;
+}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-answer {
+  margin:0!important;
+  color:var(--gt-ink)!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  font-style:italic!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-answer:hover {color:var(--gt-accent)!important}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-answer.pn-empty {
+  font-size:13px!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  line-height:1.6!important;
+  color:var(--gt-muted)!important;
+}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-prompt {
+  color:var(--gt-muted)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+  font-weight:600!important;
+}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-legacy summary {
+  font-size:11px!important;
+  line-height:1.5!important;
+}
+#app.gt-app #sessionContent .gt-playernotes-v1 .pn-legacy-entry p {
+  font-size:14px!important;
+  line-height:1.6!important;
+}
+@media(max-width:380px) {
+  #app.gt-app #sessionContent .gt-playernotes-v1 .pn-answer {font-size:13px!important}
+}
+
+/* Approved gt-playernotes-section-v1-parent-and-unboxed-answers re-scoped to Training Details only. */
+/* PlayerNotesSection V1 inherits the approved Section V1 typographic hierarchy. */
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 {
+ margin:24px 0 0!important;padding:0!important;min-width:0;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 > .gt-pns-header {
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+ padding:0 0 8px!important;margin:0!important;border:0!important;
+ box-shadow:none!important;background:transparent!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-pns-heading {min-width:0;flex:1}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-pns-heading h2 {
+ margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;
+ font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-pns-heading p {
+ margin:4px 0 0!important;color:var(--gt-muted)!important;
+ font-size:12px!important;line-height:1.45!important;font-weight:450!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 > .gt-pns-content {
+ margin:0!important;padding:0!important;min-width:0;width:100%;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+}
+/* Answers read like quotations, not input fields or isolated cards. */
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1,
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-item,
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-answer {
+ background:transparent!important;box-shadow:none!important;border-radius:0!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-answer {
+ padding:0!important;border:0!important;min-height:0!important;
+ text-align:left!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-item {
+ margin:0!important;border-top:0!important;border-left:0!important;border-right:0!important;
+}
+
+/* Approved gt-playernotes-v1-notebook-banner-refinement re-scoped to Training Details only. */
+/* PlayerNotes V1: one unified notebook canvas using GameTrace's approved
+   SharedBanner V2 background; no individual answer cards or form styling.
+   Header remains owned by PlayerNotesSection V1. */
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 > .gt-pns-content {
+  margin-top:3px!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1 {
+  --pn-paper-line:color-mix(in srgb,var(--gt-accent,#4c9174) 25%,transparent);
+  --pn-paper-edge:#cedbd2;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:block;
+  padding:5px 18px 7px 34px;
+  border:1px solid var(--pn-paper-edge)!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+  background:linear-gradient(135deg,#f3f7f4,#e6efe8)!important;
+}
+/* Notebook margin line: unobtrusive, intentionally NOT a row border. */
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1::before {
+  content:"";
+  position:absolute;
+  top:0;bottom:0;left:23px;
+  width:1px;
+  background:var(--pn-paper-line);
+  pointer-events:none;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-item {
+  position:relative;
+  padding:13px 0 14px!important;
+  border:0!important;
+  border-bottom:1px solid color-mix(in srgb,var(--gt-edge,#cedbd2) 75%,transparent)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-item:last-of-type {
+  border-bottom:0!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-label {
+  margin-bottom:6px!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-answer {
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-legacy {
+  border-top:1px solid var(--gt-edge)!important;
+  margin-top:3px!important;
+  padding:12px 0!important;
+}
+/* Keep editable inputs unmistakably distinct from the read-only journal text. */
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-edit textarea {
+  border-radius:10px!important;
+  background:var(--gt-surface,#fff)!important;
+}
+html[data-theme="courtside"] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1 {
+  --pn-paper-edge:#455a4d;
+  --pn-paper-line:rgba(152,194,164,.26);
+  background:linear-gradient(135deg,#27352e,#202c26)!important;
+}
+@media(max-width:420px) {
+ html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1 {padding:4px 13px 5px 28px!important}
+ html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1::before {left:18px!important}
+ html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .pn-item {padding:12px 0 13px!important}
+}
+
+/* Approved gt-playernotes-v1-answer-type-small-increase re-scoped to Training Details only. */
+/* Notebook/banner design unchanged; answer typography now 18px on all screen widths. */
+html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1 .pn-answer:not(.pn-empty) {
+  font-size:18px!important;
+  line-height:1.6!important;
+}
+
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -10612,8 +10914,28 @@ function gtTrainingDetailsUniversalV1(){
      skills:Array.isArray(session.tags)?session.tags:[]
    }
  });
+ const sessionNotes=Components.PlayerNotesSectionV1({
+   title:"Player's Notes",
+   subtitle:'The work, in my own words.',
+   context:'session',
+   feedback:{...(session.feedback||{})},
+   onSave:async (key,value)=>{
+     const current=(db.trainingSessions||[]).find(s=>s&&s.id===session.id&&!s.deletedAt);
+     if(!current)throw Error('Training session is no longer available.');
+     const snapshot=fingerprint(current);
+     trainingCommit(d=>{
+       const target=d.trainingSessions.find(s=>s&&s.id===session.id&&!s.deletedAt);
+       if(!target||fingerprint(target)!==snapshot)
+         throw Error('Training session changed. Reopen Player Notes before saving.');
+       target.feedback=T.feedback({...target.feedback,[key]:value});
+       target.updatedAt=C.now();
+     });
+     announce('Player note saved');
+     renderSessionDetail();
+   }
+ });
  const page=Components.UniversalPageV1({
-   page:'training-details',header,content:[trainingSummary],
+   page:'training-details',header,content:[trainingSummary,sessionNotes],
    contentLabel:'Training Details page content',
    footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
  });
