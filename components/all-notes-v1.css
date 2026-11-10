@@ -1,0 +1,16 @@
+/* AllNotesV1 — approved continuous-journal notes design V18. */
+.gt-all-notes-v1{--an-ink:#172119;--an-muted:#59655b;--an-accent:#087b40;color:var(--an-ink);background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-width:0;padding:8px 16px 22px}
+.gt-all-notes-v1 *{box-sizing:border-box}
+.gt-an-group{margin:0;background:transparent}
+.gt-an-group+.gt-an-group{margin-top:9px}
+.gt-an-group-heading{min-height:43px;padding:12px 0 9px;display:flex;align-items:center;gap:0;border-bottom:1px solid #e3eae4;font-size:12px;font-weight:800;color:var(--an-accent)}
+.gt-an-group-label{min-width:0}.gt-an-group-date{font-weight:650;color:var(--an-muted)}
+.gt-an-group-count{margin-left:auto;padding-left:8px;white-space:nowrap;font-size:10px;font-weight:700;color:var(--an-muted)}
+.gt-an-note-list{padding:4px 0}
+.gt-an-note{margin:0;padding:16px 0 17px;background:transparent;min-width:0}
+.gt-an-note+.gt-an-note{border-top:1px solid #edf1ed}
+.gt-an-note-text{display:block;quotes:'“' '”';font-size:18px;line-height:1.46;font-style:italic;font-weight:600;overflow-wrap:anywhere;color:var(--an-ink)}
+.gt-an-note-detail{margin-top:11px;font-size:11px;line-height:1.45;font-weight:650;text-align:right;color:var(--an-muted)}
+.gt-an-note[role=button]{cursor:pointer}.gt-an-note[role=button]:focus-visible{outline:2px solid var(--an-accent);outline-offset:2px}
+.gt-an-empty{font-size:13px;color:var(--an-muted);text-align:center;padding:24px 10px}
+@media(max-width:420px){.gt-all-notes-v1{padding:6px 13px 20px}.gt-an-note-text{font-size:17px}}
