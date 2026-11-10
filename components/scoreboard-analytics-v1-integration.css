@@ -329,3 +329,292 @@ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-sho
  html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-name{font-size:9px}
  html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-count{font-size:8px}
 }
+
+/* Scoreboard Game Timeline: copied from approved Game Details TimelineSection V1.
+   Original Game Details styling and native controls remain unchanged. */
+
+
+
+/* SOURCE components/approved/TimelineSection_V1_APPROVED.css SHA 0901b7677bafc0d66d9fd2317a11468771264e43 */
+/* TimelineSection V1 — approved Section V1 composition and native filter controls.
+   View + Team score + Opponent score + Player events, under horizontal sliders icon.
+   This source is a reference for future extraction; does not change DEV. */
+
+/* === gt-timeline-section-v1-parent-preview === */
+
+/* Game Timeline: approved Section V1 parent. Reuses existing Timeline DOM and logic. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1{
+ margin:24px 0 0; padding:0; min-width:0; border:0;
+ background:transparent;box-shadow:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 > .gt-tls-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+ padding:0 0 14px;min-width:0;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-heading{min-width:0;flex:1}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-heading h2{
+ margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;
+ font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-heading p{
+ margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;
+ font-weight:400!important;line-height:1.5!important;letter-spacing:normal!important;
+ text-transform:none!important;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-content{min-width:0;width:100%}
+
+/* Child timeline owns its own controls, chart, strips, and entries. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .report-timeline.gt-tls-timeline{
+ margin:0!important;padding:0!important;border:0!important;background:transparent;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary{
+ color:var(--gt-muted);border:0;border-radius:0;margin:0;
+ padding:7px 2px 10px;min-height:44px;font:inherit;font-size:12px;
+ font-weight:600;line-height:1.4;letter-spacing:0;list-style:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary small{
+ font-size:11px;font-weight:500;color:var(--gt-muted);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-period-label{
+ color:var(--gt-muted);font-size:12px;font-weight:600;line-height:1.5;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-note,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-legend,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-court-legend{
+ color:var(--gt-muted);font-family:inherit;font-size:11px;line-height:1.5;
+}
+
+
+
+/* === gt-timeline-section-filter-v1-preview === */
+
+/* Timeline Section V1: header-level event filter, using the shared section action slot. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button{
+ flex:none;min-height:40px;min-width:72px;padding:8px 13px;border-radius:10px;
+ border:1px solid var(--gt-border, #d6ddd5);color:var(--gt-ink);
+ background:transparent;font:inherit;font-size:12px;font-weight:700;cursor:pointer;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button.is-active{
+ border-color:var(--gt-accent);color:var(--gt-accent);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button:focus-visible,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-reset:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel{
+ padding:13px 12px 11px;margin:0 0 12px;border:1px solid var(--gt-border,#d6ddd5);
+ border-radius:12px;background:var(--gt-surface,var(--gt-bg));
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel[hidden],
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 [hidden]{display:none!important}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-options{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-option{
+ display:flex;align-items:center;gap:8px;min-height:40px;min-width:0;
+ font-size:12px;font-weight:500;line-height:1.35;color:var(--gt-ink);cursor:pointer;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-option input{
+ width:17px;height:17px;flex:none;accent-color:var(--gt-accent);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-reset{
+ margin-top:8px;border:0;background:transparent;color:var(--gt-accent);
+ font-size:12px;font-weight:700;min-height:36px;cursor:pointer;padding:3px 1px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-status{
+ margin:2px 0 0;color:var(--gt-muted);font-size:11px;line-height:1.3;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-empty{
+ font-size:11px;color:var(--gt-muted);align-self:center;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-options{
+ grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+
+
+/* === gt-timeline-section-filter-canonical-v1-correction === */
+
+/* Approved original timeline display controls in the Section V1 filter slot. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel > .gt-tls-native-score-filters{
+ margin:0;padding:0;border:0;min-width:0;background:transparent;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters > legend{
+ float:none;grid-column:1/-1;padding:0;margin:0 0 2px;
+ color:var(--gt-muted);font:inherit;font-size:12px;font-weight:600;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters > label{
+ display:flex;align-items:center;gap:7px;min-width:0;min-height:36px;
+ font:inherit;font-size:12px;line-height:1.35;white-space:normal;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters input{
+ width:18px;height:18px;flex:none;accent-color:var(--gt-accent);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-actions{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-done{
+ border:0;background:transparent;color:var(--gt-accent);font:inherit;
+ font-size:12px;font-weight:700;min-height:40px;padding:5px 8px;
+}
+
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters{grid-template-columns:1fr;gap:2px;}
+
+
+
+/* === gt-timeline-section-filter-native-view-v1-preview === */
+
+/* View is a fourth original Timeline control (Whole game / period zoom).
+   It lives alongside the three original checkboxes, in the Section filter. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ width:100%;margin:0 0 13px;padding:0 0 13px;
+ border-bottom:1px solid var(--gt-edge);color:var(--gt-ink);
+ font:inherit;font-size:12px;font-weight:650;min-width:0;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select{
+ flex:0 1 auto;min-width:0;width:auto;max-width:70%;min-height:40px;
+ padding:7px 26px 7px 10px;font:inherit;font-size:12px;
+ font-weight:550;color:var(--gt-ink);background:var(--gt-bg);
+ border:1px solid var(--gt-edge);border-radius:9px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+
+
+/* === gt-timeline-filter-horizontal-sliders-icon-v1 === */
+
+/* Timeline Section V1: icon-only approved-style trigger. Preserve existing filter logic. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button.gt-tls-filter-icon{
+ position:relative;display:grid;place-items:center;justify-self:end;
+ width:44px;min-width:44px;height:44px;min-height:44px;
+ padding:9px;border:1px solid var(--gt-edge);border-radius:10px;
+ background:transparent;color:var(--gt-ink);line-height:1;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-icon svg{
+ width:22px;height:22px;display:block;pointer-events:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-icon .gt-tls-filter-status:not([hidden]){
+ position:absolute;top:5px;right:5px;width:7px;height:7px;
+ border-radius:50%;background:var(--gt-accent);pointer-events:none;
+}
+
+
+
+/* SOURCE components/approved/Timeline_V1_APPROVED.css SHA 0b9f28ff37c0b61abf131999c8963a3f60b6844e */
+/* Timeline V1 — approved content component. Source: full-app locked reference.
+   This is an extract/reference, not yet wired into DEV as a standalone stylesheet.
+   Scope excludes section header/filters. Legacy chart geometry and logic preserved. */
+
+/* === gt-timeline-component-v1-in-section-preview === */
+
+/* TimelineSectionV1 parent controls the header and filter; TimelineV1 owns
+   original chart, periods, score/plays visualization, native toggle and states. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1{
+ display:block;width:100%;min-width:0;margin:0;padding:0;
+ background:transparent;border:0;box-shadow:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .report-timeline{
+ width:100%;min-width:0;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .score-journey-chart{
+ min-width:0;max-width:100%;
+}
+
+
+
+/* === gt-timeline-v1-single-collapse-control === */
+
+/* Timeline V1: one collapsible control, right aligned. No redundant left label. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary{
+  justify-content:flex-end!important;
+  text-align:right!important;
+  list-style:none!important;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary::marker{content:"";}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary::-webkit-details-marker{display:none;}
+
+
+
+/* === gt-timeline-v1-always-visible-approved-direction === */
+
+/* Timeline V1: chart always visible; no Expand/Collapse/Hide timeline UI.
+   The Section V1 header still owns View + score/event filters. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary[hidden] {
+ display:none!important;
+}
+/* V5.4 compact metric rail below graph */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics{
+ display:flex;flex-wrap:nowrap;justify-content:flex-start;align-items:center;
+ gap:12px;margin:0 12px;padding:0;width:max-content;max-width:calc(100% - 24px);
+ min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item{
+ flex:0 0 auto;min-width:28px;padding:10px 3px 8px;min-height:44px;
+ font-size:10px;font-weight:700;letter-spacing:.1px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item[aria-pressed=true]{
+ font-weight:800;
+}
+/* Timeline Section V1 is always expanded; header action follows Section V1. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gtc-section-header{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gtc-section-title{
+ min-width:0;flex:1;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open{
+ flex:0 0 auto;min-height:40px;white-space:nowrap;font-size:11px;padding:7px 8px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-v1{
+ display:block;width:100%;padding:0;margin:24px 0 0;border:0;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-content{
+ min-width:0;width:100%;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-content .report-timeline{min-width:0;width:100%}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-filter-panel[hidden],
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 [hidden]{display:none!important}
