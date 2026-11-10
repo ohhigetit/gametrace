@@ -36,6 +36,7 @@ const puppeteer=require('puppeteer-core');
   assert(dna.exists,'My DNA panel absent');
   await page.click('[data-dna-view="reflections"]');
   assert(await page.$('[data-component="OriginalNotebook"]'),'Existing Notebook list absent');
+  console.log('REFLECTIONS BUTTONS:',JSON.stringify(await page.evaluate(()=>[...document.querySelectorAll('#notebookContent button')].map(b=>({label:b.textContent.trim(),aria:b.getAttribute('aria-label')})).slice(0,35))));
   console.log('BROWSER ERRORS:',JSON.stringify(errors));
   assert.equal(errors.length,0,'Browser generated uncaught JS errors');
   console.log('PASS: Notebook menu navigation, three views, My DNA categories, legacy Notebook, no JS errors');
