@@ -5778,7 +5778,8 @@ html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form
   global.GameTraceTrainingForm=Object.freeze({version:'1.0.0',TrainingFormV1});
 })(typeof window!=='undefined'?window:globalThis);
 </script>
-<style id="gt-scoreboard-analytics-v1-review">\n/* GameTrace Scoreboard Analytics V1 review — scoped, additive. */
+<style id="gt-scoreboard-analytics-v1-review">
+/* GameTrace Scoreboard Analytics V1 review — scoped, additive. */
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review{--gtv2-surface:var(--gt-soft,#e3efe5);color:var(--gt-ink,#172119);min-width:0}
 html[data-theme] #app.gt-app #reportsContent:has(#gt-scoreboard-review) :is(.reports-summary-card,.reports-overview,.reports-table-scroll,.reports-aggregate-note,.reports-toolbar){display:none!important}
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtc-section{margin:18px 0 24px;min-width:0}
@@ -11742,7 +11743,8 @@ function renderScoreboardReview(){
 const beforeScoreboardAnalytics=renderReports;
 renderReports=function(...args){const result=beforeScoreboardAnalytics.apply(this,args);if(ui.screen==='reports')renderScoreboardReview();return result};
 })();
-\n/* Menu V1.4 adapter runs inside the existing app closure; external script cannot access renderMenu. */
+
+/* Menu V1.4 adapter runs inside the existing app closure; external script cannot access renderMenu. */
 window.addEventListener('load',function(){
 /* GameTrace Menu V1.4: review-only integration. Routes and record storage unchanged. */
 (function(){
