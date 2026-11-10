@@ -1,0 +1,17 @@
+/* AllNotesSectionV1 — accordion inside REAL SectionV1; filter icon on header far right.
+   Does not override canonical SectionV1 header/text styles. */
+.gt-all-notes-section-v1{--an-ink:#172119;--an-muted:#59655b;--an-accent:#087b40;--an-edge:#cedbd2;min-width:0}
+.gt-all-notes-section-v1 .gtc-section-header{display:flex;align-items:center;gap:12px}
+.gt-all-notes-section-v1 .gtc-section-titles{min-width:0;flex:1}
+.gt-all-notes-section-v1 .gt-an-filter-trigger{margin-left:auto;flex:0 0 auto;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--an-edge);border-radius:9px;color:var(--an-accent);background:transparent;cursor:pointer}
+.gt-all-notes-section-v1 .gt-an-filter-trigger:focus-visible{outline:2px solid var(--an-accent);outline-offset:2px}
+.gt-all-notes-section-v1 .gt-an-filter-accordion{padding:12px 16px 14px;border-bottom:1px solid var(--an-edge);background:#f9fbf9}
+.gt-all-notes-section-v1 .gt-an-filter-accordion[hidden],.gt-all-notes-section-v1 .gt-an-custom-range[hidden]{display:none}
+.gt-all-notes-section-v1 .gt-an-filter-row,.gt-all-notes-section-v1 .gt-an-custom-range{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+.gt-all-notes-section-v1 .gt-an-custom-range{margin-top:10px}
+.gt-all-notes-section-v1 .gt-an-control{flex:1 1 160px;min-width:0}
+.gt-all-notes-section-v1 .gt-an-control label{display:block;color:var(--an-muted);font-size:10px;text-transform:uppercase;letter-spacing:.55px;font-weight:800;margin-bottom:6px}
+.gt-all-notes-section-v1 .gt-an-control select,.gt-all-notes-section-v1 .gt-an-control input{display:block;width:100%;min-height:41px;border:1px solid var(--an-edge);border-radius:9px;padding:10px 11px;background:#f6faf6;color:var(--an-ink);font-family:inherit;font-size:13px;font-weight:700}
+.gt-all-notes-section-v1 .gt-an-filter-feedback{display:block;margin-top:10px;color:var(--an-muted);font-size:11px;font-weight:650}
+.gt-all-notes-section-v1 .gtc-section-content{min-width:0}
+@media(max-width:420px){.gt-all-notes-section-v1 .gt-an-filter-accordion{padding:12px 13px}.gt-all-notes-section-v1 .gt-an-control{flex:1 1 135px}}
