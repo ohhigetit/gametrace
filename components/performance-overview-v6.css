@@ -1,0 +1,19 @@
+/* GameTrace PerformanceOverview V6 approved surface; load AFTER canonical SharedBannerV2 CSS.
+ * Section parent owns the section title and spacing; banner retains its own visual treatment.
+ */
+.gtpo-section .gtc-section-content{min-width:0}
+.gtpo-banner{--gtv2-surface:var(--gtv2-soft,#e3efe5);background:var(--gtv2-surface);}
+.gtpo-banner .gtv2-banner-cell{min-width:0}
+.gtpo-performance{width:100%;display:flex;flex-direction:column;gap:14px}
+.gtpo-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
+.gtpo-toolbar>.gtv2-cell-label{text-align:left}
+.gtpo-segment{display:flex;gap:3px;flex:0 0 auto}
+.gtpo-mode{font:inherit;font-size:11px;font-weight:700;border:1px solid var(--gtv2-edge);border-radius:9px;min-height:34px;padding:6px 9px;background:var(--gtv2-control);color:var(--gtv2-ink);cursor:pointer}
+.gtpo-mode[aria-pressed=true]{background:var(--gtv2-soft);color:var(--gtv2-accent);border-color:var(--gtv2-accent)}
+.gtpo-mode:focus-visible{outline:2px solid var(--gtv2-accent);outline-offset:2px}
+.gtpo-stats{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.gtpo-stat{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:0 3px}
+.gtpo-stat+.gtpo-stat{border-left:1px solid var(--gtv2-line)}
+.gtpo-stat .gtv2-cell-label{font-size:9px;letter-spacing:.35px}
+.gtpo-stat .gtv2-cell-value{font-size:clamp(17px,5vw,31px)}
+@media(max-width:390px){.gtpo-stat .gtv2-cell-value{font-size:21px}.gtpo-stat .gtv2-cell-label{font-size:9px}.gtpo-performance{gap:11px}.gtpo-stat{padding:0 2px}}
