@@ -11149,7 +11149,7 @@ function gtALV1Section({title,subtitle,action,items,empty,key}){
 function gtSLV1Node(tag,cls,txt){
  const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;
 }
-function gtSLV1ScheduleRow(record){
+function gtSLV1ScheduleRow(record,returnTo='court'){
  const date=new Date(record.start),valid=Number.isFinite(date.getTime());
  const month=valid?date.toLocaleDateString(undefined,{month:'short'}).toUpperCase():'—';
  const day=valid?String(date.getDate()):'—';
@@ -11165,14 +11165,14 @@ function gtSLV1ScheduleRow(record){
  if(record.location)main.append(gtSLV1Node('span','gtsl-location',record.location));
  if(weekday)main.append(gtSLV1Node('span','gtsl-dayname',weekday));
  row.append(badge,main,gtSLV1Node('span','gtsl-time',time));
- row.addEventListener('click',()=>openScheduleEvent(record.id,'court'));
+ row.addEventListener('click',()=>openScheduleEvent(record.id,returnTo));
  return row;
 }
-function gtSLV1IntegrateComingUp(root,player){
+function gtSLV1IntegrateComingUp(root,player,options={}){
  const old=root.querySelector('[data-court-section="coming"]');if(!old)return;
  const matches=r=>!player||T.playerKey(r.player)===T.playerKey(player);
  const now=Date.now();
- const events=(db.personalRecords||[]).filter(r=>r.type==='schedule'&&!r.deletedAt&&!r.cancelledAt&&r.status!=='cancelled'&&r.status!=='canceled'&&matches(r)
+ const events=Array.isArray(options.events)?options.events:(db.personalRecords||[]).filter(r=>r.type==='schedule'&&!r.deletedAt&&!r.cancelledAt&&r.status!=='cancelled'&&r.status!=='canceled'&&matches(r)
   &&Number.isFinite(Date.parse(r.start))&&Date.parse(r.end||r.start)>=now)
   .sort((a,b)=>Date.parse(a.start)-Date.parse(b.start)).slice(0,3);
  const section=gtSLV1Node('section','gtsl-section');
@@ -11187,9 +11187,9 @@ function gtSLV1IntegrateComingUp(root,player){
  arrow.setAttribute('viewBox','0 0 24 24');arrow.setAttribute('aria-hidden','true');
  const path=document.createElementNS(arrow.namespaceURI,'path');path.setAttribute('d','m9 18 6-6-6-6');arrow.append(path);action.append(arrow);
  action.addEventListener('click',()=>courtOpen('schedule'));
- header.append(heading,action);
+ header.append(heading);if(!options.hideAction)header.append(action);
  const content=gtSLV1Node('div','gtsl-items');content.dataset.component='ListV1';
- if(events.length)for(const event of events)content.append(gtSLV1ScheduleRow(event));
+ if(events.length)for(const event of events)content.append(gtSLV1ScheduleRow(event,options.returnTo||'court'));
  else {const empty=gtSLV1Node('div','gtsl-empty');empty.append(gtSLV1Node('strong','', 'No upcoming events'),gtSLV1Node('span','','Your next opportunity starts here.'));content.append(empty)}
  section.append(header,content);
  old.replaceWith(section);
@@ -12962,4 +12962,155 @@ html[data-theme=courtside] #app.gt-app #menuContent .gtm-action{
 
 
 </script>
-</body></html>
+
+<style data-gt="schedule-universal-v1">
+html[data-theme] #app.gt-app #scheduleContent>.up1-page{display:flex;flex-direction:column;min-width:0;min-height:100%}
+html[data-theme] #app.gt-app #scheduleContent .up1-header{padding:12px 0 20px}
+html[data-theme] #app.gt-app #scheduleContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr) 44px;gap:9px;align-items:start}
+html[data-theme] #app.gt-app #scheduleContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #scheduleContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #scheduleContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #scheduleContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #scheduleContent .up1-title svg{width:25px;height:25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;white-space:normal!important}
+html[data-theme] #app.gt-app #scheduleContent .up1-actions{display:grid;grid-template-columns:minmax(0,1fr);margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #scheduleContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 8px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:7px}
+html[data-theme] #app.gt-app #scheduleContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #scheduleContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #scheduleContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #scheduleContent .up1-footer{border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #scheduleContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter{position:relative;align-self:start;z-index:12}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter summary{list-style:none;cursor:pointer;min-width:44px;padding:8px!important}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter summary::-webkit-details-marker{display:none}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter summary svg{width:22px;height:22px}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel{position:absolute;right:0;top:50px;width:min(280px,80vw);background:var(--gt-surface,#fff);border:1px solid var(--gt-edge);border-radius:12px;box-shadow:0 8px 20px #0002;padding:14px;display:grid;gap:12px;z-index:15}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel label{display:grid;gap:5px;font-size:13px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel select,html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel input{width:100%;min-height:40px;font:inherit;border:1px solid var(--gt-edge);border-radius:8px;padding:7px;color:var(--gt-ink);background:var(--gt-bg)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-done{min-height:38px;border-radius:8px;border:1px solid var(--gt-edge);background:var(--gt-bg);color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility{margin-top:18px;border-top:1px solid var(--gt-edge);padding-top:12px;font-size:14px}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility summary{cursor:pointer;font-weight:600}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility-content{padding:12px 0}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-feed{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+@media(min-width:700px){html[data-theme] #app.gt-app #scheduleContent .up1-actions{max-width:360px}}
+</style><script data-gt="schedule-universal-v1">
+
+/* Schedule migration V1 — same approved Home Court parent, page header CTA and Coming Up section.
+   This is a page-only composition. The legacy schedule data paths, event forms,
+   calendar feeds, deleted-record restoration, cloud commit and detail actions stay intact. */
+const gtSchedulePageV1Filters={activity:'all'};
+function gtSchedulePageV1(){
+ if(ui.screen!=='schedule')return;
+ syncPlayerScope();
+ const root=document.getElementById('scheduleContent');if(!root)return;
+ const node=(tag,cls,text)=>gtSLV1Node(tag,cls,text);
+ const page=node('div','up1-page');
+ page.dataset.component='UniversalPage';page.dataset.version='V1';page.dataset.page='schedule';
+ const header=node('header','up1-header');header.dataset.component='PageHeader';
+ const heading=node('div','up1-heading');
+ const back=node('button','up1-back');back.type='button';back.setAttribute('aria-label','Back to Menu');
+ back.append(up1Icon('back'));back.addEventListener('click',()=>navigate('menu'));
+ const copy=node('div'),titleRow=node('div','up1-title');
+ const calIcon=()=>{const holder=node('span');holder.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7.5 14h3M13.5 14h3M7.5 18h3"/></svg>';return holder.firstElementChild};
+ titleRow.append(calIcon(),node('h1','', 'Schedule'));
+ const subtitle=node('div','up1-subtitle-v1',"YOUR NEXT GAME. YOUR NEXT SESSION. YOUR JOURNEY.");
+ subtitle.dataset.component='PageSubtitle';copy.append(titleRow,subtitle);
+ heading.append(back,copy);
+ const details=node('details','gtschedule-filter');
+ const trigger=node('summary','gt467-trigger gt468-icon-trigger');
+ trigger.setAttribute('aria-label','Schedule filters');trigger.title='Filters';
+ trigger.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>';
+ details.append(trigger);
+ const panel=node('div','gtschedule-filter-panel');
+ const viewLabel=node('label','','Show events');
+ const view=node('select');view.setAttribute('aria-label','Schedule date filter');
+ for(const [value,label] of [['upcoming','Upcoming'],['past','Past events'],['all','All events'],['month','Calendar month']]){
+  const option=node('option','',label);option.value=value;view.append(option);
+ }
+ view.value=['upcoming','past','all','month'].includes(scheduleUI.view)?scheduleUI.view:'upcoming';
+ view.addEventListener('change',()=>{scheduleUI.view=view.value;if(typeof schedule38!=='undefined')schedule38.selectedDate=null;renderSchedule()});
+ viewLabel.append(view);
+ const typeLabel=node('label','','Activity');
+ const type=node('select');type.setAttribute('aria-label','Activity filter');
+ for(const [value,label] of [['all','All activities'],['game','Games'],['training','Training'],['camp','Camps']]){
+  const opt=node('option','',label);opt.value=value;type.append(opt);
+ }
+ type.value=gtSchedulePageV1Filters.activity;
+ type.addEventListener('change',()=>{gtSchedulePageV1Filters.activity=type.value;renderSchedule()});
+ typeLabel.append(type);panel.append(viewLabel,typeLabel);
+ if(scheduleUI.view==='month'){
+  const monthLabel=node('label','','Month');
+  const month=node('input');month.type='month';month.value=scheduleUI.month;
+  month.addEventListener('change',()=>{scheduleUI.month=month.value;if(typeof schedule38!=='undefined')schedule38.selectedDate=null;renderSchedule()});
+  monthLabel.append(month);panel.append(monthLabel);
+ }
+ const done=node('button','gtschedule-filter-done','Apply');done.type='button';done.addEventListener('click',()=>details.open=false);
+ panel.append(done);details.append(panel);heading.append(details);header.append(heading);
+ const actions=node('div','up1-actions');actions.setAttribute('role','group');actions.setAttribute('aria-label','Schedule actions');
+ const newEvent=node('button','up1-action','');newEvent.type='button';newEvent.setAttribute('aria-label','New Event');
+ newEvent.append(calIcon(),document.createTextNode('New Event'));newEvent.addEventListener('click',()=>scheduleForm());actions.append(newEvent);
+ header.append(actions);
+ const main=node('main','up1-content');main.dataset.component='PrimaryContent';main.setAttribute('aria-label','Schedule page content');
+ const matchPlayer=r=>!playerContext.player||T.playerKey(r.player)===T.playerKey(playerContext.player);
+ const now=Date.now();
+ const events=(db.personalRecords||[]).filter(r=>{
+  if(r.type!=='schedule'||r.deletedAt||r.cancelledAt||r.status==='cancelled'||r.status==='canceled'||!matchPlayer(r)||!Number.isFinite(Date.parse(r.start)))return false;
+  if(gtSchedulePageV1Filters.activity!=='all'&&r.activity!==gtSchedulePageV1Filters.activity)return false;
+  const end=Date.parse(r.end||r.start);
+  if(scheduleUI.view==='upcoming')return end>=now;
+  if(scheduleUI.view==='past')return end<now;
+  if(scheduleUI.view==='month')return T.dateKey(new Date(r.start)).startsWith(scheduleUI.month);
+  return true;
+ }).sort((a,b)=>scheduleUI.view==='past'?Date.parse(b.start)-Date.parse(a.start):Date.parse(a.start)-Date.parse(b.start));
+ if(scheduleUI.view==='month'){
+  const grid=scheduleMonthGrid(events);main.append(grid);
+  if(typeof schedule38!=='undefined'&&schedule38.selectedDate){
+   const selected=node('div','schedule-selected-date');
+   selected.append(node('h2','',friendlyDate(schedule38.selectedDate)));
+   const clear=node('button','family-link','Show whole month');clear.type='button';clear.addEventListener('click',()=>{schedule38.selectedDate=null;renderSchedule()});
+   selected.append(clear);main.append(selected);
+  }
+ }
+ const placeholder=node('section');placeholder.dataset.courtSection='coming';main.append(placeholder);
+ const visible=typeof schedule38!=='undefined'&&scheduleUI.view==='month'&&schedule38.selectedDate
+  ?events.filter(r=>T.dateKey(new Date(r.start))===schedule38.selectedDate):events;
+ gtSLV1IntegrateComingUp(main,playerContext.player,{events:visible,hideAction:true,returnTo:'schedule'});
+ const section=main.querySelector('.gtsl-section');if(section){
+  section.dataset.section='coming-up';section.dataset.component='ScheduleList';section.dataset.page='schedule';
+  const label=section.querySelector('.gtsl-heading h2');
+  if(label)label.textContent=scheduleUI.view==='past'?'Past Events':scheduleUI.view==='month'?'Events This Month':scheduleUI.view==='all'?'All Events':'Coming Up';
+  const empty=section.querySelector('.gtsl-empty strong');
+  if(empty)empty.textContent='No events in this view';
+ }
+ // Preserve calendar feeds and recently deleted restoration, without cluttering the event list.
+ const utility=node('details','gtschedule-utility');utility.append(node('summary','','Calendar Sources'));
+ const tools=node('div','gtschedule-utility-content');
+ const addFeed=node('button','family-link','Calendar feed / ICS');addFeed.type='button';addFeed.addEventListener('click',calendarForm);tools.append(addFeed);
+ for(const feed of readWork('calendarFeeds')){
+  const row=node('div','gtschedule-feed');row.append(node('span','',feed.name+' · '+feed.player));
+  const refresh=node('button','family-link','Refresh');refresh.type='button';refresh.addEventListener('click',()=>refreshCalendar(feed));row.append(refresh);tools.append(row);
+ }
+ utility.append(tools);main.append(utility);
+ const deleted=(db.personalRecords||[]).filter(r=>r.type==='schedule'&&r.deletedAt&&matchPlayer(r));
+ if(deleted.length){
+  const trash=node('details','gtschedule-utility');trash.append(node('summary','','Recently Deleted ('+deleted.length+')'));
+  for(const record of deleted){
+   const restore=node('button','family-link','Restore '+record.title);restore.type='button';
+   restore.addEventListener('click',()=>{try{personalCommit(d=>{const target=d.personalRecords.find(x=>x.id===record.id);if(!target)return;target.deletedAt=null;target.updatedAt=C.now()});renderSchedule()}catch(error){announce(error.message)}});
+   trash.append(restore);
+  }
+  main.append(trash);
+ }
+ personalCloudNotice(main);
+ const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
+ footer.append(node('span','','SHOW UP. PUT IN THE WORK.'),node('span','','TRUST THE JOURNEY.'));
+ page.append(header,main,footer);root.replaceChildren(page);
+}
+const gtSchedulePageV1Prior=renderSchedule;
+renderSchedule=function(...args){
+ if(ui.screen==='scheduleDetail')return gtSchedulePageV1Prior.apply(this,args);
+ return gtSchedulePageV1();
+};
+
+</script></body></html>
