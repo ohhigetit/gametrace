@@ -12764,6 +12764,199 @@ renderSchedule=function(...args){
  return gtSchedulePageV1();
 };
 
+/* GT NOTEBOOK MY DNA V1 — lives inside the core app closure.
+   Non-destructive: original Player Notes, Notebook list, and Playbook records remain intact.
+   Curated statements are stored separately on this device until cloud schema support exists. */
+const gtDNAStorageKey='gametrace-my-dna-v1';
+const gtDNATypes=[['see','I SEE'],['am','I AM'],['will','I WILL BE']];
+let gtDNAView='review';
+function gtDNANode(tag,cls,textValue){
+ const n=document.createElement(tag);
+ if(cls)n.className=cls;
+ if(textValue!==undefined)n.textContent=textValue;
+ return n;
+}
+function gtDNARead(){
+ try{const data=JSON.parse(localStorage.getItem(gtDNAStorageKey)||'[]');return Array.isArray(data)?data.filter(v=>v&&typeof v==='object'&&typeof v.text==='string'):[]}
+ catch{return []}
+}
+function gtDNAWrite(items){
+ try{localStorage.setItem(gtDNAStorageKey,JSON.stringify(items));return true}
+ catch(error){announce('Unable to save My DNA on this device. '+error.message);return false}
+}
+function gtDNAPlayer(){return playerContext.player||''}
+function gtDNAItems(){const p=T.playerKey(gtDNAPlayer());return gtDNARead().filter(x=>T.playerKey(x.player)===p&&!x.deletedAt)}
+function gtDNASourceItems(){
+ const player=gtDNAPlayer();
+ if(!player)return [];
+ const matches=r=>!r.deletedAt&&T.playerKey(r.player)===T.playerKey(player);
+ const list=[],add=(key,kind,question,body,origin,date,open)=>{
+  if(!String(body||'').trim())return;
+  list.push({key,kind,question,body:String(body).trim(),origin,date:String(date||'').slice(0,10),open});
+ };
+ for(const g of db.games.filter(matches)){
+  for(const [key,question] of [['see','I See'],['became','I Am'],['more','I Will Be'],['well','Earlier: What went well?'],['challenge','Earlier: What was challenging?'],['next','Earlier: What will I focus on next?']]){
+   add('game:'+g.id+':'+key,'Game',question,g.feedback?.[key],gameTitle(g),g.date,()=>chooseGame(g.id,g.status==='completed'?'stats':'live'));
+  }
+  add('game:'+g.id+':progress','Game','Progress Note',g.progressNotes,gameTitle(g),g.date,()=>chooseGame(g.id,g.status==='completed'?'stats':'live'));
+ }
+ for(const s of db.trainingSessions.filter(matches)){
+  for(const [key,question] of [['see','I See'],['became','I Am'],['more','I Will Be'],['well','Earlier: What went well?'],['challenge','Earlier: What was challenging?'],['next','Earlier: What will I focus on next?']]){
+   add('session:'+s.id+':'+key,'Training',question,s.feedback?.[key],s.name||'Training',s.date,()=>openSession(s.id,'notebook'));
+  }
+  add('session:'+s.id+':notes','Training','Progress Note',s.notes,s.name||'Training',s.date,()=>openSession(s.id,'notebook'));
+ }
+ for(const note of db.personalRecords.filter(r=>r.type==='note'&&matches(r))){
+  add('personal:'+note.id,'Personal','My Note',note.body,note.title||'Personal note',note.date,()=>noteForm40(note.id));
+ }
+ return list.sort((a,b)=>b.date.localeCompare(a.date)||a.key.localeCompare(b.key));
+}
+function gtDNAGuessCategory(key){return key.endsWith(':became')?'am':key.endsWith(':more')||key.endsWith(':next')?'will':'see'}
+function gtDNAReview(source,existing=null){
+ const current=existing||gtDNAItems().find(x=>x.sourceKey===source.key);
+ openDialog(current?'Refine My DNA':'Review reflection',box=>{
+  const intro=gtDNANode('div','gtdna-original');
+  intro.append(gtDNANode('span','gtdna-overline',source.origin+' · '+source.date),gtDNANode('p','gtdna-original-text','“'+source.body+'”'));
+  box.append(intro);
+  const form=gtDNANode('form','gtdna-review-form');
+  form.addEventListener('submit',event=>event.preventDefault());
+  const title=gtDNANode('label','gtdna-label','My DNA category');
+  const category=gtDNANode('select','gtdna-input');
+  category.setAttribute('aria-label','My DNA category');
+  gtDNATypes.forEach(([key,label])=>{const opt=gtDNANode('option','',label);opt.value=key;category.append(opt)});
+  category.value=current?.category||gtDNAGuessCategory(source.key);
+  title.append(category);
+  const clarity=gtDNANode('p','gtdna-guidance','I See: distinguish observations, facts, learnings and beliefs. I Am: recognize acquired skills and character. I Will Be: name aspirations and next steps.');
+  const statement=gtDNANode('label','gtdna-label','My refined statement');
+  const input=gtDNANode('textarea','gtdna-input');input.rows=5;input.maxLength=3000;input.value=current?.text||source.body;
+  input.setAttribute('aria-label','My refined statement');
+  statement.append(input);
+  const err=gtDNANode('p','gtdna-error');err.setAttribute('role','alert');
+  const save=button(current?'Save refinement':'Save to My DNA',()=>{
+   const value=input.value.trim();
+   if(!value){err.textContent='Write a statement before saving.';return}
+   const records=gtDNARead(),existingRecord=current&&records.find(x=>x.id===current.id);
+   const now=C.now(),entry={
+    ...(existingRecord||{}),
+    id:existingRecord?.id||C.uid(),player:gtDNAPlayer(),sourceKey:source.key,
+    sourceText:source.body,origin:source.origin,sourceDate:source.date,
+    category:category.value,text:value,createdAt:existingRecord?.createdAt||now,
+    updatedAt:now,history:existingRecord?.history||[]
+   };
+   if(existingRecord&&existingRecord.text!==value)
+    entry.history=[...entry.history,{text:existingRecord.text,category:existingRecord.category,at:existingRecord.updatedAt}];
+   const at=records.findIndex(x=>x.id===entry.id);if(at<0)records.push(entry);else records[at]=entry;
+   if(!gtDNAWrite(records))return;
+   closeDialog();gtDNAView='dna';renderNotebook();announce('Saved to My DNA');
+  },'primary');
+  const cancel=button('Cancel',closeDialog,'cancel-choice');
+  form.append(title,clarity,statement,err,save,cancel);
+  box.append(form);
+  input.focus();
+ });
+}
+function gtDNAUpdate(entry,changes){
+ const records=gtDNARead(),i=records.findIndex(x=>x.id===entry.id);
+ if(i<0)return false;records[i]={...records[i],...changes,updatedAt:C.now()};
+ if(!gtDNAWrite(records))return false;renderNotebook();return true;
+}
+function gtDNACard(item,actions=true){
+ const wrap=gtDNANode('article','gtdna-card');
+ wrap.dataset.dnaId=item.id||item.sourceKey||'goal';
+ wrap.append(gtDNANode('p','gtdna-overline',item.categoryLabel||gtDNATypes.find(x=>x[0]===item.category)?.[1]||'I SEE'),
+             gtDNANode('blockquote','gtdna-quote','“'+item.text+'”'),
+             gtDNANode('p','gtdna-origin',item.origin||'My DNA'));
+ if(actions&&item.id){
+  const buttons=gtDNANode('div','gtdna-card-actions');
+  buttons.append(button('Refine',()=>gtDNAReview({key:item.sourceKey,body:item.sourceText||item.text,origin:item.origin||'Reflection',date:item.sourceDate||'',open:()=>{}},item),'family-link'));
+  if(item.category==='will'&&!item.linkedGoalId)buttons.append(button('Add to Playbook',()=>{
+   if(!gtDNAPlayer())return announce('Select a player first.');
+   if(!confirm('Create an active Playbook goal from this I Will Be statement?'))return;
+   try{
+    const now=C.now();
+    const goal=T.validGoal({id:C.uid(),title:item.text.slice(0,160),player:gtDNAPlayer(),targetDate:'',status:'active',entries:[],createdAt:now,updatedAt:now});
+    journeyCommit(d=>d.goals.push(goal));
+    gtDNAUpdate(item,{linkedGoalId:goal.id});
+    announce('Added to Playbook');
+   }catch(error){announce(error.message)}
+  },'family-link'));
+  if(item.linkedGoalId)buttons.append(gtDNANode('span','gtdna-linked','Linked to Playbook'));
+  buttons.append(button('Remove',()=>{
+   if(confirm('Remove this refined statement from My DNA? Your original Player Notes will be kept.'))gtDNAUpdate(item,{deletedAt:C.now()})
+  },'family-link'));
+  wrap.append(buttons);
+ }
+ return wrap;
+}
+function gtDNARender(){
+ const area=gtDNANode('section','gtdna-panel');
+ area.dataset.component='MyDNAV1';
+ area.append(gtDNANode('h2','gtdna-title','My DNA'),gtDNANode('p','gtdna-subtitle','What makes me, me. And who I am becoming.'));
+ if(!gtDNAPlayer()){area.append(gtDNANode('p','gtdna-empty','Select a player to explore My DNA.'));return area}
+ const bank=gtDNAItems(),goals=db.goals.filter(g=>!g.deletedAt&&T.playerKey(g.player)===T.playerKey(gtDNAPlayer()));
+ for(const [category,label] of gtDNATypes){
+  const section=gtDNANode('section','gtdna-group');
+  section.append(gtDNANode('h3','gtdna-group-title',label));
+  let items=bank.filter(x=>x.category===category).map(x=>({...x,categoryLabel:label}));
+  if(category==='will')items=[...items,...goals.filter(g=>g.status==='active'&&!bank.some(x=>x.linkedGoalId===g.id)).map(g=>({categoryLabel:'I WILL BE · PLAYBOOK',text:g.title,origin:'Active Playbook goal'}))];
+  if(category==='am')items=[...items,...goals.filter(g=>g.status==='achieved').map(g=>({categoryLabel:'I AM · ACHIEVED',text:g.title,origin:'Completed Playbook goal · '+String(g.achievedAt||'').slice(0,10)}))];
+  if(!items.length)section.append(gtDNANode('p','gtdna-empty',category==='will'?'Your aspirations and active Playbook goals appear here.':'Refine a reflection to add a statement here.'));
+  items.forEach(item=>section.append(gtDNACard(item,!!item.id)));
+  area.append(section);
+ }
+ area.append(gtDNANode('p','gtdna-storage-note','Curated My DNA statements are saved on this device in this review build. They are not yet included in Family Cloud sync or the app backup.'));
+ return area;
+}
+function gtDNARenderReview(){
+ const section=gtDNANode('section','gtdna-panel');
+ section.dataset.component='ReflectionReviewV1';
+ section.append(gtDNANode('h2','gtdna-title','To Review'),gtDNANode('p','gtdna-subtitle','See clearly. Recognize growth. Choose who you will be.'));
+ if(!gtDNAPlayer()){section.append(gtDNANode('p','gtdna-empty','Select a player to review reflections.'));return section}
+ const reviewed=new Set(gtDNAItems().map(x=>x.sourceKey));
+ const items=gtDNASourceItems().filter(x=>!reviewed.has(x.key));
+ if(!items.length)section.append(gtDNANode('p','gtdna-empty','No reflections waiting for review. Keep capturing your experiences in games and training.'));
+ for(const r of items){
+  const item=gtDNANode('article','gtdna-review-item');item.dataset.reflectionKey=r.key;
+  item.append(gtDNANode('p','gtdna-overline',r.question+' · '+r.origin+' · '+r.date),
+              gtDNANode('blockquote','gtdna-quote','“'+r.body+'”'));
+  const actions=gtDNANode('div','gtdna-card-actions');
+  actions.append(button('Review & Refine',()=>gtDNAReview(r),'family-link'),button('Open original',r.open,'family-link'));
+  item.append(actions);section.append(item);
+ }
+ return section;
+}
+const gtDNAPriorNotebook=renderNotebook;
+renderNotebook=function(...args){
+ const result=gtDNAPriorNotebook.apply(this,args);
+ if(ui.screen!=='notebook')return result;
+ const root=$('notebookContent');
+ if(!root||root.querySelector('[data-component="NotebookV1"]'))return result;
+ const children=[...root.children],shell=gtDNANode('div','gtdna-shell');
+ shell.dataset.component='NotebookV1';
+ const header=children.find(x=>x.matches?.('.gt464-page-header,.page-heading,.view-title'));
+ const filter=header?.querySelector('[data-component="FilterTrigger"]');
+ if(header){shell.append(header);if(filter){filter.remove();header.append(filter)}}
+ const picker=children.find(x=>x.matches?.('.player-picker,.player-selection,.court-player-picker,[data-player-picker]'));
+ if(picker)shell.append(picker);
+ const tabs=gtDNANode('nav','gtdna-tabs');tabs.setAttribute('aria-label','Notebook views');
+ const panel=gtDNANode('div','gtdna-view');
+ for(const [key,label] of [['review','To Review'],['reflections','My Reflections'],['dna','My DNA']]){
+  const item=button(label,()=>{gtDNAView=key;renderNotebook()},'gtdna-tab'+(gtDNAView===key?' is-active':''));
+  item.setAttribute('aria-current',gtDNAView===key?'page':'false');item.dataset.dnaView=key;tabs.append(item);
+ }
+ shell.append(tabs);
+ if(gtDNAView==='review')panel.append(gtDNARenderReview());
+ else if(gtDNAView==='dna')panel.append(gtDNARender());
+ else {
+  const legacy=gtDNANode('div','gtdna-legacy');legacy.dataset.component='OriginalNotebook';
+  for(const child of children)if(child!==header&&child!==picker)legacy.append(child);
+  panel.append(legacy);
+ }
+ shell.append(panel);
+ root.replaceChildren(shell);
+ return result;
+};
+
 })();
 
 
@@ -13172,5 +13365,34 @@ html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility summary{cursor
 html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility-content{padding:12px 0}
 html[data-theme] #app.gt-app #scheduleContent .gtschedule-feed{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
 @media(min-width:700px){html[data-theme] #app.gt-app #scheduleContent .up1-actions{max-width:360px}}
+</style>
+
+<style id="gt-my-dna-review-v1">
+html[data-theme] #app.gt-app #notebookContent .gtdna-shell{width:100%;min-width:0}
+html[data-theme] #app.gt-app #notebookContent .gtdna-tabs{display:flex;gap:8px;margin:14px 0 18px;overflow:auto;padding-bottom:4px}
+html[data-theme] #app.gt-app #notebookContent .gtdna-tab{border:0!important;border-bottom:2px solid transparent!important;border-radius:0!important;background:transparent!important;color:var(--gt-muted)!important;box-shadow:none!important;padding:9px 10px!important;white-space:nowrap;font-size:12px!important;font-weight:650!important;min-height:38px}
+html[data-theme] #app.gt-app #notebookContent .gtdna-tab.is-active{border-bottom-color:var(--gt-accent)!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-panel{display:flex;flex-direction:column;gap:12px;margin:0 0 30px}
+html[data-theme] #app.gt-app #notebookContent .gtdna-title{font-size:18px!important;line-height:1.3!important;margin:0!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-subtitle{font-size:12px!important;color:var(--gt-muted)!important;line-height:1.5;margin:0 0 6px!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-review-item,
+html[data-theme] #app.gt-app #notebookContent .gtdna-card{border:1px solid var(--gt-edge);border-radius:14px;background:transparent;padding:15px;margin:0;display:flex;flex-direction:column;gap:8px}
+html[data-theme] #app.gt-app #notebookContent .gtdna-overline{font-size:11px!important;font-weight:700!important;letter-spacing:.15px;color:var(--gt-muted)!important;margin:0!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-quote{font-size:15px!important;line-height:1.5!important;font-weight:500!important;font-style:italic;margin:0!important;color:var(--gt-ink)!important;border:0!important;padding:0!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-origin{font-size:11px!important;color:var(--gt-muted)!important;margin:0!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-card-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+html[data-theme] #app.gt-app #notebookContent .gtdna-card-actions button{padding:7px 0!important;font-size:12px!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-group{display:flex;flex-direction:column;gap:10px;margin:4px 0 8px}
+html[data-theme] #app.gt-app #notebookContent .gtdna-group-title{font-size:12px!important;font-weight:750!important;letter-spacing:.5px!important;margin:0!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-empty{font-size:13px!important;color:var(--gt-muted)!important;border:1px dashed var(--gt-edge);padding:15px;border-radius:12px;margin:0!important}
+html[data-theme] #app.gt-app #notebookContent .gtdna-storage-note{font-size:11px!important;color:var(--gt-muted)!important;line-height:1.5}
+html[data-theme] #app.gt-app .gtdna-original{border-radius:10px;background:var(--gt-surface,transparent);padding:12px;margin-bottom:10px}
+html[data-theme] #app.gt-app .gtdna-original-text{font-size:14px;line-height:1.5;font-style:italic;margin:8px 0}
+html[data-theme] #app.gt-app .gtdna-review-form{display:flex;flex-direction:column;gap:10px}
+html[data-theme] #app.gt-app .gtdna-label{font-size:13px;font-weight:650;display:flex;flex-direction:column;gap:7px}
+html[data-theme] #app.gt-app .gtdna-input{width:100%;font-size:15px}
+html[data-theme] #app.gt-app .gtdna-guidance{font-size:12px;line-height:1.55;color:var(--gt-muted)}
+html[data-theme] #app.gt-app .gtdna-error{color:var(--gt-error,#b33);font-size:12px}
+html[data-theme] #app.gt-app .gtdna-linked{font-size:11px;color:var(--gt-muted)}
 </style>
 </body></html>
