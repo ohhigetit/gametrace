@@ -4,12 +4,12 @@
 const $r=()=>document.getElementById('reportsContent'),mk=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;};
 const modes={primary:[['pts','PTS'],['reb','REB'],['ast','AST'],['stl','STL']],secondary:[['drive','DRV'],['defstop','DEF'],['to','TOV'],['pf','FLS']],shooting:[['fg','FG%'],['three','3PT%'],['ft','FT%']]};
 const colors=['#087d42','#3b82a4','#b47d33','#a16c9d'];
-const selection={id:null,mode:'primary',metrics:new Set(['pts']),expanded:false};
+const selection={id:null,mode:'primary',metrics:new Set(['pts'])};
 function safeInt(n){return Number.isFinite(+n)?Math.max(0,Math.round(+n)):0}
 function val(r,key){const t=r.t;if(key==='fg')return t.fga?100*t.fgm/t.fga:null;if(key==='three')return t.a3?100*t.m3/t.a3:null;if(key==='ft')return t.aft?100*t.mft/t.aft:null;return t[key]??0}
 function fmt(r,key){const n=val(r,key);return n===null?'—':String(Math.round(n))+(selection.mode==='shooting'?'%':'')}
 function shot(r,key){const t=r.t;return key==='fg'?[t.fgm,t.fga]:key==='three'?[t.m3,t.a3]:[t.mft,t.aft]}
-function select(id){selection.id=id;selection.expanded=true;renderScoreboardReview()}
+function select(id){selection.id=id;renderScoreboardReview()}
 /* Approved Performance Overview Banner V7.1: 30 / 35 / 35, native SharedBanner V2 wrapper. */
 function overview(rows){
  const games=rows.length;
@@ -125,29 +125,91 @@ function records(rows){
  }root.append(table);if(!rows.length)root.append(mk('p','', 'No completed games match these filters.'));
  return GameTraceComponents.Section({title:'Game Records',content:root,kind:'gtgr-v1-section'});
 }
+/* TimelineSection V1 uses the same approved composition as Game Details.
+   The native Timeline V1 renderer, filter controls, event listeners and chart remain intact. */
+function approvedTimelineSection(game){
+ const section=mk('section','gt-tls-v1');section.dataset.component='SectionV1';
+ const header=mk('div','gt-tls-header');
+ const heading=mk('div','gt-tls-heading');
+ heading.append(mk('h2','','Game Timeline'),mk('p','','The game, play by play.'));
+ header.append(heading);
+ const filterButton=mk('button','gt-tls-filter-button gt-tls-filter-icon');
+ filterButton.type='button';filterButton.setAttribute('aria-label','Show timeline filters');
+ filterButton.setAttribute('aria-expanded','false');filterButton.title='Timeline filters';
+ filterButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h5m4 0h7M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg><span class="gt-tls-filter-status" aria-hidden="true" hidden></span>';
+ header.append(filterButton);section.append(header);
+ const content=mk('div','gt-tls-content');content.dataset.slot='content';content.dataset.component='TimelineV1';
+ const filterPanel=mk('div','gt-tls-filter-panel');filterPanel.hidden=true;filterPanel.setAttribute('aria-label','Timeline display filters');
+ const parts=window.GameTraceTimelineV1.create({game,renderTimeline:reportTimeline});
+ const nativeView=parts.view,nativeFilters=parts.filters;
+ if(nativeView){nativeView.classList.add('gt-tls-native-view');filterPanel.append(nativeView)}
+ if(nativeFilters){
+  nativeFilters.classList.add('gt-tls-native-score-filters');
+  filterPanel.append(nativeFilters);
+  const controls=mk('div','gt-tls-filter-actions');
+  const reset=mk('button','gt-tls-filter-reset','Reset to all');reset.type='button';
+  reset.addEventListener('click',()=>{
+   for(const input of nativeFilters.querySelectorAll('input[type="checkbox"]')){
+    if(!input.checked){input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}))}
+   }
+   const select=nativeView?.querySelector('select');
+   if(select&&select.value!=='all'){select.value='all';select.dispatchEvent(new Event('change',{bubbles:true}))}
+   syncFilterCount();
+  });
+  const done=mk('button','gt-tls-filter-done','Done');done.type='button';
+  done.addEventListener('click',()=>{filterPanel.hidden=true;filterButton.setAttribute('aria-expanded','false')});
+  controls.append(reset,done);filterPanel.append(controls);
+  nativeFilters.addEventListener('change',syncFilterCount);
+ }
+ nativeView?.querySelector('select')?.addEventListener('change',syncFilterCount);
+ function syncFilterCount(){
+  if(!nativeFilters)return;
+  const inputs=[...nativeFilters.querySelectorAll('input[type="checkbox"]')];
+  const selected=inputs.filter(input=>input.checked).length;
+  const view=nativeView?.querySelector('select')?.value||'all';
+  const active=selected<inputs.length||view!=='all';
+  const indicator=filterButton.querySelector('.gt-tls-filter-status');
+  if(indicator)indicator.hidden=!active;
+  filterButton.classList.toggle('is-active',active);
+  filterButton.setAttribute('aria-label',active?'Timeline display customized. Open filters':'Show timeline filters');
+ }
+ filterButton.addEventListener('click',()=>{
+  const opening=filterPanel.hidden;filterPanel.hidden=!opening;
+  filterButton.setAttribute('aria-expanded',String(opening));
+ });
+ content.append(filterPanel);
+ parts.native.open=true;
+ content.append(parts.element);
+ section.append(content);
+ syncFilterCount();
+ return section;
+}
 function selectedSection(rows){
- const r=rows.find(x=>x.g.id===selection.id);if(!r)return null;
+ const r=rows.find(x=>x.g.id===selection.id);
+ if(!r)return null;
  const detail=mk('div','gt-scoreboard-detail');
  detail.append(mk('p','gt-scoreboard-context',(r.g.team||'Team')+' vs '+r.g.opponent+' · '+friendlyDate(r.g.date)));
- const open=mk('button','gt-scoreboard-open','Open Game Details →');open.type='button';open.addEventListener('click',()=>chooseGame(r.g.id,'stats'));detail.append(open);
  const nested=mk('div','gt-scoreboard-nested');
  const circles=mk('section','report-circles gt-gcs-v1');circles.dataset.component='SectionV1';
- const ch=mk('div','gt-gcs-header');const titles=mk('div','gt-gcs-heading');titles.append(mk('h2','','Game Circles'),mk('p','','Your game at a glance.'));ch.append(titles);circles.append(ch);
- const cc=mk('div','gt-gcs-content');const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('report-circle-svg');svg.setAttribute('role','img');cc.append(svg);circles.append(cc);
- const circleDetail=mk('details','gt-circle-details');circleDetail.append(mk('summary','','Labels & legend'));const cb=mk('div','gt-circle-details-body');cb.append(mk('p','',r.time.known?'Court time '+Math.round(r.time.courtSeconds/60)+' min':'Court time unavailable'));for(const [k,label] of [['reb','REB'],['pf','PF'],['to','TOV'],['ast','AST'],['stl','STL']])cb.append(mk('span','gt-scoreboard-key',label+' '+r.t[k]));circleDetail.append(cb);cc.append(circleDetail);
+ const ch=mk('div','gt-gcs-header'),titles=mk('div','gt-gcs-heading');
+ titles.append(mk('h2','','Game Circles'),mk('p','','Your game at a glance.'));ch.append(titles);circles.append(ch);
+ const cc=mk('div','gt-gcs-content'),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.classList.add('report-circle-svg');svg.setAttribute('role','img');cc.append(svg);circles.append(cc);
+ const circleDetail=mk('details','gt-circle-details');
+ circleDetail.append(mk('summary','','Labels & legend'));
+ const cb=mk('div','gt-circle-details-body');
+ cb.append(mk('p','',r.time.known?'Court time '+Math.round(r.time.courtSeconds/60)+' min':'Court time unavailable'));
+ for(const [k,label] of [['reb','REB'],['pf','PF'],['to','TOV'],['ast','AST'],['stl','STL']])cb.append(mk('span','gt-scoreboard-key',label+' '+r.t[k]));
+ circleDetail.append(cb);cc.append(circleDetail);
  nested.append(circles);
- if(window.GameTraceTimelineV1?.create){
- const tl=mk('section','gt-tls-v1');tl.dataset.component='SectionV1';const h=mk('div','gt-tls-header');h.append(mk('h2','','Game Timeline'),mk('p','','The game, play by play.'));tl.append(h);
- const cp=window.GameTraceTimelineV1.create({game:r.g,renderTimeline:reportTimeline});
- const tc=mk('div','gt-tls-content');if(cp.view)tc.append(cp.view);if(cp.filters)tc.append(cp.filters);cp.native.open=true;tc.append(cp.element);tl.append(tc);
- tl.addEventListener('click',e=>{if(e.target.closest('[data-timeline-event]')){e.preventDefault();e.stopImmediatePropagation();chooseGame(r.g.id,'stats')}},true);
- nested.append(tl);
- }
+ if(window.GameTraceTimelineV1?.create)nested.append(approvedTimelineSection(r.g));
  detail.append(nested);
  const section=GameTraceComponents.Section({title:'Selected Game Analytics',content:detail,kind:'gt-scoreboard-selected-section'});
- const actions=mk('button','gt-scoreboard-collapse',selection.expanded?'Hide Analytics':'Show Analytics');actions.type='button';actions.setAttribute('aria-expanded',String(selection.expanded));actions.addEventListener('click',()=>{selection.expanded=!selection.expanded;renderScoreboardReview()});
- section.querySelector('.gtc-section-header').append(actions);nested.hidden=!selection.expanded;
- if(selection.expanded)requestAnimationFrame(()=>{if(svg.isConnected)drawGameCircles(svg,r.g,r.t,r.time)});
+ const open=mk('button','gt-scoreboard-open','Open Game Details →');open.type='button';
+ open.addEventListener('click',()=>chooseGame(r.g.id,'stats'));
+ const sectionHeader=section.querySelector('.gtc-section-header');
+ if(sectionHeader)sectionHeader.append(open);
+ requestAnimationFrame(()=>{if(svg.isConnected)drawGameCircles(svg,r.g,r.t,r.time)});
  return section;
 }
 function renderScoreboardReview(){
@@ -155,7 +217,7 @@ function renderScoreboardReview(){
  const root=$r();if(!root)return;
  root.querySelector('#gt-scoreboard-review')?.remove();
  const rows=filteredReports().sort((a,b)=>a.g.date.localeCompare(b.g.date)||a.g.id.localeCompare(b.g.id));
- if(!rows.some(x=>x.g.id===selection.id)){selection.id=rows.at(-1)?.g.id||null;selection.expanded=false;}
+ if(!rows.some(x=>x.g.id===selection.id)){selection.id=rows.at(-1)?.g.id||null;}
  const host=mk('div','gt-scoreboard-review');host.id='gt-scoreboard-review';host.append(overview(rows),records(rows));const details=selectedSection(rows);if(details)host.append(details);
  const first=root.querySelector('.reports-summary-card, .scoreboard-banner,.reports-overview,.reports-table-scroll');
  if(first)first.before(host);else root.append(host);
