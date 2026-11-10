@@ -26,6 +26,7 @@ const puppeteer=require('puppeteer-core');
   });
   console.log('BOOT:',JSON.stringify(before)); console.log('SCRIPT ERRORS:',JSON.stringify(errors.slice(0,20)));
   assert(before.root,'Schedule DOM mount missing');
+  await page.evaluate(()=>document.getElementById('gt-cover-skip')?.click());
   await page.evaluate(()=>document.getElementById('settingsButton')?.click());
   await new Promise(r=>setTimeout(r,350));
   const menu=await page.evaluate(()=>[...document.querySelectorAll('#menuContent button')].map(b=>({text:b.textContent.trim(),nav:b.dataset.nav})).slice(0,35));
