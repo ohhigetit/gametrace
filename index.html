@@ -11626,7 +11626,7 @@ window.addEventListener('load',function(){
   const component=window.GameTraceMenuComponentV1({
    active:menuSelected(), logo, showHeader:false,
    canCreateGame:!active&&!unfinishedGames().length,
-   iconFactory:screen=>menuIcon(pageIcons43[screen]||'layers'),
+   iconFactory:screen=>screen==='setup'?up1Icon('basketball'):screen==='training'?up1Icon('session'):menuIcon(pageIcons43[screen]||'layers'),
    onNavigate:goTo,
    onQuickAction:quick,
    onClose:()=>navigate(ui.menuReturn||'court')
@@ -11854,6 +11854,37 @@ html[data-theme] #app.gt-app .gtm-logo{display:block;width:44px;height:44px;obje
 html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
 /* App Navigation owns the logo/close: prevent a second visual header in any menu render path. */
 html[data-theme] #app.gt-app #menuContent .gtm-header{display:none!important}
+
+/* Same CSS specification as the approved Home Court .up1-action, scoped to Menu V1.4. */
+html[data-theme] #app.gt-app #menuContent .gtm-actions{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;padding:0;margin:20px 0 0;width:100%;
+  border-bottom:1px solid var(--gt-edge);padding-bottom:20px;
+}
+html[data-theme] #app.gt-app #menuContent .gtm-action{
+  border-radius:11px!important;border:1px solid #c6d9c8!important;
+  background:#e3efe5!important;color:var(--gt-ink)!important;
+  min-height:50px!important;min-width:0;padding:9px 4px!important;
+  font-size:clamp(11px,2.8vw,14px)!important;font-weight:400!important;line-height:1.2!important;
+  display:flex;align-items:center;justify-content:center;gap:5px!important;
+  white-space:normal;overflow-wrap:anywhere;
+}
+html[data-theme] #app.gt-app #menuContent .gtm-action .gtm-icon{
+  width:17px!important;height:17px!important;flex:0 0 17px!important;
+}
+html[data-theme] #app.gt-app #menuContent .gtm-action svg{
+  width:17px!important;height:17px!important;flex:0 0 17px!important;
+}
+html[data-theme=courtside] #app.gt-app #menuContent .gtm-action{
+  background:#2a4934!important;border-color:#416d50!important;color:#e4f6e6!important;
+}
+@media(max-width:365px){
+  html[data-theme] #app.gt-app #menuContent .gtm-action{
+    font-size:10px!important;flex-direction:column;gap:2px!important;min-height:57px!important;
+  }
+  html[data-theme] #app.gt-app #menuContent .gtm-actions{gap:5px}
+}
+
 
 </style>
 <script id="gt-menu-component-v1-4-js">
