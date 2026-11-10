@@ -1,0 +1,40 @@
+/* NotebookSideTabsV1 — exact V5 design intent; scoped styles only.
+   Flat right edge, rounded left edge, fixed bottom, zero reserved page width. */
+.gt-notebook-tab-rail{--nst-ink:#172119;--nst-muted:#59655b;--nst-green:#087b40;--nst-edge:#cedbd2;position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));top:auto;left:calc(100vw - 42px);width:42px;z-index:120;pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.gt-notebook-tab-rail[hidden]{display:none}
+.gt-notebook-tabs-v1{display:flex;width:42px;flex-direction:column;gap:10px;pointer-events:auto}
+.gt-notebook-tabs-v1[hidden]{display:none}
+.gt-notebook-tabs-v1 .tab{height:47px;width:42px;display:flex;align-items:center;justify-content:center;padding:0;background:#dcefe0;color:#165c35;border:1px solid #b7d6bf;border-right:0;border-radius:12px 0 0 12px;cursor:pointer;box-shadow:2px 2px 4px rgba(25,62,40,.035);transition:background .15s,transform .15s}
+.gt-notebook-tabs-v1 .tab.commitment{background:#cbe5d2}
+.gt-notebook-tabs-v1 .tab:hover,.gt-notebook-tabs-v1 .tab[aria-pressed=true]{background:#a7d7b6;transform:translateX(-2px)}
+.gt-notebook-tabs-v1 .tab:focus-visible,.gt-notebook-tab-rail .tab-visibility:focus-visible{outline:2px solid #087b40;outline-offset:3px}
+.gt-notebook-tab-rail .tab-visibility{pointer-events:auto;display:flex;align-items:center;justify-content:center;width:42px;height:28px;margin-top:7px;background:#eff6f0;color:#165c35;border:1px solid #b7d6bf;border-right:0;border-radius:9px 0 0 9px;cursor:pointer;box-shadow:0 2px 5px rgba(25,62,40,.07)}
+.gt-notebook-tab-rail .tab-visibility svg{width:16px;height:16px;transition:transform .15s}
+.gt-notebook-tab-rail.is-hidden .gt-notebook-tabs-v1{display:none}
+.gt-notebook-tab-rail.is-hidden .tab-visibility{height:42px;background:#dcefe0;margin-top:0}
+.gt-notebook-tab-rail.is-hidden .tab-visibility svg{transform:rotate(180deg)}
+.gt-notebook-tabs-v1 svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.gt-notebook-tab-scrim{position:fixed;inset:0;background:rgba(13,38,23,.38);z-index:130;display:none}
+.gt-notebook-tab-scrim.open{display:block}
+.gt-notebook-tab-panel{--nst-ink:#172119;--nst-muted:#59655b;--nst-green:#087b40;--nst-edge:#cedbd2;position:fixed;z-index:131;top:0;right:0;bottom:0;width:min(420px,100vw);background:#fff;box-shadow:-14px 0 35px rgba(13,38,23,.12);transform:translateX(105%);transition:transform .24s ease;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--nst-ink)}
+.gt-notebook-tab-panel.open{transform:translateX(0)}
+.gt-notebook-tab-panel .panel-head{padding:22px 20px 15px;border-bottom:1px solid var(--nst-edge);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gt-notebook-tab-panel .panel-title{display:flex;align-items:center;gap:12px}
+.gt-notebook-tab-panel .panel-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;background:#e8f4e9;color:var(--nst-green)}
+.gt-notebook-tab-panel .panel-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.gt-notebook-tab-panel h2{font-size:19px;margin:0 0 3px}
+.gt-notebook-tab-panel .panel-head p{margin:0;color:var(--nst-muted);font-size:11px}
+.gt-notebook-tab-panel .icon-button{min-width:36px;min-height:36px;border:1px solid var(--nst-edge);background:white;border-radius:8px;font-size:21px;cursor:pointer;color:var(--nst-muted)}
+.gt-notebook-tab-panel .panel-content{padding:23px 21px;overflow:auto;flex:1}
+.gt-notebook-tab-panel .panel-label{font-size:10px;letter-spacing:.7px;color:var(--nst-green);font-weight:800;text-transform:uppercase;margin:0 0 13px}
+.gt-notebook-tab-panel .statement{font-size:19px;font-weight:600;line-height:1.65;font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.gt-notebook-tab-panel .statement.empty{font-size:14px;color:var(--nst-muted);font-style:normal}
+.gt-notebook-tab-panel .panel-read[hidden],.gt-notebook-tab-panel .panel-edit[hidden],.gt-notebook-tab-panel button[hidden]{display:none}
+.gt-notebook-tab-panel .edit-label{font-size:11px;font-weight:800;color:var(--nst-muted);display:block;margin-bottom:8px}
+.gt-notebook-tab-panel .editor{width:100%;min-height:190px;resize:vertical;border:1px solid var(--nst-edge);border-radius:10px;background:#f9fbf9;color:var(--nst-ink);font-family:inherit;font-size:15px;line-height:1.65;font-weight:500;padding:13px}
+.gt-notebook-tab-panel .editor:focus-visible{outline:2px solid var(--nst-green);outline-offset:2px}
+.gt-notebook-tab-panel .panel-foot{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--nst-edge);display:flex;gap:8px;justify-content:flex-end}
+.gt-notebook-tab-panel .action{border:1px solid #b6d1bd;border-radius:9px;padding:10px 15px;min-height:40px;background:#fff;color:var(--nst-green);font-size:12px;font-family:inherit;font-weight:750;cursor:pointer}
+.gt-notebook-tab-panel .action.primary{background:var(--nst-green);color:white;border-color:var(--nst-green)}
+@media(max-width:430px){.gt-notebook-tab-rail{width:39px;bottom:calc(82px + env(safe-area-inset-bottom,0px))}.gt-notebook-tabs-v1{width:39px}.gt-notebook-tabs-v1 .tab{width:39px;height:45px}.gt-notebook-tab-rail .tab-visibility{width:39px}.gt-notebook-tab-panel{width:100vw}}
+@media(prefers-reduced-motion:reduce){.gt-notebook-tab-panel,.gt-notebook-tabs-v1 .tab{transition:none}}
