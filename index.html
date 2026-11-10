@@ -12897,9 +12897,17 @@ function gtDNARender(){
  for(const [category,label] of gtDNATypes){
   const section=gtDNANode('section','gtdna-group');
   section.append(gtDNANode('h3','gtdna-group-title',label));
-  let items=bank.filter(x=>x.category===category).map(x=>({...x,categoryLabel:label}));
+  let items=bank.filter(x=>{
+   const linked=goals.find(g=>g.id===x.linkedGoalId);
+   return (linked?.status==='achieved'?'am':x.category)===category;
+  }).map(x=>{
+   const linked=goals.find(g=>g.id===x.linkedGoalId);
+   if(linked?.status!=='achieved')return {...x,categoryLabel:label};
+   const achievedText=x.category==='will'?x.text.replace(/^I\s+will\s+be\b/i,'I am'):x.text;
+   return {...x,text:achievedText,categoryLabel:'I AM · COMPLETED GOAL',origin:'Achieved in Playbook · '+String(linked.achievedAt||'').slice(0,10)};
+  });
   if(category==='will')items=[...items,...goals.filter(g=>g.status==='active'&&!bank.some(x=>x.linkedGoalId===g.id)).map(g=>({categoryLabel:'I WILL BE · PLAYBOOK',text:g.title,origin:'Active Playbook goal'}))];
-  if(category==='am')items=[...items,...goals.filter(g=>g.status==='achieved').map(g=>({categoryLabel:'I AM · ACHIEVED',text:g.title,origin:'Completed Playbook goal · '+String(g.achievedAt||'').slice(0,10)}))];
+  if(category==='am')items=[...items,...goals.filter(g=>g.status==='achieved'&&!bank.some(x=>x.linkedGoalId===g.id)).map(g=>({categoryLabel:'I AM · ACHIEVED',text:'I have achieved: '+g.title,origin:'Completed Playbook goal · '+String(g.achievedAt||'').slice(0,10)}))];
   if(!items.length)section.append(gtDNANode('p','gtdna-empty',category==='will'?'Your aspirations and active Playbook goals appear here.':'Refine a reflection to add a statement here.'));
   items.forEach(item=>section.append(gtDNACard(item,!!item.id)));
   area.append(section);
