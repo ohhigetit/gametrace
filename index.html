@@ -12656,6 +12656,8 @@ if(ui.screen==='menu')renderMenu();
    calendar feeds, deleted-record restoration, cloud commit and detail actions stay intact. */
 // Existing approved schedule filter state is the single source of truth.
 if(gt467State.schedule.date==='next30')gt467State.schedule.date='all';
+// Schedule defaults to showing every upcoming event; an untouched filter should not appear active.
+if(gt467Defaults.schedule.date==='next30')gt467Defaults.schedule.date='all';
 // Approved GameTrace outline-icon registry: use one shared calendar glyph for
 // both Schedule's page title and the New Event quick action.
 MENU_ICON_DATA['gt-calendar']='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7.5 14h3M13.5 14h3M7.5 18h3"/></svg>';
