@@ -12784,7 +12784,7 @@ function gtDNAWrite(items){
  try{localStorage.setItem(gtDNAStorageKey,JSON.stringify(items));return true}
  catch(error){announce('Unable to save My DNA on this device. '+error.message);return false}
 }
-function gtDNAPlayer(){return playerContext.player||''}
+function gtDNAPlayer(){return playerContext.player||journeyUI.player||db.personalRecords.find(r=>r.type==='note'&&!r.deletedAt)?.player||db.games.find(g=>!g.deletedAt)?.player||db.trainingSessions.find(t=>!t.deletedAt)?.player||''}
 function gtDNAItems(){const p=T.playerKey(gtDNAPlayer());return gtDNARead().filter(x=>T.playerKey(x.player)===p&&!x.deletedAt)}
 function gtDNASourceItems(){
  const player=gtDNAPlayer();
