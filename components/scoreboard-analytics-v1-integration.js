@@ -115,7 +115,7 @@ function records(rows){
    });
    metrics.append(button);
  });
- const table=mk('div','gtgr-v1-table'),header=mk('div','gtgr-v1-data-row gtgr-v1-head');header.append(mk('span','','GAME'),mk('span','','W/L'));for(const [key,label] of modes[selection.mode]){const s=mk('span',selection.metrics.has(key)?'is-active':'',label);header.append(s)}table.append(header);
+ const table=mk('div','gtgr-v1-table');table.dataset.mode=selection.mode;const header=mk('div','gtgr-v1-data-row gtgr-v1-head');header.append(mk('span','','GAME'),mk('span','','W/L'));for(const [key,label] of modes[selection.mode]){const s=mk('span',selection.metrics.has(key)?'is-active':'',label);header.append(s)}table.append(header);
  for(const r of [...rows].reverse()){
  const b=mk('button','gtgr-v1-data-row'+(r.g.id===selection.id?' is-selected':''));b.type='button';b.setAttribute('aria-pressed',String(r.g.id===selection.id));b.addEventListener('click',()=>select(r.g.id));
  const identity=mk('span','gtgr-v1-identity');identity.append(mk('strong','',r.g.opponent||'Opponent'),mk('small','',friendlyDate(r.g.date)));b.append(identity);
@@ -188,7 +188,10 @@ function selectedSection(rows){
  const r=rows.find(x=>x.g.id===selection.id);
  if(!r)return null;
  const detail=mk('div','gt-scoreboard-detail');
- detail.append(mk('p','gt-scoreboard-context',(r.g.team||'Team')+' vs '+r.g.opponent+' · '+friendlyDate(r.g.date)));
+ const context=mk('div','gt-scoreboard-context');
+ context.append(mk('strong','gt-scoreboard-matchup',(r.g.team||'Team')+' vs '+(r.g.opponent||'Opponent')));
+ context.append(mk('span','gt-scoreboard-date',' · '+friendlyDate(r.g.date)));
+ detail.append(context);
  const nested=mk('div','gt-scoreboard-nested');
  const circles=mk('section','report-circles gt-gcs-v1');circles.dataset.component='SectionV1';
  const ch=mk('div','gt-gcs-header'),titles=mk('div','gt-gcs-heading');
@@ -205,7 +208,7 @@ function selectedSection(rows){
  if(window.GameTraceTimelineV1?.create)nested.append(approvedTimelineSection(r.g));
  detail.append(nested);
  const section=GameTraceComponents.Section({title:'Selected Game Analytics',content:detail,kind:'gt-scoreboard-selected-section'});
- const open=mk('button','gt-scoreboard-open','Open Game Details →');open.type='button';
+ const open=mk('button','gt-scoreboard-open court-link','Open Game Details ›');open.type='button';
  open.addEventListener('click',()=>chooseGame(r.g.id,'stats'));
  const sectionHeader=section.querySelector('.gtc-section-header');
  if(sectionHeader)sectionHeader.append(open);
@@ -215,12 +218,35 @@ function selectedSection(rows){
 function renderScoreboardReview(){
  if(ui.screen!=='reports')return;
  const root=$r();if(!root)return;
- root.querySelector('#gt-scoreboard-review')?.remove();
+ const components=window.GameTraceComponents;
+ if(!components?.UniversalPageV1||!components?.PageHeaderV1)
+  throw new Error('Scoreboard requires UniversalPage V1 and PageHeader V1');
  const rows=filteredReports().sort((a,b)=>a.g.date.localeCompare(b.g.date)||a.g.id.localeCompare(b.g.id));
- if(!rows.some(x=>x.g.id===selection.id)){selection.id=rows.at(-1)?.g.id||null;}
- const host=mk('div','gt-scoreboard-review');host.id='gt-scoreboard-review';host.append(overview(rows),records(rows));const details=selectedSection(rows);if(details)host.append(details);
- const first=root.querySelector('.reports-summary-card, .scoreboard-banner,.reports-overview,.reports-table-scroll');
- if(first)first.before(host);else root.append(host);
+ if(!rows.some(x=>x.g.id===selection.id))selection.id=rows.at(-1)?.g.id||null;
+ const header=components.PageHeaderV1({
+  title:'Scoreboard',
+  pageIcon:up1Icon('basketball'),
+  backIcon:up1Icon('back'),
+  onBack:()=>navigate('menu'),
+  backLabel:'Back to menu'
+ });
+ const sections=[overview(rows),records(rows)];
+ const selected=selectedSection(rows);
+ if(selected)sections.push(selected);
+ else sections.push(components.Section({
+  title:'Selected Game Analytics',
+  content:mk('p','gt-scoreboard-empty','No completed games to display.'),
+  kind:'gt-scoreboard-selected-section'
+ }));
+ const page=components.UniversalPageV1({
+  page:'scoreboard',
+  header,
+  content:sections,
+  contentLabel:'Scoreboard analytics',
+  footerLines:['FOLLOW THE PLAY.','THE GAME. THE JOURNEY.']
+ });
+ page.id='gt-scoreboard-review';
+ root.replaceChildren(page);
 }
 const beforeScoreboardAnalytics=renderReports;
 renderReports=function(...args){const result=beforeScoreboardAnalytics.apply(this,args);if(ui.screen==='reports')renderScoreboardReview();return result};
