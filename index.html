@@ -12708,6 +12708,111 @@ play.addEventListener('click',()=>{if(playing){playing=false;cancelAnimationFram
 
 
 })();
+
+/* Schedule migration V1 — same approved Home Court parent, page header CTA and Coming Up section.
+   This is a page-only composition. The legacy schedule data paths, event forms,
+   calendar feeds, deleted-record restoration, cloud commit and detail actions stay intact. */
+// Existing approved schedule filter state is the single source of truth.
+if(gt467State.schedule.date==='next30')gt467State.schedule.date='all';
+function gtSchedulePageV1(){
+ if(ui.screen!=='schedule')return;
+ syncPlayerScope();
+ const root=document.getElementById('scheduleContent');if(!root)return;
+ const node=(tag,cls,text)=>gtSLV1Node(tag,cls,text);
+ const page=node('div','up1-page');
+ page.dataset.component='UniversalPage';page.dataset.version='V1';page.dataset.page='schedule';
+ const header=node('header','up1-header');header.dataset.component='PageHeader';
+ const heading=node('div','up1-heading');
+ const back=node('button','up1-back');back.type='button';back.setAttribute('aria-label','Back to Menu');
+ back.append(up1Icon('back'));back.addEventListener('click',()=>navigate('menu'));
+ const copy=node('div'),titleRow=node('div','up1-title');
+ const calIcon=()=>{const holder=node('span');holder.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7.5 14h3M13.5 14h3M7.5 18h3"/></svg>';return holder.firstElementChild};
+ titleRow.append(calIcon(),node('h1','', 'Schedule'));
+ const subtitle=node('div','up1-subtitle-v1',"YOUR NEXT GAME. YOUR NEXT SESSION. YOUR JOURNEY.");
+ subtitle.dataset.component='PageSubtitle';copy.append(titleRow,subtitle);
+ heading.append(back,copy);
+ // Existing approved FilterTrigger/FilterModal, no custom filter component.
+ const filter=node('button','gt467-trigger gt468-icon-trigger');
+ filter.type='button';filter.dataset.component='FilterTrigger';filter.dataset.filterScreen='schedule';
+ filter.setAttribute('aria-label','Open Schedule filters');filter.title='Filters';
+ filter.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>';
+ filter.addEventListener('click',()=>gt467Modal('schedule'));
+ if(gt467ActiveCount('schedule')>0){
+  filter.append(node('span','gt468-filter-active'));
+  filter.setAttribute('aria-label','Open Schedule filters ('+gt467ActiveCount('schedule')+' active)');
+ }
+ heading.append(filter);header.append(heading);
+ const actions=node('div','up1-actions');actions.setAttribute('role','group');actions.setAttribute('aria-label','Schedule actions');
+ const newEvent=node('button','up1-action','');newEvent.type='button';newEvent.setAttribute('aria-label','New Event');
+ newEvent.append(calIcon(),document.createTextNode('New Event'));newEvent.addEventListener('click',()=>scheduleForm());actions.append(newEvent);
+ header.append(actions);
+ const main=node('main','up1-content');main.dataset.component='PrimaryContent';main.setAttribute('aria-label','Schedule page content');
+ const matchPlayer=r=>!playerContext.player||T.playerKey(r.player)===T.playerKey(playerContext.player);
+ const now=Date.now();
+ const events=(db.personalRecords||[]).filter(r=>{
+  if(r.type!=='schedule'||r.deletedAt||r.cancelledAt||r.status==='cancelled'||r.status==='canceled'||!matchPlayer(r)||!Number.isFinite(Date.parse(r.start)))return false;
+  const filter=gt467State.schedule;
+  if(filter.activity?.length&&!filter.activity.includes(String(r.activity||'').toLowerCase()))return false;
+  if(filter.calendar?.length&&!filter.calendar.includes(String(r.calendarName||r.calendar||r.sourceName||'')))return false;
+  if(filter.source&&filter.source!==(r.source?'subscribed':'manual'))return false;
+  if(filter.status&&filter.status!==(r.cancelledAt?'cancelled':'scheduled'))return false;
+  if(!gt467DateMatches(r.start,filter))return false;
+  const end=Date.parse(r.end||r.start);
+  if(scheduleUI.view==='upcoming')return end>=now;
+  if(scheduleUI.view==='past')return end<now;
+  if(scheduleUI.view==='month')return T.dateKey(new Date(r.start)).startsWith(scheduleUI.month);
+  return true;
+ }).sort((a,b)=>scheduleUI.view==='past'?Date.parse(b.start)-Date.parse(a.start):Date.parse(a.start)-Date.parse(b.start));
+ if(scheduleUI.view==='month'){
+  const grid=scheduleMonthGrid(events);main.append(grid);
+  if(typeof schedule38!=='undefined'&&schedule38.selectedDate){
+   const selected=node('div','schedule-selected-date');
+   selected.append(node('h2','',friendlyDate(schedule38.selectedDate)));
+   const clear=node('button','family-link','Show whole month');clear.type='button';clear.addEventListener('click',()=>{schedule38.selectedDate=null;renderSchedule()});
+   selected.append(clear);main.append(selected);
+  }
+ }
+ const placeholder=node('section');placeholder.dataset.courtSection='coming';main.append(placeholder);
+ const visible=typeof schedule38!=='undefined'&&scheduleUI.view==='month'&&schedule38.selectedDate
+  ?events.filter(r=>T.dateKey(new Date(r.start))===schedule38.selectedDate):events;
+ gtSLV1IntegrateComingUp(main,playerContext.player,{events:visible,hideAction:true,returnTo:'schedule'});
+ const section=main.querySelector('.gtsl-section');if(section){
+  section.dataset.section='coming-up';section.dataset.component='ScheduleList';section.dataset.page='schedule';
+  const label=section.querySelector('.gtsl-heading h2');
+  if(label)label.textContent=scheduleUI.view==='past'?'Past Events':scheduleUI.view==='month'?'Events This Month':scheduleUI.view==='all'?'All Events':'Coming Up';
+  const empty=section.querySelector('.gtsl-empty strong');
+  if(empty)empty.textContent='No events in this view';
+ }
+ // Preserve calendar feeds and recently deleted restoration, without cluttering the event list.
+ const utility=node('details','gtschedule-utility');utility.append(node('summary','','Calendar Sources'));
+ const tools=node('div','gtschedule-utility-content');
+ const addFeed=node('button','family-link','Calendar feed / ICS');addFeed.type='button';addFeed.addEventListener('click',calendarForm);tools.append(addFeed);
+ for(const feed of readWork('calendarFeeds')){
+  const row=node('div','gtschedule-feed');row.append(node('span','',feed.name+' · '+feed.player));
+  const refresh=node('button','family-link','Refresh');refresh.type='button';refresh.addEventListener('click',()=>refreshCalendar(feed));row.append(refresh);tools.append(row);
+ }
+ utility.append(tools);main.append(utility);
+ const deleted=(db.personalRecords||[]).filter(r=>r.type==='schedule'&&r.deletedAt&&matchPlayer(r));
+ if(deleted.length){
+  const trash=node('details','gtschedule-utility');trash.append(node('summary','','Recently Deleted ('+deleted.length+')'));
+  for(const record of deleted){
+   const restore=node('button','family-link','Restore '+record.title);restore.type='button';
+   restore.addEventListener('click',()=>{try{personalCommit(d=>{const target=d.personalRecords.find(x=>x.id===record.id);if(!target)return;target.deletedAt=null;target.updatedAt=C.now()});renderSchedule()}catch(error){announce(error.message)}});
+   trash.append(restore);
+  }
+  main.append(trash);
+ }
+ personalCloudNotice(main);
+ const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
+ footer.append(node('span','','SHOW UP. PUT IN THE WORK.'),node('span','','TRUST THE JOURNEY.'));
+ page.append(header,main,footer);root.replaceChildren(page);
+}
+const gtSchedulePageV1Prior=renderSchedule;
+renderSchedule=function(...args){
+ if(ui.screen==='scheduleDetail')return gtSchedulePageV1Prior.apply(this,args);
+ return gtSchedulePageV1();
+};
+
 </script>
 
 
@@ -13056,123 +13161,5 @@ html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility summary{cursor
 html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility-content{padding:12px 0}
 html[data-theme] #app.gt-app #scheduleContent .gtschedule-feed{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
 @media(min-width:700px){html[data-theme] #app.gt-app #scheduleContent .up1-actions{max-width:360px}}
-</style><script data-gt="schedule-universal-v1">
-
-/* Schedule migration V1 — same approved Home Court parent, page header CTA and Coming Up section.
-   This is a page-only composition. The legacy schedule data paths, event forms,
-   calendar feeds, deleted-record restoration, cloud commit and detail actions stay intact. */
-const gtSchedulePageV1Filters={activity:'all'};
-function gtSchedulePageV1(){
- if(ui.screen!=='schedule')return;
- syncPlayerScope();
- const root=document.getElementById('scheduleContent');if(!root)return;
- const node=(tag,cls,text)=>gtSLV1Node(tag,cls,text);
- const page=node('div','up1-page');
- page.dataset.component='UniversalPage';page.dataset.version='V1';page.dataset.page='schedule';
- const header=node('header','up1-header');header.dataset.component='PageHeader';
- const heading=node('div','up1-heading');
- const back=node('button','up1-back');back.type='button';back.setAttribute('aria-label','Back to Menu');
- back.append(up1Icon('back'));back.addEventListener('click',()=>navigate('menu'));
- const copy=node('div'),titleRow=node('div','up1-title');
- const calIcon=()=>{const holder=node('span');holder.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7.5 14h3M13.5 14h3M7.5 18h3"/></svg>';return holder.firstElementChild};
- titleRow.append(calIcon(),node('h1','', 'Schedule'));
- const subtitle=node('div','up1-subtitle-v1',"YOUR NEXT GAME. YOUR NEXT SESSION. YOUR JOURNEY.");
- subtitle.dataset.component='PageSubtitle';copy.append(titleRow,subtitle);
- heading.append(back,copy);
- const details=node('details','gtschedule-filter');
- const trigger=node('summary','gt467-trigger gt468-icon-trigger');
- trigger.setAttribute('aria-label','Schedule filters');trigger.title='Filters';
- trigger.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>';
- details.append(trigger);
- const panel=node('div','gtschedule-filter-panel');
- const viewLabel=node('label','','Show events');
- const view=node('select');view.setAttribute('aria-label','Schedule date filter');
- for(const [value,label] of [['upcoming','Upcoming'],['past','Past events'],['all','All events'],['month','Calendar month']]){
-  const option=node('option','',label);option.value=value;view.append(option);
- }
- view.value=['upcoming','past','all','month'].includes(scheduleUI.view)?scheduleUI.view:'upcoming';
- view.addEventListener('change',()=>{scheduleUI.view=view.value;if(typeof schedule38!=='undefined')schedule38.selectedDate=null;renderSchedule()});
- viewLabel.append(view);
- const typeLabel=node('label','','Activity');
- const type=node('select');type.setAttribute('aria-label','Activity filter');
- for(const [value,label] of [['all','All activities'],['game','Games'],['training','Training'],['camp','Camps']]){
-  const opt=node('option','',label);opt.value=value;type.append(opt);
- }
- type.value=gtSchedulePageV1Filters.activity;
- type.addEventListener('change',()=>{gtSchedulePageV1Filters.activity=type.value;renderSchedule()});
- typeLabel.append(type);panel.append(viewLabel,typeLabel);
- if(scheduleUI.view==='month'){
-  const monthLabel=node('label','','Month');
-  const month=node('input');month.type='month';month.value=scheduleUI.month;
-  month.addEventListener('change',()=>{scheduleUI.month=month.value;if(typeof schedule38!=='undefined')schedule38.selectedDate=null;renderSchedule()});
-  monthLabel.append(month);panel.append(monthLabel);
- }
- const done=node('button','gtschedule-filter-done','Apply');done.type='button';done.addEventListener('click',()=>details.open=false);
- panel.append(done);details.append(panel);heading.append(details);header.append(heading);
- const actions=node('div','up1-actions');actions.setAttribute('role','group');actions.setAttribute('aria-label','Schedule actions');
- const newEvent=node('button','up1-action','');newEvent.type='button';newEvent.setAttribute('aria-label','New Event');
- newEvent.append(calIcon(),document.createTextNode('New Event'));newEvent.addEventListener('click',()=>scheduleForm());actions.append(newEvent);
- header.append(actions);
- const main=node('main','up1-content');main.dataset.component='PrimaryContent';main.setAttribute('aria-label','Schedule page content');
- const matchPlayer=r=>!playerContext.player||T.playerKey(r.player)===T.playerKey(playerContext.player);
- const now=Date.now();
- const events=(db.personalRecords||[]).filter(r=>{
-  if(r.type!=='schedule'||r.deletedAt||r.cancelledAt||r.status==='cancelled'||r.status==='canceled'||!matchPlayer(r)||!Number.isFinite(Date.parse(r.start)))return false;
-  if(gtSchedulePageV1Filters.activity!=='all'&&r.activity!==gtSchedulePageV1Filters.activity)return false;
-  const end=Date.parse(r.end||r.start);
-  if(scheduleUI.view==='upcoming')return end>=now;
-  if(scheduleUI.view==='past')return end<now;
-  if(scheduleUI.view==='month')return T.dateKey(new Date(r.start)).startsWith(scheduleUI.month);
-  return true;
- }).sort((a,b)=>scheduleUI.view==='past'?Date.parse(b.start)-Date.parse(a.start):Date.parse(a.start)-Date.parse(b.start));
- if(scheduleUI.view==='month'){
-  const grid=scheduleMonthGrid(events);main.append(grid);
-  if(typeof schedule38!=='undefined'&&schedule38.selectedDate){
-   const selected=node('div','schedule-selected-date');
-   selected.append(node('h2','',friendlyDate(schedule38.selectedDate)));
-   const clear=node('button','family-link','Show whole month');clear.type='button';clear.addEventListener('click',()=>{schedule38.selectedDate=null;renderSchedule()});
-   selected.append(clear);main.append(selected);
-  }
- }
- const placeholder=node('section');placeholder.dataset.courtSection='coming';main.append(placeholder);
- const visible=typeof schedule38!=='undefined'&&scheduleUI.view==='month'&&schedule38.selectedDate
-  ?events.filter(r=>T.dateKey(new Date(r.start))===schedule38.selectedDate):events;
- gtSLV1IntegrateComingUp(main,playerContext.player,{events:visible,hideAction:true,returnTo:'schedule'});
- const section=main.querySelector('.gtsl-section');if(section){
-  section.dataset.section='coming-up';section.dataset.component='ScheduleList';section.dataset.page='schedule';
-  const label=section.querySelector('.gtsl-heading h2');
-  if(label)label.textContent=scheduleUI.view==='past'?'Past Events':scheduleUI.view==='month'?'Events This Month':scheduleUI.view==='all'?'All Events':'Coming Up';
-  const empty=section.querySelector('.gtsl-empty strong');
-  if(empty)empty.textContent='No events in this view';
- }
- // Preserve calendar feeds and recently deleted restoration, without cluttering the event list.
- const utility=node('details','gtschedule-utility');utility.append(node('summary','','Calendar Sources'));
- const tools=node('div','gtschedule-utility-content');
- const addFeed=node('button','family-link','Calendar feed / ICS');addFeed.type='button';addFeed.addEventListener('click',calendarForm);tools.append(addFeed);
- for(const feed of readWork('calendarFeeds')){
-  const row=node('div','gtschedule-feed');row.append(node('span','',feed.name+' · '+feed.player));
-  const refresh=node('button','family-link','Refresh');refresh.type='button';refresh.addEventListener('click',()=>refreshCalendar(feed));row.append(refresh);tools.append(row);
- }
- utility.append(tools);main.append(utility);
- const deleted=(db.personalRecords||[]).filter(r=>r.type==='schedule'&&r.deletedAt&&matchPlayer(r));
- if(deleted.length){
-  const trash=node('details','gtschedule-utility');trash.append(node('summary','','Recently Deleted ('+deleted.length+')'));
-  for(const record of deleted){
-   const restore=node('button','family-link','Restore '+record.title);restore.type='button';
-   restore.addEventListener('click',()=>{try{personalCommit(d=>{const target=d.personalRecords.find(x=>x.id===record.id);if(!target)return;target.deletedAt=null;target.updatedAt=C.now()});renderSchedule()}catch(error){announce(error.message)}});
-   trash.append(restore);
-  }
-  main.append(trash);
- }
- personalCloudNotice(main);
- const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
- footer.append(node('span','','SHOW UP. PUT IN THE WORK.'),node('span','','TRUST THE JOURNEY.'));
- page.append(header,main,footer);root.replaceChildren(page);
-}
-const gtSchedulePageV1Prior=renderSchedule;
-renderSchedule=function(...args){
- if(ui.screen==='scheduleDetail')return gtSchedulePageV1Prior.apply(this,args);
- return gtSchedulePageV1();
-};
-
-</script></body></html>
+</style>
+</body></html>
