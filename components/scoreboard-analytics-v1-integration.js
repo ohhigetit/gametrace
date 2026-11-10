@@ -42,11 +42,50 @@ function drawChart(rows,keys,host){
 function records(rows){
  const root=mk('div','gtgr-v1-analytics');
  const views=mk('div','gtgr-v1-views');for(const mode of Object.keys(modes)){const b=mk('button','',mode[0].toUpperCase()+mode.slice(1));b.type='button';b.setAttribute('aria-pressed',String(selection.mode===mode));b.addEventListener('click',()=>{selection.mode=mode;selection.metrics=new Set([modes[mode][0][0]]);renderScoreboardReview()});views.append(b)}root.append(views);
+ const trend=mk('div','gtgr-v1-trend');
+ const eyebrow=mk('div','gtgr-v1-trend-eyebrow','PERFORMANCE TREND');
+ const summary=mk('div','gtgr-v1-trend-summary');
  const metrics=mk('div','gtgr-v1-metrics'),chart=mk('div','gtgr-v1-chart');
  const keys=modes[selection.mode].map(([k])=>k);
  if(!keys.some(k=>selection.metrics.has(k)))selection.metrics=new Set([keys[0]]);
- keys.forEach((key,i)=>{const b=mk('button','',modes[selection.mode][i][1]);b.type='button';b.style.setProperty('--metric',colors[i]);b.setAttribute('aria-pressed',String(selection.metrics.has(key)));b.addEventListener('click',()=>{if(selection.metrics.has(key)){if(selection.metrics.size>1)selection.metrics.delete(key)}else selection.metrics.add(key);renderScoreboardReview()});metrics.append(b)});
- root.append(metrics,chart);drawChart(rows,keys.filter(k=>selection.metrics.has(k)),chart);
+ const selectedKeys=keys.filter(k=>selection.metrics.has(k));
+ const readable={pts:'POINTS PER GAME',reb:'REBOUNDS PER GAME',ast:'ASSISTS PER GAME',stl:'STEALS PER GAME',drive:'DRIVES PER GAME',defstop:'DEFENSIVE STOPS PER GAME',to:'TURNOVERS PER GAME',pf:'FOULS PER GAME',fg:'FIELD GOAL PERCENTAGE',three:'3-POINT PERCENTAGE',ft:'FREE THROW PERCENTAGE'};
+ if(selectedKeys.length===1){
+   const key=selectedKeys[0],stat=mk('div','gtgr-v1-trend-stat');
+   stat.append(mk('span','gtgr-v1-trend-label',readable[key]||key.toUpperCase()));
+   let result='—',unit=selection.mode==='shooting'?'%':'AVG';
+   if(rows.length){
+     if(selection.mode==='shooting'){
+       const shots=rows.reduce((s,r)=>{const [m,a]=shot(r,key);s.m+=m;s.a+=a;return s},{m:0,a:0});
+       if(shots.a)result=String(Math.round(shots.m/shots.a*100));
+     }else{
+       result=(rows.reduce((s,r)=>s+(val(r,key)||0),0)/rows.length).toFixed(1);
+     }
+   }
+   const line=mk('div','gtgr-v1-trend-number');
+   line.append(mk('strong','',result),mk('span','',unit));
+   stat.append(line);summary.append(stat);
+ }else{
+   summary.append(mk('span','gtgr-v1-trend-label','MULTI-METRIC COMPARISON'));
+   summary.append(mk('strong','gtgr-v1-trend-count',selectedKeys.length+' METRICS SELECTED'));
+   summary.append(mk('span','gtgr-v1-trend-selected',selectedKeys.map(k=>modes[selection.mode].find(pair=>pair[0]===k)[1]).join(' · ')));
+ }
+ keys.forEach((key,i)=>{
+   const active=selection.metrics.has(key);
+   const b=mk('button','gtgr-v1-metric-rail-item',modes[selection.mode][i][1]);
+   b.type='button';b.style.setProperty('--metric',colors[i]);
+   b.setAttribute('aria-pressed',String(active));
+   b.setAttribute('aria-label',(active?'Hide ':'Show ')+modes[selection.mode][i][1]+' on performance graph');
+   b.title=modes[selection.mode][i][1];
+   b.addEventListener('click',()=>{
+     if(selection.metrics.has(key)){if(selection.metrics.size>1)selection.metrics.delete(key)}
+     else selection.metrics.add(key);
+     renderScoreboardReview();
+   });
+   metrics.append(b);
+ });
+ trend.append(eyebrow,summary,metrics,chart);root.append(trend);
+ drawChart(rows,selectedKeys,chart);
  const table=mk('div','gtgr-v1-table'),header=mk('div','gtgr-v1-data-row gtgr-v1-head');header.append(mk('span','','GAME'),mk('span','','W/L'));for(const [key,label] of modes[selection.mode]){const s=mk('span',selection.metrics.has(key)?'is-active':'',label);header.append(s)}table.append(header);
  for(const r of [...rows].reverse()){
  const b=mk('button','gtgr-v1-data-row'+(r.g.id===selection.id?' is-selected':''));b.type='button';b.setAttribute('aria-pressed',String(r.g.id===selection.id));b.addEventListener('click',()=>select(r.g.id));
