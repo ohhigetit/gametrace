@@ -618,3 +618,57 @@ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboar
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-content .report-timeline{min-width:0;width:100%}
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-filter-panel[hidden],
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 [hidden]{display:none!important}
+
+
+/* Scoreboard V5.5 — UniversalPage V1 migration and final approved refinements. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review.up1-page{
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-content{
+ min-width:0;width:100%;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-header{
+ margin-bottom:18px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-table[data-mode="shooting"] .gtgr-v1-data-row{
+ grid-template-columns:minmax(82px,2fr) 34px repeat(3,minmax(0,1fr))!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-context{
+ display:flex;align-items:baseline;justify-content:flex-start;
+ flex-wrap:wrap;gap:0;margin:0 0 14px;
+ min-width:0;line-height:1.4;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-matchup{
+ font-size:15px;font-weight:720;letter-spacing:-.2px;color:var(--gt-ink,#172119);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-date{
+ font-size:12px;font-weight:500;color:var(--gt-muted,#59655b);white-space:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open{
+ display:inline-flex;align-items:center;justify-content:flex-end;
+ appearance:none;background:transparent!important;border:0!important;
+ border-radius:0;box-shadow:none!important;
+ color:var(--gt-accent,#087d42)!important;
+ padding:5px 0 5px 8px!important;
+ font-size:12px!important;font-weight:680;
+ min-height:44px;line-height:1.25;
+ text-decoration:none;
+ cursor:pointer;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open:hover{
+ text-decoration:underline;text-underline-offset:3px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-empty{
+ color:var(--gt-muted,#59655b);font-size:13px;margin:6px 0 20px;
+}
+@media(max-width:390px){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-table[data-mode="shooting"] .gtgr-v1-data-row{
+  grid-template-columns:minmax(68px,2fr) 24px repeat(3,minmax(0,1fr))!important;
+ }
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gtc-section-title{
+  font-size:17px;
+ }
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open{
+  font-size:11px!important;
+ }
+}
