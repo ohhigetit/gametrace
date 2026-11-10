@@ -37,6 +37,8 @@ const puppeteer=require('puppeteer-core');
   await page.click('[data-dna-view="reflections"]');
   assert(await page.$('[data-component="OriginalNotebook"]'),'Existing Notebook list absent');
   console.log('REFLECTIONS BUTTONS:',JSON.stringify(await page.evaluate(()=>[...document.querySelectorAll('#notebookContent button')].map(b=>({label:b.textContent.trim(),aria:b.getAttribute('aria-label')})).slice(0,35))));
+  await page.evaluate(()=>[...document.querySelectorAll('#notebookContent button')].find(b=>b.textContent.trim()==='Add Notes')?.click());
+  console.log('NOTE FORM:',JSON.stringify(await page.evaluate(()=>({open:document.getElementById('sheet')?.open,title:document.getElementById('sheetTitle')?.textContent,fields:[...document.querySelectorAll('#sheet input,#sheet textarea,#sheet select')].map(x=>({tag:x.tagName,aria:x.getAttribute('aria-label'),label:x.closest('label')?.textContent?.slice(0,100),value:x.value})),buttons:[...document.querySelectorAll('#sheet button')].map(x=>x.textContent.trim())}))));
   console.log('BROWSER ERRORS:',JSON.stringify(errors));
   assert.equal(errors.length,0,'Browser generated uncaught JS errors');
   console.log('PASS: Notebook menu navigation, three views, My DNA categories, legacy Notebook, no JS errors');
