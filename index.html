@@ -6454,6 +6454,75 @@ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboar
  }
 }
 
+
+/* Scoreboard PageHeader integration repair — review-only. All selectors are page scoped. */
+html[data-theme] #app.gt-app #reportsContent > #gt-scoreboard-review.up1-page{
+ display:flex!important;flex-direction:column!important;min-height:100%;width:100%;max-width:100%;min-width:0;box-sizing:border-box;
+ overflow-x:clip;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-header{
+ display:block!important;flex:0 0 auto!important;min-height:0!important;
+ margin:0 0 12px!important;padding:10px 0 0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-heading{
+ display:grid!important;grid-template-columns:34px minmax(0,1fr) 44px!important;
+ gap:9px!important;align-items:center!important;min-height:44px;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-back{
+ display:grid!important;place-items:center!important;width:34px!important;height:44px!important;min-height:44px!important;
+ border:0!important;background:transparent!important;padding:4px!important;color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-back svg{display:block!important;width:24px!important;height:24px!important;max-width:24px!important;max-height:24px!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-heading > div{min-width:0!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title{
+ display:flex!important;align-items:center!important;min-height:44px!important;gap:9px!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title > svg{
+ display:block!important;position:static!important;flex:0 0 25px!important;
+ width:25px!important;height:25px!important;min-width:25px!important;min-height:25px!important;
+ max-width:25px!important;max-height:25px!important;overflow:visible!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title h1{
+ margin:0!important;font-size:clamp(22px,5.5vw,29px)!important;line-height:1.2!important;letter-spacing:-.65px!important;
+ font-weight:800!important;color:var(--gt-ink)!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-subtitle-v1:empty{display:none!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-header-filter{
+ position:relative!important;display:grid!important;place-items:center!important;
+ width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;
+ max-width:44px!important;max-height:44px!important;margin:0!important;padding:9px!important;
+ border:1px solid var(--gt-edge,#cbd3c8)!important;border-radius:11px!important;
+ background:var(--gt-surface,#fff)!important;color:var(--gt-ink,#172119)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-header-filter svg{
+ display:block!important;width:22px!important;height:22px!important;max-width:22px!important;max-height:22px!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-content{
+ display:block!important;flex:1 0 auto!important;min-width:0!important;width:100%!important;
+ min-height:0!important;margin:0!important;padding:0!important;border:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-content > .gtc-section:first-child{margin-top:0!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-gcs-content,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-content{min-width:0!important;max-width:100%!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-circle-svg{
+ display:block!important;width:min(100%,350px)!important;max-width:100%!important;height:auto!important;
+ aspect-ratio:1 / 1!important;margin:12px auto!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-v1{margin-top:22px!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-timeline svg{max-width:100%!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer{
+ display:block!important;flex:0 0 auto!important;margin:28px 0 0!important;padding:24px 0 8px!important;
+ border:0!important;border-top:1px solid var(--gt-edge,#cbd3c8)!important;
+ background:transparent!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span{
+ display:block!important;font-size:clamp(10px,3vw,13px)!important;line-height:1.65!important;
+ font-weight:800!important;letter-spacing:.7px!important;white-space:normal!important;
+ color:var(--gt-ink)!important;
+}
+@media(min-width:650px){html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-circle-svg{width:min(100%,390px)!important}}
+@media(max-width:380px){html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title h1{font-size:23px!important}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -12495,6 +12564,14 @@ function renderScoreboardReview(){
   onBack:()=>navigate('menu'),
   backLabel:'Back to menu'
  });
+ const filter=mk('button','gt467-trigger gt468-icon-trigger gt-scoreboard-header-filter');
+ filter.type='button';filter.dataset.component='FilterTrigger';
+ filter.setAttribute('aria-label','Filter Scoreboard games');
+ filter.setAttribute('title','Filter Scoreboard');
+ filter.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h5m4 0h7M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>';
+ if(gt467ActiveCount('reports')>0){const dot=mk('span','gt468-filter-active');dot.setAttribute('aria-hidden','true');filter.append(dot);}
+ filter.addEventListener('click',()=>gt467Modal('reports'));
+ header.querySelector('.up1-heading').append(filter);
  const sections=[overview(rows),records(rows)];
  const selected=selectedSection(rows);
  if(selected)sections.push(selected);
