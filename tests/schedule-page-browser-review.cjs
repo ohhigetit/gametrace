@@ -25,9 +25,17 @@ const puppeteer=require('puppeteer-core');
     return {typeofNavigate:typeof navigate, typeofRender:typeof renderSchedule,screen:typeof ui==='undefined'?'unknown':ui.screen,root:!!document.getElementById('scheduleContent')};
   });
   console.log('BOOT:',JSON.stringify(before)); console.log('SCRIPT ERRORS:',JSON.stringify(errors.slice(0,20)));
-  assert.equal(before.typeofNavigate,'function','GameTrace failed bootstrap');
+  assert(before.root,'Schedule DOM mount missing');
+  await page.evaluate(()=>document.getElementById('settingsButton')?.click());
+  await new Promise(r=>setTimeout(r,350));
+  const menu=await page.evaluate(()=>[...document.querySelectorAll('#menuContent button')].map(b=>({text:b.textContent.trim(),nav:b.dataset.nav})).slice(0,35));
+  console.log('MENU:',JSON.stringify(menu));
+  const found=await page.evaluate(()=>{
+    const btn=document.querySelector('#menuContent [data-nav="schedule"]')||[...document.querySelectorAll('#menuContent button')].find(b=>b.textContent.trim()==='Schedule');
+    if(btn){btn.click();return true;}return false;
+  });
+  assert(found,'Schedule menu link missing');
   const actual=await page.evaluate(()=>{
-    navigate('schedule');
     const root=document.querySelector('#scheduleContent > .up1-page');
     return {root:!!root,html:document.querySelector('#scheduleContent')?.innerHTML?.slice(0,1300),title:root?.querySelector('h1')?.textContent,component:root?.dataset.component,cta:root?.querySelector('.up1-action')?.textContent,filter:!!root?.querySelector('[data-component="FilterTrigger"]'),coming:!!root?.querySelector('.gtsl-section'),footer:!!root?.querySelector('.up1-footer'),error:document.querySelector('[role=alert]')?.textContent};
   }).catch(e=>({exception:String(e)}));
@@ -38,7 +46,7 @@ const puppeteer=require('puppeteer-core');
   assert(actual.coming,'Coming Up missing');
   assert(actual.cta.includes('New Event'),'CTA missing');
   assert(actual.footer,'Footer missing');
-  await page.locator('#scheduleContent .up1-action').click();
+  await page.click('#scheduleContent .up1-action');
   const form=await page.evaluate(()=>({dialogs:document.querySelectorAll('dialog[open],[role=dialog]').length,body:document.body.textContent.slice(-600)}));
   console.log('FORM:',JSON.stringify(form));
   assert(form.dialogs>0,'New Event did not open existing form');
