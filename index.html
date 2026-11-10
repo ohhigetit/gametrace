@@ -11852,6 +11852,8 @@ html[data-theme] #app.gt-app .gtm-wordmark{font-size:23px!important;line-height:
 html[data-theme] #app.gt-app .gtm-tagline{font-size:10px!important;color:var(--gt-muted)!important}
 html[data-theme] #app.gt-app .gtm-logo{display:block;width:44px;height:44px;object-fit:contain;border-radius:10px}
 html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
+/* App Navigation owns the logo/close: prevent a second visual header in any menu render path. */
+html[data-theme] #app.gt-app #menuContent .gtm-header{display:none!important}
 
 </style>
 <script id="gt-menu-component-v1-4-js">
