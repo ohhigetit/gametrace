@@ -56,3 +56,127 @@ html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .gt-circle-de
 html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-key{display:inline-block;font-size:11px;margin:5px 8px 5px 0}
 html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .gt-tls-content{min-width:0}
 @media(max-width:390px){html[data-theme] #app.gt-app #reportsContent .gtpo-v1-cell{padding:12px 4px}html[data-theme] #app.gt-app #reportsContent .gtpo-v1-label{font-size:9px;letter-spacing:.3px}html[data-theme] #app.gt-app #reportsContent .gtpo-v1-value{font-size:21px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row{grid-template-columns:minmax(68px,2fr) 24px repeat(4,minmax(0,1fr));gap:2px;padding-inline:5px;font-size:11px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-head{font-size:9px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row:has(.gtgr-v1-number:nth-child(5):last-child){grid-template-columns:minmax(68px,2fr) 24px repeat(3,minmax(0,1fr))}}
+
+/* Game Records Analytics V5.2 — Active Metric Rail and dynamic summary */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend{
+  padding-top:17px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-eyebrow{
+  margin:0 15px 10px;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.35px;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-summary{
+  min-height:66px;
+  margin:0 15px 8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:4px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-label{
+  font-size:10px;
+  font-weight:760;
+  letter-spacing:.5px;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number strong{
+  font-size:clamp(24px,6.8vw,32px);
+  line-height:1;
+  letter-spacing:-.9px;
+  font-weight:770;
+  font-variant-numeric:tabular-nums;
+  color:var(--gt-ink,#172119);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number span{
+  font-size:11px;
+  font-weight:740;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-count{
+  font-size:19px;
+  font-weight:775;
+  letter-spacing:-.35px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-selected{
+  font-size:11px;
+  font-weight:650;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:clamp(7px,3vw,20px);
+  align-items:stretch;
+  margin:0 15px;
+  padding:0;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item{
+  appearance:none;
+  background:transparent;
+  border:0;
+  border-bottom:2px solid transparent;
+  border-radius:0;
+  padding:10px clamp(4px,2vw,12px) 9px;
+  min-height:44px;
+  min-width:0;
+  flex:1 1 0;
+  text-align:center;
+  color:var(--gt-muted,#59655b);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2px;
+  transition:color .15s ease,border-color .15s ease;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item[aria-pressed=true]{
+  color:var(--metric);
+  font-weight:830;
+  border-bottom-color:var(--metric);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item:focus-visible{
+  outline:2px solid var(--metric);
+  outline-offset:-2px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-chart{
+  padding-top:7px;
+}
+@media (prefers-reduced-motion:reduce){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metric-rail-item{transition:none}
+}
+/* Folder-style category tabs: keep distinct from metric rail. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views{
+  display:flex;flex-wrap:nowrap;align-items:flex-end;
+  gap:3px;padding:12px 12px 0;
+  border-bottom:1px solid var(--gt-edge,#cbd3c8);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views button{
+  border:1px solid var(--gt-edge,#cbd3c8);
+  border-bottom:0;
+  border-radius:10px 10px 0 0;
+  padding:10px 9px;
+  flex:1 1 0;
+  min-width:0;
+  min-height:42px;
+  background:var(--gt-control,#edf0e9);
+  font-size:12px;
+  font-weight:760;
+  color:var(--gt-muted,#59655b);
+  position:relative;
+  top:1px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views button[aria-pressed=true]{
+  background:var(--gt-surface,#fff);
+  color:var(--gt-green,#087d42);
+  border-color:var(--gt-edge,#cbd3c8);
+  box-shadow:inset 0 3px 0 var(--gt-green,#087d42);
+}
