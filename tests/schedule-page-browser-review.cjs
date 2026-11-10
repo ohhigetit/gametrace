@@ -24,7 +24,7 @@ const puppeteer=require('puppeteer-core');
   const before=await page.evaluate(()=>{
     return {typeofNavigate:typeof navigate, typeofRender:typeof renderSchedule,screen:typeof ui==='undefined'?'unknown':ui.screen,root:!!document.getElementById('scheduleContent')};
   });
-  console.log('BOOT:',JSON.stringify(before));
+  console.log('BOOT:',JSON.stringify(before)); console.log('SCRIPT ERRORS:',JSON.stringify(errors.slice(0,20)));
   assert.equal(before.typeofNavigate,'function','GameTrace failed bootstrap');
   const actual=await page.evaluate(()=>{
     navigate('schedule');
