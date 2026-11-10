@@ -47,7 +47,7 @@ const puppeteer=require('puppeteer-core');
   await page.click('[data-dna-view="review"]');
   console.log('AFTER REVIEW CLICK:',JSON.stringify(await page.evaluate(()=>({text:document.querySelector('[data-component="ReflectionReviewV1"]')?.innerText?.slice(0,1200),rows:[...document.querySelectorAll('[data-reflection-key]')].map(x=>x.dataset.reflectionKey)}))));
   const reviewRows=await page.$('[data-reflection-key]');
-  assert(reviewRows.length>0,'Saved personal note not present for review');
+  assert(reviewRows,'Saved personal note not present for review');
   await page.evaluate(()=>document.querySelector('[data-reflection-key] button')?.click());
   assert(await page.evaluate(()=>document.getElementById('sheet')?.open),'Review dialog did not open');
   await page.select('#sheet select[aria-label="My DNA category"]','will');
