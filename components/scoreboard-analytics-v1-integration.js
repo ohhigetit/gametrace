@@ -10,25 +10,79 @@ function val(r,key){const t=r.t;if(key==='fg')return t.fga?100*t.fgm/t.fga:null;
 function fmt(r,key){const n=val(r,key);return n===null?'—':String(Math.round(n))+(selection.mode==='shooting'?'%':'')}
 function shot(r,key){const t=r.t;return key==='fg'?[t.fgm,t.fga]:key==='three'?[t.m3,t.a3]:[t.mft,t.aft]}
 function select(id){selection.id=id;selection.expanded=true;renderScoreboardReview()}
-function banner(rows){
- const area=mk('div','gtpo-v1-rows');
- for(const row of rows){const r=mk('div','gtpo-v1-row');for(const [label,value,sub] of row){const cell=mk('div','gtpo-v1-cell');cell.append(mk('span','gtpo-v1-label',label),mk('strong','gtpo-v1-value',value));if(sub)cell.append(mk('small','gtpo-v1-sub',sub));r.append(cell);}area.append(r);}return GameTraceComponents.SharedBannerV2({primary:area,rootClass:'gtpo-v1-banner',componentName:'PerformanceOverviewBannerV6'});
-}
+/* Approved Performance Overview Banner V7.1: 30 / 35 / 35, native SharedBanner V2 wrapper. */
 function overview(rows){
- const games=rows.length,w=rows.filter(({g})=>g.finalScore&&g.finalScore.team>g.finalScore.opponent).length,l=rows.filter(({g})=>g.finalScore&&g.finalScore.team<g.finalScore.opponent).length;
- const totals=rows.reduce((s,{t})=>{for(const k of ['pts','reb','ast','stl','fgm','fga','m3','a3','mft','aft'])s[k]+=t[k]||0;return s},{pts:0,reb:0,ast:0,stl:0,fgm:0,fga:0,m3:0,a3:0,mft:0,aft:0});
- const wrap=mk('div','gtpo-v1-wrap');
- const switcher=mk('div','gtpo-v1-toggle');
- let average=false;
- const body=mk('div');
- function draw(){const stats=['pts','reb','ast','stl'].map(k=>[k.toUpperCase(),games&&average?safeInt(totals[k]/games):totals[k]]);
- const rate=(m,a)=>a?Math.round(m/a*100)+'%':'—';
- const content=banner([[['GAMES PLAYED',games],['WIN–LOSS',w+'–'+l],['WIN RATE',w+l?Math.round(w/(w+l)*100)+'%':'—']],stats,[['FG',rate(totals.fgm,totals.fga),totals.fgm+' / '+totals.fga],['3PT',rate(totals.m3,totals.a3),totals.m3+' / '+totals.a3],['FT',rate(totals.mft,totals.aft),totals.mft+' / '+totals.aft]]]);
- body.replaceChildren(content);
- for(const b of switcher.children)b.setAttribute('aria-pressed',String(b.dataset.kind===(average?'avg':'total')));
+ const games=rows.length;
+ const wins=rows.filter(({g})=>g.finalScore&&g.finalScore.team>g.finalScore.opponent).length;
+ const losses=rows.filter(({g})=>g.finalScore&&g.finalScore.team<g.finalScore.opponent).length;
+ const t=rows.reduce((sum,{t})=>{for(const k of ['pts','reb','ast','stl','fgm','fga','m3','a3','mft','aft'])sum[k]+=(t[k]||0);return sum},{pts:0,reb:0,ast:0,stl:0,fgm:0,fga:0,m3:0,a3:0,mft:0,aft:0});
+ const wrap=mk('div','gtpo-v71-wrap');
+ let average=true;
+ const body=mk('div','gtpo-v71-body');
+ const make=(tag,klass,text)=>mk(tag,klass,text);
+ const pct=(m,n)=>n?Math.round(m/n*100):null;
+ const metric=(k)=>games?(average?(t[k]/games).toFixed(1):String(t[k])):'—';
+ function cell(inner,kind){
+  const node=make('div','gtv2-banner-cell gtpo-v71-cell gtpo-v71-'+kind);
+  node.dataset.component='BannerCellV2';node.append(inner);return node;
  }
- for(const [kind,label] of [['total','Totals'],['avg','Averages']]){const b=mk('button','',label);b.type='button';b.dataset.kind=kind;b.addEventListener('click',()=>{average=kind==='avg';draw()});switcher.append(b);}
- wrap.append(switcher,body);draw();return GameTraceComponents.Section({title:'Performance Overview',content:wrap,kind:'gtpo-v1-section'});
+ function recordColumn(){
+  const col=make('div','gtpo-v71-column');
+  col.append(make('span','gtpo-v71-kicker','Season record'));
+  const record=make('div','gtpo-v71-record');
+  record.append(make('span','',wins),make('span','gtpo-v71-dash','–'),make('span','',losses));col.append(record);
+  col.append(make('div','gtpo-v71-record-desc','Wins / Losses'));
+  const percent=pct(wins,wins+losses);
+  col.append(make('div','gtpo-v71-winrate',percent===null?'—':percent+'%'),make('div','gtpo-v71-winrate-label','WIN RATE'));
+  const track=make('div','gtpo-v71-win-track'),fill=make('div','gtpo-v71-win-fill');
+  track.setAttribute('role','img');track.setAttribute('aria-label',wins+' wins and '+losses+' losses');
+  fill.style.width=(percent||0)+'%';track.append(fill);col.append(track);
+  col.append(make('p','gtpo-v71-game-count',games+' GAMES PLAYED'));return col;
+ }
+ function productionColumn(){
+  const col=make('div','gtpo-v71-column');
+  col.append(make('span','gtpo-v71-kicker','Player production'));
+  const head=make('div','gtpo-v71-prod-heading'),control=make('div','gtpo-v71-mode-switch');
+  control.setAttribute('role','group');control.setAttribute('aria-label','Player production display');
+  for(const [type,label] of [['avg','AVG'],['total','TOTAL']]){
+   const button=make('button','',label);button.type='button';
+   button.setAttribute('aria-pressed',String((type==='avg')===average));
+   button.addEventListener('click',()=>{average=type==='avg';draw()});control.append(button);
+  }
+  head.append(control);col.append(head);
+  const list=make('div','gtpo-v71-production');
+  for(const [key,label] of [['pts','PTS'],['reb','REB'],['ast','AST'],['stl','STL']]){
+   const stat=make('div','gtpo-v71-stat');
+   stat.append(make('span','gtpo-v71-stat-label',label),make('strong','gtpo-v71-stat-value',metric(key)));
+   list.append(stat);
+  }col.append(list);return col;
+ }
+ function shootingColumn(){
+  const col=make('div','gtpo-v71-column');
+  col.append(make('span','gtpo-v71-kicker','Shooting efficiency'));
+  const list=make('div','gtpo-v71-shooting');
+  for(const [name,m,n] of [['FG',t.fgm,t.fga],['3PT',t.m3,t.a3],['FT',t.mft,t.aft]]){
+   const percent=pct(m,n),item=make('div','gtpo-v71-shot'),head=make('div','gtpo-v71-shot-head');
+   head.append(make('span','gtpo-v71-shot-name',name),make('strong','gtpo-v71-shot-value',percent===null?'—':percent+'%'));
+   const track=make('div','gtpo-v71-shot-bar'),fill=make('div','gtpo-v71-shot-fill');
+   track.setAttribute('role','progressbar');track.setAttribute('aria-label',name+' shooting percentage');
+   track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
+   if(percent!==null)track.setAttribute('aria-valuenow',String(percent));
+   fill.style.width=(percent||0)+'%';track.append(fill);
+   item.append(head,track,make('span','gtpo-v71-shot-count',m+' / '+n+' MADE / ATTEMPTED'));
+   list.append(item);
+  }col.append(list);return col;
+ }
+ function draw(){
+  const row=make('div','gtv2-banner-row gtpo-v71-row');
+  row.dataset.component='BannerRowV2';
+  row.append(cell(recordColumn(),'record-col'),cell(productionColumn(),'production-col'),cell(shootingColumn(),'shooting-col'));
+  const banner=GameTraceComponents.SharedBannerV2({primary:row,rootClass:'gtv2-banner gtpo-v71-banner',componentName:'PerformanceOverviewBannerV7_1'});
+  banner.dataset.parent='SharedBannerV2';
+  body.replaceChildren(banner);
+ }
+ wrap.append(body);draw();
+ return GameTraceComponents.Section({title:'Performance Overview',content:wrap,kind:'gtpo-v71-section'});
 }
 function drawChart(rows,keys,host){
  host.replaceChildren();const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 560 178');svg.setAttribute('role','img');svg.setAttribute('aria-label','Game performance trend for '+keys.join(', '));svg.classList.add('gtgr-v1-plot');
@@ -42,50 +96,25 @@ function drawChart(rows,keys,host){
 function records(rows){
  const root=mk('div','gtgr-v1-analytics');
  const views=mk('div','gtgr-v1-views');for(const mode of Object.keys(modes)){const b=mk('button','',mode[0].toUpperCase()+mode.slice(1));b.type='button';b.setAttribute('aria-pressed',String(selection.mode===mode));b.addEventListener('click',()=>{selection.mode=mode;selection.metrics=new Set([modes[mode][0][0]]);renderScoreboardReview()});views.append(b)}root.append(views);
- const trend=mk('div','gtgr-v1-trend');
- const eyebrow=mk('div','gtgr-v1-trend-eyebrow','PERFORMANCE TREND');
- const summary=mk('div','gtgr-v1-trend-summary');
- const metrics=mk('div','gtgr-v1-metrics'),chart=mk('div','gtgr-v1-chart');
- const keys=modes[selection.mode].map(([k])=>k);
- if(!keys.some(k=>selection.metrics.has(k)))selection.metrics=new Set([keys[0]]);
- const selectedKeys=keys.filter(k=>selection.metrics.has(k));
- const readable={pts:'POINTS PER GAME',reb:'REBOUNDS PER GAME',ast:'ASSISTS PER GAME',stl:'STEALS PER GAME',drive:'DRIVES PER GAME',defstop:'DEFENSIVE STOPS PER GAME',to:'TURNOVERS PER GAME',pf:'FOULS PER GAME',fg:'FIELD GOAL PERCENTAGE',three:'3-POINT PERCENTAGE',ft:'FREE THROW PERCENTAGE'};
- if(selectedKeys.length===1){
-   const key=selectedKeys[0],stat=mk('div','gtgr-v1-trend-stat');
-   stat.append(mk('span','gtgr-v1-trend-label',readable[key]||key.toUpperCase()));
-   let result='—',unit=selection.mode==='shooting'?'%':'AVG';
-   if(rows.length){
-     if(selection.mode==='shooting'){
-       const shots=rows.reduce((s,r)=>{const [m,a]=shot(r,key);s.m+=m;s.a+=a;return s},{m:0,a:0});
-       if(shots.a)result=String(Math.round(shots.m/shots.a*100));
-     }else{
-       result=(rows.reduce((s,r)=>s+(val(r,key)||0),0)/rows.length).toFixed(1);
-     }
-   }
-   const line=mk('div','gtgr-v1-trend-number');
-   line.append(mk('strong','',result),mk('span','',unit));
-   stat.append(line);summary.append(stat);
- }else{
-   summary.append(mk('span','gtgr-v1-trend-label','MULTI-METRIC COMPARISON'));
-   summary.append(mk('strong','gtgr-v1-trend-count',selectedKeys.length+' METRICS SELECTED'));
-   summary.append(mk('span','gtgr-v1-trend-selected',selectedKeys.map(k=>modes[selection.mode].find(pair=>pair[0]===k)[1]).join(' · ')));
- }
+ const chart=mk('div','gtgr-v1-chart'),metrics=mk('div','gtgr-v1-metrics');
+ const keys=modes[selection.mode].map(([key])=>key);
+ if(!keys.some(key=>selection.metrics.has(key)))selection.metrics=new Set([keys[0]]);
+ const selectedKeys=keys.filter(key=>selection.metrics.has(key));
+ root.append(chart,metrics);drawChart(rows,selectedKeys,chart);
  keys.forEach((key,i)=>{
    const active=selection.metrics.has(key);
-   const b=mk('button','gtgr-v1-metric-rail-item',modes[selection.mode][i][1]);
-   b.type='button';b.style.setProperty('--metric',colors[i]);
-   b.setAttribute('aria-pressed',String(active));
-   b.setAttribute('aria-label',(active?'Hide ':'Show ')+modes[selection.mode][i][1]+' on performance graph');
-   b.title=modes[selection.mode][i][1];
-   b.addEventListener('click',()=>{
+   const button=mk('button','gtgr-v1-metric-rail-item',modes[selection.mode][i][1]);
+   button.type='button';
+   button.style.setProperty('--metric',colors[i]);
+   button.setAttribute('aria-pressed',String(active));
+   button.setAttribute('aria-label',(active?'Hide ':'Show ')+modes[selection.mode][i][1]+' on performance graph');
+   button.addEventListener('click',()=>{
      if(selection.metrics.has(key)){if(selection.metrics.size>1)selection.metrics.delete(key)}
      else selection.metrics.add(key);
      renderScoreboardReview();
    });
-   metrics.append(b);
+   metrics.append(button);
  });
- trend.append(eyebrow,summary,metrics,chart);root.append(trend);
- drawChart(rows,selectedKeys,chart);
  const table=mk('div','gtgr-v1-table'),header=mk('div','gtgr-v1-data-row gtgr-v1-head');header.append(mk('span','','GAME'),mk('span','','W/L'));for(const [key,label] of modes[selection.mode]){const s=mk('span',selection.metrics.has(key)?'is-active':'',label);header.append(s)}table.append(header);
  for(const r of [...rows].reverse()){
  const b=mk('button','gtgr-v1-data-row'+(r.g.id===selection.id?' is-selected':''));b.type='button';b.setAttribute('aria-pressed',String(r.g.id===selection.id));b.addEventListener('click',()=>select(r.g.id));
