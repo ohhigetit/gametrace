@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html data-theme="day" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/><title>GameTrace · Game Records Section V1 · V5 Analytics</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}html[data-theme=day]{--bg:#f7f8f5;--surface:#fff;--ink:#172119;--muted:#59655b;--edge:#cbd3c8;--accent:#087d42;--soft:#e3efe5;--onsoft:#174c2d;--control:#edf0e9;--line:#e2e7df;--red:#b3434a;--redbg:#fbebec;--bar:#a9d7b8;--glow:#eef5ef}html[data-theme=courtside]{--bg:#101211;--surface:#1b1e1c;--ink:#f0f4ef;--muted:#a4b0a5;--edge:#3b453d;--accent:#19c66a;--soft:#284733;--onsoft:#e5f6e7;--control:#232824;--line:#313a33;--red:#ff9ba4;--redbg:#43282e;--bar:#346a46;--glow:#202d24}
+body{margin:0;background:var(--bg);color:var(--ink);padding:16px 12px 50px}main{max-width:850px;margin:auto}h1{font-size:23px;letter-spacing:-.5px;margin:4px 0 4px}p{margin:0}.lead{font-size:12px;color:var(--muted);line-height:1.5}.toolrow{display:flex;gap:8px;margin:15px 0;flex-wrap:wrap}.toolrow button{background:var(--surface);border:1px solid var(--edge);color:var(--ink);border-radius:9px;min-height:36px;padding:6px 11px;font-weight:700;cursor:pointer}.toolrow button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:var(--soft)}.frame{max-width:100%;margin:0 auto;transition:max-width .25s}.frame.phone{max-width:375px}.sectionheader{display:flex;align-items:center;justify-content:space-between;margin:0 0 11px;gap:8px}.sectionheader h2{font-size:17px;font-weight:780;margin:0;line-height:1.2}.sectionheader small{font-size:11px;color:var(--muted)}.filter{border:1px solid var(--edge);border-radius:8px;background:var(--surface);font-size:12px;color:var(--ink);padding:8px 9px;min-height:38px}.card{background:var(--surface);border:1px solid var(--edge);border-radius:14px;overflow:hidden}.topline{padding:14px 14px 9px;display:flex;justify-content:space-between;align-items:center;gap:10px}.eyebrow{font-size:10px;letter-spacing:.65px;text-transform:uppercase;font-weight:800;color:var(--accent)}.context{font-size:11px;color:var(--muted);margin-top:4px}.bigvalue{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}.biglabel{font-size:10px;color:var(--muted);margin-top:4px;text-align:right}.trend{padding:0px 10px 5px}.trend svg{display:block;width:100%;height:154px;overflow:visible}.trend .grid{stroke:var(--line);stroke-width:1}.trend .path{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.trend .area{fill:var(--glow)}.trend .mark{fill:var(--surface);stroke:var(--accent);stroke-width:2.5;cursor:pointer}.trend .mark.selected{fill:var(--accent);stroke:var(--surface);stroke-width:3}.trend .tick{font-size:10px;fill:var(--muted)}.trend .point-hit{fill:transparent;cursor:pointer}.trend .focus:focus-visible{outline:2px solid var(--accent)}.metrics{display:flex;gap:6px;flex-wrap:wrap;padding:0 13px 13px}.metrics button{font:inherit;font-size:11px;font-weight:750;border:1px solid var(--edge);border-radius:8px;background:var(--control);color:var(--muted);padding:7px 11px;cursor:pointer;min-height:34px}.metrics button[aria-pressed=true]{background:var(--soft);border-color:var(--accent);color:var(--accent)}.summaryline{padding:10px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--glow);display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;color:var(--muted)}.summaryline strong{color:var(--ink)}.tableheader,.row{display:grid;grid-template-columns:minmax(0,1.62fr) 36px repeat(4,minmax(0,.54fr));align-items:center;column-gap:3px}.tableheader{background:var(--control);font-weight:750;text-transform:uppercase;letter-spacing:.25px;font-size:9px;color:var(--muted);padding:9px 10px}.tableheader span:not(:first-child){text-align:center}.row{position:relative;width:100%;border:0;border-bottom:1px solid var(--line);text-align:left;padding:11px 10px;background:transparent;color:var(--ink);cursor:pointer;font:inherit;min-height:58px}.row:last-child{border-bottom:0}.row:hover,.row:focus-visible{background:var(--glow)}.row.selected{background:var(--soft)}.row .opponent{font-size:12px;font-weight:750;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .date{font-size:10px;color:var(--muted);margin-top:5px}.result{justify-self:center;border-radius:6px;padding:4px 5px;min-width:26px;text-align:center;font-size:10px;font-weight:850}.result.win{background:var(--soft);color:var(--onsoft)}.result.loss{background:var(--redbg);color:var(--red)}.stat{display:flex;justify-content:center;align-items:center;min-width:0;position:relative;border-radius:5px;height:30px;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;overflow:hidden}.stat strong{position:relative;z-index:1}.stat.active{color:var(--accent);font-weight:850}.foot{padding:11px 13px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:10px}.selectedinfo{font-size:11px;color:var(--ink);margin:0}.go{color:var(--accent);font-weight:750;white-space:nowrap}.hint{margin:12px 0 0;font-size:11px;color:var(--muted);line-height:1.5}.nav{font-size:11px;background:var(--soft);padding:9px 11px;border-radius:8px;color:var(--onsoft);margin-top:10px;display:none}.nav.visible{display:block}.pill{font-size:10px;letter-spacing:.15px;color:var(--muted);background:var(--control);border-radius:99px;padding:4px 7px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:390px){body{padding:12px 9px 36px}.topline{padding:12px 11px 8px}.trend svg{height:134px}.tableheader,.row{grid-template-columns:minmax(0,1.5fr) 28px repeat(4,minmax(0,.53fr));gap:1px}.tableheader{padding:9px 6px;font-size:8px}.row{padding:9px 6px;min-height:53px}.row .opponent{font-size:11px}.row .date{font-size:9px}.stat{font-size:11px}.result{min-width:23px;font-size:9px;padding:4px 2px}.metrics{padding:0 11px 11px}.metrics button{flex:1;padding:7px 4px}}
+
+/* V2 visual refinement — compositional change only; existing JS/data and selection retained */
+html[data-theme=day]{--surface:#ffffff;--bg:#f5f7f4;--edge:#dce5da;--line:#e9eee8;--control:#f4f7f3;--glow:#f0f7f0;--bar:#89c59e}
+html[data-theme=courtside]{--surface:#1b211c;--bg:#101411;--edge:#394a3e;--line:#303d34;--control:#262e28;--glow:#22372b;--bar:#286842}
+body{padding-top:24px}
+main{max-width:960px}
+h1{font-size:25px;font-weight:800;letter-spacing:-.9px}
+.lead{margin-top:4px}
+.toolrow{margin:18px 0 22px}
+.toolrow button{border-radius:999px;padding:8px 14px;font-size:12px;transition:background .15s ease}
+.sectionheader{margin-bottom:14px;align-items:center}
+.sectionheader h2{font-size:19px;font-weight:800;letter-spacing:-.45px}
+.filter{border-radius:999px;padding:8px 13px;font-weight:650}
+.card{border-radius:19px;border-color:var(--edge);box-shadow:0 8px 32px rgba(18,40,22,.055)}
+.topline{padding:22px 20px 10px;align-items:flex-start}
+.chart-heading{min-width:0}
+.eyebrow{display:flex;gap:6px;align-items:center;color:var(--accent);letter-spacing:1px;font-size:9px}
+.signal-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--soft)}
+.chart-title{font-size:18px;letter-spacing:-.5px;line-height:1.2;font-weight:800;margin-top:9px}
+.context{font-size:11px;margin-top:6px}
+.current-kpi{text-align:right;flex:0 0 auto;min-width:68px;border-left:1px solid var(--line);padding-left:15px}
+.bigvalue{font-size:35px;letter-spacing:-1.2px;color:var(--ink);font-weight:830}
+.biglabel{font-size:9px;font-weight:700;letter-spacing:.25px}
+.trend{padding:8px 15px 0}
+.trend svg{height:170px}
+.trend .grid{stroke-dasharray:3 5}
+.trend .path{stroke-width:3.5}
+.trend .mark{stroke-width:3}
+.trend .mark.selected{fill:var(--accent);stroke:var(--surface);stroke-width:3.5}
+.metrics{padding:12px 17px 20px;gap:6px}
+.metrics button{border-radius:999px;font-size:11px;font-weight:800;padding:9px 15px;min-height:38px;border-color:transparent}
+.metrics button[aria-pressed=true]{color:var(--onsoft);background:var(--soft);border-color:var(--accent)}
+.summaryline{background:transparent;padding:13px 18px;border-bottom:0;border-top:1px solid var(--line)}
+.gamescount{display:inline-flex;align-items:center;gap:5px;min-width:0}
+.mini-icon{font-size:17px;color:var(--accent)}
+.summary-caption{font-size:10px}
+.avg-chip{display:inline-flex;align-items:center;background:var(--soft);color:var(--onsoft);font-weight:800;border-radius:999px;padding:7px 10px;font-size:10px;white-space:nowrap}
+.matrix-title{padding:11px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.matrix-title strong{font-size:15px;font-weight:800;letter-spacing:-.3px;display:block}
+.matrix-title small{display:block;font-size:10px;color:var(--muted);margin-top:3px}
+.matrix-tag{border:1px solid var(--edge);border-radius:999px;color:var(--muted);padding:5px 8px;letter-spacing:.5px;font-weight:800;font-size:9px;white-space:nowrap}
+.tableheader{background:var(--control);padding:12px 15px;font-size:9px;font-weight:800;letter-spacing:.5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tableheader,.row{grid-template-columns:minmax(0,1.62fr) 36px repeat(4,minmax(0,.54fr));column-gap:5px}
+.row{padding:13px 15px;min-height:65px;transition:background .12s ease}
+.row .identity{min-width:0}
+.row .opponent{font-size:12px;font-weight:800;letter-spacing:-.2px}
+.row .date{font-size:10px;margin-top:5px}
+.row.selected{background:var(--glow);box-shadow:inset 3px 0 var(--accent)}
+.row:hover{background:var(--glow)}
+.result{border-radius:999px;min-width:29px;font-size:10px;padding:5px 6px}
+.stat{height:30px;border-radius:7px;font-size:13px;font-weight:750}
+.stat i{opacity:.32;border-radius:6px}
+.stat.active{color:var(--ink)}
+.stat.active i{opacity:.55}
+.foot{padding:14px 17px;background:var(--control)}
+.selectedinfo{font-size:10px;color:var(--muted)}
+.go{font-size:10px;font-weight:850;letter-spacing:.35px}
+.hint{font-size:11px;line-height:1.6;margin-top:14px}
+@media(max-width:390px){body{padding:12px 9px 36px}.topline{padding:17px 13px 7px}.chart-title{font-size:15px}.bigvalue{font-size:30px}.current-kpi{padding-left:10px}.trend{padding:3px 7px 0}.trend svg{height:143px}.metrics{padding:9px 12px 15px}.metrics button{padding:8px 7px;min-height:36px}.summaryline{padding:10px 12px}.matrix-title{padding:12px}.matrix-title strong{font-size:14px}.matrix-tag{font-size:8px;padding:4px 6px}.tableheader,.row{grid-template-columns:minmax(0,1.5fr) 28px repeat(4,minmax(0,.53fr));gap:2px}.tableheader{padding:10px 7px;font-size:8px}.row{padding:10px 7px;min-height:60px}.row .opponent{font-size:11px}.stat{font-size:11px;height:28px}.result{min-width:23px;padding:4px 3px}.foot{padding:12px}.go{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.frame,.row,.toolrow button{transition:none}}
+</style><style id="gt-v5-views">
+.view-switch{display:flex;gap:4px;margin:9px 17px 5px;padding:4px;background:var(--control);border:1px solid var(--line);border-radius:12px}
+.view-switch button{flex:1;min-width:0;border:0;border-radius:9px;padding:10px 5px;min-height:40px;background:transparent;color:var(--muted);font:inherit;font-weight:780;font-size:11px;cursor:pointer}
+.view-switch button[aria-pressed=true]{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px #0001}
+.view-switch button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.trend .path{stroke-width:1.65!important}
+.tableheader.shooting-grid,.row.shooting-grid{grid-template-columns:minmax(0,1.62fr) 36px repeat(3,minmax(0,.72fr))}
+.row.shooting-grid .stat{height:auto;min-height:36px;flex-direction:column;gap:3px;overflow:visible}
+.made-attempted{font-size:9px;color:var(--muted);font-weight:500;line-height:1.1}
+@media(max-width:390px){.view-switch{margin:8px 10px 5px}.view-switch button{font-size:10px;padding:8px 3px}.tableheader.shooting-grid,.row.shooting-grid{grid-template-columns:minmax(0,1.5fr) 28px repeat(3,minmax(0,.7fr));gap:2px}.row.shooting-grid .stat{font-size:10px}.made-attempted{font-size:8px}}
+</style><style id="gtgr-section-v1">
+/* Approved Section V1 styling from the GitHub component foundation. */
+.gtc-section{--gtc-text:var(--ink,#18251d);--gtc-muted:var(--muted,#647168);--gtc-line:var(--edge,#cbd6cb);--gtc-green:var(--accent,#00844b);color:var(--gtc-text);font-family:inherit;min-width:0;margin-block:1.4rem}
+.gtc-section-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}
+.gtc-section-titles{min-width:0}.gtc-section-title{font-size:clamp(1.25rem,4.4vw,1.6rem);font-weight:750;line-height:1.2;margin:0}
+.gtc-section-subtitle{margin:.42rem 0 0;font-size:.94rem;color:var(--gtc-muted);line-height:1.35}
+.gtc-section-content{min-width:0}
+/* Analytics remains the approved V5 child, with only filter placement adapted. */
+.gtgr-filterbar{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:0 0 10px;min-width:0}
+.gtgr-filterbar label{font-size:10px;font-weight:800;letter-spacing:.7px;color:var(--muted)}
+.gtgr-filterbar .filter{max-width:65%;min-width:0}
+#gtgr-stage{display:none!important}
+#game-records-section-mount{min-width:0}
+</style></head><body><main>
+<h1>Game Records · Section V1</h1><p class="lead">Section V1 parent + approved Game Records Analytics V5 child · illustrative game data.</p>
+<div class="toolrow"><button aria-pressed="true" id="day">☀ Day</button><button aria-pressed="false" id="night">◐ Courtside</button><button aria-pressed="true" id="phone">iPhone</button><button aria-pressed="false" id="wide">Wide</button></div>
+<div class="frame phone" id="frame">
+<div id="game-records-section-mount"></div><div hidden="" id="gtgr-stage"><div class="gtgr-filterbar"><label for="filter">SHOW GAMES</label><select aria-label="Filter game records" class="filter" id="filter"><option value="all">All Games</option><option value="wins">Wins Only</option><option value="losses">Losses Only</option></select></div><section aria-label="Game records analytics" class="card">
+<div class="topline"><div class="chart-heading"><div class="eyebrow"><span aria-hidden="true" class="signal-dot"></span> PERFORMANCE TRACKER</div><div class="chart-title">Game-to-game momentum</div><div class="context" id="chartcontext">Points scored · 5 games</div></div><div class="current-kpi"><div class="bigvalue" id="currentvalue">12</div><div class="biglabel" id="currentlabel">Nov 8 · PTS</div></div></div>
+<div aria-label="Statistics category" class="view-switch" role="group"><button aria-pressed="true" data-view="primary" type="button">Primary</button><button aria-pressed="false" data-view="secondary" type="button">Secondary</button><button aria-pressed="false" data-view="shooting" type="button">Shooting</button></div>
+<div class="trend"><svg aria-label="Performance trend across games" id="chart" role="img" viewbox="0 0 340 150"></svg></div>
+<div aria-label="Trend metrics (select multiple)" class="metrics" id="metrics" role="group"></div>
+<div class="summaryline"><span class="gamescount"><span aria-hidden="true" class="mini-icon">▦</span> <strong id="gcount">5 games</strong><span class="summary-caption">in this view</span></span><span class="avg-chip" id="average">10 PTS / game</span></div>
+<div class="matrix-title"><div><strong>Game-by-game</strong><small>Compare every performance at a glance</small></div><span class="matrix-tag">STAT MATRIX</span></div><div class="tableheader" id="tableheader"></div><div id="rows"></div>
+<div class="foot"><p class="selectedinfo" id="selectedinfo">Nov 8 · Caldwell selected</p><span class="go">OPEN DETAILS <span aria-hidden="true">↗</span></span></div></section></div><div class="nav" id="nav" role="status"></div><p class="hint">Section V1 owns the Game Records heading. The V5 analytics component retains Primary, Secondary and Shooting views, multi-metric selection, game filters, and synchronized chart/table selection. Demo data only.</p></div></main>
+<script id="gtgr-section-composition">
+/* Section V1 exact public API and DOM structure; isolated preview factory. */
+(function(global){
+'use strict';
+const doc=global.document;
+const element=(tag,className,text)=>{const node=doc.createElement(tag);if(className)node.className=className;if(text!==undefined&&text!==null)node.textContent=String(text);return node;};
+const append=(parent,...children)=>{children.flat().forEach(child=>{if(child instanceof global.Node)parent.appendChild(child);else if(child!==null&&child!==undefined)parent.appendChild(doc.createTextNode(String(child)));});return parent;};
+const visible=value=>value!==undefined&&value!==null&&String(value).trim()!=='';
+function Section({title,subtitle,actionLabel='View All',onAction,content,kind=''}={}){
+ if(!visible(title))throw new TypeError('Section requires title');
+ const root=element('section','gtc-section '+kind);
+ const header=element('div','gtc-section-header');
+ const titles=element('div','gtc-section-titles');
+ append(titles,element('h2','gtc-section-title',title));
+ if(visible(subtitle))append(titles,element('p','gtc-section-subtitle',subtitle));
+ append(header,titles);
+ if(typeof onAction==='function'){const b=element('button','gtc-action gtc-section-action',actionLabel);b.type='button';b.addEventListener('click',onAction);append(header,b);}
+ append(root,header);
+ if(content){append(root,element('div','gtc-section-content'));append(root.lastChild,content);}
+ return root;
+}
+const staging=doc.getElementById('gtgr-stage');
+const content=doc.createElement('div');content.className='gtgr-analytics-content';
+while(staging.firstChild)content.append(staging.firstChild);
+const section=Section({title:'Game Records',content,kind:'gtgr-section'});
+doc.getElementById('game-records-section-mount').replaceWith(section);
+global.GameTraceGameRecordsSectionV1=Object.freeze({Section,version:'1.0-preview'});
+})(window);
+</script><script>
+(()=>{
+'use strict';
+const games=[
+{id:1,date:'Oct 25',team:'Eagles',win:false,pts:6,reb:5,ast:2,stl:1,drv:4,def:3,tov:3,fls:1,fg:[3,9],three:[0,3],ft:[0,2]},
+{id:2,date:'Oct 29',team:'Knights',win:true,pts:10,reb:3,ast:5,stl:2,drv:6,def:4,tov:2,fls:2,fg:[4,10],three:[1,4],ft:[1,2]},
+{id:3,date:'Nov 2',team:'Hudson',win:true,pts:15,reb:6,ast:4,stl:3,drv:8,def:5,tov:1,fls:2,fg:[6,11],three:[2,4],ft:[1,2]},
+{id:4,date:'Nov 5',team:'Panthers',win:false,pts:8,reb:4,ast:2,stl:1,drv:3,def:2,tov:3,fls:2,fg:[3,8],three:[1,4],ft:[1,2]},
+{id:5,date:'Nov 8',team:'Caldwell',win:true,pts:12,reb:5,ast:3,stl:2,drv:6,def:4,tov:2,fls:1,fg:[5,11],three:[2,5],ft:[0,0]}
+];
+const views={primary:['pts','reb','ast','stl'],secondary:['drv','def','tov','fls'],shooting:['fg','three','ft']};
+const labels={pts:'PTS',reb:'REB',ast:'AST',stl:'STL',drv:'DRV',def:'DEF',tov:'TOV',fls:'FLS',fg:'FG%',three:'3PT%',ft:'FT%'};
+const palette={pts:['#087d42','#19c66a'],reb:['#3b82a4','#74c1e2'],ast:['#b47d33','#efba64'],stl:['#a16c9d','#d9a2d5'],drv:['#087d42','#19c66a'],def:['#3b82a4','#74c1e2'],tov:['#b47d33','#efba64'],fls:['#a16c9d','#d9a2d5'],fg:['#087d42','#19c66a'],three:['#3b82a4','#74c1e2'],ft:['#a16c9d','#d9a2d5']};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let view='primary', active=new Set(['pts']), selected=5,filter='all';
+const current=()=>games.filter(g=>filter==='all'||(filter==='wins'&&g.win)||(filter==='losses'&&!g.win));
+const name=g=>g.date+' · '+g.team;
+const colorFor=k=>palette[k][document.documentElement.dataset.theme==='courtside'?1:0];
+const get=(g,k)=>['fg','three','ft'].includes(k)?(g[k][1]?Math.round(100*g[k][0]/g[k][1]):null):g[k];
+const format=(g,k)=>{let v=get(g,k);return v===null?'—':v+(['fg','three','ft'].includes(k)?'%':'')};
+const metricLabel=k=>labels[k];
+function choose(id){selected=id;render();}
+function buildMetrics(){const box=$('#metrics');box.replaceChildren();for(const k of views[view]){const b=document.createElement('button');b.type='button';b.dataset.metric=k;b.textContent=labels[k];b.style.setProperty('--series-color',colorFor(k));b.setAttribute('aria-pressed',String(active.has(k)));b.addEventListener('click',()=>{if(active.has(k)){if(active.size>1)active.delete(k)}else active.add(k);render();});box.append(b);}}
+function render(){
+ const visible=current();if(!visible.some(g=>g.id===selected))selected=visible[visible.length-1]?.id??null;
+ const sel=visible.find(g=>g.id===selected);
+ const chosen=views[view].filter(k=>active.has(k)), first=chosen[0];
+ $$('.view-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===view)));
+ $('#chartcontext').textContent=chosen.map(metricLabel).join(' + ')+' · '+visible.length+' games';
+ $('#currentvalue').textContent=sel?format(sel,first):'—';
+ $('#currentlabel').textContent=sel?sel.date+' · '+labels[first]:'No games';
+ $('#gcount').textContent=visible.length+' games';
+ const avgs=chosen.map(k=>{let vals=visible.map(g=>get(g,k)).filter(v=>v!==null);return (vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length)+'': '—')+(['fg','three','ft'].includes(k)&&vals.length?'%':'')+' '+labels[k]});
+ $('#average').textContent=visible.length?avgs.join(' · ')+' avg':'No records';
+ $('#selectedinfo').textContent=sel?name(sel)+' selected':'No games selected';
+ buildMetrics();
+ const head=$('#tableheader');head.replaceChildren();
+ for(const label of ['GAME','W/L',...views[view].map(metricLabel)]){const e=document.createElement('span');e.textContent=label;const k=Object.keys(labels).find(k=>labels[k]===label);if(k&&active.has(k))e.classList.add('metric-active');head.append(e);}
+ head.classList.toggle('shooting-grid',view==='shooting');
+ const rows=$('#rows');rows.replaceChildren();
+ for(const g of [...visible].reverse()){
+  const b=document.createElement('button');b.type='button';b.className='row'+(selected===g.id?' selected':'')+(view==='shooting'?' shooting-grid':'');
+  b.setAttribute('aria-label',name(g)+', '+(g.win?'win':'loss')+', '+views[view].map(k=>labels[k]+' '+format(g,k)).join(', '));b.setAttribute('aria-pressed',String(selected===g.id));
+  const identity=document.createElement('span');identity.className='identity';const opponent=document.createElement('span');opponent.className='opponent';opponent.textContent=g.team;const date=document.createElement('span');date.className='date';date.style.display='block';date.textContent=g.date;identity.append(opponent,date);b.append(identity);
+  const result=document.createElement('span');result.className='result '+(g.win?'win':'loss');result.textContent=g.win?'W':'L';b.append(result);
+  for(const k of views[view]){const e=document.createElement('span');e.className='stat'+(active.has(k)?' active':'');const strong=document.createElement('strong');strong.textContent=format(g,k);e.append(strong);if(view==='shooting'){const sub=document.createElement('small');sub.className='made-attempted';sub.textContent=g[k][0]+'/'+g[k][1];e.append(sub)}b.append(e);}
+  b.addEventListener('click',()=>{choose(g.id);$('#nav').textContent='Selected '+name(g)+'. In GameTrace this opens Game Details.';$('#nav').classList.add('visible')});rows.append(b);
+ }
+ draw(visible);
+}
+function draw(list){
+ const svg=$('#chart');svg.replaceChildren();const ns='http://www.w3.org/2000/svg',x0=30,x1=326,y1=120;
+ const add=(tag,a,txt)=>{const n=document.createElementNS(ns,tag);for(const[k,v] of Object.entries(a))n.setAttribute(k,v);if(txt!==undefined)n.textContent=txt;svg.append(n);return n};
+ const x=i=>list.length===1?(x0+x1)/2:x0+(x1-x0)*i/(list.length-1);
+ const values=list.flatMap(g=>[...active].map(k=>get(g,k)).filter(v=>v!==null));const max=view==='shooting'?100:Math.max(1,...values);
+ const y=v=>y1-v/max*85;
+ for(const ratio of [0,.5,1]){const val=Math.round(max*ratio),yy=y1-ratio*85;add('line',{x1:x0,y1:yy,x2:x1,y2:yy,class:'grid'});add('text',{x:23,y:yy+3,'text-anchor':'end',class:'tick'},val+(view==='shooting'?'%':''));}
+ if(!list.length){add('text',{x:170,y:76,'text-anchor':'middle',class:'tick'},'No games in this filter');return;}
+ list.forEach((g,i)=>add('text',{x:x(i),y:143,'text-anchor':'middle',class:'tick'},g.date));
+ for(const k of views[view].filter(k=>active.has(k))){
+  let segment=[];const emit=()=>{if(segment.length>1)add('polyline',{points:segment.map(p=>p.join(',')).join(' '),class:'path',style:'stroke:'+colorFor(k)});segment=[]};
+  list.forEach((g,i)=>{const v=get(g,k);if(v===null){emit();return;}segment.push([x(i),y(v)]);});emit();
+  list.forEach((g,i)=>{const v=get(g,k);if(v===null)return;const xx=x(i),yy=y(v),isSelected=g.id===selected;
+   add('circle',{cx:xx,cy:yy,r:isSelected?4.2:3.1,fill:isSelected?colorFor(k):'var(--surface)',stroke:colorFor(k),'stroke-width':1.6});
+   const hit=add('circle',{cx:xx,cy:yy,r:11,class:'point-hit',tabindex:0,role:'button','aria-label':name(g)+': '+format(g,k)+' '+labels[k]});hit.addEventListener('click',()=>choose(g.id));hit.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(g.id)}});
+  });
+ }
+}
+$$('.view-switch button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;active=new Set([views[view][0]]);$('#nav').classList.remove('visible');render()}));
+$('#filter').addEventListener('change',e=>{filter=e.target.value;$('#nav').classList.remove('visible');render()});
+for(const[id,other,theme]of [['day','night','day'],['night','day','courtside']])$('#'+id).addEventListener('click',()=>{document.documentElement.dataset.theme=theme;$('#'+id).setAttribute('aria-pressed','true');$('#'+other).setAttribute('aria-pressed','false');render()});
+for(const[id,other,phone]of [['phone','wide',true],['wide','phone',false]])$('#'+id).addEventListener('click',()=>{$('#frame').classList.toggle('phone',phone);$('#'+id).setAttribute('aria-pressed','true');$('#'+other).setAttribute('aria-pressed','false')});
+render();
+})();
+</script></body></html>
+<style id="gt-no-stat-shading">/* V3: unshaded stat cells for a lighter, scan-friendly matrix. */
+.stat{background:transparent!important;box-shadow:none!important}
+.stat i{display:none!important}
+.stat strong{z-index:auto}
+</style>
+<style id="gt-v4-multimetric-clean">
+/* Slim chart paths; no filled chart area; color-coded metric selectors and matrix headings. */
+.trend .path{stroke-width:1.65!important;stroke-linecap:round;stroke-linejoin:round}
+.trend .area{display:none!important}
+.trend .mark{stroke-width:1.7!important}
+.trend .mark.selected{stroke-width:2!important}
+.metrics button{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.metrics button::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--series-color,var(--accent));opacity:.5}
+.metrics button[aria-pressed=true]{color:var(--ink)!important;border-color:var(--series-color,var(--accent))!important;background:var(--surface)!important}
+.metrics button[aria-pressed=true]::before{opacity:1}
+.tableheader span.metric-active{color:var(--accent);font-weight:900;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.row .stat.active{color:var(--accent)!important;font-weight:850!important;background:transparent!important;box-shadow:none!important}
+.row .stat.active strong{border-bottom:2px solid var(--accent);padding-bottom:1px}
+.row .stat{background:transparent!important;box-shadow:none!important}
+/* Use distinct series strokes while keeping text/chart surfaces on approved theme tokens. */
+</style>
