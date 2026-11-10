@@ -5837,7 +5837,131 @@ html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .gt-circle-de
 html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-key{display:inline-block;font-size:11px;margin:5px 8px 5px 0}
 html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .gt-tls-content{min-width:0}
 @media(max-width:390px){html[data-theme] #app.gt-app #reportsContent .gtpo-v1-cell{padding:12px 4px}html[data-theme] #app.gt-app #reportsContent .gtpo-v1-label{font-size:9px;letter-spacing:.3px}html[data-theme] #app.gt-app #reportsContent .gtpo-v1-value{font-size:21px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row{grid-template-columns:minmax(68px,2fr) 24px repeat(4,minmax(0,1fr));gap:2px;padding-inline:5px;font-size:11px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-head{font-size:9px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row:has(.gtgr-v1-number:nth-child(5):last-child){grid-template-columns:minmax(68px,2fr) 24px repeat(3,minmax(0,1fr))}}
-\n</style></head><body>
+
+/* Game Records Analytics V5.2 — Active Metric Rail and dynamic summary */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend{
+  padding-top:17px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-eyebrow{
+  margin:0 15px 10px;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.35px;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-summary{
+  min-height:66px;
+  margin:0 15px 8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:4px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-label{
+  font-size:10px;
+  font-weight:760;
+  letter-spacing:.5px;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number strong{
+  font-size:clamp(24px,6.8vw,32px);
+  line-height:1;
+  letter-spacing:-.9px;
+  font-weight:770;
+  font-variant-numeric:tabular-nums;
+  color:var(--gt-ink,#172119);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number span{
+  font-size:11px;
+  font-weight:740;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-count{
+  font-size:19px;
+  font-weight:775;
+  letter-spacing:-.35px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-selected{
+  font-size:11px;
+  font-weight:650;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:clamp(7px,3vw,20px);
+  align-items:stretch;
+  margin:0 15px;
+  padding:0;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item{
+  appearance:none;
+  background:transparent;
+  border:0;
+  border-bottom:2px solid transparent;
+  border-radius:0;
+  padding:10px clamp(4px,2vw,12px) 9px;
+  min-height:44px;
+  min-width:0;
+  flex:1 1 0;
+  text-align:center;
+  color:var(--gt-muted,#59655b);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2px;
+  transition:color .15s ease,border-color .15s ease;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item[aria-pressed=true]{
+  color:var(--metric);
+  font-weight:830;
+  border-bottom-color:var(--metric);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item:focus-visible{
+  outline:2px solid var(--metric);
+  outline-offset:-2px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-chart{
+  padding-top:7px;
+}
+@media (prefers-reduced-motion:reduce){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metric-rail-item{transition:none}
+}
+/* Folder-style category tabs: keep distinct from metric rail. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views{
+  display:flex;flex-wrap:nowrap;align-items:flex-end;
+  gap:3px;padding:12px 12px 0;
+  border-bottom:1px solid var(--gt-edge,#cbd3c8);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views button{
+  border:1px solid var(--gt-edge,#cbd3c8);
+  border-bottom:0;
+  border-radius:10px 10px 0 0;
+  padding:10px 9px;
+  flex:1 1 0;
+  min-width:0;
+  min-height:42px;
+  background:var(--gt-control,#edf0e9);
+  font-size:12px;
+  font-weight:760;
+  color:var(--gt-muted,#59655b);
+  position:relative;
+  top:1px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views button[aria-pressed=true]{
+  background:var(--gt-surface,#fff);
+  color:var(--gt-green,#087d42);
+  border-color:var(--gt-edge,#cbd3c8);
+  box-shadow:inset 0 3px 0 var(--gt-green,#087d42);
+}
+</style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -11690,11 +11814,50 @@ function drawChart(rows,keys,host){
 function records(rows){
  const root=mk('div','gtgr-v1-analytics');
  const views=mk('div','gtgr-v1-views');for(const mode of Object.keys(modes)){const b=mk('button','',mode[0].toUpperCase()+mode.slice(1));b.type='button';b.setAttribute('aria-pressed',String(selection.mode===mode));b.addEventListener('click',()=>{selection.mode=mode;selection.metrics=new Set([modes[mode][0][0]]);renderScoreboardReview()});views.append(b)}root.append(views);
+ const trend=mk('div','gtgr-v1-trend');
+ const eyebrow=mk('div','gtgr-v1-trend-eyebrow','PERFORMANCE TREND');
+ const summary=mk('div','gtgr-v1-trend-summary');
  const metrics=mk('div','gtgr-v1-metrics'),chart=mk('div','gtgr-v1-chart');
  const keys=modes[selection.mode].map(([k])=>k);
  if(!keys.some(k=>selection.metrics.has(k)))selection.metrics=new Set([keys[0]]);
- keys.forEach((key,i)=>{const b=mk('button','',modes[selection.mode][i][1]);b.type='button';b.style.setProperty('--metric',colors[i]);b.setAttribute('aria-pressed',String(selection.metrics.has(key)));b.addEventListener('click',()=>{if(selection.metrics.has(key)){if(selection.metrics.size>1)selection.metrics.delete(key)}else selection.metrics.add(key);renderScoreboardReview()});metrics.append(b)});
- root.append(metrics,chart);drawChart(rows,keys.filter(k=>selection.metrics.has(k)),chart);
+ const selectedKeys=keys.filter(k=>selection.metrics.has(k));
+ const readable={pts:'POINTS PER GAME',reb:'REBOUNDS PER GAME',ast:'ASSISTS PER GAME',stl:'STEALS PER GAME',drive:'DRIVES PER GAME',defstop:'DEFENSIVE STOPS PER GAME',to:'TURNOVERS PER GAME',pf:'FOULS PER GAME',fg:'FIELD GOAL PERCENTAGE',three:'3-POINT PERCENTAGE',ft:'FREE THROW PERCENTAGE'};
+ if(selectedKeys.length===1){
+   const key=selectedKeys[0],stat=mk('div','gtgr-v1-trend-stat');
+   stat.append(mk('span','gtgr-v1-trend-label',readable[key]||key.toUpperCase()));
+   let result='—',unit=selection.mode==='shooting'?'%':'AVG';
+   if(rows.length){
+     if(selection.mode==='shooting'){
+       const shots=rows.reduce((s,r)=>{const [m,a]=shot(r,key);s.m+=m;s.a+=a;return s},{m:0,a:0});
+       if(shots.a)result=String(Math.round(shots.m/shots.a*100));
+     }else{
+       result=(rows.reduce((s,r)=>s+(val(r,key)||0),0)/rows.length).toFixed(1);
+     }
+   }
+   const line=mk('div','gtgr-v1-trend-number');
+   line.append(mk('strong','',result),mk('span','',unit));
+   stat.append(line);summary.append(stat);
+ }else{
+   summary.append(mk('span','gtgr-v1-trend-label','MULTI-METRIC COMPARISON'));
+   summary.append(mk('strong','gtgr-v1-trend-count',selectedKeys.length+' METRICS SELECTED'));
+   summary.append(mk('span','gtgr-v1-trend-selected',selectedKeys.map(k=>modes[selection.mode].find(pair=>pair[0]===k)[1]).join(' · ')));
+ }
+ keys.forEach((key,i)=>{
+   const active=selection.metrics.has(key);
+   const b=mk('button','gtgr-v1-metric-rail-item',modes[selection.mode][i][1]);
+   b.type='button';b.style.setProperty('--metric',colors[i]);
+   b.setAttribute('aria-pressed',String(active));
+   b.setAttribute('aria-label',(active?'Hide ':'Show ')+modes[selection.mode][i][1]+' on performance graph');
+   b.title=modes[selection.mode][i][1];
+   b.addEventListener('click',()=>{
+     if(selection.metrics.has(key)){if(selection.metrics.size>1)selection.metrics.delete(key)}
+     else selection.metrics.add(key);
+     renderScoreboardReview();
+   });
+   metrics.append(b);
+ });
+ trend.append(eyebrow,summary,metrics,chart);root.append(trend);
+ drawChart(rows,selectedKeys,chart);
  const table=mk('div','gtgr-v1-table'),header=mk('div','gtgr-v1-data-row gtgr-v1-head');header.append(mk('span','','GAME'),mk('span','','W/L'));for(const [key,label] of modes[selection.mode]){const s=mk('span',selection.metrics.has(key)?'is-active':'',label);header.append(s)}table.append(header);
  for(const r of [...rows].reverse()){
  const b=mk('button','gtgr-v1-data-row'+(r.g.id===selection.id?' is-selected':''));b.type='button';b.setAttribute('aria-pressed',String(r.g.id===selection.id));b.addEventListener('click',()=>select(r.g.id));
@@ -11743,7 +11906,6 @@ function renderScoreboardReview(){
 const beforeScoreboardAnalytics=renderReports;
 renderReports=function(...args){const result=beforeScoreboardAnalytics.apply(this,args);if(ui.screen==='reports')renderScoreboardReview();return result};
 })();
-
 /* Menu V1.4 adapter runs inside the existing app closure; external script cannot access renderMenu. */
 window.addEventListener('load',function(){
 /* GameTrace Menu V1.4: review-only integration. Routes and record storage unchanged. */
