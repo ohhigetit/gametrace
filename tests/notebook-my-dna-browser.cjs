@@ -69,6 +69,31 @@ const puppeteer=require('puppeteer-core');
   await page.evaluate(()=>document.querySelector('#menuContent [data-nav="notebook"]').click());
   await page.click('[data-dna-view="dna"]');
   assert(await page.evaluate(()=>document.querySelector('[data-component="MyDNAV1"]')?.innerText.includes('I will be a confident, decisive player.')),'My DNA did not survive reload');
+
+  await page.click('#settingsButton');
+  const foundPlaybook=await page.evaluate(()=>{const b=document.querySelector('#menuContent [data-nav="playbook"]');if(b){b.click();return true}return false});
+  assert(foundPlaybook,'Playbook navigation missing');
+  const goalStatus=await page.evaluate(()=>{
+    const cards=[...document.querySelectorAll('#goalsContent [data-goal-id]')];
+    return {count:cards.length,text:document.querySelector('#goalsContent')?.innerText.slice(0,900)};
+  });
+  console.log('PLAYBOOK:',JSON.stringify(goalStatus));
+  await page.evaluate(()=>document.querySelector('#goalsContent [data-goal-id] summary')?.click());
+  page.once('dialog',dlg=>dlg.accept());
+  await page.evaluate(()=>[...document.querySelectorAll('#goalsContent [data-goal-id] button')].find(b=>b.textContent.trim()==='Mark achieved')?.click());
+  await page.click('#settingsButton');
+  await page.evaluate(()=>document.querySelector('#menuContent [data-nav="notebook"]').click());
+  await page.click('[data-dna-view="dna"]');
+  const achieved=await page.evaluate(()=>{
+    const nodes=[...document.querySelectorAll('[data-component="MyDNAV1"] .gtdna-group')];
+    return {am:nodes.find(x=>x.querySelector('h3')?.textContent==='I AM')?.innerText,
+      will:nodes.find(x=>x.querySelector('h3')?.textContent==='I WILL BE')?.innerText,
+      history:JSON.parse(localStorage.getItem('gametrace-my-dna-v1')||'[]')};
+  });
+  console.log('ACHIEVED:',JSON.stringify(achieved));
+  assert(achieved.am.includes('I am a confident, decisive player.'),'Completed goal must appear as I Am');
+  assert(!achieved.will.includes('I will be a confident, decisive player.'),'Completed goal must leave active I Will Be list');
+  assert(achieved.history.some(x=>x.text.startsWith('I will be')),'Original aspiration must remain in history');
   console.log('PASS: note capture, reflection review, refined My DNA persistence, goal creation, reload');
   console.log('BROWSER ERRORS:',JSON.stringify(errors));
   assert.equal(errors.length,0,'Browser generated uncaught JS errors');
