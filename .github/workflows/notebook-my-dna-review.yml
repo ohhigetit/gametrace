@@ -1,0 +1,23 @@
+name: Notebook My DNA Review Browser Tests
+on:
+  push:
+    branches: [review/notebook-my-dna-v1-20261110]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  notebook-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser driver
+        run: npm install --prefix /tmp/gt-notebook-test puppeteer-core@24 --no-save --no-package-lock
+      - name: Run full app in Chrome
+        env:
+          NODE_PATH: /tmp/gt-notebook-test/node_modules
+          CHROME_BIN: /usr/bin/google-chrome
+        run: node tests/notebook-my-dna-browser.cjs
