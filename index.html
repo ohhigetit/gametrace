@@ -12964,6 +12964,68 @@ html[data-theme=courtside] #app.gt-app #menuContent .gtm-action{
 </script>
 
 <style data-gt="schedule-universal-v1">
+/* Exact approved Home Court Coming Up styles, page-scoped to Schedule. */
+#app.gt-app #scheduleContent .gtsl-section{background:transparent!important;border:0!important;box-shadow:none!important;min-width:0;margin:24px 0 0!important;padding:0!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-width:0;padding:0 0 14px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-heading{min-width:0;flex:1}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-heading h2{margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-heading p{margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;line-height:1.5!important;font-weight:400!important;letter-spacing:normal!important;text-transform:none!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-action{min-height:44px;display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;flex:0 0 auto;background:transparent!important;border:0!important;box-shadow:none!important;color:var(--gt-accent)!important;font-size:12px!important;font-weight:700!important;padding:9px 0 9px 8px!important;white-space:nowrap}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-action svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-items{min-width:0}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-row{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:9px;align-items:center;position:relative;min-height:68px;padding:12px 0;width:100%;box-shadow:none!important;background:transparent!important;border:0!important;border-radius:0!important;color:var(--gt-ink)!important;text-align:left;cursor:pointer}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-row+.gtsl-row{border-top:1px solid var(--gt-edge)!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date{width:50px;min-height:51px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 3px;gap:2px;border:1px solid var(--gt-edge);border-radius:10px;background:transparent;color:var(--gt-ink);line-height:1}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date .gtsl-month{font-size:10px!important;font-weight:750!important;letter-spacing:.9px!important;color:var(--gt-muted)!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date .gtsl-day{font-size:18px!important;font-weight:800!important;color:var(--gt-ink)!important;line-height:1.15!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-main{min-width:0;display:flex;flex-direction:column;gap:3px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-title{font-size:14px!important;line-height:1.4!important;font-weight:740!important;color:var(--gt-ink)!important;overflow-wrap:anywhere}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-location{font-size:12px!important;line-height:1.4!important;color:var(--gt-muted)!important;overflow-wrap:anywhere}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-dayname{font-size:11px!important;line-height:1.4!important;color:var(--gt-muted)!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-time{font-size:12px!important;font-weight:750!important;color:var(--gt-ink)!important;white-space:nowrap;text-align:right;align-self:center}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-empty{padding:24px 12px;text-align:center;border:1px dashed var(--gt-edge);border-radius:12px;background:transparent;font-size:13px;color:var(--gt-muted)}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-empty strong{display:block;color:var(--gt-ink);margin-bottom:5px;font-size:13px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-empty span{font-size:12px;line-height:1.5}
+#app.gt-app #scheduleContent .gtsl-section :is(.gtsl-action,.gtsl-row):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-row{grid-template-columns:49px minmax(0,1fr) auto;gap:7px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date{width:47px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-title{font-size:13px!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-location{font-size:11px!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-time{font-size:11px!important}
+#app.gt-app #scheduleContent :is(
+ .gtal-section .gtal-action,
+ .gtsl-section .gtsl-action,
+ .gtnl-section .gtnl-action,
+ .gtav1-section .gtav1-action,
+ .gtglv1-section .gtglv1-action
+){
+ appearance:none!important;
+ font-family:inherit!important;
+ font-size:12px!important;
+ font-weight:700!important;
+ line-height:1.4!important;
+ letter-spacing:normal!important;
+ text-transform:none!important;
+ color:var(--gt-accent)!important;
+ background:transparent!important;
+ border:0!important;
+ box-shadow:none!important;
+ min-height:44px;
+ padding:9px 0 9px 8px!important;
+ margin:0!important;
+ flex:0 0 auto;
+ text-align:right;
+ white-space:nowrap;
+ cursor:pointer;
+}
+#app.gt-app #scheduleContent :is(
+ .gtal-section .gtal-action,
+ .gtsl-section .gtsl-action,
+ .gtnl-section .gtnl-action,
+ .gtav1-section .gtav1-action,
+ .gtglv1-section .gtglv1-action
+):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+
 html[data-theme] #app.gt-app #scheduleContent>.up1-page{display:flex;flex-direction:column;min-width:0;min-height:100%}
 html[data-theme] #app.gt-app #scheduleContent .up1-header{padding:12px 0 20px}
 html[data-theme] #app.gt-app #scheduleContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr) 44px;gap:9px;align-items:start}
