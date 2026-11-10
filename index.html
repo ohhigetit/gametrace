@@ -6512,14 +6512,20 @@ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboar
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-v1{margin-top:22px!important}
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-timeline svg{max-width:100%!important}
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer{
- display:block!important;flex:0 0 auto!important;margin:28px 0 0!important;padding:24px 0 8px!important;
- border:0!important;border-top:1px solid var(--gt-edge,#cbd3c8)!important;
+ display:block!important;flex:0 0 auto!important;margin:30px 0 0!important;padding:24px 0 6px!important;
+ border:0!important;border-top:1px solid var(--gt-edge)!important;
  background:transparent!important;text-align:center!important;
 }
 html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span{
- display:block!important;font-size:clamp(10px,3vw,13px)!important;line-height:1.65!important;
- font-weight:800!important;letter-spacing:.7px!important;white-space:normal!important;
+ display:block!important;font-size:clamp(10px,3.05vw,13px)!important;line-height:1.7!important;
+ font-weight:850!important;letter-spacing:1.1px!important;white-space:normal!important;
  color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span:last-child{
+ color:var(--gt-accent)!important;
+}
+@media(max-width:365px){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span{letter-spacing:.5px!important}
 }
 @media(min-width:650px){html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-circle-svg{width:min(100%,390px)!important}}
 @media(max-width:380px){html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title h1{font-size:23px!important}}
@@ -12585,7 +12591,7 @@ function renderScoreboardReview(){
   header,
   content:sections,
   contentLabel:'Scoreboard analytics',
-  footerLines:['FOLLOW THE PLAY.','THE GAME. THE JOURNEY.']
+  footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
  });
  page.id='gt-scoreboard-review';
  root.replaceChildren(page);
