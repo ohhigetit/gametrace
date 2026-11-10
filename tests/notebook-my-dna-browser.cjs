@@ -45,6 +45,7 @@ const puppeteer=require('puppeteer-core');
   await page.evaluate(()=>[...document.querySelectorAll('#sheet button')].find(b=>b.textContent.trim()==='Save note')?.click());
   console.log('AFTER NOTE SAVE:',JSON.stringify(await page.evaluate(()=>({sheetOpen:document.getElementById('sheet')?.open,review:!!document.querySelector('[data-component="ReflectionReviewV1"]'),text:document.querySelector('#notebookContent')?.innerText?.slice(0,600)}))));
   await page.click('[data-dna-view="review"]');
+  console.log('AFTER REVIEW CLICK:',JSON.stringify(await page.evaluate(()=>({text:document.querySelector('[data-component="ReflectionReviewV1"]')?.innerText?.slice(0,1200),rows:[...document.querySelectorAll('[data-reflection-key]')].map(x=>x.dataset.reflectionKey)}))));
   const reviewRows=await page.$('[data-reflection-key]');
   assert(reviewRows.length>0,'Saved personal note not present for review');
   await page.evaluate(()=>document.querySelector('[data-reflection-key] button')?.click());
