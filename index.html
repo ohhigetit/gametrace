@@ -12785,6 +12785,15 @@ renderNotebook=function renderNotebookShellReviewV1(){
   actions:[newNote],
   actionsLabel:'Notebook actions'
  });
+ // Match the approved Schedule header: shared FilterTrigger aligned to the title row.
+ const filter=document.createElement('button');
+ filter.type='button';filter.className='gt467-trigger gt468-icon-trigger';
+ filter.dataset.component='FilterTrigger';filter.dataset.filterScreen='notebook';
+ filter.setAttribute('aria-label','Open Notebook filters');filter.title='Filters';
+ filter.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>';
+ filter.addEventListener('click',()=>gt467Modal('notebook'));
+ if(gt467ActiveCount('notebook')>0){filter.append(el('span',{class:'gt468-filter-active'}));}
+ header.querySelector('.up1-heading').append(filter);
  const page=parts.UniversalPageV1({
   page:'notebook',
   header,
