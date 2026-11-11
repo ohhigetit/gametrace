@@ -10167,42 +10167,74 @@ function gtNotebookApprovedRecentV7(){
  const heading=document.createElement('h2');heading.textContent='Notes Overview';
  const sub=document.createElement('p');sub.textContent='Recent Notes';label.append(heading,sub);header.append(label);section.append(header);
  const grid=document.createElement('div');grid.className='gt-rn-cells';grid.dataset.component='NotesOverviewApprovedMosaicV7';
- const notes=db.personalRecords.filter(n=>n.type==='note'&&!n.deletedAt&&(!playerContext.player||T.playerKey(n.player)===T.playerKey(playerContext.player)))
-   .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(b.updatedAt||'').localeCompare(String(a.updatedAt||''))).slice(0,6);
- const sampleMode=notes.length<6;
- const samples=gtRecentApprovedOriginal;
- const display=sampleMode?[...notes,...samples.slice(notes.length).map(x=>({...x,_sample:true}))]:notes;
- function originFor(n){
-   if(n._sample)return n.origin;
-   if(n.linkKind==='game'){const g=db.games.find(x=>x.id===n.linkId);return g?'Game · '+gameTitle(g):'Game'}
-   if(n.linkKind==='session'){const t=db.trainingSessions.find(x=>x.id===n.linkId);return t?'Training · '+t.name:'Training'}
-   return 'Personal';
+
+ // Read-only recent reflection feed. Never inject test notes into stored data.
+ const samePlayer=n=>!playerContext.player||T.playerKey(n.player)===T.playerKey(playerContext.player);
+ const entries=[];
+ db.personalRecords.filter(n=>n.type==='note'&&!n.deletedAt&&samePlayer(n)).forEach(n=>{
+   const linked=n.linkKind==='game'?db.games.find(g=>g.id===n.linkId):n.linkKind==='session'?db.trainingSessions.find(t=>t.id===n.linkId):null;
+   const source=n.linkKind==='game'?'Game':n.linkKind==='session'?'Training':'Personal';
+   const sourceDetail=linked?(source==='Game'?gameTitle(linked):linked.name||'Training'):'';
+   const title=String(n.title||n.body||'').trim(),body=String(n.body||'').trim();
+   if(title||body)entries.push({title:title||body,body:body||title,date:n.date,source,sourceDetail,
+     updatedAt:n.updatedAt||n.createdAt||'',open:()=>noteForm40(n.id)});
+ });
+ const questionLabels={see:'I See',became:'I Become',more:'I Become More'};
+ function fromActivity(a,source,sourceDetail,open){
+   if(!samePlayer(a))return;
+   const feedback=a.feedback||{};
+   Object.entries(questionLabels).forEach(([key,label])=>{
+     const body=String(feedback[key]||'').trim();
+     if(body)entries.push({title:body,body,date:a.date,source,sourceDetail,question:label,
+       updatedAt:a.updatedAt||'',open});
+   });
  }
+ db.games.filter(g=>!g.deletedAt).forEach(g=>fromActivity(g,'Game',gameTitle(g),
+   ()=>chooseGame(g.id,g.status==='completed'?'stats':'live')));
+ db.trainingSessions.filter(t=>!t.deletedAt).forEach(t=>fromActivity(t,'Training',t.name||'Training',
+   ()=>openSession(t.id,'notebook')));
+ entries.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||
+   String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+ const selected=entries.slice(0,6);
+ // Only a deliberately requested review-mode preview may use the original approved sample reflections.
+ const demo=new URLSearchParams(location.search).get('notebookDemo')==='1';
+ const samples=gtRecentApprovedOriginal;
+ const display=demo&&selected.length<6?[...selected,...samples.slice(selected.length).map(x=>({
+   title:x.text,body:x.full,date:x.date,source:x.origin.split(' · ')[0],sourceDetail:x.origin,
+   question:x.area,meta:x.meta,_sample:true
+ }))]:selected;
+ const shapes=samples.map(x=>x.shape);
  function dateFor(n){
    if(n._sample)return n.date;
-   const raw=String(n.date||'');const d=new Date(raw+'T12:00:00');
+   const raw=String(n.date||'');if(!raw)return '';
+   const d=new Date(raw+'T12:00:00');
    return Number.isNaN(d.getTime())?raw:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
  }
- display.forEach((n,i)=>{
-   const sample=samples[i],tile=document.createElement('button');tile.type='button';
-   tile.className='gt-rn-cell '+sample.shape.split(' ').map(x=>'gt-rn-'+x).join(' ');
+ for(let i=0;i<6;i++){
+   const n=display[i],tile=document.createElement(n?'button':'div');
+   if(n)tile.type='button';
+   tile.className='gt-rn-cell '+shapes[i].split(' ').map(x=>'gt-rn-'+x).join(' ')+(n?'':' gt-rn-placeholder');
    tile.dataset.component='NoteBubbleV7';
-   const quote=document.createElement('span');quote.className='gt-rn-note-text';
-   quote.textContent=n._sample?n.text:String(n.title||n.body||'My Note').trim();
+   if(!n){tile.setAttribute('aria-hidden','true');grid.append(tile);continue;}
+   const quote=document.createElement('span');quote.className='gt-rn-note-text';quote.textContent=n.title;
    const meta=document.createElement('span');meta.className='gt-rn-meta';
-   const origin=originFor(n);meta.textContent=(n._sample?n.meta:(origin.split(' · ')[0]+' · '+dateFor(n)));
+   meta.textContent=n._sample?n.meta:[n.source,dateFor(n)].filter(Boolean).join(' · ');
    tile.append(quote,meta);
+   tile.setAttribute('aria-label',[n.title,n.source,n.sourceDetail,dateFor(n)].filter(Boolean).join(' · '));
    tile.addEventListener('click',()=>{
-     if(!n._sample){noteForm40(n.id);return;}
-     openDialog('Note',box=>{
-       const info=document.createElement('small');info.textContent=n.origin+' · '+n.date+' · '+n.area;
-       const body=document.createElement('p');body.textContent=n.full;
-       body.style.cssText='font-size:15px;line-height:1.5;white-space:pre-wrap;color:var(--gt-ink)';
-       box.append(info,body,button('Close',closeDialog,'cancel-choice'));
-     });
+     if(n._sample){
+       openDialog('Note',box=>{
+         const info=document.createElement('small');info.textContent=[n.sourceDetail,dateFor(n),n.question].filter(Boolean).join(' · ');
+         const body=document.createElement('p');body.textContent=n.body;
+         body.style.cssText='font-size:15px;line-height:1.5;white-space:pre-wrap;color:var(--gt-ink)';
+         box.append(info,body,button('Close',closeDialog,'cancel-choice'));
+       });return;
+     }
+     // The original activity remains the source of truth for Player Notes.
+     n.open();
    });
    grid.append(tile);
- });
+ }
  const main=document.createElement('div');main.className='gt-rn-main';main.append(grid);
  const banner=C.SharedBannerV2({primary:main,rootClass:'gt-rn-banner',componentName:'NotesOverviewBannerV7'});
  banner.classList.add('gtv2-banner');
@@ -13304,6 +13336,7 @@ html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:
 #app.gt-app #notebookContent .gt-rn-note-text{font-style:italic!important;font-weight:600!important;color:#172119!important}
 #app.gt-app #notebookContent .gt-rn-meta{font-size:10.5px!important;color:#59655b!important;font-weight:650!important}
 #app.gt-app #notebookContent .gt-rn-cell:focus-visible{outline:2px solid #6aa17d!important;outline-offset:-2px}
+#app.gt-app #notebookContent .gt-rn-placeholder{pointer-events:none!important;opacity:.28!important}
 #app.gt-app #notebookContent .gt-rn-empty{min-height:170px;grid-column:1/-1;display:grid;place-items:center;text-align:center;color:#59655b;font-size:13px;padding:16px}
 @media(max-width:420px){
 #app.gt-app #notebookContent .gt-rn-main{padding:8px!important}
