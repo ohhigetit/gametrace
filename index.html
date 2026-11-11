@@ -13281,36 +13281,25 @@ html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:
 #app.gt-app #notebookContent .gt-recent-notes{--ink:#172119;--ink-soft:#59655b;--line:#d6e6d8;--banner:#e8f4e9;--g1:#dff0e1;--g2:#d2ead6;--g3:#c9e4cf;--g4:#d8efd8;--g5:#cfe7d3;--g6:#e3f3e3;box-sizing:border-box}
 #app.gt-app #notebookContent .gt-recent-notes *{box-sizing:border-box}
 #app.gt-app #notebookContent .gt-recent-notes .gt-rn-banner{background:var(--banner)!important;border:1px solid var(--line)!important;border-radius:20px!important;overflow:hidden;box-shadow:0 3px 16px rgba(30,70,49,.05)!important;padding:0!important}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-banner{background:var(--banner);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 3px 16px rgba(30,70,49,.05)}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-main{padding:10px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-cells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(96px,auto));gap:8px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-cell{
-#app.gt-app #notebookContent .gt-recent-notes   border:0; min-width:0; width:100%; cursor:pointer; text-align:center;
-#app.gt-app #notebookContent .gt-recent-notes   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;
-#app.gt-app #notebookContent .gt-recent-notes   padding:12px 10px; color:var(--ink); position:relative;
-#app.gt-app #notebookContent .gt-recent-notes   box-shadow: inset 0 0 0 1px rgba(43,89,59,.04);
-#app.gt-app #notebookContent .gt-recent-notes   transition:transform .14s ease, filter .14s ease;
-#app.gt-app #notebookContent .gt-recent-notes }
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-cell:hover,.gt-rn-cell:focus-visible{transform:translateY(-1px);filter:brightness(.985);outline:2px solid #6aa17d;outline-offset:-2px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-note-text{margin:0; font-style:italic; font-weight:600; color:var(--ink); line-height:1.35; letter-spacing:-.01em}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-note-text::before,.gt-rn-note-text::after{content:'"'; font-style:normal; opacity:.75}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-meta{display:block; font-size:10.5px; line-height:1.35; font-weight:650; color:var(--ink-soft); opacity:1}
-#app.gt-app #notebookContent .gt-recent-notes /* merged layout */
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-a{grid-area:1/1/2/3;background:var(--g1);border-radius:26px 18px 24px 20px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-c{grid-area:1/3/2/4;background:var(--g2);border-radius:18px 28px 18px 24px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-d{grid-area:2/1/4/2;background:var(--g3);border-radius:28px 20px 18px 26px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-e{grid-area:2/2/3/4;background:var(--g4);border-radius:18px 24px 26px 18px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-f{grid-area:3/2/4/3;background:var(--g5);border-radius:24px 18px 28px 20px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-g{grid-area:3/3/4/4;background:var(--g6);border-radius:20px 26px 18px 24px}
-#app.gt-app #notebookContent .gt-recent-notes /* Approved banner ink #172119; muted #59655b; individual note sizes adapt to cell/length. */
-#app.gt-app #notebookContent .gt-recent-notes /* type sizing by cell + note length */
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-wide .gt-rn-note-text{font-size:17px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-tall .gt-rn-note-text{font-size:16px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-standard .gt-rn-note-text{font-size:15px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-short .gt-rn-note-text{font-size:16px}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-long .gt-rn-note-text{font-size:14px;line-height:1.32}
-#app.gt-app #notebookContent .gt-recent-notes .gt-rn-verylong .gt-rn-note-text{font-size:13px;line-height:1.28}
-#app.gt-app #notebookContent .gt-recent-notes 
+
+#app.gt-app #notebookContent .gt-rn-main{padding:10px}
+#app.gt-app #notebookContent .gt-rn-cells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(96px,auto));gap:8px}
+#app.gt-app #notebookContent .gt-rn-cell{box-shadow:inset 0 0 0 1px rgba(43,89,59,.04);transition:transform .14s ease,filter .14s ease}
+#app.gt-app #notebookContent .gt-rn-cell:hover,#app.gt-app #notebookContent .gt-rn-cell:focus-visible{transform:translateY(-1px);filter:brightness(.985)}
+#app.gt-app #notebookContent .gt-rn-note-text{margin:0;line-height:1.35;letter-spacing:-.01em}
+#app.gt-app #notebookContent .gt-rn-note-text::before,#app.gt-app #notebookContent .gt-rn-note-text::after{content:'"';font-style:normal;opacity:.75}
+#app.gt-app #notebookContent .gt-rn-a{grid-area:1/1/2/3;background:var(--g1)!important;border-radius:26px 18px 24px 20px!important}
+#app.gt-app #notebookContent .gt-rn-c{grid-area:1/3/2/4;background:var(--g2)!important;border-radius:18px 28px 18px 24px!important}
+#app.gt-app #notebookContent .gt-rn-d{grid-area:2/1/4/2;background:var(--g3)!important;border-radius:28px 20px 18px 26px!important}
+#app.gt-app #notebookContent .gt-rn-e{grid-area:2/2/3/4;background:var(--g4)!important;border-radius:18px 24px 26px 18px!important}
+#app.gt-app #notebookContent .gt-rn-f{grid-area:3/2/4/3;background:var(--g5)!important;border-radius:24px 18px 28px 20px!important}
+#app.gt-app #notebookContent .gt-rn-g{grid-area:3/3/4/4;background:var(--g6)!important;border-radius:20px 26px 18px 24px!important}
+#app.gt-app #notebookContent .gt-rn-wide .gt-rn-note-text{font-size:17px!important}
+#app.gt-app #notebookContent .gt-rn-tall .gt-rn-note-text{font-size:16px!important}
+#app.gt-app #notebookContent .gt-rn-standard .gt-rn-note-text{font-size:15px!important}
+#app.gt-app #notebookContent .gt-rn-short .gt-rn-note-text{font-size:16px!important}
+#app.gt-app #notebookContent .gt-rn-long .gt-rn-note-text{font-size:14px!important;line-height:1.32!important}
+#app.gt-app #notebookContent .gt-rn-verylong .gt-rn-note-text{font-size:13px!important;line-height:1.28!important}
 #app.gt-app #notebookContent .gt-rn-cell{border:0!important;min-width:0!important;width:100%!important;cursor:pointer!important;text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:12px 10px!important;color:#172119!important;position:relative!important}
 #app.gt-app #notebookContent .gt-rn-note-text{font-style:italic!important;font-weight:600!important;color:#172119!important}
 #app.gt-app #notebookContent .gt-rn-meta{font-size:10.5px!important;color:#59655b!important;font-weight:650!important}
