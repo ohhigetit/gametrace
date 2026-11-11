@@ -13173,4 +13173,62 @@ html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility-content{paddin
 html[data-theme] #app.gt-app #scheduleContent .gtschedule-feed{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
 @media(min-width:700px){html[data-theme] #app.gt-app #scheduleContent .up1-actions{max-width:360px}}
 </style>
+
+<!-- Notebook shell migration review: only renderer presentation changes; data and App Nav remain from development. -->
+<style id="gt-notebook-shell-review-v1">
+html[data-theme] #app.gt-app #notebookContent .up1-page{width:100%;min-width:0}
+html[data-theme] #app.gt-app #notebookContent .up1-header{padding:0 0 14px}
+html[data-theme] #app.gt-app #notebookContent .up1-heading{display:flex;align-items:flex-start;gap:10px}
+html[data-theme] #app.gt-app #notebookContent .up1-back{display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border:0;background:transparent;color:var(--gt-ink);padding:5px;border-radius:9px}
+html[data-theme] #app.gt-app #notebookContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #notebookContent .up1-title{display:flex;gap:9px;align-items:center;min-height:39px}
+html[data-theme] #app.gt-app #notebookContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.2!important;font-weight:800!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #notebookContent .up1-title svg{width:25px;height:25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important}
+html[data-theme] #app.gt-app #notebookContent .up1-actions{display:grid;grid-template-columns:minmax(0,1fr);margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #notebookContent .up1-action{width:100%;min-height:50px;display:flex;align-items:center;justify-content:center;gap:7px;background:#e3efe5;border:1px solid #c6d9c8;border-radius:11px;color:var(--gt-ink);font-size:14px;font-weight:500}
+html[data-theme] #app.gt-app #notebookContent .up1-action svg{width:17px;height:17px}
+html[data-theme=courtside] #app.gt-app #notebookContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #notebookContent .up1-content{min-height:110px;min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #notebookContent .up1-footer{border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #notebookContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:var(--gt-accent)}
+@media(min-width:700px){html[data-theme] #app.gt-app #notebookContent .up1-actions{max-width:360px}}
+</style>
+<script id="gt-notebook-shell-review-integration-v1">
+/* This override is deliberately last, after all development Notebook render wrappers.
+   Only Notebook's DOM changes; application header, menu, storage and other routes stay intact. */
+renderNotebook=function renderNotebookShellReviewV1(){
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent');
+ const parts=window.GameTraceComponents;
+ if(!root||!parts?.UniversalPageV1||!parts?.PageHeaderV1)
+  throw new Error('Notebook shell requires approved universal page components');
+ const notebookIcon=menuIcon(pageIcons43.notebook||'playbook');
+ const newNote=document.createElement('button');
+ newNote.type='button';
+ newNote.className='up1-action';
+ newNote.dataset.component='PageCTA';
+ newNote.append(up1Icon('plus'),document.createTextNode('New Note'));
+ newNote.addEventListener('click',()=>noteForm40());
+ const header=parts.PageHeaderV1({
+  title:'Notebook',
+  subtitle:'EVERY EXPERIENCE IS AN OPPORTUNITY TO LEARN AND GROW.',
+  pageIcon:notebookIcon,
+  backIcon:up1Icon('back'),
+  backLabel:'Back to Menu',
+  onBack:()=>navigate('menu'),
+  actions:[newNote],
+  actionsLabel:'Notebook actions'
+ });
+ const page=parts.UniversalPageV1({
+  page:'notebook',
+  header,
+  content:[],
+  contentLabel:'Notebook content',
+  footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
+ });
+ root.replaceChildren(page);
+};
+</script>
 </body></html>
