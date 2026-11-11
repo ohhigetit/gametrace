@@ -10242,6 +10242,150 @@ function gtNotebookApprovedRecentV7(){
 }
 renderNotebook=gtNotebookApprovedRecentV7;
 
+/* All Notes V18 — approved SectionV1 journal, source-backed filtering and inline accordion. */
+const gtAllNotesV18State={group:'activity',range:'last30',from:'',to:'',open:false};
+function gtAllNotesV18Entries(){
+ const scope=n=>!playerContext.player||T.playerKey(n.player)===T.playerKey(playerContext.player);
+ const entries=[];
+ db.personalRecords.filter(n=>n.type==='note'&&!n.deletedAt&&scope(n)).forEach(n=>{
+   const kind=n.linkKind==='game'?'game':n.linkKind==='session'?'training':'personal';
+   const linked=kind==='game'?db.games.find(g=>g.id===n.linkId):kind==='training'?db.trainingSessions.find(t=>t.id===n.linkId):null;
+   const activity=kind==='game'?(linked?'Game · '+gameTitle(linked):'Game'):
+     kind==='training'?(linked?'Training · '+(linked.name||'Training'):'Training'):'Personal Reflection';
+   const body=String(n.body||n.title||'').trim();
+   if(body)entries.push({id:'note:'+n.id,date:n.date||'',activity,type:kind,question:'Personal Note',text:body,
+     open:()=>noteForm40(n.id)});
+ });
+ const labels={see:'See',became:'Become',more:'Become More'};
+ function fromActivity(a,type,activity,open){
+   if(!scope(a))return;
+   Object.entries(labels).forEach(([key,question])=>{
+     const body=String(a.feedback?.[key]||'').trim();
+     if(body)entries.push({id:type+':'+a.id+':'+key,date:a.date||'',activity,type,question,text:body,open});
+   });
+ }
+ db.games.filter(g=>!g.deletedAt).forEach(g=>fromActivity(g,'game','Game · '+gameTitle(g),
+   ()=>chooseGame(g.id,g.status==='completed'?'stats':'live')));
+ db.trainingSessions.filter(t=>!t.deletedAt).forEach(t=>fromActivity(t,'training','Training · '+(t.name||'Training'),
+   ()=>openSession(t.id,'notebook')));
+ return entries.sort((a,b)=>String(b.date).localeCompare(String(a.date))||a.id.localeCompare(b.id));
+}
+function gtAllNotesV18Section(){
+ const C=window.GameTraceComponents;
+ const content=document.createElement('div');content.className='gt-an-v18-content';content.dataset.component='AllNotesV1';
+ const groups=document.createElement('div');groups.className='gt-an-v18-groups';groups.setAttribute('aria-live','polite');content.append(groups);
+ const section=C.Section({title:'All Notes',subtitle:'Every observation, lesson, and aspiration in one place.',content,kind:'gt-an-v18-section'});
+ section.dataset.component='AllNotesSectionV1';section.dataset.parent='SectionV1';
+ const head=section.querySelector('.gtc-section-header');
+ const trigger=document.createElement('button');trigger.type='button';trigger.className='gt-an-v18-trigger';
+ trigger.setAttribute('aria-label','Toggle All Notes filters');trigger.setAttribute('aria-expanded','false');
+ trigger.innerHTML='<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/><circle cx="8" cy="7" r="2" fill="white"/><circle cx="16" cy="12" r="2" fill="white"/></svg>';
+ head.append(trigger);
+ const accordion=document.createElement('div');accordion.className='gt-an-v18-accordion';head.after(accordion);
+ function makeField(parent,name,options,value,change){
+   const field=document.createElement('label');field.className='gt-an-v18-field';
+   const title=document.createElement('span');title.textContent=name;
+   const select=document.createElement('select');select.setAttribute('aria-label',name);
+   options.forEach(([v,label])=>{const o=document.createElement('option');o.value=v;o.textContent=label;select.append(o)});
+   select.value=value;select.addEventListener('change',()=>change(select.value));field.append(title,select);parent.append(field);
+ }
+ makeField(accordion,'Group By',[['activity','Activity'],['question','Question'],['none','None']],gtAllNotesV18State.group,v=>{gtAllNotesV18State.group=v;draw()});
+ makeField(accordion,'Date Range',[['last30','Last 30 Days'],['last7','Last 7 Days'],['today','Today'],['thismonth','This Month'],['last90','Last 90 Days'],['all','All Dates'],['custom','Custom Range']],gtAllNotesV18State.range,v=>{gtAllNotesV18State.range=v;dates.hidden=v!=='custom';draw()});
+ const dates=document.createElement('div');dates.className='gt-an-v18-dates';
+ const createDate=(labelName,key)=>{
+   const field=document.createElement('label');field.className='gt-an-v18-field';
+   const text=document.createElement('span');text.textContent=labelName;
+   const input=document.createElement('input');input.type='date';input.value=gtAllNotesV18State[key]||'';
+   input.addEventListener('change',()=>{gtAllNotesV18State[key]=input.value;draw()});
+   field.append(text,input);dates.append(field);
+ };
+ createDate('From','from');createDate('To','to');accordion.append(dates);
+ dates.hidden=gtAllNotesV18State.range!=='custom';
+ const status=document.createElement('p');status.className='gt-an-v18-status';status.setAttribute('aria-live','polite');accordion.append(status);
+ function toggle(open){
+   gtAllNotesV18State.open=open;accordion.hidden=!open;trigger.setAttribute('aria-expanded',String(open));
+ }
+ toggle(gtAllNotesV18State.open);
+ trigger.addEventListener('click',()=>toggle(!gtAllNotesV18State.open));
+ section.addEventListener('keydown',e=>{if(e.key==='Escape'&&gtAllNotesV18State.open){toggle(false);trigger.focus()}});
+ function currentDate(){return typeof localDate==='function'?localDate():new Date().toISOString().slice(0,10)}
+ function shift(day,n){const d=new Date(day+'T12:00:00');d.setDate(d.getDate()-n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+ function dateFor(iso){
+   if(!iso)return '';
+   const d=new Date(iso+'T12:00:00');return Number.isNaN(d.getTime())?iso:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+ }
+ const questions={See:'What I saw',Become:'What I became','Become More':'What I want to become more','Personal Note':'Personal Notes'};
+ function qLabel(k){return questions[k]||k}
+ function groupRows(rows){
+   const mode=gtAllNotesV18State.group;if(mode==='none')return [{label:'All Notes',items:rows}];
+   const map=new Map();
+   rows.forEach(n=>{
+     const label=mode==='activity'?n.activity:qLabel(n.question);
+     const key=mode==='activity'?label+'\0'+n.date:label;
+     if(!map.has(key))map.set(key,{label,items:[]});
+     map.get(key).items.push(n);
+   });
+   const out=[...map.values()];
+   if(mode==='question'){
+     const order=['What I saw','What I became','What I want to become more','Personal Notes'];
+     out.sort((a,b)=>order.indexOf(a.label)-order.indexOf(b.label));
+   }
+   return out;
+ }
+ function noteRow(n){
+   const article=document.createElement('article');article.className='gt-an-v18-note';
+   const quote=document.createElement('q');quote.textContent=n.text;
+   const meta=document.createElement('div');meta.className='gt-an-v18-meta';
+   const mode=gtAllNotesV18State.group;
+   const caption=mode==='activity'?(n.type==='personal'?'Personal Notes':'Player’s Notes')+' · '+qLabel(n.question):
+     mode==='question'?n.activity+' · '+dateFor(n.date):
+     (n.type==='personal'?'Personal Notes':'Player’s Notes')+' · '+qLabel(n.question)+' · '+n.activity+' · '+dateFor(n.date);
+   meta.textContent=caption;
+   article.append(quote,meta);
+   article.tabIndex=0;article.setAttribute('role','button');article.setAttribute('aria-label','Open note: '+n.text);
+   article.addEventListener('click',n.open);
+   article.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();n.open()}});
+   return article;
+ }
+ function draw(){
+   const today=currentDate(),r=gtAllNotesV18State.range;
+   let from='',to=today;
+   if(r==='last30')from=shift(today,29);
+   else if(r==='last7')from=shift(today,6);
+   else if(r==='today')from=today;
+   else if(r==='thismonth')from=today.slice(0,7)+'-01';
+   else if(r==='last90')from=shift(today,89);
+   else if(r==='all'){from='';to=''}
+   else if(r==='custom'){from=gtAllNotesV18State.from;to=gtAllNotesV18State.to}
+   groups.replaceChildren();
+   if(from&&to&&from>to){status.textContent='Start date must be on or before end date.';return}
+   const rows=gtAllNotesV18Entries().filter(n=>n.date&&(!from||n.date>=from)&&(!to||n.date<=to));
+   status.textContent=rows.length+' note'+(rows.length===1?'':'s')+' in selected range';
+   if(!rows.length){const empty=document.createElement('p');empty.className='gt-an-v18-empty';empty.textContent='No notes in this date range.';groups.append(empty);return}
+   groupRows(rows).forEach(group=>{
+     if(gtAllNotesV18State.group==='none'){const list=document.createElement('div');list.className='gt-an-v18-list';group.items.forEach(n=>list.append(noteRow(n)));groups.append(list);return}
+     const wrapper=document.createElement('section');wrapper.className='gt-an-v18-group';
+     const heading=document.createElement('div');heading.className='gt-an-v18-group-heading';
+     const name=document.createElement('span');name.textContent=group.label;
+     if(gtAllNotesV18State.group==='activity'){const date=document.createElement('span');date.className='gt-an-v18-group-date';date.textContent=' · '+dateFor(group.items[0]?.date);name.append(date)}
+     else{const dates=group.items.map(x=>x.date).sort();const lo=dateFor(dates[dates.length-1]),hi=dateFor(dates[0]);const datesNode=document.createElement('span');datesNode.className='gt-an-v18-group-date';datesNode.textContent=' · '+(lo===hi?hi:lo+' – '+hi);name.append(datesNode)}
+     const count=document.createElement('span');count.className='gt-an-v18-count';count.textContent=group.items.length+' note'+(group.items.length===1?'':'s');
+     heading.append(name,count);wrapper.append(heading);
+     const list=document.createElement('div');list.className='gt-an-v18-list';group.items.forEach(n=>list.append(noteRow(n)));wrapper.append(list);groups.append(wrapper);
+   });
+ }
+ draw();
+ return section;
+}
+const gtNotebookRecentV7WithAllNotes=renderNotebook;
+renderNotebook=function(...args){
+ const value=gtNotebookRecentV7WithAllNotes(...args);
+ if(ui.screen!=='notebook')return value;
+ const root=document.getElementById('notebookContent'),content=root?.querySelector('.up1-content');
+ if(content&&window.GameTraceComponents?.Section)content.append(gtAllNotesV18Section());
+ return value;
+};
+
 // No PageCTA is added to any detail page. Edit lives at the far right of the title row.
 const gt465GameDetailBase=renderStats;
 renderStats=function(...args){const result=gt465GameDetailBase(...args),g=game();
@@ -13349,4 +13493,34 @@ html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:
 #app.gt-app #notebookContent .gt-rn-long .gt-rn-note-text{font-size:13px!important}
 #app.gt-app #notebookContent .gt-rn-verylong .gt-rn-note-text{font-size:12.5px!important}
 }
+</style>
+<style id="gt-notebook-all-notes-v18">
+#app.gt-app #notebookContent .gt-an-v18-section{--an-ink:#172119;--an-muted:#59655b;--an-accent:#087b40;--an-edge:#cedbd2;background:#fff!important;border:1px solid var(--an-edge)!important;border-radius:16px!important;overflow:hidden;box-shadow:none!important;margin:20px 0}
+#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 16px 14px!important;border-bottom:1px solid var(--an-edge)}
+#app.gt-app #notebookContent .gt-an-v18-section .gtc-section-titles{min-width:0;flex:1}
+#app.gt-app #notebookContent .gt-an-v18-section .gtc-section-title{font-size:17px!important;line-height:1.3!important;font-weight:810!important;letter-spacing:-.3px!important;margin:0!important;color:var(--an-ink)!important}
+#app.gt-app #notebookContent .gt-an-v18-section .gtc-section-subtitle{font-size:12px!important;font-weight:500!important;line-height:1.4!important;color:var(--an-muted)!important;margin:4px 0 0!important}
+#app.gt-app #notebookContent .gt-an-v18-trigger{display:inline-flex;align-items:center;justify-content:center;flex:0 0 36px;width:36px;height:36px;background:transparent!important;border:1px solid var(--an-edge)!important;border-radius:9px!important;color:var(--an-accent)!important;padding:7px!important;cursor:pointer}
+#app.gt-app #notebookContent .gt-an-v18-trigger[aria-expanded=true]{background:#e7f3e9!important;border-color:#94c3a2!important}
+#app.gt-app #notebookContent .gt-an-v18-accordion{padding:16px;background:#f9fbf9;border-bottom:1px solid var(--an-edge);display:grid;gap:12px}
+#app.gt-app #notebookContent .gt-an-v18-accordion[hidden],#app.gt-app #notebookContent .gt-an-v18-dates[hidden]{display:none!important}
+#app.gt-app #notebookContent .gt-an-v18-field{display:grid;gap:6px;min-width:0}
+#app.gt-app #notebookContent .gt-an-v18-field>span{font-size:10px;font-weight:800;letter-spacing:.55px;text-transform:uppercase;color:var(--an-muted)}
+#app.gt-app #notebookContent .gt-an-v18-field select,#app.gt-app #notebookContent .gt-an-v18-field input{appearance:auto;min-width:0;width:100%;min-height:41px;border:1px solid var(--an-edge)!important;border-radius:9px!important;background:#f6faf6!important;color:var(--an-ink)!important;padding:8px 9px!important;font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+#app.gt-app #notebookContent .gt-an-v18-dates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#app.gt-app #notebookContent .gt-an-v18-status{grid-column:1/-1;margin:0;font-size:10px;color:var(--an-muted)}
+#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-content{padding:0!important;background:#fff!important;min-width:0}
+#app.gt-app #notebookContent .gt-an-v18-groups{padding:8px 16px 22px;background:#fff;min-height:180px}
+#app.gt-app #notebookContent .gt-an-v18-group+.gt-an-v18-group{margin-top:9px}
+#app.gt-app #notebookContent .gt-an-v18-group-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:43px;padding:12px 0 9px;border-bottom:1px solid #e3eae4;color:var(--an-accent);font-size:12px;font-weight:800}
+#app.gt-app #notebookContent .gt-an-v18-group-date{font-weight:650;color:var(--an-muted)}
+#app.gt-app #notebookContent .gt-an-v18-count{margin-left:auto;font-size:10px;font-weight:700;color:var(--an-muted);white-space:nowrap}
+#app.gt-app #notebookContent .gt-an-v18-note{margin:0;padding:16px 0 17px;border:0;background:transparent;cursor:pointer}
+#app.gt-app #notebookContent .gt-an-v18-note+.gt-an-v18-note{border-top:1px solid #edf1ed}
+#app.gt-app #notebookContent .gt-an-v18-note q{display:block;quotes:'“' '”';font-size:18px!important;line-height:1.46!important;font-style:italic!important;font-weight:600!important;color:var(--an-ink)!important;overflow-wrap:anywhere}
+#app.gt-app #notebookContent .gt-an-v18-meta{margin-top:11px;font-size:11px;font-weight:650;line-height:1.45;color:var(--an-muted);text-align:right}
+#app.gt-app #notebookContent .gt-an-v18-empty{font-size:13px;color:var(--an-muted);text-align:center;padding:20px}
+#app.gt-app #notebookContent .gt-an-v18-note:focus-visible,#app.gt-app #notebookContent .gt-an-v18-trigger:focus-visible{outline:2px solid var(--an-accent);outline-offset:2px}
+@media(min-width:560px){#app.gt-app #notebookContent .gt-an-v18-accordion{grid-template-columns:1fr 1fr;align-items:start}}
+@media(max-width:420px){#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-header{padding:15px 13px 12px!important}#app.gt-app #notebookContent .gt-an-v18-groups{padding:6px 13px 20px}#app.gt-app #notebookContent .gt-an-v18-note q{font-size:17px!important}}
 </style></body></html>
