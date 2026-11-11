@@ -13709,4 +13709,29 @@ html[data-theme] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-a
 #app.gt-app #notebookContent .gt-nstv5-visibility:focus-visible,#app.gt-app #notebookContent .gt-nstv5-tab:focus-visible,#app.gt-app #notebookContent .gt-nstv5-action:focus-visible{outline:2px solid var(--nst-accent);outline-offset:2px}
 @media(max-width:430px){#app.gt-app #notebookContent .gt-nstv5-rail{width:39px;bottom:calc(82px + env(safe-area-inset-bottom,0px))}#app.gt-app #notebookContent .gt-nstv5-tabs{width:39px}#app.gt-app #notebookContent .gt-nstv5-tab{width:39px;height:45px}#app.gt-app #notebookContent .gt-nstv5-visibility{width:39px}#app.gt-app #notebookContent .gt-nstv5-panel{width:100vw}}
 @media(prefers-reduced-motion:reduce){#app.gt-app #notebookContent .gt-nstv5-panel,#app.gt-app #notebookContent .gt-nstv5-tab{transition:none}}
+</style>
+<style id="gt-notebook-banners-homecourt-surface-v1">
+/* Match the exact approved Home Court SharedBanner V2 surface.
+   Only Notebook banner surfaces are changed; individual V7 bubbles retain their approved colors. */
+html[data-theme] #app.gt-app #notebookContent {
+  --gtv2-banner-surface:linear-gradient(135deg,#f3f7f4,#e6efe8);
+  --gtv2-banner-edge:#cedbd2;
+}
+html[data-theme="courtside"] #app.gt-app #notebookContent {
+  --gtv2-banner-surface:linear-gradient(135deg,#27352e,#202c26);
+  --gtv2-banner-edge:#455a4d;
+}
+html[data-theme] #app.gt-app #notebookContent .gt-recent-notes .gt-rn-banner,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section {
+  background:var(--gtv2-banner-surface)!important;
+  border:1px solid var(--gtv2-banner-edge)!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section > .gtc-section-content,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-groups {
+  background:transparent!important;
+}
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion{
+  background:transparent!important;
+}
 </style></body></html>
