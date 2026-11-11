@@ -12794,10 +12794,55 @@ renderNotebook=function renderNotebookShellReviewV1(){
  filter.addEventListener('click',()=>gt467Modal('notebook'));
  if(gt467ActiveCount('notebook')>0){filter.append(el('span',{class:'gt468-filter-active'}));}
  header.querySelector('.up1-heading').append(filter);
+
+ // Notes Overview reuses the real approved Section V1 + SharedBannerV2 parents.
+ // No notes are altered; the view derives entirely from existing saved records.
+ const userPlayer=playerContext.player;
+ const samePlayer=r=>!userPlayer||T.playerKey(r.player)===T.playerKey(userPlayer);
+ const personal=(db.personalRecords||[]).filter(r=>r.type==='note'&&!r.deletedAt&&samePlayer(r)&&String(r.body||'').trim())
+   .map(r=>({kind:'personal',id:r.id,date:r.date||'',title:r.title||'Personal Note',
+     preview:r.body,source:'Personal',open:()=>noteForm40(r.id)}));
+ const activity=notebookEntries().map(r=>({
+   kind:r.kind,id:r.id,date:r.date||'',title:r.title||'Player Notes',
+   preview:String(r.notes||'').trim()||Object.values(r.feedback||{}).find(v=>String(v||'').trim())||'',
+   source:r.kind==='game'?'Game':r.kind==='camp'?'Camp':'Training',open:r.open
+ })).filter(r=>String(r.preview||'').trim());
+ const recent=[...personal,...activity].sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.id).localeCompare(String(a.id))).slice(0,3);
+ const bannerRow=document.createElement('div');
+ bannerRow.className='gtnov2-recent-row';
+ bannerRow.dataset.component='BannerRowV1';
+ if(recent.length){
+  recent.forEach(r=>{
+   const card=document.createElement('button');
+   card.type='button';card.className='gtnov2-recent-cell';
+   card.dataset.component='BannerCellV1';card.dataset.noteSource=r.kind;
+   const category=document.createElement('span');
+   category.className='gtnov2-note-label';category.textContent=r.source;
+   const title=document.createElement('strong');
+   title.className='gtnov2-note-title';title.textContent=r.title;
+   const excerpt=document.createElement('span');
+   excerpt.className='gtnov2-note-preview';excerpt.textContent=String(r.preview).trim().slice(0,160);
+   const date=document.createElement('small');
+   date.className='gtnov2-note-date';date.textContent=friendlyDate(r.date);
+   card.append(category,title,excerpt,date);
+   card.addEventListener('click',r.open);
+   bannerRow.append(card);
+  });
+ }else{
+  const empty=document.createElement('p');empty.className='gtnov2-empty';
+  empty.textContent='No notes recorded yet.';bannerRow.append(empty);
+ }
+ const notesBanner=parts.SharedBannerV2({
+  primary:bannerRow,rootClass:'gtnov2-banner',
+  componentName:'NotesOverviewBannerV1'
+ });
+ const notesOverview=parts.Section({
+  title:'Notes Overview',content:notesBanner,kind:'gtnov2-section'
+ });
  const page=parts.UniversalPageV1({
   page:'notebook',
   header,
-  content:[],
+  content:[notesOverview],
   contentLabel:'Notebook content',
   footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
  });
@@ -13242,5 +13287,21 @@ html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:
 html[data-theme] #app.gt-app #notebookContent .up1-heading{grid-template-columns:34px minmax(0,1fr) 44px!important}
 html[data-theme] #app.gt-app #notebookContent .gt467-trigger{align-self:start;justify-self:end;min-width:44px;min-height:44px}
 html[data-theme] #app.gt-app #notebookContent .gt467-trigger svg{width:22px;height:22px}
+
+/* Notebook Notes Overview: Section V1 + SharedBannerV2; inherited centered banner cells. */
+html[data-theme] #app.gt-app #notebookContent .gtnov2-section{margin:0 0 20px;min-width:0}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-section .gtc-section-title{font-size:17px;font-weight:780;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-banner{background:linear-gradient(135deg,#f3f7f4,#e6efe8);border:1px solid #cbd8ce;border-radius:14px;overflow:hidden;color:#203326}
+html[data-theme=courtside] #app.gt-app #notebookContent .gtnov2-banner{background:#203327;color:#edf7ee;border-color:#416d50}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-recent-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-recent-cell{background:transparent;color:inherit;border:0;border-right:1px solid #cbd8ce;border-radius:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:16px 11px;min-width:0;text-align:center;font:inherit;cursor:pointer}
+html[data-theme=courtside] #app.gt-app #notebookContent .gtnov2-recent-cell{border-color:#416d50}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-recent-cell:last-child{border-right:0}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-note-label{font-size:10px;font-weight:750;letter-spacing:1px;text-transform:uppercase;line-height:1.4}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-note-title{font-size:15px;font-weight:750;line-height:1.35;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-note-preview{font-size:13px;line-height:1.5;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-note-date{font-size:11px;opacity:.78;margin-top:auto}
+html[data-theme] #app.gt-app #notebookContent .gtnov2-empty{padding:24px 18px;text-align:center;width:100%;font-size:14px}
+@media(max-width:600px){html[data-theme] #app.gt-app #notebookContent .gtnov2-recent-row{grid-template-columns:1fr}html[data-theme] #app.gt-app #notebookContent .gtnov2-recent-cell{border-right:0;border-bottom:1px solid #cbd8ce;padding:14px 15px}html[data-theme] #app.gt-app #notebookContent .gtnov2-recent-cell:last-child{border-bottom:0}}
 </style>
 </body></html>
