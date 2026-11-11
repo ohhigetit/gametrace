@@ -13767,4 +13767,22 @@ html[data-theme] #app.gt-app .gt-training-detail-section .training-banner {
 /* Preserve transparent achievement and skill chips. */
 html[data-theme] #app.gt-app .gttsv2-banner :is(.gttsv2-achievement,.gttsv2-skill-tag){background:transparent!important;}
 </style>
+
+<style id="gt-notebook-side-tabs-quarter-height-v1">
+/* My Prayer / My Commitment: approved compact drawer height, iPhone-first.
+   Keep the existing panel DOM, footer actions, and scrolling behavior. */
+#app.gt-app #notebookContent .gt-nstv5-panel {
+  top:auto!important;
+  bottom:0!important;
+  height:75vh!important;
+  height:75dvh!important;
+  max-height:75vh!important;
+  max-height:75dvh!important;
+  border-radius:18px 18px 0 0!important;
+  overflow:hidden;
+}
+#app.gt-app #notebookContent .gt-nstv5-panel-head {flex-shrink:0;}
+#app.gt-app #notebookContent .gt-nstv5-body {min-height:0;overflow-y:auto;}
+#app.gt-app #notebookContent .gt-nstv5-foot {flex-shrink:0;}
+</style>
 </body></html>
