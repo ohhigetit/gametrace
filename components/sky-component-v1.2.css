@@ -47,7 +47,10 @@ html.gt-cover-open #gt-sky-launcher{display:none}
 /* Full-app integration against November 11 development baseline.
  * Approved Notebook side tabs sit at bottom:82px + safe-area. Keep Sky below
  * their rail, with a visible separation and no changes to existing controls. */
-#gt-sky-launcher{bottom:max(10px,env(safe-area-inset-bottom));width:42px;min-height:58px;border-radius:12px 0 0 12px}
-#gt-sky-launcher svg{width:24px;height:24px}
+/* V1.4: lift Sky 16px and use the approved V3 circular character avatar.
+   The Notebook Prayer/Commitment rail starts at 82px above the safe area. */
+#gt-sky-launcher{bottom:calc(26px + env(safe-area-inset-bottom,0px));width:42px;height:45px;min-height:45px;border-radius:12px 0 0 12px}
+#gt-sky-launcher .gt-sky-avatar{width:38px;height:38px;display:block;object-fit:cover;border-radius:50%;background:#eaf3e9}
+
 #gt-sky-launcher[hidden]{display:none!important}
 #gt-sky-overlay[hidden]{display:none!important}
