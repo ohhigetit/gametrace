@@ -1,12 +1,12 @@
 
-/* Sky V1.3 — visual integration only. No network/API, no reads or writes to player data. */
+/* Sky V1.4 — visual integration only. No network/API, no reads or writes to player data. */
 (function(){
   'use strict';
   if(window.GameTraceSkyV1)return;
   const mk=(tag,props={},...children)=>{const n=document.createElement(tag);for(const [k,v] of Object.entries(props)){if(k==='class')n.className=v;else if(k==='text')n.textContent=v;else n.setAttribute(k,v)}for(const child of children)n.append(child);return n};
   const trigger=mk('button',{id:'gt-sky-launcher',type:'button','aria-label':'Open Sky companion','aria-haspopup':'dialog','aria-expanded':'false'});
-  const sparkle=mk('svg',{viewBox:'0 0 24 24','aria-hidden':'true'},mk('path',{d:'m12 2 1.9 7.1L21 11l-7.1 1.9L12 20l-1.9-7.1L3 11l7.1-1.9L12 2Z'}),mk('path',{d:'m19 17 .65 1.35L21 19l-1.35.65L19 21l-.65-1.35L17 19l1.35-.65L19 17Z'}));
-  trigger.append(sparkle,mk('span',{class:'gt-sky-label',text:'Sky'}));
+  const avatar=mk('img',{class:'gt-sky-avatar',src:'./components/sky-avatar-96.webp',alt:'','aria-hidden':'true',width:'38',height:'38',decoding:'async'});
+  trigger.append(avatar,mk('span',{class:'gt-sky-label',text:'Sky'}));
   const overlay=mk('div',{id:'gt-sky-overlay',hidden:''});
   const panel=mk('section',{id:'gt-sky-panel',role:'dialog','aria-modal':'true','aria-labelledby':'gt-sky-title',tabindex:'-1'});
   const handle=mk('div',{class:'gt467-handle','aria-hidden':'true'});
