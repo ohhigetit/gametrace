@@ -13023,6 +13023,138 @@ renderSchedule=function(...args){
  return gtSchedulePageV1();
 };
 
+/* Notebook Side Tabs V5 — approved collapsible tab rail + personal statement panel.
+   Data adapter: existing GameTrace personalRecords, no preview localStorage keys. */
+let gtNotebookSideTabsV5Cleanup=null;
+function gtNotebookSideTabsV5Mount(){
+ if(gtNotebookSideTabsV5Cleanup){gtNotebookSideTabsV5Cleanup();gtNotebookSideTabsV5Cleanup=null}
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent'),page=root?.querySelector('.up1-page');
+ if(!root||!page)return;
+ const svg={
+  prayer:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg>',
+  commitment:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 12 4.1 4.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m8 17 1.1 1.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m13 19 1.1 1.1a2 2 0 0 0 2.8 0L18 16"/><path d="m2 7 4 4 4-4 1.4-1.4a2 2 0 0 1 2.8 0L16 7"/><path d="m22 7-5 5"/><path d="m14 6 2.1-1a2 2 0 0 1 2.4.5L22 9"/></svg>'
+ };
+ const spec={
+  prayer:{title:'My Prayer',sub:'What guides me'},
+  commitment:{title:'My Commitment',sub:'What I promise to give'}
+ };
+ const host=document.createElement('div');host.className='gt-nstv5-host';host.dataset.component='NotebookSideTabsV5';
+ const rail=document.createElement('div');rail.className='gt-nstv5-rail';
+ const tabs=document.createElement('nav');tabs.className='gt-nstv5-tabs';tabs.setAttribute('aria-label','Notebook personal tabs');
+ const tabBtns={};
+ for(const type of ['prayer','commitment']){
+  const tab=document.createElement('button');tab.type='button';tab.className='gt-nstv5-tab '+type;
+  tab.dataset.type=type;tab.setAttribute('aria-label','Open '+spec[type].title);tab.setAttribute('aria-pressed','false');
+  tab.title=spec[type].title;tab.innerHTML=svg[type];tabs.append(tab);tabBtns[type]=tab;
+ }
+ const visibility=document.createElement('button');visibility.type='button';visibility.className='gt-nstv5-visibility';
+ visibility.setAttribute('aria-controls','gt-nstv5-tabs');visibility.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+ tabs.id='gt-nstv5-tabs';rail.append(tabs,visibility);host.append(rail);
+ const scrim=document.createElement('div');scrim.className='gt-nstv5-scrim';
+ const panel=document.createElement('aside');panel.className='gt-nstv5-panel';
+ panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','gt-nstv5-heading');panel.setAttribute('aria-hidden','true');
+ const head=document.createElement('div');head.className='gt-nstv5-panel-head';
+ const panelTitle=document.createElement('div');panelTitle.className='gt-nstv5-panel-title';
+ const panelIcon=document.createElement('span');panelIcon.className='gt-nstv5-panel-icon';
+ const headingWrap=document.createElement('div');const heading=document.createElement('h2');heading.id='gt-nstv5-heading';
+ const subtitle=document.createElement('p');headingWrap.append(heading,subtitle);panelTitle.append(panelIcon,headingWrap);
+ const closeBtn=document.createElement('button');closeBtn.type='button';closeBtn.className='gt-nstv5-icon-btn';closeBtn.setAttribute('aria-label','Close panel');closeBtn.textContent='×';head.append(panelTitle,closeBtn);
+ const panelBody=document.createElement('div');panelBody.className='gt-nstv5-body';
+ const readView=document.createElement('div');const label=document.createElement('p');label.className='gt-nstv5-label';
+ const statement=document.createElement('p');statement.className='gt-nstv5-statement';readView.append(label,statement);
+ const editView=document.createElement('div');const editLabel=document.createElement('label');editLabel.className='gt-nstv5-edit-label';editLabel.htmlFor='gt-nstv5-editor';
+ const editor=document.createElement('textarea');editor.id='gt-nstv5-editor';editor.className='gt-nstv5-editor';editor.maxLength=6000;editor.rows=8;
+ editView.append(editLabel,editor);const error=document.createElement('p');error.className='gt-nstv5-error';error.setAttribute('role','alert');editView.append(error);
+ panelBody.append(readView,editView);
+ const foot=document.createElement('div');foot.className='gt-nstv5-foot';
+ const cancel=document.createElement('button');cancel.type='button';cancel.className='gt-nstv5-action';cancel.textContent='Cancel';
+ const edit=document.createElement('button');edit.type='button';edit.className='gt-nstv5-action';edit.textContent='Edit';
+ const save=document.createElement('button');save.type='button';save.className='gt-nstv5-action primary';save.textContent='Save';
+ foot.append(cancel,edit,save);panel.append(head,panelBody,foot);host.append(scrim,panel);
+ root.append(host);
+ let selected=null,editing=false,lastFocus=null;
+ function getRecord(type){
+  if(!playerContext.player)return null;
+  return db.personalRecords.find(n=>!n.deletedAt&&n.type===type&&T.playerKey(n.player)===T.playerKey(playerContext.player))||null;
+ }
+ function renderPanel(){
+  if(!selected)return;
+  const item=spec[selected],record=getRecord(selected);
+  heading.textContent=item.title;subtitle.textContent=item.sub;panelIcon.innerHTML=svg[selected];
+  label.textContent=item.title.toUpperCase();editLabel.textContent=item.title;
+  const contents=record?.body||'';
+  statement.textContent=playerContext.player?(contents||'Nothing written yet. Select Edit to add your words.'):'Choose a player to write or edit your words.';
+  statement.classList.toggle('is-empty',!contents);
+  readView.hidden=editing;editView.hidden=!editing;
+  edit.hidden=editing||!playerContext.player;cancel.hidden=!editing;save.hidden=!editing;
+  error.textContent='';
+ }
+ function setVisible(visible){
+  rail.classList.toggle('is-hidden',!visible);tabs.hidden=!visible;
+  visibility.setAttribute('aria-expanded',String(visible));
+  visibility.setAttribute('aria-label',visible?'Hide Notebook side tabs':'Show Notebook side tabs');
+  visibility.title=visible?'Hide tabs':'Show tabs';
+ }
+ function open(type){
+  lastFocus=document.activeElement;selected=type;editing=false;
+  panel.classList.add('open');scrim.classList.add('open');panel.setAttribute('aria-hidden','false');
+  for(const k of Object.keys(tabBtns))tabBtns[k].setAttribute('aria-pressed',String(k===type));
+  renderPanel();closeBtn.focus();
+ }
+ function close(){
+  selected=null;editing=false;
+  panel.classList.remove('open');scrim.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  Object.values(tabBtns).forEach(b=>b.setAttribute('aria-pressed','false'));
+  lastFocus?.focus();
+ }
+ Object.entries(tabBtns).forEach(([kind,tab])=>tab.addEventListener('click',()=>open(kind)));
+ visibility.addEventListener('click',()=>setVisible(rail.classList.contains('is-hidden')));setVisible(true);
+ closeBtn.addEventListener('click',close);scrim.addEventListener('click',close);
+ edit.addEventListener('click',()=>{editing=true;editor.value=getRecord(selected)?.body||'';renderPanel();editor.focus()});
+ cancel.addEventListener('click',()=>{editing=false;renderPanel()});
+ save.addEventListener('click',()=>{
+  if(!selected||!playerContext.player)return;
+  const type=selected,player=playerContext.player,id=type+'-'+T.hash(T.playerKey(player)).toString(36);
+  const original=getRecord(type),snapshot=original?fingerprint(original):null;
+  try{
+   personalCommit(data=>{
+    const current=data.personalRecords.find(n=>n.id===id);
+    if((current?fingerprint(current):null)!==snapshot)throw Error('This entry changed. Reopen it before saving.');
+    const at=C.now(),record=J.record({id,player,type,body:editor.value.trim(),createdAt:original?.createdAt||at,updatedAt:at});
+    const pos=data.personalRecords.findIndex(n=>n.id===id);if(pos<0)data.personalRecords.push(record);else data.personalRecords[pos]=record;
+   });
+   editing=false;renderPanel();
+  }catch(e){error.textContent=e.message||'Unable to save. Please retry.'}
+ });
+ function onKey(e){
+  if(ui.screen!=='notebook'||!selected)return;
+  if(e.key==='Escape'){e.preventDefault();if(editing){editing=false;renderPanel()}else close();return}
+  if(e.key!=='Tab')return;
+  const items=[...panel.querySelectorAll('button:not([hidden]),textarea:not([hidden])')].filter(x=>x.getClientRects().length);
+  if(!items.length)return;
+  const first=items[0],last=items[items.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+ document.addEventListener('keydown',onKey);
+ function alignRail(){
+  if(!root.isConnected)return;
+  const rect=page.getBoundingClientRect(),width=rail.offsetWidth||42;
+  rail.style.left=Math.max(0,Math.min(window.innerWidth-width,rect.right-width+1))+'px';
+ }
+ window.addEventListener('resize',alignRail);window.addEventListener('scroll',alignRail,{passive:true});alignRail();
+ gtNotebookSideTabsV5Cleanup=()=>{
+  document.removeEventListener('keydown',onKey);window.removeEventListener('resize',alignRail);window.removeEventListener('scroll',alignRail);
+  host.remove();
+ };
+}
+const gtNotebookWithAllNotesAndSideTabs=renderNotebook;
+renderNotebook=function(...args){
+ const result=gtNotebookWithAllNotesAndSideTabs(...args);
+ if(ui.screen==='notebook')gtNotebookSideTabsV5Mount();
+ return result;
+};
 })();
 
 
@@ -13338,138 +13470,7 @@ html[data-theme=courtside] #app.gt-app #menuContent .gtm-action{
 
 
 
-/* Notebook Side Tabs V5 — approved collapsible tab rail + personal statement panel.
-   Data adapter: existing GameTrace personalRecords, no preview localStorage keys. */
-let gtNotebookSideTabsV5Cleanup=null;
-function gtNotebookSideTabsV5Mount(){
- if(gtNotebookSideTabsV5Cleanup){gtNotebookSideTabsV5Cleanup();gtNotebookSideTabsV5Cleanup=null}
- if(ui.screen!=='notebook')return;
- const root=document.getElementById('notebookContent'),page=root?.querySelector('.up1-page');
- if(!root||!page)return;
- const svg={
-  prayer:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg>',
-  commitment:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 12 4.1 4.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m8 17 1.1 1.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m13 19 1.1 1.1a2 2 0 0 0 2.8 0L18 16"/><path d="m2 7 4 4 4-4 1.4-1.4a2 2 0 0 1 2.8 0L16 7"/><path d="m22 7-5 5"/><path d="m14 6 2.1-1a2 2 0 0 1 2.4.5L22 9"/></svg>'
- };
- const spec={
-  prayer:{title:'My Prayer',sub:'What guides me'},
-  commitment:{title:'My Commitment',sub:'What I promise to give'}
- };
- const host=document.createElement('div');host.className='gt-nstv5-host';host.dataset.component='NotebookSideTabsV5';
- const rail=document.createElement('div');rail.className='gt-nstv5-rail';
- const tabs=document.createElement('nav');tabs.className='gt-nstv5-tabs';tabs.setAttribute('aria-label','Notebook personal tabs');
- const tabBtns={};
- for(const type of ['prayer','commitment']){
-  const tab=document.createElement('button');tab.type='button';tab.className='gt-nstv5-tab '+type;
-  tab.dataset.type=type;tab.setAttribute('aria-label','Open '+spec[type].title);tab.setAttribute('aria-pressed','false');
-  tab.title=spec[type].title;tab.innerHTML=svg[type];tabs.append(tab);tabBtns[type]=tab;
- }
- const visibility=document.createElement('button');visibility.type='button';visibility.className='gt-nstv5-visibility';
- visibility.setAttribute('aria-controls','gt-nstv5-tabs');visibility.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
- tabs.id='gt-nstv5-tabs';rail.append(tabs,visibility);host.append(rail);
- const scrim=document.createElement('div');scrim.className='gt-nstv5-scrim';
- const panel=document.createElement('aside');panel.className='gt-nstv5-panel';
- panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','gt-nstv5-heading');panel.setAttribute('aria-hidden','true');
- const head=document.createElement('div');head.className='gt-nstv5-panel-head';
- const panelTitle=document.createElement('div');panelTitle.className='gt-nstv5-panel-title';
- const panelIcon=document.createElement('span');panelIcon.className='gt-nstv5-panel-icon';
- const headingWrap=document.createElement('div');const heading=document.createElement('h2');heading.id='gt-nstv5-heading';
- const subtitle=document.createElement('p');headingWrap.append(heading,subtitle);panelTitle.append(panelIcon,headingWrap);
- const closeBtn=document.createElement('button');closeBtn.type='button';closeBtn.className='gt-nstv5-icon-btn';closeBtn.setAttribute('aria-label','Close panel');closeBtn.textContent='×';head.append(panelTitle,closeBtn);
- const panelBody=document.createElement('div');panelBody.className='gt-nstv5-body';
- const readView=document.createElement('div');const label=document.createElement('p');label.className='gt-nstv5-label';
- const statement=document.createElement('p');statement.className='gt-nstv5-statement';readView.append(label,statement);
- const editView=document.createElement('div');const editLabel=document.createElement('label');editLabel.className='gt-nstv5-edit-label';editLabel.htmlFor='gt-nstv5-editor';
- const editor=document.createElement('textarea');editor.id='gt-nstv5-editor';editor.className='gt-nstv5-editor';editor.maxLength=6000;editor.rows=8;
- editView.append(editLabel,editor);const error=document.createElement('p');error.className='gt-nstv5-error';error.setAttribute('role','alert');editView.append(error);
- panelBody.append(readView,editView);
- const foot=document.createElement('div');foot.className='gt-nstv5-foot';
- const cancel=document.createElement('button');cancel.type='button';cancel.className='gt-nstv5-action';cancel.textContent='Cancel';
- const edit=document.createElement('button');edit.type='button';edit.className='gt-nstv5-action';edit.textContent='Edit';
- const save=document.createElement('button');save.type='button';save.className='gt-nstv5-action primary';save.textContent='Save';
- foot.append(cancel,edit,save);panel.append(head,panelBody,foot);host.append(scrim,panel);
- root.append(host);
- let selected=null,editing=false,lastFocus=null;
- function getRecord(type){
-  if(!playerContext.player)return null;
-  return db.personalRecords.find(n=>!n.deletedAt&&n.type===type&&T.playerKey(n.player)===T.playerKey(playerContext.player))||null;
- }
- function renderPanel(){
-  if(!selected)return;
-  const item=spec[selected],record=getRecord(selected);
-  heading.textContent=item.title;subtitle.textContent=item.sub;panelIcon.innerHTML=svg[selected];
-  label.textContent=item.title.toUpperCase();editLabel.textContent=item.title;
-  const contents=record?.body||'';
-  statement.textContent=playerContext.player?(contents||'Nothing written yet. Select Edit to add your words.'):'Choose a player to write or edit your words.';
-  statement.classList.toggle('is-empty',!contents);
-  readView.hidden=editing;editView.hidden=!editing;
-  edit.hidden=editing||!playerContext.player;cancel.hidden=!editing;save.hidden=!editing;
-  error.textContent='';
- }
- function setVisible(visible){
-  rail.classList.toggle('is-hidden',!visible);tabs.hidden=!visible;
-  visibility.setAttribute('aria-expanded',String(visible));
-  visibility.setAttribute('aria-label',visible?'Hide Notebook side tabs':'Show Notebook side tabs');
-  visibility.title=visible?'Hide tabs':'Show tabs';
- }
- function open(type){
-  lastFocus=document.activeElement;selected=type;editing=false;
-  panel.classList.add('open');scrim.classList.add('open');panel.setAttribute('aria-hidden','false');
-  for(const k of Object.keys(tabBtns))tabBtns[k].setAttribute('aria-pressed',String(k===type));
-  renderPanel();closeBtn.focus();
- }
- function close(){
-  selected=null;editing=false;
-  panel.classList.remove('open');scrim.classList.remove('open');panel.setAttribute('aria-hidden','true');
-  Object.values(tabBtns).forEach(b=>b.setAttribute('aria-pressed','false'));
-  lastFocus?.focus();
- }
- Object.entries(tabBtns).forEach(([kind,tab])=>tab.addEventListener('click',()=>open(kind)));
- visibility.addEventListener('click',()=>setVisible(rail.classList.contains('is-hidden')));setVisible(true);
- closeBtn.addEventListener('click',close);scrim.addEventListener('click',close);
- edit.addEventListener('click',()=>{editing=true;editor.value=getRecord(selected)?.body||'';renderPanel();editor.focus()});
- cancel.addEventListener('click',()=>{editing=false;renderPanel()});
- save.addEventListener('click',()=>{
-  if(!selected||!playerContext.player)return;
-  const type=selected,player=playerContext.player,id=type+'-'+T.hash(T.playerKey(player)).toString(36);
-  const original=getRecord(type),snapshot=original?fingerprint(original):null;
-  try{
-   personalCommit(data=>{
-    const current=data.personalRecords.find(n=>n.id===id);
-    if((current?fingerprint(current):null)!==snapshot)throw Error('This entry changed. Reopen it before saving.');
-    const at=C.now(),record=J.record({id,player,type,body:editor.value.trim(),createdAt:original?.createdAt||at,updatedAt:at});
-    const pos=data.personalRecords.findIndex(n=>n.id===id);if(pos<0)data.personalRecords.push(record);else data.personalRecords[pos]=record;
-   });
-   editing=false;renderPanel();
-  }catch(e){error.textContent=e.message||'Unable to save. Please retry.'}
- });
- function onKey(e){
-  if(ui.screen!=='notebook'||!selected)return;
-  if(e.key==='Escape'){e.preventDefault();if(editing){editing=false;renderPanel()}else close();return}
-  if(e.key!=='Tab')return;
-  const items=[...panel.querySelectorAll('button:not([hidden]),textarea:not([hidden])')].filter(x=>x.getClientRects().length);
-  if(!items.length)return;
-  const first=items[0],last=items[items.length-1];
-  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
-  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
- }
- document.addEventListener('keydown',onKey);
- function alignRail(){
-  if(!root.isConnected)return;
-  const rect=page.getBoundingClientRect(),width=rail.offsetWidth||42;
-  rail.style.left=Math.max(0,Math.min(window.innerWidth-width,rect.right-width+1))+'px';
- }
- window.addEventListener('resize',alignRail);window.addEventListener('scroll',alignRail,{passive:true});alignRail();
- gtNotebookSideTabsV5Cleanup=()=>{
-  document.removeEventListener('keydown',onKey);window.removeEventListener('resize',alignRail);window.removeEventListener('scroll',alignRail);
-  host.remove();
- };
-}
-const gtNotebookWithAllNotesAndSideTabs=renderNotebook;
-renderNotebook=function(...args){
- const result=gtNotebookWithAllNotesAndSideTabs(...args);
- if(ui.screen==='notebook')gtNotebookSideTabsV5Mount();
- return result;
-};
+
 </script>
 
 <style data-gt="schedule-universal-v1">
