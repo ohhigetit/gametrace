@@ -13864,7 +13864,7 @@ html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion {
   if(window.GameTraceSkyV1)return;
   const mk=(tag,props={},...children)=>{const n=document.createElement(tag);for(const [k,v] of Object.entries(props)){if(k==='class')n.className=v;else if(k==='text')n.textContent=v;else n.setAttribute(k,v)}for(const child of children)n.append(child);return n};
   const trigger=mk('button',{id:'gt-sky-launcher',type:'button','aria-label':'Open Sky companion','aria-haspopup':'dialog','aria-expanded':'false'});
-  const avatar=mk('img',{class:'gt-sky-avatar',src:'./components/sky-avatar-96.webp',alt:'','aria-hidden':'true',width:'38',height:'38',decoding:'async'});
+  const avatar=mk('img',{class:'gt-sky-avatar',src:'https://raw.githubusercontent.com/ohhigetit/gametrace/refs/heads/review/sky-v13-dev-baseline-20261111/components/sky-avatar-96.webp',alt:'','aria-hidden':'true',width:'38',height:'38',decoding:'async'});
   trigger.append(avatar,mk('span',{class:'gt-sky-label',text:'Sky'}));
   const overlay=mk('div',{id:'gt-sky-overlay',hidden:''});
   const panel=mk('section',{id:'gt-sky-panel',role:'dialog','aria-modal':'true','aria-labelledby':'gt-sky-title',tabindex:'-1'});
