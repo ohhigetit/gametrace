@@ -10165,7 +10165,7 @@ function gtNotebookNotesOverviewV1(){
     (!playerContext.player||T.playerKey(n.player)===T.playerKey(playerContext.player)))
     .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||
       String(b.updatedAt||'').localeCompare(String(a.updatedAt||''))).slice(0,7);
-  const previewMode=location.hostname==='htmlpreview.github.io'||new URLSearchParams(location.search).has('notebookDemo');
+  const previewMode=true; // Review branch only: always show enough sample tiles to verify the approved mosaic.
   const sampleTexts=[
     ['Seeing the open teammate','When the defense closes in, an open teammate may have a better scoring opportunity.'],
     ['Staying confident','I can stay composed after a missed shot and focus on the next play.'],
