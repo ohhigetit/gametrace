@@ -10123,11 +10123,37 @@ renderGoals=function(...args){const result=gt465GoalsBase(...args),root=$('goals
   [...root.querySelectorAll('.training-toolbar button')].find(b=>/new\s+goal|add\s+goal/i.test(b.textContent.trim()));
  gt465Place(root,[{label:'＋ Add Goal',existing,handler:()=>goalForm()}]);return result;
 };
-const gt465NotebookBase=renderNotebook;
-renderNotebook=function(...args){const result=gt465NotebookBase(...args),root=$('notebookContent');
- const existing=[...root.querySelectorAll('button')].find(b=>/^\+?\s*Add Note(s)?$/i.test(b.textContent.trim()));
- gt465Place(root,[{label:'＋ Add Notes',existing,handler:()=>noteForm40()}]);return result;
+
+/* Notebook Universal Page V1 — shell-only initial rebuild.
+   Preserve underlying saved notes and legacy note editor; sections are deferred. */
+const gtNotebookUniversalInitialV1=function(){
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent');
+ const C=window.GameTraceComponents;
+ if(!root||!C?.UniversalPageV1||!C?.PageHeaderV1)throw Error('Notebook requires approved Universal Page components');
+ const icon=menuIcon('playbook');
+ const pageIcon=icon.firstElementChild || icon;
+ const add=document.createElement('button');
+ add.type='button';add.className='up1-action gt-cta-primary';
+ add.dataset.component='PageCTA';
+ add.textContent='＋ New Note';
+ add.addEventListener('click',()=>noteForm40());
+ const header=C.PageHeaderV1({
+  title:'Notebook',
+  subtitle:'EVERY EXPERIENCE IS AN OPPORTUNITY TO LEARN AND GROW.',
+  pageIcon,backIcon:up1Icon('back'),backLabel:'Back to Menu',
+  onBack:()=>navigate('menu'),
+  actions:[add],actionsLabel:'Notebook actions'
+ });
+ const page=C.UniversalPageV1({
+  page:'notebook',header,content:[],
+  contentLabel:'Notebook content',
+  footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
+ });
+ root.replaceChildren(page);
 };
+renderNotebook=gtNotebookUniversalInitialV1;
+
 // No PageCTA is added to any detail page. Edit lives at the far right of the title row.
 const gt465GameDetailBase=renderStats;
 renderStats=function(...args){const result=gt465GameDetailBase(...args),g=game();
@@ -13173,4 +13199,21 @@ html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility-content{paddin
 html[data-theme] #app.gt-app #scheduleContent .gtschedule-feed{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
 @media(min-width:700px){html[data-theme] #app.gt-app #scheduleContent .up1-actions{max-width:360px}}
 </style>
-</body></html>
+<style id="gt-notebook-universal-shell-v1">
+html[data-theme] #app.gt-app #notebookContent .up1-page{width:100%;min-width:0}
+html[data-theme] #app.gt-app #notebookContent .up1-header{padding:0 0 14px}
+html[data-theme] #app.gt-app #notebookContent .up1-heading{display:flex;align-items:flex-start;gap:10px}
+html[data-theme] #app.gt-app #notebookContent .up1-back{display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border:0;background:transparent;color:var(--gt-ink);padding:5px;border-radius:9px}
+html[data-theme] #app.gt-app #notebookContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #notebookContent .up1-title{display:flex;gap:9px;align-items:center;min-height:39px}
+html[data-theme] #app.gt-app #notebookContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.2;font-weight:800;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-title svg{width:25px;height:25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;letter-spacing:1.2px;text-transform:uppercase;color:var(--gt-ink);margin:7px 0 0}
+html[data-theme] #app.gt-app #notebookContent .up1-actions{display:grid;grid-template-columns:minmax(0,1fr);margin-top:20px}
+html[data-theme] #app.gt-app #notebookContent .up1-action{width:100%;min-height:50px;display:flex;align-items:center;justify-content:center;background:#e3efe5;border:1px solid #c6d9c8;border-radius:11px;color:var(--gt-ink);font-size:14px;font-weight:500}
+html[data-theme=courtside] #app.gt-app #notebookContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #notebookContent .up1-content{min-height:110px;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #notebookContent .up1-footer{border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #notebookContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:var(--gt-accent)}
+</style></body></html>
