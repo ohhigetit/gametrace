@@ -13734,4 +13734,37 @@ html[data-theme] #app.gt-app #notebookContent .gt-an-v18-groups {
 html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion{
   background:transparent!important;
 }
-</style></body></html>
+</style>
+<style id="gt-homecourt-shared-banner-surface-extension-v1">
+/* Extend the exact approved Home Court / Notebook SharedBanner V2 surface to
+   Performance Overview and Trainings, without changing banner layout or content. */
+html[data-theme] #app.gt-app {
+  --gt-homecourt-banner-surface:linear-gradient(135deg,#f3f7f4,#e6efe8);
+  --gt-homecourt-banner-border:#cedbd2;
+}
+html[data-theme="courtside"] #app.gt-app {
+  --gt-homecourt-banner-surface:linear-gradient(135deg,#27352e,#202c26);
+  --gt-homecourt-banner-border:#455a4d;
+}
+/* Scoreboard — Performance Overview V7.1. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-banner {
+  background:var(--gt-homecourt-banner-surface)!important;
+  border-color:var(--gt-homecourt-banner-border)!important;
+  box-shadow:none!important;
+}
+/* Trainings — approved Training Summary V8; keep chips transparent. */
+html[data-theme] #app.gt-app .gttsv2-banner,
+html[data-theme] #app.gt-app .gttsv2-banner :is(.gttsv2-cell,.gttsv2-primary-one,.gttsv2-primary-two,.gttsv2-milestone,.gttsv2-details-row,.gttsv2-details-cell) {
+  background:var(--gt-homecourt-banner-surface)!important;
+  border-color:var(--gt-homecourt-banner-border)!important;
+}
+/* Training Details — the separately approved training banner. */
+html[data-theme] #app.gt-app .gt-training-detail-section .training-banner {
+  background:var(--gt-homecourt-banner-surface)!important;
+  border-color:var(--gt-homecourt-banner-border)!important;
+  box-shadow:none!important;
+}
+/* Preserve transparent achievement and skill chips. */
+html[data-theme] #app.gt-app .gttsv2-banner :is(.gttsv2-achievement,.gttsv2-skill-tag){background:transparent!important;}
+</style>
+</body></html>
