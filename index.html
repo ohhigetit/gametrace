@@ -10136,7 +10136,8 @@ const gtNotebookUniversalInitialV1=function(){
  const add=document.createElement('button');
  add.type='button';add.className='up1-action gt-cta-primary';
  add.dataset.component='PageCTA';
- add.textContent='＋ New Note';
+ add.classList.add('gt-notebook-new-note-action');
+ add.innerHTML='<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4z"/><path d="M7 8h7M7 12h5M17 15l4-4 2 2-4 4-3 1z"/></svg><span>New Note</span>';
  add.addEventListener('click',()=>noteForm40());
  const header=C.PageHeaderV1({
   title:'Notebook',
@@ -13335,6 +13336,140 @@ html[data-theme=courtside] #app.gt-app #menuContent .gtm-action{
 })(window);
 
 
+
+
+/* Notebook Side Tabs V5 — approved collapsible tab rail + personal statement panel.
+   Data adapter: existing GameTrace personalRecords, no preview localStorage keys. */
+let gtNotebookSideTabsV5Cleanup=null;
+function gtNotebookSideTabsV5Mount(){
+ if(gtNotebookSideTabsV5Cleanup){gtNotebookSideTabsV5Cleanup();gtNotebookSideTabsV5Cleanup=null}
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent'),page=root?.querySelector('.up1-page');
+ if(!root||!page)return;
+ const svg={
+  prayer:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg>',
+  commitment:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 12 4.1 4.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m8 17 1.1 1.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m13 19 1.1 1.1a2 2 0 0 0 2.8 0L18 16"/><path d="m2 7 4 4 4-4 1.4-1.4a2 2 0 0 1 2.8 0L16 7"/><path d="m22 7-5 5"/><path d="m14 6 2.1-1a2 2 0 0 1 2.4.5L22 9"/></svg>'
+ };
+ const spec={
+  prayer:{title:'My Prayer',sub:'What guides me'},
+  commitment:{title:'My Commitment',sub:'What I promise to give'}
+ };
+ const host=document.createElement('div');host.className='gt-nstv5-host';host.dataset.component='NotebookSideTabsV5';
+ const rail=document.createElement('div');rail.className='gt-nstv5-rail';
+ const tabs=document.createElement('nav');tabs.className='gt-nstv5-tabs';tabs.setAttribute('aria-label','Notebook personal tabs');
+ const tabBtns={};
+ for(const type of ['prayer','commitment']){
+  const tab=document.createElement('button');tab.type='button';tab.className='gt-nstv5-tab '+type;
+  tab.dataset.type=type;tab.setAttribute('aria-label','Open '+spec[type].title);tab.setAttribute('aria-pressed','false');
+  tab.title=spec[type].title;tab.innerHTML=svg[type];tabs.append(tab);tabBtns[type]=tab;
+ }
+ const visibility=document.createElement('button');visibility.type='button';visibility.className='gt-nstv5-visibility';
+ visibility.setAttribute('aria-controls','gt-nstv5-tabs');visibility.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+ tabs.id='gt-nstv5-tabs';rail.append(tabs,visibility);host.append(rail);
+ const scrim=document.createElement('div');scrim.className='gt-nstv5-scrim';
+ const panel=document.createElement('aside');panel.className='gt-nstv5-panel';
+ panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','gt-nstv5-heading');panel.setAttribute('aria-hidden','true');
+ const head=document.createElement('div');head.className='gt-nstv5-panel-head';
+ const panelTitle=document.createElement('div');panelTitle.className='gt-nstv5-panel-title';
+ const panelIcon=document.createElement('span');panelIcon.className='gt-nstv5-panel-icon';
+ const headingWrap=document.createElement('div');const heading=document.createElement('h2');heading.id='gt-nstv5-heading';
+ const subtitle=document.createElement('p');headingWrap.append(heading,subtitle);panelTitle.append(panelIcon,headingWrap);
+ const closeBtn=document.createElement('button');closeBtn.type='button';closeBtn.className='gt-nstv5-icon-btn';closeBtn.setAttribute('aria-label','Close panel');closeBtn.textContent='×';head.append(panelTitle,closeBtn);
+ const panelBody=document.createElement('div');panelBody.className='gt-nstv5-body';
+ const readView=document.createElement('div');const label=document.createElement('p');label.className='gt-nstv5-label';
+ const statement=document.createElement('p');statement.className='gt-nstv5-statement';readView.append(label,statement);
+ const editView=document.createElement('div');const editLabel=document.createElement('label');editLabel.className='gt-nstv5-edit-label';editLabel.htmlFor='gt-nstv5-editor';
+ const editor=document.createElement('textarea');editor.id='gt-nstv5-editor';editor.className='gt-nstv5-editor';editor.maxLength=6000;editor.rows=8;
+ editView.append(editLabel,editor);const error=document.createElement('p');error.className='gt-nstv5-error';error.setAttribute('role','alert');editView.append(error);
+ panelBody.append(readView,editView);
+ const foot=document.createElement('div');foot.className='gt-nstv5-foot';
+ const cancel=document.createElement('button');cancel.type='button';cancel.className='gt-nstv5-action';cancel.textContent='Cancel';
+ const edit=document.createElement('button');edit.type='button';edit.className='gt-nstv5-action';edit.textContent='Edit';
+ const save=document.createElement('button');save.type='button';save.className='gt-nstv5-action primary';save.textContent='Save';
+ foot.append(cancel,edit,save);panel.append(head,panelBody,foot);host.append(scrim,panel);
+ root.append(host);
+ let selected=null,editing=false,lastFocus=null;
+ function getRecord(type){
+  if(!playerContext.player)return null;
+  return db.personalRecords.find(n=>!n.deletedAt&&n.type===type&&T.playerKey(n.player)===T.playerKey(playerContext.player))||null;
+ }
+ function renderPanel(){
+  if(!selected)return;
+  const item=spec[selected],record=getRecord(selected);
+  heading.textContent=item.title;subtitle.textContent=item.sub;panelIcon.innerHTML=svg[selected];
+  label.textContent=item.title.toUpperCase();editLabel.textContent=item.title;
+  const contents=record?.body||'';
+  statement.textContent=playerContext.player?(contents||'Nothing written yet. Select Edit to add your words.'):'Choose a player to write or edit your words.';
+  statement.classList.toggle('is-empty',!contents);
+  readView.hidden=editing;editView.hidden=!editing;
+  edit.hidden=editing||!playerContext.player;cancel.hidden=!editing;save.hidden=!editing;
+  error.textContent='';
+ }
+ function setVisible(visible){
+  rail.classList.toggle('is-hidden',!visible);tabs.hidden=!visible;
+  visibility.setAttribute('aria-expanded',String(visible));
+  visibility.setAttribute('aria-label',visible?'Hide Notebook side tabs':'Show Notebook side tabs');
+  visibility.title=visible?'Hide tabs':'Show tabs';
+ }
+ function open(type){
+  lastFocus=document.activeElement;selected=type;editing=false;
+  panel.classList.add('open');scrim.classList.add('open');panel.setAttribute('aria-hidden','false');
+  for(const k of Object.keys(tabBtns))tabBtns[k].setAttribute('aria-pressed',String(k===type));
+  renderPanel();closeBtn.focus();
+ }
+ function close(){
+  selected=null;editing=false;
+  panel.classList.remove('open');scrim.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  Object.values(tabBtns).forEach(b=>b.setAttribute('aria-pressed','false'));
+  lastFocus?.focus();
+ }
+ Object.entries(tabBtns).forEach(([kind,tab])=>tab.addEventListener('click',()=>open(kind)));
+ visibility.addEventListener('click',()=>setVisible(rail.classList.contains('is-hidden')));setVisible(true);
+ closeBtn.addEventListener('click',close);scrim.addEventListener('click',close);
+ edit.addEventListener('click',()=>{editing=true;editor.value=getRecord(selected)?.body||'';renderPanel();editor.focus()});
+ cancel.addEventListener('click',()=>{editing=false;renderPanel()});
+ save.addEventListener('click',()=>{
+  if(!selected||!playerContext.player)return;
+  const type=selected,player=playerContext.player,id=type+'-'+T.hash(T.playerKey(player)).toString(36);
+  const original=getRecord(type),snapshot=original?fingerprint(original):null;
+  try{
+   personalCommit(data=>{
+    const current=data.personalRecords.find(n=>n.id===id);
+    if((current?fingerprint(current):null)!==snapshot)throw Error('This entry changed. Reopen it before saving.');
+    const at=C.now(),record=J.record({id,player,type,body:editor.value.trim(),createdAt:original?.createdAt||at,updatedAt:at});
+    const pos=data.personalRecords.findIndex(n=>n.id===id);if(pos<0)data.personalRecords.push(record);else data.personalRecords[pos]=record;
+   });
+   editing=false;renderPanel();
+  }catch(e){error.textContent=e.message||'Unable to save. Please retry.'}
+ });
+ function onKey(e){
+  if(ui.screen!=='notebook'||!selected)return;
+  if(e.key==='Escape'){e.preventDefault();if(editing){editing=false;renderPanel()}else close();return}
+  if(e.key!=='Tab')return;
+  const items=[...panel.querySelectorAll('button:not([hidden]),textarea:not([hidden])')].filter(x=>x.getClientRects().length);
+  if(!items.length)return;
+  const first=items[0],last=items[items.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+ document.addEventListener('keydown',onKey);
+ function alignRail(){
+  if(!root.isConnected)return;
+  const rect=page.getBoundingClientRect(),width=rail.offsetWidth||42;
+  rail.style.left=Math.max(0,Math.min(window.innerWidth-width,rect.right-width+1))+'px';
+ }
+ window.addEventListener('resize',alignRail);window.addEventListener('scroll',alignRail,{passive:true});alignRail();
+ gtNotebookSideTabsV5Cleanup=()=>{
+  document.removeEventListener('keydown',onKey);window.removeEventListener('resize',alignRail);window.removeEventListener('scroll',alignRail);
+  host.remove();
+ };
+}
+const gtNotebookWithAllNotesAndSideTabs=renderNotebook;
+renderNotebook=function(...args){
+ const result=gtNotebookWithAllNotesAndSideTabs(...args);
+ if(ui.screen==='notebook')gtNotebookSideTabsV5Mount();
+ return result;
+};
 </script>
 
 <style data-gt="schedule-universal-v1">
@@ -13523,4 +13658,54 @@ html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:
 #app.gt-app #notebookContent .gt-an-v18-note:focus-visible,#app.gt-app #notebookContent .gt-an-v18-trigger:focus-visible{outline:2px solid var(--an-accent);outline-offset:2px}
 @media(min-width:560px){#app.gt-app #notebookContent .gt-an-v18-accordion{grid-template-columns:1fr 1fr;align-items:start}}
 @media(max-width:420px){#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-header{padding:15px 13px 12px!important}#app.gt-app #notebookContent .gt-an-v18-groups{padding:6px 13px 20px}#app.gt-app #notebookContent .gt-an-v18-note q{font-size:17px!important}}
+</style>
+<style id="gt-notebook-v5-sidebar-and-typography">
+/* Approved V18 All Notes text: normal weight, keep existing 18/17px size. */
+#app.gt-app #notebookContent .gt-an-v18-note q{font-weight:400!important}
+#app.gt-app #notebookContent .gt-updated-note-cta{display:none}
+html[data-theme] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-action{
+ background:#e3efe5!important;border:1px solid #c6d9c8!important;border-radius:20px!important;
+ box-shadow:none!important;min-height:50px!important;font:400 15px/1.25 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+ color:var(--gt-ink)!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;
+}
+html[data-theme=courtside] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-action{background:#2a4934!important;border-color:#416d50!important;color:#e4f6e6!important}
+html[data-theme] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-action svg{height:21px!important;width:21px!important;flex:0 0 21px!important}
+#app.gt-app #notebookContent .gt-nstv5-host{--nst-ink:#172119;--nst-muted:#59655b;--nst-accent:#087b40;--nst-edge:#cedbd2;--nst-tab1:#dcefe0;--nst-tab2:#cbe5d2}
+#app.gt-app #notebookContent .gt-nstv5-host *{box-sizing:border-box}
+#app.gt-app #notebookContent .gt-nstv5-rail{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));top:auto;left:calc(100vw - 42px);width:42px;z-index:120;pointer-events:none}
+#app.gt-app #notebookContent .gt-nstv5-tabs{width:42px;display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+#app.gt-app #notebookContent .gt-nstv5-tab{height:47px;width:42px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--nst-tab1)!important;color:#165c35!important;border:1px solid #b7d6bf!important;border-right:0!important;border-radius:12px 0 0 12px!important;cursor:pointer;box-shadow:2px 2px 4px rgba(25,62,40,.035);transition:background .15s,transform .15s}
+#app.gt-app #notebookContent .gt-nstv5-tab.commitment{background:var(--nst-tab2)!important}
+#app.gt-app #notebookContent .gt-nstv5-tab:hover,#app.gt-app #notebookContent .gt-nstv5-tab[aria-pressed=true]{background:#a7d7b6!important;transform:translateX(-2px)}
+#app.gt-app #notebookContent .gt-nstv5-tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#app.gt-app #notebookContent .gt-nstv5-visibility{pointer-events:auto;display:flex;align-items:center;justify-content:center;width:42px;height:28px;margin-top:7px;padding:0;background:#eff6f0!important;color:#165c35!important;border:1px solid #b7d6bf!important;border-right:0!important;border-radius:9px 0 0 9px!important;cursor:pointer;box-shadow:0 2px 5px rgba(25,62,40,.07)}
+#app.gt-app #notebookContent .gt-nstv5-visibility svg{width:16px;height:16px;transition:transform .15s}
+#app.gt-app #notebookContent .gt-nstv5-rail.is-hidden .gt-nstv5-tabs{display:none!important}
+#app.gt-app #notebookContent .gt-nstv5-rail.is-hidden .gt-nstv5-visibility{height:42px;background:#dcefe0!important;margin-top:0}
+#app.gt-app #notebookContent .gt-nstv5-rail.is-hidden .gt-nstv5-visibility svg{transform:rotate(180deg)}
+#app.gt-app #notebookContent .gt-nstv5-scrim{position:fixed;inset:0;background:rgba(13,38,23,.38);z-index:190;display:none}
+#app.gt-app #notebookContent .gt-nstv5-scrim.open{display:block}
+#app.gt-app #notebookContent .gt-nstv5-panel{position:fixed;z-index:191;top:0;right:0;bottom:0;width:min(420px,100vw);background:#fff!important;color:var(--nst-ink)!important;box-shadow:-14px 0 35px rgba(13,38,23,.12);transform:translateX(105%);transition:transform .24s ease;display:flex;flex-direction:column}
+#app.gt-app #notebookContent .gt-nstv5-panel.open{transform:translateX(0)}
+#app.gt-app #notebookContent .gt-nstv5-panel-head{padding:22px 20px 15px;border-bottom:1px solid var(--nst-edge);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#app.gt-app #notebookContent .gt-nstv5-panel-title{display:flex;align-items:center;gap:12px}
+#app.gt-app #notebookContent .gt-nstv5-panel-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;background:#e8f4e9;color:var(--nst-accent)}
+#app.gt-app #notebookContent .gt-nstv5-panel-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#app.gt-app #notebookContent .gt-nstv5-panel h2{font-size:19px!important;margin:0 0 3px!important;color:var(--nst-ink)!important}
+#app.gt-app #notebookContent .gt-nstv5-panel-head p{margin:0!important;color:var(--nst-muted)!important;font-size:11px!important}
+#app.gt-app #notebookContent .gt-nstv5-icon-btn{min-width:36px;min-height:36px;border:1px solid var(--nst-edge)!important;background:#fff!important;border-radius:8px!important;font-size:21px!important;cursor:pointer;color:var(--nst-muted)!important}
+#app.gt-app #notebookContent .gt-nstv5-body{padding:23px 21px;overflow:auto;flex:1}
+#app.gt-app #notebookContent .gt-nstv5-label{font-size:10px!important;letter-spacing:.7px;color:var(--nst-accent)!important;font-weight:800!important;text-transform:uppercase;margin:0 0 13px!important}
+#app.gt-app #notebookContent .gt-nstv5-statement{font-size:19px!important;font-weight:600!important;line-height:1.65!important;font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere;margin:0!important;color:var(--nst-ink)!important}
+#app.gt-app #notebookContent .gt-nstv5-statement.is-empty{font-size:14px!important;color:var(--nst-muted)!important;font-style:normal}
+#app.gt-app #notebookContent .gt-nstv5-edit-label{font-size:11px!important;font-weight:800!important;color:var(--nst-muted)!important;display:block;margin-bottom:8px}
+#app.gt-app #notebookContent .gt-nstv5-editor{width:100%;min-height:190px;resize:vertical;border:1px solid var(--nst-edge)!important;border-radius:10px!important;background:#f9fbf9!important;color:var(--nst-ink)!important;font-size:15px!important;font-weight:500!important;line-height:1.65!important;padding:13px!important}
+#app.gt-app #notebookContent .gt-nstv5-error{color:#b91c1c;font-size:12px}
+#app.gt-app #notebookContent .gt-nstv5-foot{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--nst-edge);display:flex;gap:8px;justify-content:flex-end}
+#app.gt-app #notebookContent .gt-nstv5-action{border:1px solid #b6d1bd!important;border-radius:9px!important;padding:10px 15px!important;min-height:40px;background:#fff!important;color:var(--nst-accent)!important;font-size:12px!important;font-weight:750!important;cursor:pointer}
+#app.gt-app #notebookContent .gt-nstv5-action.primary{background:var(--nst-accent)!important;color:white!important;border-color:var(--nst-accent)!important}
+#app.gt-app #notebookContent .gt-nstv5-host [hidden]{display:none!important}
+#app.gt-app #notebookContent .gt-nstv5-visibility:focus-visible,#app.gt-app #notebookContent .gt-nstv5-tab:focus-visible,#app.gt-app #notebookContent .gt-nstv5-action:focus-visible{outline:2px solid var(--nst-accent);outline-offset:2px}
+@media(max-width:430px){#app.gt-app #notebookContent .gt-nstv5-rail{width:39px;bottom:calc(82px + env(safe-area-inset-bottom,0px))}#app.gt-app #notebookContent .gt-nstv5-tabs{width:39px}#app.gt-app #notebookContent .gt-nstv5-tab{width:39px;height:45px}#app.gt-app #notebookContent .gt-nstv5-visibility{width:39px}#app.gt-app #notebookContent .gt-nstv5-panel{width:100vw}}
+@media(prefers-reduced-motion:reduce){#app.gt-app #notebookContent .gt-nstv5-panel,#app.gt-app #notebookContent .gt-nstv5-tab{transition:none}}
 </style></body></html>
