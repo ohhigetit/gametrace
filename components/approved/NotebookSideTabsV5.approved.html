@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f8f5"><title>GameTrace · Notebook Side Tabs V5 · Hide & Show</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--ink:#172119;--muted:#59655b;--accent:#087b40;--edge:#cedbd2;--paper:#ffffff;--soft:#f5f8f5;--tab1:#dcefe0;--tab2:#cbe5d2;color:var(--ink)}*{box-sizing:border-box}
+body{margin:0;background:var(--soft);padding:22px 14px 48px;min-height:100vh}
+.preview{max-width:650px;margin:auto}.test-note{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 15px}
+.notebook-shell{position:relative;min-height:540px}
+.notebook{border-radius:17px;background:var(--paper);border:1px solid var(--edge);box-shadow:0 5px 18px rgba(25,62,40,.05);min-height:540px;overflow:hidden}
+.page-header{padding:22px 20px 19px;border-bottom:1px solid var(--edge)}.page-header .eyebrow{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--accent);text-transform:uppercase}.page-header h1{font-size:23px;margin:6px 0 4px;line-height:1.24;font-weight:820;letter-spacing:-.6px}.page-header p{font-size:12px;color:var(--muted);margin:0}
+.section{padding:19px 20px 14px}.section+.section{border-top:1px solid #e1e9e2}.section-head{display:flex;align-items:center;justify-content:space-between;gap:7px}.section h2{font-size:17px;font-weight:810;margin:0;letter-spacing:-.25px}.section small{font-size:11px;color:var(--muted)}.section .link{font-size:11px;color:var(--accent);font-weight:800}.note-mosaic{margin-top:15px;display:grid;grid-template-columns:1.2fr .8fr;gap:7px}.bubble{min-height:105px;background:#def0df;border-radius:22px 15px 18px 13px;padding:15px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:15px;font-weight:650;font-style:italic}.bubble:nth-child(2){background:#cfe7d3;border-radius:17px 21px 12px 19px}.note-row{padding:15px 0;border-bottom:1px solid #edf1ed}.note-row q{font-style:italic;font-weight:600;font-size:16px;line-height:1.45;display:block}.note-row .detail{text-align:right;font-size:11px;font-weight:650;color:var(--muted);margin-top:9px}
+/* The reusable component owns only the tabs and panel, not the Notebook page. */
+.gt-notebook-tab-rail{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom, 0px));top:auto;left:calc(100vw - 42px);width:42px;z-index:12;pointer-events:none}.gt-notebook-tabs-v1{width:42px;display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+.gt-notebook-tabs-v1 .tab{height:47px;width:42px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--tab1);color:#165c35;border:1px solid #b7d6bf;border-right:0;border-radius:12px 0 0 12px;cursor:pointer;box-shadow:2px 2px 4px rgba(25,62,40,.035);transition:background .15s,transform .15s}
+.gt-notebook-tabs-v1 .tab.commitment{background:var(--tab2)}.gt-notebook-tabs-v1 .tab:hover,.gt-notebook-tabs-v1 .tab[aria-pressed=true]{background:#a7d7b6;transform:translateX(-2px)} .gt-notebook-tabs-v1 .tab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.gt-notebook-tab-rail .tab-visibility{pointer-events:auto;display:flex;align-items:center;justify-content:center;width:42px;height:28px;margin-top:7px;background:#eff6f0;color:#165c35;border:1px solid #b7d6bf;border-right:0;border-radius:9px 0 0 9px;cursor:pointer;box-shadow:0 2px 5px rgba(25,62,40,.07)}
+.gt-notebook-tab-rail .tab-visibility svg{width:16px;height:16px;transition:transform .15s}
+.gt-notebook-tab-rail.is-hidden .gt-notebook-tabs-v1,.gt-notebook-tabs-v1[hidden]{display:none}
+.gt-notebook-tab-rail.is-hidden .tab-visibility{height:42px;background:#dcefe0;margin-top:0}
+.gt-notebook-tab-rail.is-hidden .tab-visibility svg{transform:rotate(180deg)}
+.gt-notebook-tab-rail .tab-visibility:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gt-notebook-tabs-v1 svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.scrim{position:fixed;inset:0;background:rgba(13,38,23,.38);z-index:30;display:none}.scrim.open{display:block}
+.panel{position:fixed;z-index:31;top:0;right:0;bottom:0;width:min(420px,100vw);background:#fff;box-shadow:-14px 0 35px rgba(13,38,23,.12);transform:translateX(105%);transition:transform .24s ease;display:flex;flex-direction:column}.panel.open{transform:translateX(0)}
+.panel-head{padding:22px 20px 15px;border-bottom:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between;gap:10px}.panel-title{display:flex;align-items:center;gap:12px}.panel-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;background:#e8f4e9;color:var(--accent)}.panel-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.panel h2{font-size:19px;margin:0 0 3px}.panel-head p{margin:0;color:var(--muted);font-size:11px}.icon-button{min-width:36px;min-height:36px;border:1px solid var(--edge);background:white;border-radius:8px;font-size:21px;cursor:pointer;color:var(--muted)}
+.panel-content{padding:23px 21px;overflow:auto;flex:1}.panel-label{font-size:10px;letter-spacing:.7px;color:var(--accent);font-weight:800;text-transform:uppercase;margin:0 0 13px}.statement{font-size:19px;font-weight:600;line-height:1.65;font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.statement.empty{font-size:14px;color:var(--muted);font-style:normal}.edit-label{font-size:11px;font-weight:800;color:var(--muted);display:block;margin-bottom:8px}.editor{width:100%;min-height:190px;resize:vertical;border:1px solid var(--edge);border-radius:10px;background:#f9fbf9;color:var(--ink);font:500 15px/1.65 inherit;padding:13px}.editor:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.panel-foot{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--edge);display:flex;gap:8px;justify-content:flex-end}.action{border:1px solid #b6d1bd;border-radius:9px;padding:10px 15px;min-height:40px;background:#fff;color:var(--accent);font:750 12px inherit;cursor:pointer}.action.primary{background:var(--accent);color:white;border-color:var(--accent)}.action[hidden]{display:none}
+.preview-footer{font-size:11px;color:var(--muted);margin:16px 1px 0;line-height:1.55}
+@media(max-width:430px){body{padding:10px 7px 30px}.gt-notebook-tab-rail{width:39px;bottom:calc(82px + env(safe-area-inset-bottom, 0px));top:auto}.gt-notebook-tabs-v1{width:39px}.gt-notebook-tabs-v1 .tab{width:39px;height:45px}.gt-notebook-tab-rail .tab-visibility{width:39px}.notebook{border-radius:14px}.page-header{padding:17px 14px}.section{padding:16px 13px}.page-header h1{font-size:21px}.panel{width:100vw}}
+@media(prefers-reduced-motion:reduce){.panel,.gt-notebook-tabs-v1 .tab{transition:none}}
+</style></head><body>
+<main class="preview"><p class="test-note">GameTrace · NotebookSideTabsV5 · Collapsible bottom-right tabs · Rounded edges toward content, straight edge flush with Notebook right edge · No reserved right column.</p>
+<div class="notebook-shell" id="notebookRoot">
+ <article class="notebook" aria-label="Notebook demo">
+  <header class="page-header"><span class="eyebrow">GameTrace</span><h1>Notebook</h1><p>See more. Become more.</p></header>
+  <section class="section"><div class="section-head"><div><h2>Recent Notes</h2><small>Thoughts worth remembering</small></div><span class="link">View All</span></div><div class="note-mosaic"><div class="bubble">“Stay focused after mistakes”</div><div class="bubble">“Attack with confidence”</div></div></section>
+  <section class="section"><div class="section-head"><div><h2>All Notes</h2><small>Observations, lessons, and aspirations</small></div><span style="color:#087b40;font-size:16px">☷</span></div><div class="note-row"><q>Looked for contact and used speed and poise.</q><div class="detail">Player's Notes · What I became</div></div><div class="note-row"><q>Trust my instincts when I see an opening.</q><div class="detail">Player's Notes · What I want to become more</div></div></section>
+ <section class="section" aria-label="Additional notes for scroll test"><div class="section-head"><h2>More Notes</h2></div>  <div class="note-row"><q>I recognized the open lane before making my move.</q><div class="detail">Player's Notes · What I saw</div></div>
+  <div class="note-row"><q>I can stay composed when the defense pressures me.</q><div class="detail">Player's Notes · What I became</div></div>
+  <div class="note-row"><q>I will be more deliberate in finding strong finishes.</q><div class="detail">Player's Notes · What I want to become more</div></div>
+  <div class="note-row"><q>I kept communicating with my teammates through each possession.</q><div class="detail">Player's Notes · What I became</div></div>
+  <div class="note-row"><q>I noticed that positioning changes passing opportunities.</q><div class="detail">Player's Notes · What I saw</div></div>
+  <div class="note-row"><q>I will take what I learned into the next practice.</q><div class="detail">Player's Notes · What I want to become more</div></div>
+  <div class="note-row"><q>I stayed focused even after a difficult sequence.</q><div class="detail">Player's Notes · What I became</div></div>
+  <div class="note-row"><q>I saw how quick decisions created space.</q><div class="detail">Player's Notes · What I saw</div></div>
+  <div class="note-row"><q>I want to be consistent from the first minute to the last.</q><div class="detail">Player's Notes · What I want to become more</div></div>
+  <div class="note-row"><q>Every session is another chance to improve.</q><div class="detail">Player's Notes · What I saw</div></div>
+</section>
+ </article>
+ <div class="gt-notebook-tab-rail"><nav class="gt-notebook-tabs-v1" id="notebookSideTabs" aria-label="Notebook personal tabs">
+  <button class="tab prayer" type="button" data-type="prayer" aria-label="Open My Prayer" aria-pressed="false" title="My Prayer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg></button>
+  <button class="tab commitment" type="button" data-type="commitment" aria-label="Open My Commitment" aria-pressed="false" title="My Commitment"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 12 4.1 4.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m8 17 1.1 1.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m13 19 1.1 1.1a2 2 0 0 0 2.8 0L18 16"/><path d="m2 7 4 4 4-4 1.4-1.4a2 2 0 0 1 2.8 0L16 7"/><path d="m22 7-5 5"/><path d="m14 6 2.1-1a2 2 0 0 1 2.4.5L22 9"/></svg></button>
+ </nav><button type="button" class="tab-visibility" id="toggleSideTabs" aria-expanded="true" aria-controls="notebookSideTabs" aria-label="Hide Notebook side tabs" title="Hide tabs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div>
+</div>
+<p class="preview-footer">Tap either icon-only side tab to read or edit its content. Use the small chevron to hide both tabs; tap it again to show them. Changes in this standalone test are held in browser local storage only; they do not change GameTrace records. Scroll this page: the tabs remain near the bottom-right of the viewport. Their straight right edges align with the Notebook edge, and they overlay the page without taking up layout width. The tabs and sliding content panel are the new component; the Notebook behind them is just placement context.</p>
+</main>
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panelHeading" aria-hidden="true">
+  <div class="panel-head"><div class="panel-title"><span class="panel-icon" id="panelIcon"></span><div><h2 id="panelHeading">My Prayer</h2><p id="panelSub">What guides me</p></div></div><button class="icon-button" id="closeBtn" aria-label="Close panel">×</button></div>
+  <div class="panel-content"><div id="readView"><p class="panel-label" id="panelLabel">MY PRAYER</p><p class="statement" id="statement"></p></div><div id="editView" hidden><label class="edit-label" id="editLabel" for="editor">My Prayer</label><textarea class="editor" id="editor" maxlength="3000"></textarea></div></div>
+  <div class="panel-foot"><button class="action" id="cancelBtn" hidden>Cancel</button><button class="action" id="editBtn">Edit</button><button class="action primary" id="saveBtn" hidden>Save</button></div>
+</aside>
+<script>
+(function(){
+  const shell=document.getElementById('notebookRoot');
+  const rail=document.querySelector('.gt-notebook-tab-rail');
+  function alignTabs(){const rect=shell.getBoundingClientRect(),width=rail.offsetWidth||42;rail.style.left=Math.max(0,Math.min(window.innerWidth-width,rect.right-width+1))+'px';}
+  alignTabs();window.addEventListener('resize',alignTabs);
+  const toggle=document.getElementById('toggleSideTabs');
+  const tabs=document.getElementById('notebookSideTabs');
+  function setTabsVisible(visible){
+    rail.classList.toggle('is-hidden',!visible);
+    tabs.hidden=!visible;
+    toggle.setAttribute('aria-expanded',String(visible));
+    toggle.setAttribute('aria-label',visible?'Hide Notebook side tabs':'Show Notebook side tabs');
+    toggle.title=visible?'Hide tabs':'Show tabs';
+  }
+  toggle.addEventListener('click',()=>setTabsVisible(rail.classList.contains('is-hidden')));
+  setTabsVisible(true);
+  const svg={prayer:document.querySelector('.tab.prayer svg').outerHTML,commitment:document.querySelector('.tab.commitment svg').outerHTML};
+  const spec={prayer:{title:'My Prayer',sub:'What guides me',sample:'Lord, guide my heart and my actions. Give me strength to do my best, courage when I struggle, and gratitude for every chance to grow.'},commitment:{title:'My Commitment',sub:'What I promise to give',sample:'I will show up prepared, give my best effort, respect my teammates, and keep learning even on difficult days.'}};
+  const key=(type)=>'gt-preview-notebook-side-tabs-v1-'+type;
+  const get=(type)=>{try{return localStorage.getItem(key(type))??spec[type].sample}catch(e){return spec[type].sample}};
+  const put=(type,value)=>{try{localStorage.setItem(key(type),value)}catch(e){/* preview still updates current session */}};
+  const panel=document.getElementById('panel'),scrim=document.getElementById('scrim'),statement=document.getElementById('statement'),editor=document.getElementById('editor');
+  let selected=null,editing=false,lastFocus=null;const current={prayer:get('prayer'),commitment:get('commitment')};
+  function view(){const entry=spec[selected];document.getElementById('panelHeading').textContent=entry.title;document.getElementById('panelSub').textContent=entry.sub;document.getElementById('panelLabel').textContent=entry.title.toUpperCase();document.getElementById('editLabel').textContent=entry.title;document.getElementById('panelIcon').innerHTML=svg[selected];statement.textContent=current[selected]||'Nothing written yet. Select Edit to add your words.';statement.classList.toggle('empty',!current[selected]);document.getElementById('readView').hidden=editing;document.getElementById('editView').hidden=!editing;document.getElementById('editBtn').hidden=editing;document.getElementById('cancelBtn').hidden=!editing;document.getElementById('saveBtn').hidden=!editing;}
+  function open(type){lastFocus=document.activeElement;selected=type;editing=false;panel.classList.add('open');scrim.classList.add('open');panel.setAttribute('aria-hidden','false');document.querySelectorAll('.gt-notebook-tabs-v1 .tab').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.type===type)));view();document.getElementById('closeBtn').focus()}
+  function close(){panel.classList.remove('open');scrim.classList.remove('open');panel.setAttribute('aria-hidden','true');editing=false;document.querySelectorAll('.gt-notebook-tabs-v1 .tab').forEach(n=>n.setAttribute('aria-pressed','false'));lastFocus?.focus();selected=null}
+  document.querySelectorAll('.gt-notebook-tabs-v1 .tab').forEach(b=>b.addEventListener('click',()=>open(b.dataset.type)));
+  document.getElementById('closeBtn').onclick=close;scrim.onclick=close;
+  document.getElementById('editBtn').onclick=()=>{editing=true;editor.value=current[selected];view();editor.focus()};
+  document.getElementById('cancelBtn').onclick=()=>{editing=false;view()};
+  document.getElementById('saveBtn').onclick=()=>{const value=editor.value.trim();current[selected]=value;put(selected,value);editing=false;view()};
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&selected){if(editing){editing=false;view()}else close();}if(e.key==='Tab'&&selected){const focusable=[...panel.querySelectorAll('button:not([hidden]),textarea:not([hidden])')].filter(n=>n.getClientRects().length);const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+})();
+</script></body></html>

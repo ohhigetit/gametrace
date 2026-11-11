@@ -1,0 +1,75 @@
+/* GameTrace Reusable Form V1 — design reference: approved New Session V46.9.5. */
+.gtf-form-v1 {
+  --gtf-bg: transparent;
+  --gtf-card: #eff6f1;
+  --gtf-border: #cbdbcf;
+  --gtf-ink: #172920;
+  --gtf-muted: #465d50;
+  --gtf-subtle: #73857a;
+  --gtf-field-bg: #ffffff;
+  --gtf-field-border: #c5d7ca;
+  --gtf-primary-bg: #dcefe3;
+  --gtf-primary-border: #c4d7c9;
+  --gtf-error: #a6232c;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  background:var(--gtf-bg);
+  max-width:760px;
+  width:100%;
+  margin-inline:auto;
+  color:var(--gtf-ink);
+  font:inherit;
+}
+.gtf-form-v1 *, .gtf-form-v1 *::before, .gtf-form-v1 *::after { box-sizing:border-box; }
+.gtf-form-v1 [hidden] { display:none!important; }
+.gtf-form-v1 .gtf-stack-v1 { display:flex;flex-direction:column;gap:16px; }
+.gtf-form-v1 .gtf-section-v1 {
+  min-width:0;
+  margin:0;
+  padding:20px;
+  background:var(--gtf-card);
+  border:1px solid var(--gtf-border);
+  border-radius:21px;
+}
+.gtf-form-v1 .gtf-section-head-v1 { margin:0 0 23px; }
+.gtf-form-v1 .gtf-section-title-v1 {
+  color:var(--gtf-ink);font-size:22px;font-weight:800;
+  letter-spacing:-.5px;line-height:1.24;margin:0;
+}
+.gtf-form-v1 .gtf-section-subtitle-v1 {
+  color:var(--gtf-subtle);font-size:14px;line-height:1.45;margin:7px 0 0;
+}
+.gtf-form-v1 .gtf-fields-v1 { display:grid;grid-template-columns:minmax(0,1fr);gap:19px;min-width:0; }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] > .gtf-width-full { grid-column:1/-1; }
+.gtf-form-v1 .gtf-field-v1 {display:flex;flex-direction:column;gap:9px;min-width:0;}
+.gtf-form-v1 .gtf-label-v1 {color:var(--gtf-muted);font-size:14px;line-height:1.35;font-weight:700;}
+.gtf-form-v1 .gtf-required-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-field-v1 > :is(input,textarea,select) {
+  color:var(--gtf-ink);background:var(--gtf-field-bg);font:inherit;
+  border:1px solid var(--gtf-field-border);
+  border-radius:13px;padding:14px 15px;width:100%;min-width:0;
+  max-width:100%;min-height:52px;line-height:1.3;
+}
+.gtf-form-v1 .gtf-field-v1 > textarea { min-height:100px;line-height:1.5;resize:vertical; }
+.gtf-form-v1 :is(input,select,textarea,button):focus-visible {outline:3px solid #4d9b72;outline-offset:2px;}
+.gtf-form-v1 .gtf-field-v1[data-invalid="true"] > :is(input,select,textarea) {border-color:var(--gtf-error);}
+.gtf-form-v1 .gtf-help-v1,.gtf-form-v1 .gtf-error-v1 {font-size:13px;line-height:1.4;margin:0;}
+.gtf-form-v1 .gtf-help-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-error-v1 {color:var(--gtf-error);font-weight:650;}
+.gtf-form-v1 .gtf-actions-v1 {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;}
+.gtf-form-v1 .gtf-actions-v1 > button {
+  min-width:0;min-height:52px;border-radius:13px;padding:14px 8px;
+  font:inherit;font-size:17px;font-weight:750;cursor:pointer;
+}
+.gtf-form-v1 .gtf-action-primary-v1 {background:var(--gtf-primary-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-action-secondary-v1 {background:var(--gtf-field-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-actions-v1 > button:disabled {opacity:.55;cursor:not-allowed;}
+@media (max-width:370px) {
+  .gtf-form-v1 .gtf-section-v1 {padding:16px;}
+  .gtf-form-v1 .gtf-actions-v1 {gap:10px;}
+  .gtf-form-v1 .gtf-actions-v1 > button {font-size:16px;}
+}
+/* Apps may override tokens from their theme; no page-specific selector is needed. */

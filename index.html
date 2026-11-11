@@ -5285,6 +5285,1250 @@ html[data-theme] #app.gt-app #sessionContent .gt-pns-v1 .gt-playernotes-v1 .pn-a
 #app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-row:focus-visible,#app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-action:focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
 @media(max-width:370px){#app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-row{grid-template-columns:42px minmax(0,1fr) auto;gap:7px;padding:12px 0}#app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-icon{width:42px;height:44px}#app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-icon svg{width:23px;height:23px}#app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-value{font-size:12px!important}#app.gt-app #sessionContent [data-page="training-details"] .gtal-section .gtal-title{font-size:13px!important}}
 
+</style>
+<!-- Approved, version-locked Form Parent V1 and Training Form V1 (standalone) -->
+<style id="gtf-parent-v1-embedded">/* GameTrace Reusable Form V1 — design reference: approved New Session V46.9.5. */
+.gtf-form-v1 {
+  --gtf-bg: transparent;
+  --gtf-card: #eff6f1;
+  --gtf-border: #cbdbcf;
+  --gtf-ink: #172920;
+  --gtf-muted: #465d50;
+  --gtf-subtle: #73857a;
+  --gtf-field-bg: #ffffff;
+  --gtf-field-border: #c5d7ca;
+  --gtf-primary-bg: #dcefe3;
+  --gtf-primary-border: #c4d7c9;
+  --gtf-error: #a6232c;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  background:var(--gtf-bg);
+  max-width:760px;
+  width:100%;
+  margin-inline:auto;
+  color:var(--gtf-ink);
+  font:inherit;
+}
+.gtf-form-v1 *, .gtf-form-v1 *::before, .gtf-form-v1 *::after { box-sizing:border-box; }
+.gtf-form-v1 [hidden] { display:none!important; }
+.gtf-form-v1 .gtf-stack-v1 { display:flex;flex-direction:column;gap:16px; }
+.gtf-form-v1 .gtf-section-v1 {
+  min-width:0;
+  margin:0;
+  padding:20px;
+  background:var(--gtf-card);
+  border:1px solid var(--gtf-border);
+  border-radius:21px;
+}
+.gtf-form-v1 .gtf-section-head-v1 { margin:0 0 23px; }
+.gtf-form-v1 .gtf-section-title-v1 {
+  color:var(--gtf-ink);font-size:22px;font-weight:800;
+  letter-spacing:-.5px;line-height:1.24;margin:0;
+}
+.gtf-form-v1 .gtf-section-subtitle-v1 {
+  color:var(--gtf-subtle);font-size:14px;line-height:1.45;margin:7px 0 0;
+}
+.gtf-form-v1 .gtf-fields-v1 { display:grid;grid-template-columns:minmax(0,1fr);gap:19px;min-width:0; }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.gtf-form-v1 .gtf-fields-v1[data-columns="2"] > .gtf-width-full { grid-column:1/-1; }
+.gtf-form-v1 .gtf-field-v1 {display:flex;flex-direction:column;gap:9px;min-width:0;}
+.gtf-form-v1 .gtf-label-v1 {color:var(--gtf-muted);font-size:14px;line-height:1.35;font-weight:700;}
+.gtf-form-v1 .gtf-required-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-field-v1 > :is(input,textarea,select) {
+  color:var(--gtf-ink);background:var(--gtf-field-bg);font:inherit;
+  border:1px solid var(--gtf-field-border);
+  border-radius:13px;padding:14px 15px;width:100%;min-width:0;
+  max-width:100%;min-height:52px;line-height:1.3;
+}
+.gtf-form-v1 .gtf-field-v1 > textarea { min-height:100px;line-height:1.5;resize:vertical; }
+.gtf-form-v1 :is(input,select,textarea,button):focus-visible {outline:3px solid #4d9b72;outline-offset:2px;}
+.gtf-form-v1 .gtf-field-v1[data-invalid="true"] > :is(input,select,textarea) {border-color:var(--gtf-error);}
+.gtf-form-v1 .gtf-help-v1,.gtf-form-v1 .gtf-error-v1 {font-size:13px;line-height:1.4;margin:0;}
+.gtf-form-v1 .gtf-help-v1 {color:var(--gtf-muted);}
+.gtf-form-v1 .gtf-error-v1 {color:var(--gtf-error);font-weight:650;}
+.gtf-form-v1 .gtf-actions-v1 {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;}
+.gtf-form-v1 .gtf-actions-v1 > button {
+  min-width:0;min-height:52px;border-radius:13px;padding:14px 8px;
+  font:inherit;font-size:17px;font-weight:750;cursor:pointer;
+}
+.gtf-form-v1 .gtf-action-primary-v1 {background:var(--gtf-primary-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-action-secondary-v1 {background:var(--gtf-field-bg);color:var(--gtf-ink);border:1px solid var(--gtf-primary-border);}
+.gtf-form-v1 .gtf-actions-v1 > button:disabled {opacity:.55;cursor:not-allowed;}
+@media (max-width:370px) {
+  .gtf-form-v1 .gtf-section-v1 {padding:16px;}
+  .gtf-form-v1 .gtf-actions-v1 {gap:10px;}
+  .gtf-form-v1 .gtf-actions-v1 > button {font-size:16px;}
+}
+/* Apps may override tokens from their theme; no page-specific selector is needed. */
+</style>
+<style id="gt-training-form-v1-embedded">/* Training Form V1 only adds training-specific controls. Parent cards/fields/actions
+   are styled by the LOCKED form-components-v1.css without overrides. */
+.gt-training-form-v1 .gt-training-skills-area-v1{display:grid;gap:12px;min-width:0}
+.gt-training-form-v1 .gt-training-skills-heading-v1{margin:0;font-size:14px;font-weight:700;color:var(--gtf-muted)}
+.gt-training-form-v1 .gt-training-skills-v1{display:flex;flex-wrap:wrap;gap:9px}
+.gt-training-form-v1 .gt-training-skill-v1,
+.gt-training-form-v1 .gt-training-add-v1{
+  cursor:pointer;border:1px solid #c2d3c6;background:var(--gtf-field-bg);
+  border-radius:999px;padding:10px 14px;color:#415a48;font-size:13px;line-height:1.35;
+}
+.gt-training-form-v1 .gt-training-skill-v1[aria-pressed="true"]{background:#d8ede1;border-color:#409a65;color:#155b36;font-weight:750}
+.gt-training-form-v1 .gt-training-skills-help-v1{font-size:13px;color:var(--gtf-muted);margin:0}
+.gt-training-form-v1 .gt-training-custom-row-v1{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px}
+.gt-training-form-v1 .gt-training-add-v1{border-radius:13px;min-height:52px;white-space:nowrap}
+.gt-training-form-v1 .gt-training-form-status-v1{border:1px solid #d7999d;color:var(--gtf-error);background:#fff5f5;border-radius:13px;padding:12px 14px;margin:0;font-size:14px}
+.gt-training-form-v1 .gt-training-form-status-v1[hidden]{display:none}
+@media (max-width:370px){.gt-training-form-v1 .gt-training-custom-row-v1{grid-template-columns:minmax(0,1fr)}.gt-training-form-v1 .gt-training-add-v1{justify-self:start}}
+
+/* GameTrace typography alignment — Training Details / reusable Section V1 hierarchy.
+   Intentionally scoped to TrainingFormV1 so the APPROVED Form Parent V1 stays
+   byte-for-byte unchanged for other forms. Typography-only refinement. */
+.gt-training-form-v1 .gtf-section-title-v1 {
+  font-size:18px;
+  font-weight:800;
+  line-height:1.3;
+  letter-spacing:-.35px;
+}
+.gt-training-form-v1 .gtf-section-subtitle-v1 {
+  font-size:12px;
+  font-weight:400;
+  line-height:1.5;
+  letter-spacing:normal;
+}
+.gt-training-form-v1 .gtf-label-v1,
+.gt-training-form-v1 .gt-training-skills-heading-v1 {
+  font-size:13px;
+  font-weight:700;
+  line-height:1.4;
+}
+.gt-training-form-v1 .gtf-field-v1 > :is(input,select,textarea) {
+  font-size:16px; /* iPhone-friendly input size; prevents focus zoom */
+  font-weight:400;
+  line-height:1.35;
+}
+.gt-training-form-v1 .gtf-help-v1,
+.gt-training-form-v1 .gtf-error-v1,
+.gt-training-form-v1 .gt-training-skills-help-v1,
+.gt-training-form-v1 .gt-training-form-status-v1 {
+  font-size:12px;
+  line-height:1.5;
+}
+.gt-training-form-v1 .gt-training-skill-v1,
+.gt-training-form-v1 .gt-training-add-v1 {font-size:12px;font-weight:650;}
+.gt-training-form-v1 .gtf-actions-v1 > button {font-size:14px;font-weight:750;}
+</style>
+<style id="gt-training-form-page-v1-css">/* Scope of approved UniversalPage V1 CSS mapped from up1-home-court-css.
+   Only [data-page=training-form]; no changes to existing other pages. */
+/* UniversalPage Parent V1 – Home Court integration, page-scoped */
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"]{display:flex;flex-direction:column;min-height:100%;min-width:0}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-header{padding:12px 0 20px;flex:0 0 auto}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important;min-width:0}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-title svg{width:25px;height:25px;flex:0 0 25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;text-align:left!important;max-width:100%!important;white-space:normal!important}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 4px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:5px;white-space:normal;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-footer{flex:0 0 auto;display:block;border:0;border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] :is(.up1-back,.up1-action):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+@media(max-width:365px){html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-action{font-size:10px;flex-direction:column;gap:2px;min-height:57px}html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-actions{gap:5px}html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .up1-footer span{letter-spacing:.5px}}
+
+
+/* Keep the legacy native form attached for the original save closure, but invisible. */
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] form.gt495-form[hidden]{display:none!important}
+/* Preserve approved Training Form V1 typography against legacy #app selectors. */
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .gt-training-form-v1 .gtf-section-title-v1{font-size:18px;font-weight:800;letter-spacing:-.35px;line-height:1.3}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .gt-training-form-v1 .gtf-section-subtitle-v1{font-size:12px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .gt-training-form-v1 .gtf-label-v1{font-size:13px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .gt-training-form-v1 .gtf-field-v1 > :is(input,select,textarea){font-size:16px}
+html[data-theme] #app.gt-app #trainingContent>.up1-page[data-page="training-form"] .gt-training-form-v1 .gtf-actions-v1>button{font-size:14px}
+</style>
+<script id="gtf-parent-v1-script">/**
+ * GameTrace Reusable Form V1 — presentation only.
+ * Approved visual contract: transparent form parent, individual rounded section cards,
+ * responsive full/half fields, two equal bottom actions (Cancel left, Save right).
+ * Does not save data, validate domain values, synchronize records, or navigate.
+ * Pass existing form/control/button nodes to preserve native event listeners.
+ */
+(function (global) {
+  'use strict';
+  const doc = global.document;
+  if (!doc) return;
+  let serial = 0;
+  const node = value => value && typeof value.nodeType === 'number';
+  const make = (tag, className, value) => {
+    const el = doc.createElement(tag);
+    if (className) el.className = className;
+    if (value !== undefined && value !== null) el.textContent = String(value);
+    return el;
+  };
+  const asNodes = (value, name) => {
+    if (value === undefined || value === null) return [];
+    const list = Array.isArray(value) ? value : [value];
+    if (!list.every(node)) throw new TypeError(name + ' must contain DOM nodes');
+    return list;
+  };
+  const put = (target, values) => asNodes(values, 'Content').forEach(child => target.appendChild(child));
+
+  /** Form Parent V1: layout shell; accepts a native form to keep its event handlers. */
+  function FormParentV1({form,sections=[],actions=null,error=null,ariaLabel='Form'}={}) {
+    const root = form || make('form');
+    if (root.tagName !== 'FORM') throw new TypeError('FormParentV1 needs a form element');
+    const content = asNodes(sections, 'sections');
+    const actionNodes = asNodes(actions, 'actions');
+    const errorNodes = asNodes(error, 'error');
+    root.classList.add('gtf-form-v1');
+    root.dataset.component = 'FormParentV1';
+    root.dataset.version = 'V1';
+    root.setAttribute('aria-label',String(ariaLabel));
+    const stack = make('div','gtf-stack-v1');
+    stack.dataset.component = 'FormSections';
+    put(stack,content);
+    // This is an explicit composition operation. Any legacy controls that must
+    // remain live should be included in sections, not silently duplicated.
+    root.replaceChildren(...errorNodes,stack,...actionNodes);
+    return root;
+  }
+
+  /** Form Section V1: independently rounded card with optional title and subtitle. */
+  function FormSectionV1({title='',subtitle='',content=[],columns=1,ariaLabel=''}={}) {
+    if (columns !== 1 && columns !== 2) throw new TypeError('columns must be 1 or 2');
+    const section = make('section','gtf-section-v1');
+    section.dataset.component = 'FormSectionV1';
+    if (title || subtitle) {
+      const head = make('div','gtf-section-head-v1');
+      if (title) {
+        const h = make('h2','gtf-section-title-v1',title);
+        h.id = 'gtf-section-'+(++serial);
+        section.setAttribute('aria-labelledby',h.id);
+        head.appendChild(h);
+      }
+      if (subtitle) head.appendChild(make('p','gtf-section-subtitle-v1',subtitle));
+      section.appendChild(head);
+    } else if (ariaLabel) section.setAttribute('aria-label',ariaLabel);
+    const body = make('div','gtf-fields-v1');
+    body.dataset.columns = String(columns);
+    put(body,asNodes(content,'content'));
+    section.appendChild(body);
+    return section;
+  }
+
+  /** Form Field V1: labels/control states without owning their values. */
+  function FormFieldV1({label,control,required,helper='',error='',width='full',placeholder}={}) {
+    if (!label || !String(label).trim()) throw new TypeError('FormFieldV1 needs a label');
+    if (!node(control) || !['INPUT','TEXTAREA','SELECT'].includes(control.tagName))
+      throw new TypeError('FormFieldV1 needs an input, textarea or select');
+    if (!['full','half'].includes(width)) throw new TypeError('width must be full or half');
+    const field = make('div','gtf-field-v1 gtf-width-'+width);
+    field.dataset.component = 'FormFieldV1';
+    if (!control.id) control.id = 'gtf-input-'+(++serial);
+    if (required !== undefined) control.required = Boolean(required);
+    if (placeholder !== undefined && 'placeholder' in control) control.placeholder = String(placeholder);
+    const text = make('label','gtf-label-v1',label);
+    text.htmlFor = control.id;
+    if (control.required) {
+      const star = make('span','gtf-required-v1',' *');
+      star.setAttribute('aria-hidden','true');
+      text.appendChild(star);
+    }
+    field.append(text,control);
+    const descriptions = [];
+    const previous = control.getAttribute('aria-describedby');
+    if (previous) descriptions.push(...previous.split(/\s+/).filter(Boolean));
+    if (helper) {
+      const help = make('p','gtf-help-v1',helper);
+      help.id = control.id+'-help';
+      field.appendChild(help);
+      descriptions.push(help.id);
+    }
+    if (error) {
+      const message = make('p','gtf-error-v1',error);
+      message.id = control.id+'-error';
+      message.setAttribute('role','alert');
+      field.appendChild(message);
+      descriptions.push(message.id);
+      control.setAttribute('aria-invalid','true');
+      field.dataset.invalid = 'true';
+    }
+    if (descriptions.length) control.setAttribute('aria-describedby',[...new Set(descriptions)].join(' '));
+    return field;
+  }
+
+  function action(spec,kind) {
+    if (node(spec)) {
+      if (spec.tagName !== 'BUTTON') throw new TypeError('Form action must be a button');
+      return spec;
+    }
+    if (!spec || !String(spec.label||'').trim()) throw new TypeError(kind+' action needs a label');
+    const button = make('button','',spec.label);
+    button.type = spec.type || (kind === 'primary' ? 'submit' : 'button');
+    if (typeof spec.onClick === 'function') button.addEventListener('click',spec.onClick);
+    if (spec.disabled) button.disabled = true;
+    return button;
+  }
+
+  /** Form Actions V1: two equally wide buttons in approved order. */
+  function FormActionsV1({primary,secondary,busy=false}={}) {
+    const second = action(secondary,'secondary');
+    const first = action(primary,'primary');
+    const root = make('div','gtf-actions-v1');
+    root.dataset.component = 'FormActionsV1';
+    second.classList.add('gtf-action-secondary-v1');
+    first.classList.add('gtf-action-primary-v1');
+    if (busy) {
+      first.disabled = true;
+      root.setAttribute('aria-busy','true');
+    }
+    root.append(second,first);
+    return root;
+  }
+
+  global.GameTraceFormComponents = Object.freeze({
+    version:'1.0.0',FormParentV1,FormSectionV1,FormFieldV1,FormActionsV1
+  });
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script id="gt-training-form-v1-script">/**
+ * GameTrace TrainingFormV1 — reusable, presentation-first Training/Camp editor.
+ * Depends on the LOCKED GameTraceFormComponents V1 source; never substitutes a copy.
+ * Modes: new, edit, repeat. Delegates persistence, IDs, sync, awards and navigation
+ * to the host application's existing onSubmit/onCancel callbacks.
+ */
+(function(global) {
+  'use strict';
+  const F = global.GameTraceFormComponents;
+  if (!F || !['FormParentV1','FormSectionV1','FormFieldV1','FormActionsV1'].every(k=>typeof F[k]==='function'))
+    throw new Error('TrainingFormV1 requires approved GameTraceFormComponents V1');
+  const doc=global.document;
+  const {FormParentV1,FormSectionV1,FormFieldV1,FormActionsV1}=F;
+  const DEFAULT_SKILLS=['Shooting','Ball Handling','Finishing','Footwork','Defense','Conditioning'];
+  const REFLECTION_KEYS=[
+    ['see','What I Saw','What did I see?'],
+    ['became','What I Became','How did I become more?'],
+    ['more','What I Want to Become More','What do I want to become more of?'],
+    ['additional','Additional Feedback','Additional Feedback']
+  ];
+  const make=(tag,attrs={})=>{
+    const n=doc.createElement(tag);
+    Object.entries(attrs).forEach(([k,v])=>{
+      if (k==='text') n.textContent=String(v);
+      else if (k==='className') n.className=String(v);
+      else if (v!==null&&v!==undefined) n[k]=v;
+    });
+    return n;
+  };
+  const txt=(v)=>String(v===undefined||v===null?'':v);
+  const safeList=(values)=>Array.isArray(values)?values.filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim()):[];
+  const localToday=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+  const focusError=(control,message)=>{
+    if (control){control.setAttribute('aria-invalid','true');control.focus();}
+    return message;
+  };
+  const integerOrZero=(v)=>v===''?0:Number(v);
+
+  function TrainingFormV1({mode='new',session=null,defaults={},skills=DEFAULT_SKILLS,
+                            today=localToday(),onSubmit,onCancel,form:existingForm=null}={}) {
+    if(!['new','edit','repeat'].includes(mode)) throw new TypeError('Unsupported training form mode');
+    if(mode!=='new'&&(!session||typeof session!=='object')) throw new TypeError('Edit and Repeat require a session');
+    if(typeof onSubmit!=='function') throw new TypeError('TrainingFormV1 requires an onSubmit callback');
+    const source=session||{};
+    const data=mode==='new'?{...defaults}:source;
+    const repeat=mode==='repeat';
+    const backendType=data.type==='camp'?'camp':'training';
+    const chosenType=data.customType?'custom':backendType;
+    const duration=repeat||mode==='new'&&data.minutes===undefined?null:Number(data.minutes);
+    const initialHours=duration===null?'':String(Math.floor(duration/60));
+    const initialMinutes=duration===null?'':String(duration%60);
+    const dateValue=repeat?today:(data.date||today);
+    const feedback=repeat?{}:data.feedback||{};
+    const selected=new Set(safeList(data.tags));
+    const known=new Map();
+    [...safeList(skills),...selected].forEach(s=>known.set(s.toLowerCase(),s));
+    const form=existingForm||make('form');
+    if(form.tagName!=='FORM') throw new TypeError('form must be a native form');
+    form.noValidate=true;
+    form.dataset.trainingFormMode=mode;
+    form.dataset.trainingComponent='TrainingFormV1';
+    const title=mode==='edit'?'Edit Training':mode==='repeat'?'Repeat Training':'New Training';
+    const status=make('p',{className:'gt-training-form-status-v1'});
+    status.hidden=true;
+    status.setAttribute('role','alert');
+    const input=(type,opts={})=>make('input',{type,...opts});
+    const field=(label,control,opts={})=>F.FormFieldV1({label,control,...opts});
+    const controls={};
+    const remember=(key,el)=>{controls[key]=el;return el};
+    const playerField=field('Player Name',remember('player',input('text',{value:txt(data.player),maxLength:100,autocomplete:'name'})),{required:true});
+    const type=remember('uiType',make('select'));
+    [['training','Training'],['camp','Camp'],['custom','Custom']].forEach(([val,label])=>type.add(new Option(label,val)));
+    type.value=chosenType;
+    const typeField=field('Session Type',type,{required:true});
+    const custom=remember('customType',input('text',{value:txt(data.customType),maxLength:200,placeholder:'Enter session type'}));
+    const customField=field('Custom Session Type',custom,{required:chosenType==='custom'});
+    const toggleCustom=()=>{
+      customField.hidden=type.value!=='custom';
+      custom.required=type.value==='custom';
+      if(customField.hidden)custom.removeAttribute('aria-invalid');
+    };
+    type.addEventListener('change',toggleCustom);
+    toggleCustom();
+    const nameField=field('Session Name',remember('name',input('text',{value:txt(data.name),maxLength:200,placeholder:'e.g. Shooting Workout'})),{required:true});
+    const dateField=field('Date',remember('date',input('date',{value:dateValue,max:today})),{required:true});
+    const hoursField=field('Hours',remember('hours',input('number',{value:initialHours,min:'0',max:'24',step:'1',inputMode:'numeric'})),{width:'half'});
+    const minutesField=field('Minutes',remember('minutePart',input('number',{value:initialMinutes,min:'0',max:'59',step:'1',inputMode:'numeric'})),{width:'half'});
+    const coachField=field('Coach / Organization',remember('coach',input('text',{value:txt(data.coach),maxLength:200,placeholder:'Optional'})));
+    const locationField=field('Location',remember('location',input('text',{value:txt(data.location),maxLength:200,placeholder:'Optional'})));
+    const chips=make('div',{className:'gt-training-skills-v1'});
+    chips.setAttribute('role','group'); chips.setAttribute('aria-label','Skills Worked On');
+    const skillHeading=make('p',{className:'gt-training-skills-heading-v1',text:'Skills Worked On'});
+    const skillsHelp=make('p',{className:'gt-training-skills-help-v1',text:'Select all that apply.'});
+    const refreshSkills=()=>{
+      chips.replaceChildren();
+      for(const skill of known.values()){
+        const active=selected.has(skill);
+        const button=make('button',{type:'button',className:'gt-training-skill-v1',text:(active?'✓ ':'')+skill});
+        button.setAttribute('aria-pressed',String(active));
+        button.addEventListener('click',()=>{if(selected.has(skill))selected.delete(skill);else selected.add(skill);refreshSkills()});
+        chips.append(button);
+      }
+    };
+    refreshSkills();
+    const customSkill=remember('customSkill',input('text',{maxLength:100,placeholder:'Type a skill'}));
+    const addSkill=make('button',{type:'button',className:'gt-training-add-v1',text:'+ Add Skill'});
+    const addCustom=()=>{
+      const newValue=customSkill.value.trim();if(!newValue)return;
+      const key=newValue.toLowerCase();const normalized=known.get(key)||newValue;
+      if(!known.has(key))known.set(key,normalized);
+      selected.add(normalized);customSkill.value='';refreshSkills();customSkill.focus();
+    };
+    addSkill.addEventListener('click',addCustom);
+    customSkill.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();addCustom()}});
+    const skillsArea=make('div',{className:'gt-training-skills-area-v1'});
+    const addRow=make('div',{className:'gt-training-custom-row-v1'});
+    addRow.append(field('Custom Skills',customSkill),addSkill);
+    skillsArea.append(skillHeading,chips,skillsHelp,addRow);
+    const reflectionFields=REFLECTION_KEYS.map(([key,label])=>{
+      const val=txt(feedback[key]);
+      const control=remember('feedback_'+key,make('textarea',{rows:3,value:val,placeholder:'Optional reflection',maxLength:3000}));
+      control.value=val;
+      return field(label,control);
+    });
+    const sections=[
+      FormSectionV1({title:'Player Information',content:[playerField]}),
+      FormSectionV1({title:'Session Information',columns:2,content:[typeField,customField,nameField,dateField,hoursField,minutesField,coachField,locationField]}),
+      FormSectionV1({title:'Skills & Focus',content:[skillsArea]}),
+      FormSectionV1({title:"Player's Feedback",content:reflectionFields})
+    ];
+    const actions=FormActionsV1({
+      secondary:{label:'Cancel',onClick:()=>{if(typeof onCancel==='function')onCancel({mode,sourceId:source.id||null})}},
+      primary:{label:mode==='edit'?'Save Changes':mode==='repeat'?'Log Again':'Log Training',type:'submit'}
+    });
+    const primary=actions.querySelector('.gtf-action-primary-v1');
+    const composed=FormParentV1({form,sections,actions,error:status,ariaLabel:title});
+    composed.classList.add('gt-training-form-v1');
+    const getValues=()=>({
+      type:type.value==='camp'?'camp':'training',
+      customType:type.value==='custom'?custom.value.trim():'',
+      name:controls.name.value.trim(),
+      date:controls.date.value,
+      minutes:integerOrZero(controls.hours.value)*60+integerOrZero(controls.minutePart.value),
+      player:controls.player.value.trim(),
+      coach:controls.coach.value.trim(),location:controls.location.value.trim(),
+      tags:[...selected],
+      feedback:Object.fromEntries(REFLECTION_KEYS.map(([key])=>[key,controls['feedback_'+key].value.trim()]))
+    });
+    const showError=(message,control)=>{
+      status.hidden=false;status.textContent=String(message);
+      focusError(control,message);
+    };
+    const clearError=()=>{status.hidden=true;status.textContent='';Object.values(controls).forEach(control=>control?.removeAttribute('aria-invalid'))};
+    form.addEventListener('input',()=>{if(!status.hidden)clearError()});
+    form.addEventListener('change',()=>{if(!status.hidden)clearError()});
+    let submitting=false;
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();
+      if(submitting)return;
+      clearError();
+      if(!controls.player.value.trim())return showError('Enter a player name.',controls.player);
+      if(type.value==='custom'&&!custom.value.trim())return showError('Enter a custom session type.',custom);
+      if(!controls.name.value.trim())return showError('Enter a session name.',controls.name);
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(controls.date.value) || controls.date.value>today)
+        return showError('Enter today or an earlier valid date.',controls.date);
+      const h=controls.hours.value,m=controls.minutePart.value;
+      if(!/^\d*$/.test(h)||!/^\d*$/.test(m)||!Number.isInteger(Number(h))||!Number.isInteger(Number(m))||+m>59||+h>24||+h*60+(+m)<1||+h*60+(+m)>1440)
+        return showError('Enter a duration between 1 minute and 24 hours.',controls.minutePart);
+      submitting=true;primary.disabled=true;actions.setAttribute('aria-busy','true');
+      try {
+        await onSubmit(getValues(),{mode,sourceId:source.id||null,existingSession:mode==='edit'?source:null});
+      } catch(error) {
+        showError(error instanceof Error?error.message:String(error));
+      } finally {
+        submitting=false;primary.disabled=false;actions.removeAttribute('aria-busy');
+      }
+    });
+    return Object.freeze({element:composed,mode,controls,getValues,showError,clearError});
+  }
+  global.GameTraceTrainingForm=Object.freeze({version:'1.0.0',TrainingFormV1});
+})(typeof window!=='undefined'?window:globalThis);
+</script>
+<style id="gt-scoreboard-analytics-v1-review">
+/* GameTrace Scoreboard Analytics V1 review — scoped, additive. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review{--gtv2-surface:var(--gt-soft,#e3efe5);color:var(--gt-ink,#172119);min-width:0}
+html[data-theme] #app.gt-app #reportsContent:has(#gt-scoreboard-review) :is(.reports-summary-card,.reports-overview,.reports-table-scroll,.reports-aggregate-note,.reports-toolbar){display:none!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtc-section{margin:18px 0 24px;min-width:0}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtc-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtc-section-title{font-size:20px;font-weight:750;line-height:1.25;margin:0}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review button{font-family:inherit;cursor:pointer}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review button:focus-visible{outline:2px solid var(--gt-accent,#087d42);outline-offset:2px}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-wrap{min-width:0}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-toggle{display:flex;gap:5px;justify-content:flex-end;margin-bottom:8px}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-toggle button{background:var(--gt-control,#edf0e9);color:var(--gt-ink,#172119);border:1px solid var(--gt-edge,#cbd3c8);font-size:11px;font-weight:700;border-radius:8px;padding:7px 12px;min-height:36px}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-toggle button[aria-pressed=true]{background:var(--gt-soft,#e3efe5);border-color:var(--gt-accent,#087d42);color:var(--gt-accent,#087d42)}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-banner{background:var(--gt-soft,#e3efe5);border:1px solid var(--gt-edge,#cbd3c8);border-radius:14px;overflow:hidden}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-row{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-row:first-child{--columns:3}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-row:nth-child(2){--columns:4}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-row:nth-child(3){--columns:3}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-row+.gtpo-v1-row{border-top:1px solid var(--gt-edge,#cbd3c8)}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-cell{display:flex;flex-direction:column;text-align:center;align-items:center;justify-content:flex-start;gap:6px;min-width:0;padding:15px 6px}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-cell+.gtpo-v1-cell{border-left:1px solid var(--gt-line,#dfe5dc)}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--gt-green,#087d42);line-height:1.3}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-value{font-size:clamp(18px,5vw,31px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1.13;min-width:0;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #reportsContent .gtpo-v1-sub{font-size:11px;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-analytics{min-width:0;border:1px solid var(--gt-edge,#cbd3c8);border-radius:14px;overflow:hidden;background:var(--gt-surface,#fff)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-views,.gtgr-v1-metrics{display:flex;gap:5px;flex-wrap:wrap;padding:12px 12px 0}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-views button{padding:8px 12px;min-height:40px;font-weight:750;border:1px solid var(--gt-edge,#cbd3c8);border-radius:9px;background:var(--gt-control,#edf0e9);font-size:12px;color:var(--gt-ink,#172119)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-views button[aria-pressed=true]{background:var(--gt-soft,#e3efe5);color:var(--gt-green,#087d42);border-color:var(--gt-green,#087d42)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-metrics button{padding:8px 11px;min-height:38px;font-size:11px;font-weight:800;border-radius:8px;border:1px solid var(--gt-edge,#cbd3c8);background:transparent;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-metrics button[aria-pressed=true]{color:var(--metric);border-color:var(--metric)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-chart{padding:8px 12px 6px;min-width:0}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-plot{display:block;width:100%;height:auto;min-height:125px;overflow:visible}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-table{display:flex;flex-direction:column;border-top:1px solid var(--gt-line,#dfe5dc);width:100%;min-width:0}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row{display:grid;grid-template-columns:minmax(82px,2fr) 34px repeat(4,minmax(0,1fr));width:100%;align-items:center;gap:3px;padding:11px 8px;border:0;border-bottom:1px solid var(--gt-line,#dfe5dc);text-align:center;min-height:51px;background:transparent;color:var(--gt-ink,#172119);font-size:12px}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-head{font-weight:750;color:var(--gt-muted,#59655b);font-size:10px;background:var(--gt-control,#edf0e9);min-height:37px;padding-block:8px}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row:has(.gtgr-v1-number:nth-child(5):last-child){grid-template-columns:minmax(82px,2fr) 34px repeat(3,minmax(0,1fr))}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row.is-selected{outline:1.5px solid var(--gt-green,#087d42);outline-offset:-1.5px}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-identity{text-align:left;min-width:0;overflow:hidden}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-identity strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:760}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-identity small{display:block;color:var(--gt-muted,#59655b);font-size:10px}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-result{font-weight:800}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-result.win{color:var(--gt-green,#087d42)}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-result.loss{color:#b3434a}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-number{font-variant-numeric:tabular-nums;font-weight:700;min-width:0;overflow-wrap:anywhere}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-number.is-active,.gtgr-v1-head .is-active{color:var(--gt-green,#087d42);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+html[data-theme] #app.gt-app #reportsContent .gtgr-v1-number small{display:block;font-size:9px;color:var(--gt-muted,#59655b);text-decoration:none}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-collapse,.gt-scoreboard-open{padding:8px 10px;border:1px solid var(--gt-edge,#cbd3c8);background:transparent;color:var(--gt-green,#087d42);border-radius:8px;font-size:12px;font-weight:750;min-height:39px}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-detail{min-width:0}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-context{color:var(--gt-muted,#59655b);font-size:13px;margin:0 0 8px}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested{min-width:0}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested section{padding:14px 0;border-top:1px solid var(--gt-line,#dfe5dc);margin-top:12px}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested :is(.gt-gcs-header,.gt-tls-header){display:flex;gap:8px;align-items:center;justify-content:space-between}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested h2{font-size:17px;margin:0;font-weight:750}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested p{font-size:12px;color:var(--gt-muted,#59655b)}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .report-circle-svg{display:block;width:min(100%,340px);aspect-ratio:1;margin:0 auto;overflow:visible}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .gt-circle-details summary{cursor:pointer;font-size:12px;font-weight:750;color:var(--gt-green,#087d42);padding:9px 0}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-key{display:inline-block;font-size:11px;margin:5px 8px 5px 0}
+html[data-theme] #app.gt-app #reportsContent .gt-scoreboard-nested .gt-tls-content{min-width:0}
+@media(max-width:390px){html[data-theme] #app.gt-app #reportsContent .gtpo-v1-cell{padding:12px 4px}html[data-theme] #app.gt-app #reportsContent .gtpo-v1-label{font-size:9px;letter-spacing:.3px}html[data-theme] #app.gt-app #reportsContent .gtpo-v1-value{font-size:21px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row{grid-template-columns:minmax(68px,2fr) 24px repeat(4,minmax(0,1fr));gap:2px;padding-inline:5px;font-size:11px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-head{font-size:9px}html[data-theme] #app.gt-app #reportsContent .gtgr-v1-data-row:has(.gtgr-v1-number:nth-child(5):last-child){grid-template-columns:minmax(68px,2fr) 24px repeat(3,minmax(0,1fr))}}
+
+/* Game Records Analytics V5.2 — Active Metric Rail and dynamic summary */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend{
+  padding-top:17px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-eyebrow{
+  margin:0 15px 10px;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.35px;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-summary{
+  min-height:66px;
+  margin:0 15px 8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:4px;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-label{
+  font-size:10px;
+  font-weight:760;
+  letter-spacing:.5px;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number strong{
+  font-size:clamp(24px,6.8vw,32px);
+  line-height:1;
+  letter-spacing:-.9px;
+  font-weight:770;
+  font-variant-numeric:tabular-nums;
+  color:var(--gt-ink,#172119);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-number span{
+  font-size:11px;
+  font-weight:740;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-count{
+  font-size:19px;
+  font-weight:775;
+  letter-spacing:-.35px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-trend-selected{
+  font-size:11px;
+  font-weight:650;
+  color:var(--gt-muted,#59655b);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:clamp(7px,3vw,20px);
+  align-items:stretch;
+  margin:0 15px;
+  padding:0;
+  min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item{
+  appearance:none;
+  background:transparent;
+  border:0;
+  border-bottom:2px solid transparent;
+  border-radius:0;
+  padding:10px clamp(4px,2vw,12px) 9px;
+  min-height:44px;
+  min-width:0;
+  flex:1 1 0;
+  text-align:center;
+  color:var(--gt-muted,#59655b);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2px;
+  transition:color .15s ease,border-color .15s ease;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item[aria-pressed=true]{
+  color:var(--metric);
+  font-weight:830;
+  border-bottom-color:var(--metric);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item:focus-visible{
+  outline:2px solid var(--metric);
+  outline-offset:-2px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-chart{
+  padding-top:7px;
+}
+@media (prefers-reduced-motion:reduce){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metric-rail-item{transition:none}
+}
+/* Folder-style category tabs: keep distinct from metric rail. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views{
+  display:flex;flex-wrap:nowrap;align-items:flex-end;
+  gap:3px;padding:12px 12px 0;
+  border-bottom:1px solid var(--gt-edge,#cbd3c8);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views button{
+  border:1px solid var(--gt-edge,#cbd3c8);
+  border-bottom:0;
+  border-radius:10px 10px 0 0;
+  padding:10px 9px;
+  flex:1 1 0;
+  min-width:0;
+  min-height:42px;
+  background:var(--gt-control,#edf0e9);
+  font-size:12px;
+  font-weight:760;
+  color:var(--gt-muted,#59655b);
+  position:relative;
+  top:1px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-views button[aria-pressed=true]{
+  background:var(--gt-surface,#fff);
+  color:var(--gt-green,#087d42);
+  border-color:var(--gt-edge,#cbd3c8);
+  box-shadow:inset 0 3px 0 var(--gt-green,#087d42);
+}
+
+
+/* APPROVED PerformanceOverviewBanner V7.1 — 30/35/35 sports dashboard. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-banner{
+ --v71-ink:var(--gt-ink,var(--ink,#172119));
+ --v71-muted:var(--gt-muted,var(--muted,#59655b));
+ --v71-line:var(--gt-edge,var(--line,#cad7ca));
+ --v71-green:var(--gt-green,var(--accent,#087d42));
+ --v71-soft:var(--gt-soft,var(--soft,#e3efe5));
+ --v71-track:var(--track,#bed1c0);
+ width:100%;min-width:0;overflow:hidden;
+ border:1px solid var(--v71-line);
+ border-radius:16px;
+ background:var(--v71-soft);
+ color:var(--v71-ink);
+}
+html[data-theme="courtside"] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-banner{
+ --v71-track:#43614c;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-row{
+ display:grid!important;
+ grid-template-columns:minmax(0,30fr) minmax(0,35fr) minmax(0,35fr)!important;
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-cell{
+ min-width:0;min-height:0;
+ display:block;text-align:center;
+ padding:20px 15px 22px!important;
+ background:transparent;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-cell+.gtpo-v71-cell{
+ border-left:1px solid var(--v71-line)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-kicker{
+ display:block;text-transform:uppercase;letter-spacing:.105em;font-size:10px;
+ font-weight:800;color:var(--v71-green);margin-bottom:18px;line-height:1.3;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-record{
+ font-size:clamp(38px,6vw,54px);font-weight:840;letter-spacing:-.075em;
+ line-height:.95;font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-dash{
+ font-weight:450;color:var(--v71-muted);margin:0 2px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-record-desc{
+ font-size:10px;font-weight:780;letter-spacing:.06em;text-transform:uppercase;
+ color:var(--v71-muted);margin-top:11px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-winrate{
+ font-size:clamp(22px,3vw,26px);line-height:1;font-weight:800;
+ letter-spacing:-.055em;margin-top:24px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-winrate-label{
+ font-size:10px;font-weight:770;color:var(--v71-muted);letter-spacing:.075em;margin-top:5px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-win-track{
+ width:100%;height:6px;border-radius:10px;background:#c87771;
+ overflow:hidden;margin-top:19px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-win-fill{
+ height:100%;background:var(--v71-green);border-radius:9px 0 0 9px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-game-count{
+ font-size:11px;font-weight:750;margin:11px 0 0;color:var(--v71-muted);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-prod-heading{
+ display:flex;justify-content:center;align-items:center;gap:8px;
+ margin:-6px 0 14px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-mode-switch{
+ display:inline-flex;align-items:center;border:1px solid var(--v71-line);
+ background:var(--gt-control,var(--control,#edf0e9));padding:2px;border-radius:8px;gap:2px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-mode-switch button{
+ appearance:none;border:0;color:var(--v71-muted);background:transparent;
+ font:inherit;font-size:10px;font-weight:800;letter-spacing:.04em;border-radius:6px;
+ padding:6px 8px;min-height:30px;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-mode-switch button[aria-pressed=true]{
+ background:var(--gt-surface,var(--surface,#fff));color:var(--v71-green);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-production{
+ display:flex;flex-direction:column;gap:4px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat{
+ display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px;
+ padding:10px 3px;border-bottom:1px solid var(--v71-line);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat:last-child{border-bottom:0}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat-label{
+ text-align:left;font-size:12px;color:var(--v71-muted);font-weight:800;letter-spacing:.08em;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat-value{
+ text-align:right;font-size:clamp(20px,2.65vw,25px);font-variant-numeric:tabular-nums;
+ font-weight:810;letter-spacing:-.045em;line-height:1;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shooting{
+ display:flex;flex-direction:column;gap:22px;padding-top:1px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-head{
+ display:flex;justify-content:space-between;align-items:baseline;gap:6px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-name{
+ font-size:11px;font-weight:850;color:var(--v71-muted);letter-spacing:.06em;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-value{
+ font-size:clamp(20px,2.65vw,25px);font-weight:820;
+ letter-spacing:-.055em;font-variant-numeric:tabular-nums;line-height:1;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-bar{
+ height:5px;background:var(--v71-track);border-radius:20px;overflow:hidden;margin-top:10px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-fill{
+ height:100%;background:var(--v71-green);border-radius:20px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-count{
+ display:block;text-align:left;font-size:10px;font-weight:650;
+ color:var(--v71-muted);margin-top:7px;line-height:1.3;
+}
+@media(max-width:440px){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-cell{padding:15px 7px 17px!important}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-kicker{font-size:8px;letter-spacing:.05em;margin-bottom:16px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-record{font-size:clamp(33px,9vw,42px)}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-record-desc{font-size:9px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-winrate{font-size:clamp(20px,5.5vw,24px);margin-top:28px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-winrate-label,
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-game-count{font-size:9px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-prod-heading{margin:0 0 10px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-mode-switch{padding:1px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-mode-switch button{font-size:9px;padding:5px 6px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-production{gap:5px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat{padding:9px 1px;gap:4px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat-label{font-size:10px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat-value{font-size:clamp(18px,5vw,22px)}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shooting{gap:19px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-name{font-size:10px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-value{font-size:clamp(18px,5vw,22px)}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-count{font-size:9px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-bar{margin-top:9px}
+}
+@media(max-width:350px){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-cell{padding:14px 5px!important}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-kicker{font-size:7.5px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-record{font-size:32px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-stat-value,
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-value{font-size:18px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-name{font-size:9px}
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-shot-count{font-size:8px}
+}
+
+/* Scoreboard Game Timeline: copied from approved Game Details TimelineSection V1.
+   Original Game Details styling and native controls remain unchanged. */
+
+
+
+/* SOURCE components/approved/TimelineSection_V1_APPROVED.css SHA 0901b7677bafc0d66d9fd2317a11468771264e43 */
+/* TimelineSection V1 — approved Section V1 composition and native filter controls.
+   View + Team score + Opponent score + Player events, under horizontal sliders icon.
+   This source is a reference for future extraction; does not change DEV. */
+
+/* === gt-timeline-section-v1-parent-preview === */
+
+/* Game Timeline: approved Section V1 parent. Reuses existing Timeline DOM and logic. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1{
+ margin:24px 0 0; padding:0; min-width:0; border:0;
+ background:transparent;box-shadow:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 > .gt-tls-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+ padding:0 0 14px;min-width:0;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-heading{min-width:0;flex:1}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-heading h2{
+ margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;
+ font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-heading p{
+ margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;
+ font-weight:400!important;line-height:1.5!important;letter-spacing:normal!important;
+ text-transform:none!important;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-content{min-width:0;width:100%}
+
+/* Child timeline owns its own controls, chart, strips, and entries. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .report-timeline.gt-tls-timeline{
+ margin:0!important;padding:0!important;border:0!important;background:transparent;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary{
+ color:var(--gt-muted);border:0;border-radius:0;margin:0;
+ padding:7px 2px 10px;min-height:44px;font:inherit;font-size:12px;
+ font-weight:600;line-height:1.4;letter-spacing:0;list-style:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary small{
+ font-size:11px;font-weight:500;color:var(--gt-muted);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-period-label{
+ color:var(--gt-muted);font-size:12px;font-weight:600;line-height:1.5;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-note,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-legend,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .timeline-court-legend{
+ color:var(--gt-muted);font-family:inherit;font-size:11px;line-height:1.5;
+}
+
+
+
+/* === gt-timeline-section-filter-v1-preview === */
+
+/* Timeline Section V1: header-level event filter, using the shared section action slot. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button{
+ flex:none;min-height:40px;min-width:72px;padding:8px 13px;border-radius:10px;
+ border:1px solid var(--gt-border, #d6ddd5);color:var(--gt-ink);
+ background:transparent;font:inherit;font-size:12px;font-weight:700;cursor:pointer;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button.is-active{
+ border-color:var(--gt-accent);color:var(--gt-accent);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button:focus-visible,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-reset:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel{
+ padding:13px 12px 11px;margin:0 0 12px;border:1px solid var(--gt-border,#d6ddd5);
+ border-radius:12px;background:var(--gt-surface,var(--gt-bg));
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel[hidden],
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 [hidden]{display:none!important}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-options{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-option{
+ display:flex;align-items:center;gap:8px;min-height:40px;min-width:0;
+ font-size:12px;font-weight:500;line-height:1.35;color:var(--gt-ink);cursor:pointer;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-option input{
+ width:17px;height:17px;flex:none;accent-color:var(--gt-accent);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-reset{
+ margin-top:8px;border:0;background:transparent;color:var(--gt-accent);
+ font-size:12px;font-weight:700;min-height:36px;cursor:pointer;padding:3px 1px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-status{
+ margin:2px 0 0;color:var(--gt-muted);font-size:11px;line-height:1.3;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-empty{
+ font-size:11px;color:var(--gt-muted);align-self:center;white-space:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-options{
+ grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+
+
+/* === gt-timeline-section-filter-canonical-v1-correction === */
+
+/* Approved original timeline display controls in the Section V1 filter slot. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel > .gt-tls-native-score-filters{
+ margin:0;padding:0;border:0;min-width:0;background:transparent;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters > legend{
+ float:none;grid-column:1/-1;padding:0;margin:0 0 2px;
+ color:var(--gt-muted);font:inherit;font-size:12px;font-weight:600;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters > label{
+ display:flex;align-items:center;gap:7px;min-width:0;min-height:36px;
+ font:inherit;font-size:12px;line-height:1.35;white-space:normal;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters input{
+ width:18px;height:18px;flex:none;accent-color:var(--gt-accent);
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-actions{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-done{
+ border:0;background:transparent;color:var(--gt-accent);font:inherit;
+ font-size:12px;font-weight:700;min-height:40px;padding:5px 8px;
+}
+
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-native-score-filters{grid-template-columns:1fr;gap:2px;}
+
+
+
+/* === gt-timeline-section-filter-native-view-v1-preview === */
+
+/* View is a fourth original Timeline control (Whole game / period zoom).
+   It lives alongside the three original checkboxes, in the Section filter. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ width:100%;margin:0 0 13px;padding:0 0 13px;
+ border-bottom:1px solid var(--gt-edge);color:var(--gt-ink);
+ font:inherit;font-size:12px;font-weight:650;min-width:0;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select{
+ flex:0 1 auto;min-width:0;width:auto;max-width:70%;min-height:40px;
+ padding:7px 26px 7px 10px;font:inherit;font-size:12px;
+ font-weight:550;color:var(--gt-ink);background:var(--gt-bg);
+ border:1px solid var(--gt-edge);border-radius:9px;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-panel .gt-tls-native-view select:focus-visible{
+ outline:2px solid var(--gt-accent);outline-offset:2px;
+}
+
+
+
+/* === gt-timeline-filter-horizontal-sliders-icon-v1 === */
+
+/* Timeline Section V1: icon-only approved-style trigger. Preserve existing filter logic. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-button.gt-tls-filter-icon{
+ position:relative;display:grid;place-items:center;justify-self:end;
+ width:44px;min-width:44px;height:44px;min-height:44px;
+ padding:9px;border:1px solid var(--gt-edge);border-radius:10px;
+ background:transparent;color:var(--gt-ink);line-height:1;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-icon svg{
+ width:22px;height:22px;display:block;pointer-events:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-filter-icon .gt-tls-filter-status:not([hidden]){
+ position:absolute;top:5px;right:5px;width:7px;height:7px;
+ border-radius:50%;background:var(--gt-accent);pointer-events:none;
+}
+
+
+
+/* SOURCE components/approved/Timeline_V1_APPROVED.css SHA 0b9f28ff37c0b61abf131999c8963a3f60b6844e */
+/* Timeline V1 — approved content component. Source: full-app locked reference.
+   This is an extract/reference, not yet wired into DEV as a standalone stylesheet.
+   Scope excludes section header/filters. Legacy chart geometry and logic preserved. */
+
+/* === gt-timeline-component-v1-in-section-preview === */
+
+/* TimelineSectionV1 parent controls the header and filter; TimelineV1 owns
+   original chart, periods, score/plays visualization, native toggle and states. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1{
+ display:block;width:100%;min-width:0;margin:0;padding:0;
+ background:transparent;border:0;box-shadow:none;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .report-timeline{
+ width:100%;min-width:0;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .score-journey-chart{
+ min-width:0;max-width:100%;
+}
+
+
+
+/* === gt-timeline-v1-single-collapse-control === */
+
+/* Timeline V1: one collapsible control, right aligned. No redundant left label. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary{
+  justify-content:flex-end!important;
+  text-align:right!important;
+  list-style:none!important;
+}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary::marker{content:"";}
+
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tls-timeline > summary::-webkit-details-marker{display:none;}
+
+
+
+/* === gt-timeline-v1-always-visible-approved-direction === */
+
+/* Timeline V1: chart always visible; no Expand/Collapse/Hide timeline UI.
+   The Section V1 header still owns View + score/event filters. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 .gt-tlc-v1 .gt-tls-timeline > summary[hidden] {
+ display:none!important;
+}
+/* V5.4 compact metric rail below graph */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics{
+ display:flex;flex-wrap:nowrap;justify-content:flex-start;align-items:center;
+ gap:12px;margin:0 12px;padding:0;width:max-content;max-width:calc(100% - 24px);
+ min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item{
+ flex:0 0 auto;min-width:28px;padding:10px 3px 8px;min-height:44px;
+ font-size:10px;font-weight:700;letter-spacing:.1px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-metrics .gtgr-v1-metric-rail-item[aria-pressed=true]{
+ font-weight:800;
+}
+/* Timeline Section V1 is always expanded; header action follows Section V1. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gtc-section-header{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gtc-section-title{
+ min-width:0;flex:1;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open{
+ flex:0 0 auto;min-height:40px;white-space:nowrap;font-size:11px;padding:7px 8px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-v1{
+ display:block;width:100%;padding:0;margin:24px 0 0;border:0;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-header{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-content{
+ min-width:0;width:100%;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-content .report-timeline{min-width:0;width:100%}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-filter-panel[hidden],
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-v1 [hidden]{display:none!important}
+
+
+/* Scoreboard V5.5 — UniversalPage V1 migration and final approved refinements. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review.up1-page{
+ width:100%;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-content{
+ min-width:0;width:100%;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-header{
+ margin-bottom:18px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-table[data-mode="shooting"] .gtgr-v1-data-row{
+ grid-template-columns:minmax(82px,2fr) 34px repeat(3,minmax(0,1fr))!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-context{
+ display:flex;align-items:baseline;justify-content:flex-start;
+ flex-wrap:wrap;gap:0;margin:0 0 14px;
+ min-width:0;line-height:1.4;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-matchup{
+ font-size:15px;font-weight:720;letter-spacing:-.2px;color:var(--gt-ink,#172119);
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-date{
+ font-size:12px;font-weight:500;color:var(--gt-muted,#59655b);white-space:nowrap;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open{
+ display:inline-flex;align-items:center;justify-content:flex-end;
+ appearance:none;background:transparent!important;border:0!important;
+ border-radius:0;box-shadow:none!important;
+ color:var(--gt-accent,#087d42)!important;
+ padding:5px 0 5px 8px!important;
+ font-size:12px!important;font-weight:680;
+ min-height:44px;line-height:1.25;
+ text-decoration:none;
+ cursor:pointer;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open:hover{
+ text-decoration:underline;text-underline-offset:3px;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-empty{
+ color:var(--gt-muted,#59655b);font-size:13px;margin:6px 0 20px;
+}
+@media(max-width:390px){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtgr-v1-table[data-mode="shooting"] .gtgr-v1-data-row{
+  grid-template-columns:minmax(68px,2fr) 24px repeat(3,minmax(0,1fr))!important;
+ }
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gtc-section-title{
+  font-size:17px;
+ }
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-selected-section .gt-scoreboard-open{
+  font-size:11px!important;
+ }
+}
+
+
+/* Scoreboard PageHeader integration repair — review-only. All selectors are page scoped. */
+html[data-theme] #app.gt-app #reportsContent > #gt-scoreboard-review.up1-page{
+ display:flex!important;flex-direction:column!important;min-height:100%;width:100%;max-width:100%;min-width:0;box-sizing:border-box;
+ overflow-x:clip;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-header{
+ display:block!important;flex:0 0 auto!important;min-height:0!important;
+ margin:0 0 12px!important;padding:10px 0 0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-heading{
+ display:grid!important;grid-template-columns:34px minmax(0,1fr) 44px!important;
+ gap:9px!important;align-items:center!important;min-height:44px;min-width:0;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-back{
+ display:grid!important;place-items:center!important;width:34px!important;height:44px!important;min-height:44px!important;
+ border:0!important;background:transparent!important;padding:4px!important;color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-back svg{display:block!important;width:24px!important;height:24px!important;max-width:24px!important;max-height:24px!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-heading > div{min-width:0!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title{
+ display:flex!important;align-items:center!important;min-height:44px!important;gap:9px!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title > svg{
+ display:block!important;position:static!important;flex:0 0 25px!important;
+ width:25px!important;height:25px!important;min-width:25px!important;min-height:25px!important;
+ max-width:25px!important;max-height:25px!important;overflow:visible!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title h1{
+ margin:0!important;font-size:clamp(22px,5.5vw,29px)!important;line-height:1.2!important;letter-spacing:-.65px!important;
+ font-weight:800!important;color:var(--gt-ink)!important;min-width:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-subtitle-v1:empty{display:none!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-header-filter{
+ position:relative!important;display:grid!important;place-items:center!important;
+ width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;
+ max-width:44px!important;max-height:44px!important;margin:0!important;padding:9px!important;
+ border:1px solid var(--gt-edge,#cbd3c8)!important;border-radius:11px!important;
+ background:var(--gt-surface,#fff)!important;color:var(--gt-ink,#172119)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-header-filter svg{
+ display:block!important;width:22px!important;height:22px!important;max-width:22px!important;max-height:22px!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-content{
+ display:block!important;flex:1 0 auto!important;min-width:0!important;width:100%!important;
+ min-height:0!important;margin:0!important;padding:0!important;border:0!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-content > .gtc-section:first-child{margin-top:0!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-gcs-content,
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-tls-content{min-width:0!important;max-width:100%!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-circle-svg{
+ display:block!important;width:min(100%,350px)!important;max-width:100%!important;height:auto!important;
+ aspect-ratio:1 / 1!important;margin:12px auto!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .gt-tls-v1{margin-top:22px!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-timeline svg{max-width:100%!important}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer{
+ display:block!important;flex:0 0 auto!important;margin:30px 0 0!important;padding:24px 0 6px!important;
+ border:0!important;border-top:1px solid var(--gt-edge)!important;
+ background:transparent!important;text-align:center!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span{
+ display:block!important;font-size:clamp(10px,3.05vw,13px)!important;line-height:1.7!important;
+ font-weight:850!important;letter-spacing:1.1px!important;white-space:normal!important;
+ color:var(--gt-ink)!important;
+}
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span:last-child{
+ color:var(--gt-accent)!important;
+}
+@media(max-width:365px){
+ html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review > .up1-footer span{letter-spacing:.5px!important}
+}
+@media(min-width:650px){html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gt-scoreboard-nested .report-circle-svg{width:min(100%,390px)!important}}
+@media(max-width:380px){html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .up1-title h1{font-size:23px!important}}
 </style></head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -8879,11 +10123,270 @@ renderGoals=function(...args){const result=gt465GoalsBase(...args),root=$('goals
   [...root.querySelectorAll('.training-toolbar button')].find(b=>/new\s+goal|add\s+goal/i.test(b.textContent.trim()));
  gt465Place(root,[{label:'＋ Add Goal',existing,handler:()=>goalForm()}]);return result;
 };
-const gt465NotebookBase=renderNotebook;
-renderNotebook=function(...args){const result=gt465NotebookBase(...args),root=$('notebookContent');
- const existing=[...root.querySelectorAll('button')].find(b=>/^\+?\s*Add Note(s)?$/i.test(b.textContent.trim()));
- gt465Place(root,[{label:'＋ Add Notes',existing,handler:()=>noteForm40()}]);return result;
+
+/* Notebook Universal Page V1 — shell-only initial rebuild.
+   Preserve underlying saved notes and legacy note editor; sections are deferred. */
+const gtNotebookUniversalInitialV1=function(){
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent');
+ const C=window.GameTraceComponents;
+ if(!root||!C?.UniversalPageV1||!C?.PageHeaderV1)throw Error('Notebook requires approved Universal Page components');
+ const icon=menuIcon('playbook');
+ const pageIcon=icon.firstElementChild || icon;
+ const add=document.createElement('button');
+ add.type='button';add.className='up1-action gt-cta-primary';
+ add.dataset.component='PageCTA';
+ add.classList.add('gt-notebook-new-note-action');
+ add.innerHTML='<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4z"/><path d="M7 8h7M7 12h5M17 15l4-4 2 2-4 4-3 1z"/></svg><span>New Note</span>';
+ add.addEventListener('click',()=>noteForm40());
+ const header=C.PageHeaderV1({
+  title:'Notebook',
+  subtitle:'EVERY EXPERIENCE IS AN OPPORTUNITY TO LEARN AND GROW.',
+  pageIcon,backIcon:up1Icon('back'),backLabel:'Back to Menu',
+  onBack:()=>navigate('menu'),
+  actions:[add],actionsLabel:'Notebook actions'
+ });
+ const page=C.UniversalPageV1({
+  page:'notebook',header,content:[],
+  contentLabel:'Notebook content',
+  footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
+ });
+ root.replaceChildren(page);
 };
+
+/* Exact Notes Overview V7 approved mosaic, recovered from user's saved original HTML. */
+const gtRecentApprovedOriginal=[{"shape":"a wide short","origin":"Game · vs Panthers","date":"Nov 9","area":"Become","full":"I stayed focused after mistakes, even when I missed shots.","text":"Stay focused after mistakes","meta":"Game · Nov 9"},{"shape":"c standard short","origin":"Personal Reflection","date":"Nov 8","area":"Become More","full":"I want to attack the basket with confidence.","text":"Attack with confidence","meta":"Personal · Nov 8"},{"shape":"d tall verylong","origin":"Game · vs Wildcats","date":"Nov 4","area":"See","full":"I noticed that my hesitation sometimes causes me to pass up a chance to drive, and I want to understand it better.","text":"Understand hesitation and learn from every game","meta":"Game · Nov 4"},{"shape":"e wide long","origin":"Training · Skills","date":"Nov 3","area":"See","full":"I make quicker decisions when I know where the defender is.","text":"Quick decisions matter when reading defenders","meta":"Training · Nov 3"},{"shape":"f standard short","origin":"Game · vs Eagles","date":"Oct 24","area":"Become More","full":"I want to become a better teammate.","text":"Be a better teammate","meta":"Game · Oct 24"},{"shape":"g standard short","origin":"Personal Reflection","date":"Oct 18","area":"Become","full":"I want to keep working hard.","text":"Keep working hard","meta":"Personal · Oct 18"}];
+function gtNotebookApprovedRecentV7(){
+ gtNotebookUniversalInitialV1();
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent'),content=root?.querySelector('.up1-content');
+ const C=window.GameTraceComponents;
+ if(!content||!C?.SharedBannerV2)return;
+ const section=document.createElement('section');section.className='gt-rn-section gt-recent-notes';section.dataset.component='NotesOverviewSectionV1';
+ const header=document.createElement('header');header.className='gt-rn-heading';
+ const label=document.createElement('div');
+ const heading=document.createElement('h2');heading.textContent='Notes Overview';
+ const sub=document.createElement('p');sub.textContent='Recent Notes';label.append(heading,sub);header.append(label);section.append(header);
+ const grid=document.createElement('div');grid.className='gt-rn-cells';grid.dataset.component='NotesOverviewApprovedMosaicV7';
+
+ // Read-only recent reflection feed. Never inject test notes into stored data.
+ const samePlayer=n=>!playerContext.player||T.playerKey(n.player)===T.playerKey(playerContext.player);
+ const entries=[];
+ db.personalRecords.filter(n=>n.type==='note'&&!n.deletedAt&&samePlayer(n)).forEach(n=>{
+   const linked=n.linkKind==='game'?db.games.find(g=>g.id===n.linkId):n.linkKind==='session'?db.trainingSessions.find(t=>t.id===n.linkId):null;
+   const source=n.linkKind==='game'?'Game':n.linkKind==='session'?'Training':'Personal';
+   const sourceDetail=linked?(source==='Game'?gameTitle(linked):linked.name||'Training'):'';
+   const title=String(n.title||n.body||'').trim(),body=String(n.body||'').trim();
+   if(title||body)entries.push({title:title||body,body:body||title,date:n.date,source,sourceDetail,
+     updatedAt:n.updatedAt||n.createdAt||'',open:()=>noteForm40(n.id)});
+ });
+ const questionLabels={see:'I See',became:'I Become',more:'I Become More'};
+ function fromActivity(a,source,sourceDetail,open){
+   if(!samePlayer(a))return;
+   const feedback=a.feedback||{};
+   Object.entries(questionLabels).forEach(([key,label])=>{
+     const body=String(feedback[key]||'').trim();
+     if(body)entries.push({title:body,body,date:a.date,source,sourceDetail,question:label,
+       updatedAt:a.updatedAt||'',open});
+   });
+ }
+ db.games.filter(g=>!g.deletedAt).forEach(g=>fromActivity(g,'Game',gameTitle(g),
+   ()=>chooseGame(g.id,g.status==='completed'?'stats':'live')));
+ db.trainingSessions.filter(t=>!t.deletedAt).forEach(t=>fromActivity(t,'Training',t.name||'Training',
+   ()=>openSession(t.id,'notebook')));
+ entries.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||
+   String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+ const selected=entries.slice(0,6);
+ // Only a deliberately requested review-mode preview may use the original approved sample reflections.
+ const demo=new URLSearchParams(location.search).get('notebookDemo')==='1';
+ const samples=gtRecentApprovedOriginal;
+ const display=demo&&selected.length<6?[...selected,...samples.slice(selected.length).map(x=>({
+   title:x.text,body:x.full,date:x.date,source:x.origin.split(' · ')[0],sourceDetail:x.origin,
+   question:x.area,meta:x.meta,_sample:true
+ }))]:selected;
+ const shapes=samples.map(x=>x.shape);
+ function dateFor(n){
+   if(n._sample)return n.date;
+   const raw=String(n.date||'');if(!raw)return '';
+   const d=new Date(raw+'T12:00:00');
+   return Number.isNaN(d.getTime())?raw:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+ }
+ for(let i=0;i<6;i++){
+   const n=display[i],tile=document.createElement(n?'button':'div');
+   if(n)tile.type='button';
+   tile.className='gt-rn-cell '+shapes[i].split(' ').map(x=>'gt-rn-'+x).join(' ')+(n?'':' gt-rn-placeholder');
+   tile.dataset.component='NoteBubbleV7';
+   if(!n){tile.setAttribute('aria-hidden','true');grid.append(tile);continue;}
+   const quote=document.createElement('span');quote.className='gt-rn-note-text';quote.textContent=n.title;
+   const meta=document.createElement('span');meta.className='gt-rn-meta';
+   meta.textContent=n._sample?n.meta:[n.source,dateFor(n)].filter(Boolean).join(' · ');
+   tile.append(quote,meta);
+   tile.setAttribute('aria-label',[n.title,n.source,n.sourceDetail,dateFor(n)].filter(Boolean).join(' · '));
+   tile.addEventListener('click',()=>{
+     if(n._sample){
+       openDialog('Note',box=>{
+         const info=document.createElement('small');info.textContent=[n.sourceDetail,dateFor(n),n.question].filter(Boolean).join(' · ');
+         const body=document.createElement('p');body.textContent=n.body;
+         body.style.cssText='font-size:15px;line-height:1.5;white-space:pre-wrap;color:var(--gt-ink)';
+         box.append(info,body,button('Close',closeDialog,'cancel-choice'));
+       });return;
+     }
+     // The original activity remains the source of truth for Player Notes.
+     n.open();
+   });
+   grid.append(tile);
+ }
+ const main=document.createElement('div');main.className='gt-rn-main';main.append(grid);
+ const banner=C.SharedBannerV2({primary:main,rootClass:'gt-rn-banner',componentName:'NotesOverviewBannerV7'});
+ banner.classList.add('gtv2-banner');
+ section.append(banner);content.append(section);
+}
+renderNotebook=gtNotebookApprovedRecentV7;
+
+/* All Notes V18 — approved SectionV1 journal, source-backed filtering and inline accordion. */
+const gtAllNotesV18State={group:'activity',range:'last30',from:'',to:'',open:false};
+function gtAllNotesV18Entries(){
+ const scope=n=>!playerContext.player||T.playerKey(n.player)===T.playerKey(playerContext.player);
+ const entries=[];
+ db.personalRecords.filter(n=>n.type==='note'&&!n.deletedAt&&scope(n)).forEach(n=>{
+   const kind=n.linkKind==='game'?'game':n.linkKind==='session'?'training':'personal';
+   const linked=kind==='game'?db.games.find(g=>g.id===n.linkId):kind==='training'?db.trainingSessions.find(t=>t.id===n.linkId):null;
+   const activity=kind==='game'?(linked?'Game · '+gameTitle(linked):'Game'):
+     kind==='training'?(linked?'Training · '+(linked.name||'Training'):'Training'):'Personal Reflection';
+   const body=String(n.body||n.title||'').trim();
+   if(body)entries.push({id:'note:'+n.id,date:n.date||'',activity,type:kind,question:'Personal Note',text:body,
+     open:()=>noteForm40(n.id)});
+ });
+ const labels={see:'See',became:'Become',more:'Become More'};
+ function fromActivity(a,type,activity,open){
+   if(!scope(a))return;
+   Object.entries(labels).forEach(([key,question])=>{
+     const body=String(a.feedback?.[key]||'').trim();
+     if(body)entries.push({id:type+':'+a.id+':'+key,date:a.date||'',activity,type,question,text:body,open});
+   });
+ }
+ db.games.filter(g=>!g.deletedAt).forEach(g=>fromActivity(g,'game','Game · '+gameTitle(g),
+   ()=>chooseGame(g.id,g.status==='completed'?'stats':'live')));
+ db.trainingSessions.filter(t=>!t.deletedAt).forEach(t=>fromActivity(t,'training','Training · '+(t.name||'Training'),
+   ()=>openSession(t.id,'notebook')));
+ return entries.sort((a,b)=>String(b.date).localeCompare(String(a.date))||a.id.localeCompare(b.id));
+}
+function gtAllNotesV18Section(){
+ const C=window.GameTraceComponents;
+ const content=document.createElement('div');content.className='gt-an-v18-content';content.dataset.component='AllNotesV1';
+ const groups=document.createElement('div');groups.className='gt-an-v18-groups';groups.setAttribute('aria-live','polite');content.append(groups);
+ const section=C.Section({title:'All Notes',subtitle:'Every observation, lesson, and aspiration in one place.',content,kind:'gt-an-v18-section'});
+ section.dataset.component='AllNotesSectionV1';section.dataset.parent='SectionV1';
+ const head=section.querySelector('.gtc-section-header');
+ const trigger=document.createElement('button');trigger.type='button';trigger.className='gt-an-v18-trigger';
+ trigger.setAttribute('aria-label','Toggle All Notes filters');trigger.setAttribute('aria-expanded','false');
+ trigger.innerHTML='<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/><circle cx="8" cy="7" r="2" fill="white"/><circle cx="16" cy="12" r="2" fill="white"/></svg>';
+ head.append(trigger);
+ const accordion=document.createElement('div');accordion.className='gt-an-v18-accordion';head.after(accordion);
+ function makeField(parent,name,options,value,change){
+   const field=document.createElement('label');field.className='gt-an-v18-field';
+   const title=document.createElement('span');title.textContent=name;
+   const select=document.createElement('select');select.setAttribute('aria-label',name);
+   options.forEach(([v,label])=>{const o=document.createElement('option');o.value=v;o.textContent=label;select.append(o)});
+   select.value=value;select.addEventListener('change',()=>change(select.value));field.append(title,select);parent.append(field);
+ }
+ makeField(accordion,'Group By',[['activity','Activity'],['question','Question'],['none','None']],gtAllNotesV18State.group,v=>{gtAllNotesV18State.group=v;draw()});
+ makeField(accordion,'Date Range',[['last30','Last 30 Days'],['last7','Last 7 Days'],['today','Today'],['thismonth','This Month'],['last90','Last 90 Days'],['all','All Dates'],['custom','Custom Range']],gtAllNotesV18State.range,v=>{gtAllNotesV18State.range=v;dates.hidden=v!=='custom';draw()});
+ const dates=document.createElement('div');dates.className='gt-an-v18-dates';
+ const createDate=(labelName,key)=>{
+   const field=document.createElement('label');field.className='gt-an-v18-field';
+   const text=document.createElement('span');text.textContent=labelName;
+   const input=document.createElement('input');input.type='date';input.value=gtAllNotesV18State[key]||'';
+   input.addEventListener('change',()=>{gtAllNotesV18State[key]=input.value;draw()});
+   field.append(text,input);dates.append(field);
+ };
+ createDate('From','from');createDate('To','to');accordion.append(dates);
+ dates.hidden=gtAllNotesV18State.range!=='custom';
+ const status=document.createElement('p');status.className='gt-an-v18-status';status.setAttribute('aria-live','polite');accordion.append(status);
+ function toggle(open){
+   gtAllNotesV18State.open=open;accordion.hidden=!open;trigger.setAttribute('aria-expanded',String(open));
+ }
+ toggle(gtAllNotesV18State.open);
+ trigger.addEventListener('click',()=>toggle(!gtAllNotesV18State.open));
+ section.addEventListener('keydown',e=>{if(e.key==='Escape'&&gtAllNotesV18State.open){toggle(false);trigger.focus()}});
+ function currentDate(){return typeof localDate==='function'?localDate():new Date().toISOString().slice(0,10)}
+ function shift(day,n){const d=new Date(day+'T12:00:00');d.setDate(d.getDate()-n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+ function dateFor(iso){
+   if(!iso)return '';
+   const d=new Date(iso+'T12:00:00');return Number.isNaN(d.getTime())?iso:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+ }
+ const questions={See:'What I saw',Become:'What I became','Become More':'What I want to become more','Personal Note':'Personal Notes'};
+ function qLabel(k){return questions[k]||k}
+ function groupRows(rows){
+   const mode=gtAllNotesV18State.group;if(mode==='none')return [{label:'All Notes',items:rows}];
+   const map=new Map();
+   rows.forEach(n=>{
+     const label=mode==='activity'?n.activity:qLabel(n.question);
+     const key=mode==='activity'?label+'\0'+n.date:label;
+     if(!map.has(key))map.set(key,{label,items:[]});
+     map.get(key).items.push(n);
+   });
+   const out=[...map.values()];
+   if(mode==='question'){
+     const order=['What I saw','What I became','What I want to become more','Personal Notes'];
+     out.sort((a,b)=>order.indexOf(a.label)-order.indexOf(b.label));
+   }
+   return out;
+ }
+ function noteRow(n){
+   const article=document.createElement('article');article.className='gt-an-v18-note';
+   const quote=document.createElement('q');quote.textContent=n.text;
+   const meta=document.createElement('div');meta.className='gt-an-v18-meta';
+   const mode=gtAllNotesV18State.group;
+   const caption=mode==='activity'?(n.type==='personal'?'Personal Notes':'Player’s Notes')+' · '+qLabel(n.question):
+     mode==='question'?n.activity+' · '+dateFor(n.date):
+     (n.type==='personal'?'Personal Notes':'Player’s Notes')+' · '+qLabel(n.question)+' · '+n.activity+' · '+dateFor(n.date);
+   meta.textContent=caption;
+   article.append(quote,meta);
+   article.tabIndex=0;article.setAttribute('role','button');article.setAttribute('aria-label','Open note: '+n.text);
+   article.addEventListener('click',n.open);
+   article.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();n.open()}});
+   return article;
+ }
+ function draw(){
+   const today=currentDate(),r=gtAllNotesV18State.range;
+   let from='',to=today;
+   if(r==='last30')from=shift(today,29);
+   else if(r==='last7')from=shift(today,6);
+   else if(r==='today')from=today;
+   else if(r==='thismonth')from=today.slice(0,7)+'-01';
+   else if(r==='last90')from=shift(today,89);
+   else if(r==='all'){from='';to=''}
+   else if(r==='custom'){from=gtAllNotesV18State.from;to=gtAllNotesV18State.to}
+   groups.replaceChildren();
+   if(from&&to&&from>to){status.textContent='Start date must be on or before end date.';return}
+   const rows=gtAllNotesV18Entries().filter(n=>n.date&&(!from||n.date>=from)&&(!to||n.date<=to));
+   status.textContent=rows.length+' note'+(rows.length===1?'':'s')+' in selected range';
+   if(!rows.length){const empty=document.createElement('p');empty.className='gt-an-v18-empty';empty.textContent='No notes in this date range.';groups.append(empty);return}
+   groupRows(rows).forEach(group=>{
+     if(gtAllNotesV18State.group==='none'){const list=document.createElement('div');list.className='gt-an-v18-list';group.items.forEach(n=>list.append(noteRow(n)));groups.append(list);return}
+     const wrapper=document.createElement('section');wrapper.className='gt-an-v18-group';
+     const heading=document.createElement('div');heading.className='gt-an-v18-group-heading';
+     const name=document.createElement('span');name.textContent=group.label;
+     if(gtAllNotesV18State.group==='activity'){const date=document.createElement('span');date.className='gt-an-v18-group-date';date.textContent=' · '+dateFor(group.items[0]?.date);name.append(date)}
+     else{const dates=group.items.map(x=>x.date).sort();const lo=dateFor(dates[dates.length-1]),hi=dateFor(dates[0]);const datesNode=document.createElement('span');datesNode.className='gt-an-v18-group-date';datesNode.textContent=' · '+(lo===hi?hi:lo+' – '+hi);name.append(datesNode)}
+     const count=document.createElement('span');count.className='gt-an-v18-count';count.textContent=group.items.length+' note'+(group.items.length===1?'':'s');
+     heading.append(name,count);wrapper.append(heading);
+     const list=document.createElement('div');list.className='gt-an-v18-list';group.items.forEach(n=>list.append(noteRow(n)));wrapper.append(list);groups.append(wrapper);
+   });
+ }
+ draw();
+ return section;
+}
+const gtNotebookRecentV7WithAllNotes=renderNotebook;
+renderNotebook=function(...args){
+ const value=gtNotebookRecentV7WithAllNotes(...args);
+ if(ui.screen!=='notebook')return value;
+ const root=document.getElementById('notebookContent'),content=root?.querySelector('.up1-content');
+ if(content&&window.GameTraceComponents?.Section)content.append(gtAllNotesV18Section());
+ return value;
+};
+
 // No PageCTA is added to any detail page. Edit lives at the far right of the title row.
 const gt465GameDetailBase=renderStats;
 renderStats=function(...args){const result=gt465GameDetailBase(...args),g=game();
@@ -9681,6 +11184,109 @@ buildSessionEditor=function(opts){
 
 
 
+/* GameTrace TrainingFormV1 page integration.
+   The native editor remains the sole authority for validation, commits,
+   IDs, achievements, sync, and navigation. */
+(function(){
+  const legacyBuilder=buildSessionEditor;
+  buildSessionEditor=function trainingFormUniversalV1(opts){
+    legacyBuilder(opts);
+    const root=$('trainingContent'),native=root?.querySelector('form.gt495-form');
+    const F=window.GameTraceTrainingForm,P=window.GameTraceComponents;
+    if(!native||!F?.TrainingFormV1||!P?.UniversalPageV1||!P?.PageHeaderV1)
+      throw Error('Approved Training Form and UniversalPage dependencies unavailable');
+    if(native.dataset.trainingBridgeV1)return;
+    native.dataset.trainingBridgeV1='true';
+    const mode=opts.original&&!opts.repeat?'edit':opts.repeat?'repeat':'new';
+    const field=label=>[...native.querySelectorAll('.gt495-field')]
+      .find(n=>n.querySelector(':scope > span')?.textContent.trim().replace(/\s*\*$/,'').toLowerCase()===label.toLowerCase())
+      ?.querySelector('input,select,textarea')||null;
+    const required=label=>{const x=field(label);if(!x)throw Error('Native field missing: '+label);return x};
+    const chips=()=>[...native.querySelectorAll('.gt495-chip[aria-pressed]')].map(button=>({
+      name:button.textContent.replace(/^\s*✓\s*/,'').trim(),
+      selected:button.getAttribute('aria-pressed')==='true',button
+    }));
+    const nativeType=required('Session Type');
+    const original=opts.original||{};
+    const data={
+      id:original.id||null,type:nativeType.value==='custom'?'training':nativeType.value,
+      customType:nativeType.value==='custom'?required('Custom Session Type').value:'',
+      name:required('Session Name').value,date:required('Date').value,
+      minutes:Number(required('Hours').value||0)*60+Number(required('Minutes').value||0),
+      player:required('Player Name').value,coach:required('Coach / Organization').value,
+      location:required('Location').value,
+      tags:chips().filter(x=>x.selected).map(x=>x.name),
+      feedback:{
+        see:required('What I Saw').value,became:required('What I Became').value,
+        more:required('What I Want to Become More').value,
+        additional:required('Additional Feedback').value
+      }
+    };
+    const defaults={...data};
+    if(mode==='new'){delete defaults.id;delete defaults.minutes;}
+    const nativeSave=native.querySelector('[data-save-session]'),
+          nativeCancel=[...native.querySelectorAll('button')].find(b=>b.textContent.trim()==='Cancel'),
+          nativeError=native.querySelector('.setup-error');
+    if(!nativeSave||!nativeCancel||!nativeError)throw Error('Native editor actions unavailable');
+    const put=(label,value)=>{
+      const x=required(label);
+      x.value=value==null?'':String(value);
+      x.dispatchEvent(new Event('input',{bubbles:true}));
+      x.dispatchEvent(new Event('change',{bubbles:true}));
+    };
+    function syncSkills(names){
+      const wanted=new Set(names.map(x=>x.toLowerCase()));
+      for(const chip of chips())if(chip.selected!==wanted.has(chip.name.toLowerCase()))chip.button.click();
+      const seen=new Set(chips().map(x=>x.name.toLowerCase()));
+      for(const skill of names)if(!seen.has(skill.toLowerCase())){
+        const entry=required('Custom Skills');
+        const add=[...native.querySelectorAll('button')].find(b=>/Add Skill/.test(b.textContent));
+        if(!add)throw Error('Custom Skill action unavailable');
+        entry.value=skill;add.click();seen.add(skill.toLowerCase());
+      }
+    }
+    function onSubmit(v){
+      put('Session Type',v.customType?'custom':v.type);
+      put('Custom Session Type',v.customType);
+      put('Player Name',v.player);
+      put('Session Name',v.name);
+      put('Date',v.date);
+      put('Hours',Math.floor(v.minutes/60));
+      put('Minutes',v.minutes%60);
+      put('Coach / Organization',v.coach);
+      put('Location',v.location);
+      put('What I Saw',v.feedback.see);
+      put('What I Became',v.feedback.became);
+      put('What I Want to Become More',v.feedback.more);
+      put('Additional Feedback',v.feedback.additional);
+      syncSkills(v.tags);
+      nativeError.textContent='';
+      nativeSave.click();
+      // Native save deliberately catches errors; surface them in reusable UI.
+      if(nativeError.textContent.trim())throw Error(nativeError.textContent.trim());
+      if(sessionUI.editor)throw Error('The training was not saved. Reopen and try again.');
+    }
+    const cancel=()=>nativeCancel.click();
+    const title=mode==='edit'?'Edit Training':mode==='repeat'?'Repeat Training':'New Training';
+    const subtitle=mode==='edit'?'UPDATE YOUR SESSION DETAILS.':'LOG THE WORK BEHIND THE GAME.';
+    const form=F.TrainingFormV1({
+      mode,session:mode==='new'?null:data,defaults,
+      skills:chips().map(x=>x.name),today:localDate(),
+      onSubmit,onCancel:cancel
+    });
+    const header=P.PageHeaderV1({
+      title,subtitle,backIcon:up1Icon('back'),pageIcon:up1Icon('session'),
+      onBack:cancel,backLabel:'Back to Gym'
+    });
+    native.hidden=true;native.setAttribute('aria-hidden','true');native.style.display='none';
+    const page=P.UniversalPageV1({
+      page:'training-form',header,content:[form.element,native],
+      footerLines:['FOLLOW THE PLAY.','THE GAME. THE JOURNEY.']
+    });
+    root.replaceChildren(page);
+    form.controls.name.focus();
+  };
+})();
 // Home Court's native renderer already provides business data, event handlers and approved content.
 // This final stage composes those *same DOM nodes* under the locked UniversalPage V1 structure.
 const up1Svg={
@@ -9802,7 +11408,7 @@ function gtALV1Section({title,subtitle,action,items,empty,key}){
 function gtSLV1Node(tag,cls,txt){
  const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;
 }
-function gtSLV1ScheduleRow(record){
+function gtSLV1ScheduleRow(record,returnTo='court'){
  const date=new Date(record.start),valid=Number.isFinite(date.getTime());
  const month=valid?date.toLocaleDateString(undefined,{month:'short'}).toUpperCase():'—';
  const day=valid?String(date.getDate()):'—';
@@ -9818,14 +11424,14 @@ function gtSLV1ScheduleRow(record){
  if(record.location)main.append(gtSLV1Node('span','gtsl-location',record.location));
  if(weekday)main.append(gtSLV1Node('span','gtsl-dayname',weekday));
  row.append(badge,main,gtSLV1Node('span','gtsl-time',time));
- row.addEventListener('click',()=>openScheduleEvent(record.id,'court'));
+ row.addEventListener('click',()=>openScheduleEvent(record.id,returnTo));
  return row;
 }
-function gtSLV1IntegrateComingUp(root,player){
+function gtSLV1IntegrateComingUp(root,player,options={}){
  const old=root.querySelector('[data-court-section="coming"]');if(!old)return;
  const matches=r=>!player||T.playerKey(r.player)===T.playerKey(player);
  const now=Date.now();
- const events=(db.personalRecords||[]).filter(r=>r.type==='schedule'&&!r.deletedAt&&!r.cancelledAt&&r.status!=='cancelled'&&r.status!=='canceled'&&matches(r)
+ const events=Array.isArray(options.events)?options.events:(db.personalRecords||[]).filter(r=>r.type==='schedule'&&!r.deletedAt&&!r.cancelledAt&&r.status!=='cancelled'&&r.status!=='canceled'&&matches(r)
   &&Number.isFinite(Date.parse(r.start))&&Date.parse(r.end||r.start)>=now)
   .sort((a,b)=>Date.parse(a.start)-Date.parse(b.start)).slice(0,3);
  const section=gtSLV1Node('section','gtsl-section');
@@ -9840,9 +11446,9 @@ function gtSLV1IntegrateComingUp(root,player){
  arrow.setAttribute('viewBox','0 0 24 24');arrow.setAttribute('aria-hidden','true');
  const path=document.createElementNS(arrow.namespaceURI,'path');path.setAttribute('d','m9 18 6-6-6-6');arrow.append(path);action.append(arrow);
  action.addEventListener('click',()=>courtOpen('schedule'));
- header.append(heading,action);
+ header.append(heading);if(!options.hideAction)header.append(action);
  const content=gtSLV1Node('div','gtsl-items');content.dataset.component='ListV1';
- if(events.length)for(const event of events)content.append(gtSLV1ScheduleRow(event));
+ if(events.length)for(const event of events)content.append(gtSLV1ScheduleRow(event,options.returnTo||'court'));
  else {const empty=gtSLV1Node('div','gtsl-empty');empty.append(gtSLV1Node('strong','', 'No upcoming events'),gtSLV1Node('span','','Your next opportunity starts here.'));content.append(empty)}
  section.append(header,content);
  old.replaceWith(section);
@@ -10990,6 +12596,565 @@ renderStats=function(...args){
  gtGameDetailsUniversalV1();
  return result;
 };
+
+/* Scoreboard Analytics V1 — review integration; no storage mutations. */
+(function(){
+'use strict';
+const $r=()=>document.getElementById('reportsContent'),mk=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;};
+const modes={primary:[['pts','PTS'],['reb','REB'],['ast','AST'],['stl','STL']],secondary:[['drive','DRV'],['defstop','DEF'],['to','TOV'],['pf','FLS']],shooting:[['fg','FG%'],['three','3PT%'],['ft','FT%']]};
+const colors=['#087d42','#3b82a4','#b47d33','#a16c9d'];
+const selection={id:null,mode:'primary',metrics:new Set(['pts'])};
+function safeInt(n){return Number.isFinite(+n)?Math.max(0,Math.round(+n)):0}
+function val(r,key){const t=r.t;if(key==='fg')return t.fga?100*t.fgm/t.fga:null;if(key==='three')return t.a3?100*t.m3/t.a3:null;if(key==='ft')return t.aft?100*t.mft/t.aft:null;return t[key]??0}
+function fmt(r,key){const n=val(r,key);return n===null?'—':String(Math.round(n))+(selection.mode==='shooting'?'%':'')}
+function shot(r,key){const t=r.t;return key==='fg'?[t.fgm,t.fga]:key==='three'?[t.m3,t.a3]:[t.mft,t.aft]}
+function select(id){selection.id=id;renderScoreboardReview()}
+/* Approved Performance Overview Banner V7.1: 30 / 35 / 35, native SharedBanner V2 wrapper. */
+function overview(rows){
+ const games=rows.length;
+ const wins=rows.filter(({g})=>g.finalScore&&g.finalScore.team>g.finalScore.opponent).length;
+ const losses=rows.filter(({g})=>g.finalScore&&g.finalScore.team<g.finalScore.opponent).length;
+ const t=rows.reduce((sum,{t})=>{for(const k of ['pts','reb','ast','stl','fgm','fga','m3','a3','mft','aft'])sum[k]+=(t[k]||0);return sum},{pts:0,reb:0,ast:0,stl:0,fgm:0,fga:0,m3:0,a3:0,mft:0,aft:0});
+ const wrap=mk('div','gtpo-v71-wrap');
+ let average=true;
+ const body=mk('div','gtpo-v71-body');
+ const make=(tag,klass,text)=>mk(tag,klass,text);
+ const pct=(m,n)=>n?Math.round(m/n*100):null;
+ const metric=(k)=>games?(average?(t[k]/games).toFixed(1):String(t[k])):'—';
+ function cell(inner,kind){
+  const node=make('div','gtv2-banner-cell gtpo-v71-cell gtpo-v71-'+kind);
+  node.dataset.component='BannerCellV2';node.append(inner);return node;
+ }
+ function recordColumn(){
+  const col=make('div','gtpo-v71-column');
+  col.append(make('span','gtpo-v71-kicker','Season record'));
+  const record=make('div','gtpo-v71-record');
+  record.append(make('span','',wins),make('span','gtpo-v71-dash','–'),make('span','',losses));col.append(record);
+  col.append(make('div','gtpo-v71-record-desc','Wins / Losses'));
+  const percent=pct(wins,wins+losses);
+  col.append(make('div','gtpo-v71-winrate',percent===null?'—':percent+'%'),make('div','gtpo-v71-winrate-label','WIN RATE'));
+  const track=make('div','gtpo-v71-win-track'),fill=make('div','gtpo-v71-win-fill');
+  track.setAttribute('role','img');track.setAttribute('aria-label',wins+' wins and '+losses+' losses');
+  fill.style.width=(percent||0)+'%';track.append(fill);col.append(track);
+  col.append(make('p','gtpo-v71-game-count',games+' GAMES PLAYED'));return col;
+ }
+ function productionColumn(){
+  const col=make('div','gtpo-v71-column');
+  col.append(make('span','gtpo-v71-kicker','Player production'));
+  const head=make('div','gtpo-v71-prod-heading'),control=make('div','gtpo-v71-mode-switch');
+  control.setAttribute('role','group');control.setAttribute('aria-label','Player production display');
+  for(const [type,label] of [['avg','AVG'],['total','TOTAL']]){
+   const button=make('button','',label);button.type='button';
+   button.setAttribute('aria-pressed',String((type==='avg')===average));
+   button.addEventListener('click',()=>{average=type==='avg';draw()});control.append(button);
+  }
+  head.append(control);col.append(head);
+  const list=make('div','gtpo-v71-production');
+  for(const [key,label] of [['pts','PTS'],['reb','REB'],['ast','AST'],['stl','STL']]){
+   const stat=make('div','gtpo-v71-stat');
+   stat.append(make('span','gtpo-v71-stat-label',label),make('strong','gtpo-v71-stat-value',metric(key)));
+   list.append(stat);
+  }col.append(list);return col;
+ }
+ function shootingColumn(){
+  const col=make('div','gtpo-v71-column');
+  col.append(make('span','gtpo-v71-kicker','Shooting efficiency'));
+  const list=make('div','gtpo-v71-shooting');
+  for(const [name,m,n] of [['FG',t.fgm,t.fga],['3PT',t.m3,t.a3],['FT',t.mft,t.aft]]){
+   const percent=pct(m,n),item=make('div','gtpo-v71-shot'),head=make('div','gtpo-v71-shot-head');
+   head.append(make('span','gtpo-v71-shot-name',name),make('strong','gtpo-v71-shot-value',percent===null?'—':percent+'%'));
+   const track=make('div','gtpo-v71-shot-bar'),fill=make('div','gtpo-v71-shot-fill');
+   track.setAttribute('role','progressbar');track.setAttribute('aria-label',name+' shooting percentage');
+   track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
+   if(percent!==null)track.setAttribute('aria-valuenow',String(percent));
+   fill.style.width=(percent||0)+'%';track.append(fill);
+   item.append(head,track,make('span','gtpo-v71-shot-count',m+' / '+n+' MADE / ATTEMPTED'));
+   list.append(item);
+  }col.append(list);return col;
+ }
+ function draw(){
+  const row=make('div','gtv2-banner-row gtpo-v71-row');
+  row.dataset.component='BannerRowV2';
+  row.append(cell(recordColumn(),'record-col'),cell(productionColumn(),'production-col'),cell(shootingColumn(),'shooting-col'));
+  const banner=GameTraceComponents.SharedBannerV2({primary:row,rootClass:'gtv2-banner gtpo-v71-banner',componentName:'PerformanceOverviewBannerV7_1'});
+  banner.dataset.parent='SharedBannerV2';
+  body.replaceChildren(banner);
+ }
+ wrap.append(body);draw();
+ return GameTraceComponents.Section({title:'Performance Overview',content:wrap,kind:'gtpo-v71-section'});
+}
+function drawChart(rows,keys,host){
+ host.replaceChildren();const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 560 178');svg.setAttribute('role','img');svg.setAttribute('aria-label','Game performance trend for '+keys.join(', '));svg.classList.add('gtgr-v1-plot');
+ const max=Math.max(1,...rows.flatMap(r=>keys.map(k=>val(r,k)||0)));const X=i=>32+i*(500/Math.max(1,rows.length-1)),Y=n=>145-(n/max)*113;
+ for(let i=0;i<4;i++){const y=145-i*37.7,line=document.createElementNS(ns,'line');for(const [k,v] of Object.entries({x1:30,x2:536,y1:y,y2:y,stroke:'var(--gt-line,#dfe5dc)','stroke-width':.7}))line.setAttribute(k,v);svg.append(line)}
+ keys.forEach(key=>{const ci=modes[selection.mode].findIndex(x=>x[0]===key),pts=rows.filter(r=>val(r,key)!==null),path=document.createElementNS(ns,'polyline');path.setAttribute('points',pts.map(r=>X(rows.indexOf(r))+','+Y(val(r,key))).join(' '));path.setAttribute('fill','none');path.setAttribute('stroke',colors[ci]);path.setAttribute('stroke-width','1.65');path.setAttribute('stroke-linejoin','round');svg.append(path);
+ for(const r of pts){const i=rows.indexOf(r),circle=document.createElementNS(ns,'circle');circle.setAttribute('cx',X(i));circle.setAttribute('cy',Y(val(r,key)));circle.setAttribute('r',r.g.id===selection.id?5:3);circle.setAttribute('fill',colors[ci]);circle.setAttribute('stroke','var(--gt-surface,#fff)');circle.setAttribute('stroke-width','1.5');circle.style.cursor='pointer';circle.setAttribute('tabindex','0');circle.setAttribute('aria-label',r.g.opponent+', '+key+' '+fmt(r,key));circle.addEventListener('click',()=>select(r.g.id));circle.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(r.g.id)}});svg.append(circle)}
+ });
+ host.append(svg);
+}
+function records(rows){
+ const root=mk('div','gtgr-v1-analytics');
+ const views=mk('div','gtgr-v1-views');for(const mode of Object.keys(modes)){const b=mk('button','',mode[0].toUpperCase()+mode.slice(1));b.type='button';b.setAttribute('aria-pressed',String(selection.mode===mode));b.addEventListener('click',()=>{selection.mode=mode;selection.metrics=new Set([modes[mode][0][0]]);renderScoreboardReview()});views.append(b)}root.append(views);
+ const chart=mk('div','gtgr-v1-chart'),metrics=mk('div','gtgr-v1-metrics');
+ const keys=modes[selection.mode].map(([key])=>key);
+ if(!keys.some(key=>selection.metrics.has(key)))selection.metrics=new Set([keys[0]]);
+ const selectedKeys=keys.filter(key=>selection.metrics.has(key));
+ root.append(chart,metrics);drawChart(rows,selectedKeys,chart);
+ keys.forEach((key,i)=>{
+   const active=selection.metrics.has(key);
+   const button=mk('button','gtgr-v1-metric-rail-item',modes[selection.mode][i][1]);
+   button.type='button';
+   button.style.setProperty('--metric',colors[i]);
+   button.setAttribute('aria-pressed',String(active));
+   button.setAttribute('aria-label',(active?'Hide ':'Show ')+modes[selection.mode][i][1]+' on performance graph');
+   button.addEventListener('click',()=>{
+     if(selection.metrics.has(key)){if(selection.metrics.size>1)selection.metrics.delete(key)}
+     else selection.metrics.add(key);
+     renderScoreboardReview();
+   });
+   metrics.append(button);
+ });
+ const table=mk('div','gtgr-v1-table');table.dataset.mode=selection.mode;const header=mk('div','gtgr-v1-data-row gtgr-v1-head');header.append(mk('span','','GAME'),mk('span','','W/L'));for(const [key,label] of modes[selection.mode]){const s=mk('span',selection.metrics.has(key)?'is-active':'',label);header.append(s)}table.append(header);
+ for(const r of [...rows].reverse()){
+ const b=mk('button','gtgr-v1-data-row'+(r.g.id===selection.id?' is-selected':''));b.type='button';b.setAttribute('aria-pressed',String(r.g.id===selection.id));b.addEventListener('click',()=>select(r.g.id));
+ const identity=mk('span','gtgr-v1-identity');identity.append(mk('strong','',r.g.opponent||'Opponent'),mk('small','',friendlyDate(r.g.date)));b.append(identity);
+ const win=r.g.finalScore?.team>r.g.finalScore?.opponent,loss=r.g.finalScore?.team<r.g.finalScore?.opponent;
+ b.append(mk('span','gtgr-v1-result '+(win?'win':loss?'loss':''),win?'W':loss?'L':'—'));
+ for(const [key] of modes[selection.mode]){const cell=mk('span','gtgr-v1-number'+(selection.metrics.has(key)?' is-active':''),fmt(r,key));if(selection.mode==='shooting'){const [m,a]=shot(r,key);cell.append(mk('small','',m+'/'+a))}b.append(cell)}table.append(b);
+ }root.append(table);if(!rows.length)root.append(mk('p','', 'No completed games match these filters.'));
+ return GameTraceComponents.Section({title:'Game Records',content:root,kind:'gtgr-v1-section'});
+}
+/* TimelineSection V1 uses the same approved composition as Game Details.
+   The native Timeline V1 renderer, filter controls, event listeners and chart remain intact. */
+function approvedTimelineSection(game){
+ const section=mk('section','gt-tls-v1');section.dataset.component='SectionV1';
+ const header=mk('div','gt-tls-header');
+ const heading=mk('div','gt-tls-heading');
+ heading.append(mk('h2','','Game Timeline'),mk('p','','The game, play by play.'));
+ header.append(heading);
+ const filterButton=mk('button','gt-tls-filter-button gt-tls-filter-icon');
+ filterButton.type='button';filterButton.setAttribute('aria-label','Show timeline filters');
+ filterButton.setAttribute('aria-expanded','false');filterButton.title='Timeline filters';
+ filterButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h5m4 0h7M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg><span class="gt-tls-filter-status" aria-hidden="true" hidden></span>';
+ header.append(filterButton);section.append(header);
+ const content=mk('div','gt-tls-content');content.dataset.slot='content';content.dataset.component='TimelineV1';
+ const filterPanel=mk('div','gt-tls-filter-panel');filterPanel.hidden=true;filterPanel.setAttribute('aria-label','Timeline display filters');
+ const parts=window.GameTraceTimelineV1.create({game,renderTimeline:reportTimeline});
+ const nativeView=parts.view,nativeFilters=parts.filters;
+ if(nativeView){nativeView.classList.add('gt-tls-native-view');filterPanel.append(nativeView)}
+ if(nativeFilters){
+  nativeFilters.classList.add('gt-tls-native-score-filters');
+  filterPanel.append(nativeFilters);
+  const controls=mk('div','gt-tls-filter-actions');
+  const reset=mk('button','gt-tls-filter-reset','Reset to all');reset.type='button';
+  reset.addEventListener('click',()=>{
+   for(const input of nativeFilters.querySelectorAll('input[type="checkbox"]')){
+    if(!input.checked){input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}))}
+   }
+   const select=nativeView?.querySelector('select');
+   if(select&&select.value!=='all'){select.value='all';select.dispatchEvent(new Event('change',{bubbles:true}))}
+   syncFilterCount();
+  });
+  const done=mk('button','gt-tls-filter-done','Done');done.type='button';
+  done.addEventListener('click',()=>{filterPanel.hidden=true;filterButton.setAttribute('aria-expanded','false')});
+  controls.append(reset,done);filterPanel.append(controls);
+  nativeFilters.addEventListener('change',syncFilterCount);
+ }
+ nativeView?.querySelector('select')?.addEventListener('change',syncFilterCount);
+ function syncFilterCount(){
+  if(!nativeFilters)return;
+  const inputs=[...nativeFilters.querySelectorAll('input[type="checkbox"]')];
+  const selected=inputs.filter(input=>input.checked).length;
+  const view=nativeView?.querySelector('select')?.value||'all';
+  const active=selected<inputs.length||view!=='all';
+  const indicator=filterButton.querySelector('.gt-tls-filter-status');
+  if(indicator)indicator.hidden=!active;
+  filterButton.classList.toggle('is-active',active);
+  filterButton.setAttribute('aria-label',active?'Timeline display customized. Open filters':'Show timeline filters');
+ }
+ filterButton.addEventListener('click',()=>{
+  const opening=filterPanel.hidden;filterPanel.hidden=!opening;
+  filterButton.setAttribute('aria-expanded',String(opening));
+ });
+ content.append(filterPanel);
+ parts.native.open=true;
+ content.append(parts.element);
+ section.append(content);
+ syncFilterCount();
+ return section;
+}
+function selectedSection(rows){
+ const r=rows.find(x=>x.g.id===selection.id);
+ if(!r)return null;
+ const detail=mk('div','gt-scoreboard-detail');
+ const context=mk('div','gt-scoreboard-context');
+ context.append(mk('strong','gt-scoreboard-matchup',(r.g.team||'Team')+' vs '+(r.g.opponent||'Opponent')));
+ context.append(mk('span','gt-scoreboard-date',' · '+friendlyDate(r.g.date)));
+ detail.append(context);
+ const nested=mk('div','gt-scoreboard-nested');
+ const circles=mk('section','report-circles gt-gcs-v1');circles.dataset.component='SectionV1';
+ const ch=mk('div','gt-gcs-header'),titles=mk('div','gt-gcs-heading');
+ titles.append(mk('h2','','Game Circles'),mk('p','','Your game at a glance.'));ch.append(titles);circles.append(ch);
+ const cc=mk('div','gt-gcs-content'),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.classList.add('report-circle-svg');svg.setAttribute('role','img');cc.append(svg);circles.append(cc);
+ const circleDetail=mk('details','gt-circle-details');
+ circleDetail.append(mk('summary','','Labels & legend'));
+ const cb=mk('div','gt-circle-details-body');
+ cb.append(mk('p','',r.time.known?'Court time '+Math.round(r.time.courtSeconds/60)+' min':'Court time unavailable'));
+ for(const [k,label] of [['reb','REB'],['pf','PF'],['to','TOV'],['ast','AST'],['stl','STL']])cb.append(mk('span','gt-scoreboard-key',label+' '+r.t[k]));
+ circleDetail.append(cb);cc.append(circleDetail);
+ nested.append(circles);
+ if(window.GameTraceTimelineV1?.create)nested.append(approvedTimelineSection(r.g));
+ detail.append(nested);
+ const section=GameTraceComponents.Section({title:'Selected Game Analytics',content:detail,kind:'gt-scoreboard-selected-section'});
+ const open=mk('button','gt-scoreboard-open court-link','Open Game Details ›');open.type='button';
+ open.addEventListener('click',()=>chooseGame(r.g.id,'stats'));
+ const sectionHeader=section.querySelector('.gtc-section-header');
+ if(sectionHeader)sectionHeader.append(open);
+ requestAnimationFrame(()=>{if(svg.isConnected)drawGameCircles(svg,r.g,r.t,r.time)});
+ return section;
+}
+function renderScoreboardReview(){
+ if(ui.screen!=='reports')return;
+ const root=$r();if(!root)return;
+ const components=window.GameTraceComponents;
+ if(!components?.UniversalPageV1||!components?.PageHeaderV1)
+  throw new Error('Scoreboard requires UniversalPage V1 and PageHeader V1');
+ const rows=filteredReports().sort((a,b)=>a.g.date.localeCompare(b.g.date)||a.g.id.localeCompare(b.g.id));
+ if(!rows.some(x=>x.g.id===selection.id))selection.id=rows.at(-1)?.g.id||null;
+ const header=components.PageHeaderV1({
+  title:'Scoreboard',
+  pageIcon:up1Icon('basketball'),
+  backIcon:up1Icon('back'),
+  onBack:()=>navigate('menu'),
+  backLabel:'Back to menu'
+ });
+ const filter=mk('button','gt467-trigger gt468-icon-trigger gt-scoreboard-header-filter');
+ filter.type='button';filter.dataset.component='FilterTrigger';
+ filter.setAttribute('aria-label','Filter Scoreboard games');
+ filter.setAttribute('title','Filter Scoreboard');
+ filter.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h5m4 0h7M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="11" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>';
+ if(gt467ActiveCount('reports')>0){const dot=mk('span','gt468-filter-active');dot.setAttribute('aria-hidden','true');filter.append(dot);}
+ filter.addEventListener('click',()=>gt467Modal('reports'));
+ header.querySelector('.up1-heading').append(filter);
+ const sections=[overview(rows),records(rows)];
+ const selected=selectedSection(rows);
+ if(selected)sections.push(selected);
+ else sections.push(components.Section({
+  title:'Selected Game Analytics',
+  content:mk('p','gt-scoreboard-empty','No completed games to display.'),
+  kind:'gt-scoreboard-selected-section'
+ }));
+ const page=components.UniversalPageV1({
+  page:'scoreboard',
+  header,
+  content:sections,
+  contentLabel:'Scoreboard analytics',
+  footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
+ });
+ page.id='gt-scoreboard-review';
+ root.replaceChildren(page);
+}
+const beforeScoreboardAnalytics=renderReports;
+renderReports=function(...args){const result=beforeScoreboardAnalytics.apply(this,args);if(ui.screen==='reports')renderScoreboardReview();return result};
+})();
+
+/* Menu V1.4 adapter runs inside the existing app closure; external script cannot access renderMenu. */
+window.addEventListener('load',function(){
+/* GameTrace Menu V1.4: review-only integration. Routes and record storage unchanged. */
+(function(){
+ 'use strict';
+ const menuTargets={
+  home:'court',games:'home',training:'training',schedule:'schedule',
+  scoreboard:'reports',playbook:'goals',wall:'trophies',notebook:'notebook',
+  huddle:'family',settings:'settings',cloud:'family'
+ };
+ const menuSelected=()=>{
+  const screen=ui.menuReturn||'court';
+  return ({court:'home',home:'games',live:'games',stats:'games',history:'games',setup:'games',
+   training:'training',session:'training',reports:'scoreboard',schedule:'schedule',scheduleDetail:'schedule',
+   goals:'playbook',trophies:'wall',notebook:'notebook',family:'huddle',settings:'settings'})[screen]||'home';
+ };
+ const goTo=id=>{
+  if(id==='signout'){
+   if(typeof familyAuth!=='undefined' && familyAuth?.access_token){
+     if(window.confirm('Sign out of Family Cloud on this device?')) familyAction(()=>signOutFamily());
+   }else courtOpen('family');
+   return;
+  }
+  const target=menuTargets[id];
+  if(target)courtOpen(target);
+ };
+ const quick=id=>{
+  if(id==='newGame')gameForm();
+  else if(id==='newTraining')recordTrainingFromCourt();
+ };
+ renderMenu=function(){
+  const root=$('menuContent');
+  root.replaceChildren();
+  const brand=document.querySelector('.top .app-brand-icon');
+  const logo=brand?brand.cloneNode(true):null;
+  const active=liveGame();
+  const component=window.GameTraceMenuComponentV1({
+   active:menuSelected(), logo, showHeader:false,
+   canCreateGame:!active&&!unfinishedGames().length,
+   iconFactory:screen=>screen==='setup'?up1Icon('basketball'):screen==='training'?up1Icon('session'):menuIcon(pageIcons43[screen]||'layers'),
+   onNavigate:goTo,
+   onQuickAction:quick,
+   onClose:()=>navigate(ui.menuReturn||'court')
+  });
+  root.append(component);
+ };
+})();
+
+if(ui.screen==='menu')renderMenu();
+});
+
+/* Schedule migration V1 — same approved Home Court parent, page header CTA and Coming Up section.
+   This is a page-only composition. The legacy schedule data paths, event forms,
+   calendar feeds, deleted-record restoration, cloud commit and detail actions stay intact. */
+// Existing approved schedule filter state is the single source of truth.
+if(gt467State.schedule.date==='next30')gt467State.schedule.date='all';
+// Schedule defaults to showing every upcoming event; an untouched filter should not appear active.
+if(gt467Defaults.schedule.date==='next30')gt467Defaults.schedule.date='all';
+// Approved GameTrace outline-icon registry: use one shared calendar glyph for
+// both Schedule's page title and the New Event quick action.
+MENU_ICON_DATA['gt-calendar']='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7.5 14h3M13.5 14h3M7.5 18h3"/></svg>';
+function gtSchedulePageV1(){
+ if(ui.screen!=='schedule')return;
+ syncPlayerScope();
+ const root=document.getElementById('scheduleContent');if(!root)return;
+ const node=(tag,cls,text)=>gtSLV1Node(tag,cls,text);
+ const page=node('div','up1-page');
+ page.dataset.component='UniversalPage';page.dataset.version='V1';page.dataset.page='schedule';
+ const header=node('header','up1-header');header.dataset.component='PageHeader';
+ const heading=node('div','up1-heading');
+ const back=node('button','up1-back');back.type='button';back.setAttribute('aria-label','Back to Menu');
+ back.append(up1Icon('back'));back.addEventListener('click',()=>navigate('menu'));
+ const copy=node('div'),titleRow=node('div','up1-title');
+ const calIcon=()=>{const wrapper=menuIcon('gt-calendar');return wrapper.firstElementChild};
+ titleRow.append(calIcon(),node('h1','', 'Schedule'));
+ const subtitle=node('div','up1-subtitle-v1','YOUR GAMES, TRAINING, AND MOMENTS AHEAD.');
+ subtitle.dataset.component='PageSubtitle';copy.append(titleRow,subtitle);
+ heading.append(back,copy);
+ // Existing approved FilterTrigger/FilterModal, no custom filter component.
+ const filter=node('button','gt467-trigger gt468-icon-trigger');
+ filter.type='button';filter.dataset.component='FilterTrigger';filter.dataset.filterScreen='schedule';
+ filter.setAttribute('aria-label','Open Schedule filters');filter.title='Filters';
+ filter.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>';
+ filter.addEventListener('click',()=>gt467Modal('schedule'));
+ if(gt467ActiveCount('schedule')>0){
+  filter.append(node('span','gt468-filter-active'));
+  filter.setAttribute('aria-label','Open Schedule filters ('+gt467ActiveCount('schedule')+' active)');
+ }
+ heading.append(filter);header.append(heading);
+ const actions=node('div','up1-actions');actions.setAttribute('role','group');actions.setAttribute('aria-label','Schedule actions');
+ const newEvent=node('button','up1-action','');newEvent.type='button';newEvent.setAttribute('aria-label','New Event');
+ newEvent.append(calIcon(),document.createTextNode('New Event'));newEvent.addEventListener('click',()=>scheduleForm());actions.append(newEvent);
+ header.append(actions);
+ const main=node('main','up1-content');main.dataset.component='PrimaryContent';main.setAttribute('aria-label','Schedule page content');
+ const matchPlayer=r=>!playerContext.player||T.playerKey(r.player)===T.playerKey(playerContext.player);
+ const now=Date.now();
+ // Preserve recurring-event materialization previously performed by the legacy renderer.
+ try{extendSchedule40()}catch(error){announce('Recurring schedule could not extend: '+error.message)}
+ const events=(db.personalRecords||[]).filter(r=>{
+  if(r.type!=='schedule'||r.deletedAt||r.cancelledAt||r.status==='cancelled'||r.status==='canceled'||!matchPlayer(r)||!Number.isFinite(Date.parse(r.start)))return false;
+  const filter=gt467State.schedule;
+  if(filter.activity?.length&&!filter.activity.includes(String(r.activity||'').toLowerCase()))return false;
+  if(filter.calendar?.length&&!filter.calendar.includes(String(r.calendarName||r.calendar||r.sourceName||'')))return false;
+  if(filter.source&&filter.source!==(r.source?'subscribed':'manual'))return false;
+  if(filter.status&&filter.status!==(r.cancelledAt?'cancelled':'scheduled'))return false;
+  if(!gt467DateMatches(r.start,filter))return false;
+  const end=Date.parse(r.end||r.start);
+  if(scheduleUI.view==='upcoming')return end>=now;
+  if(scheduleUI.view==='past')return end<now;
+  if(scheduleUI.view==='month')return T.dateKey(new Date(r.start)).startsWith(scheduleUI.month);
+  return true;
+ }).sort((a,b)=>scheduleUI.view==='past'?Date.parse(b.start)-Date.parse(a.start):Date.parse(a.start)-Date.parse(b.start));
+ if(scheduleUI.view==='month'){
+  const grid=scheduleMonthGrid(events);main.append(grid);
+  if(typeof schedule38!=='undefined'&&schedule38.selectedDate){
+   const selected=node('div','schedule-selected-date');
+   selected.append(node('h2','',friendlyDate(schedule38.selectedDate)));
+   const clear=node('button','family-link','Show whole month');clear.type='button';clear.addEventListener('click',()=>{schedule38.selectedDate=null;renderSchedule()});
+   selected.append(clear);main.append(selected);
+  }
+ }
+ const placeholder=node('section');placeholder.dataset.courtSection='coming';main.append(placeholder);
+ const visible=typeof schedule38!=='undefined'&&scheduleUI.view==='month'&&schedule38.selectedDate
+  ?events.filter(r=>T.dateKey(new Date(r.start))===schedule38.selectedDate):events;
+ gtSLV1IntegrateComingUp(main,playerContext.player,{events:visible,hideAction:true,returnTo:'schedule'});
+ const section=main.querySelector('.gtsl-section');if(section){
+  section.dataset.section='coming-up';section.dataset.component='ScheduleList';section.dataset.page='schedule';
+  const label=section.querySelector('.gtsl-heading h2');
+  if(label)label.textContent=scheduleUI.view==='past'?'Past Events':scheduleUI.view==='month'?'Events This Month':scheduleUI.view==='all'?'All Events':'Coming Up';
+  const empty=section.querySelector('.gtsl-empty strong');
+  if(empty)empty.textContent='No events in this view';
+ }
+ // Preserve calendar feeds and recently deleted restoration, without cluttering the event list.
+ const utility=node('details','gtschedule-utility');utility.append(node('summary','','Calendar Sources'));
+ const tools=node('div','gtschedule-utility-content');
+ const addFeed=node('button','family-link','Calendar feed / ICS');addFeed.type='button';addFeed.addEventListener('click',calendarForm);tools.append(addFeed);
+ const reminder=node('button','family-link','Email Reminders');reminder.type='button';
+ reminder.addEventListener('click',emailReminderSettings40);tools.append(reminder);
+ for(const feed of readWork('calendarFeeds')){
+  const row=node('div','gtschedule-feed');row.append(node('span','',feed.name+' · '+feed.player));
+  const refresh=node('button','family-link','Refresh');refresh.type='button';refresh.addEventListener('click',()=>refreshCalendar(feed));row.append(refresh);tools.append(row);
+ }
+ utility.append(tools);main.append(utility);
+ const deleted=(db.personalRecords||[]).filter(r=>r.type==='schedule'&&r.deletedAt&&matchPlayer(r));
+ if(deleted.length){
+  const trash=node('details','gtschedule-utility');trash.append(node('summary','','Recently Deleted ('+deleted.length+')'));
+  for(const record of deleted){
+   const restore=node('button','family-link','Restore '+record.title);restore.type='button';
+   restore.addEventListener('click',()=>{try{personalCommit(d=>{const target=d.personalRecords.find(x=>x.id===record.id);if(!target)return;target.deletedAt=null;target.updatedAt=C.now()});renderSchedule()}catch(error){announce(error.message)}});
+   trash.append(restore);
+  }
+  main.append(trash);
+ }
+ personalCloudNotice(main);
+ const footer=node('footer','up1-footer');footer.dataset.component='PageFooter';
+ footer.append(node('span','','SHOW UP. PUT IN THE WORK.'),node('span','','TRUST THE JOURNEY.'));
+ page.append(header,main,footer);root.replaceChildren(page);
+}
+const gtSchedulePageV1Prior=renderSchedule;
+renderSchedule=function(...args){
+ if(ui.screen==='scheduleDetail')return gtSchedulePageV1Prior.apply(this,args);
+ return gtSchedulePageV1();
+};
+
+/* Notebook Side Tabs V5 — approved collapsible tab rail + personal statement panel.
+   Data adapter: existing GameTrace personalRecords, no preview localStorage keys. */
+let gtNotebookSideTabsV5Cleanup=null;
+function gtNotebookSideTabsV5Mount(){
+ if(gtNotebookSideTabsV5Cleanup){gtNotebookSideTabsV5Cleanup();gtNotebookSideTabsV5Cleanup=null}
+ if(ui.screen!=='notebook')return;
+ const root=document.getElementById('notebookContent'),page=root?.querySelector('.up1-page');
+ if(!root||!page)return;
+ const svg={
+  prayer:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg>',
+  commitment:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 12 4.1 4.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m8 17 1.1 1.1a2 2 0 0 0 2.8 0l2.1-2.1"/><path d="m13 19 1.1 1.1a2 2 0 0 0 2.8 0L18 16"/><path d="m2 7 4 4 4-4 1.4-1.4a2 2 0 0 1 2.8 0L16 7"/><path d="m22 7-5 5"/><path d="m14 6 2.1-1a2 2 0 0 1 2.4.5L22 9"/></svg>'
+ };
+ const spec={
+  prayer:{title:'My Prayer',sub:'What guides me'},
+  commitment:{title:'My Commitment',sub:'What I promise to give'}
+ };
+ const host=document.createElement('div');host.className='gt-nstv5-host';host.dataset.component='NotebookSideTabsV5';
+ const rail=document.createElement('div');rail.className='gt-nstv5-rail';
+ const tabs=document.createElement('nav');tabs.className='gt-nstv5-tabs';tabs.setAttribute('aria-label','Notebook personal tabs');
+ const tabBtns={};
+ for(const type of ['prayer','commitment']){
+  const tab=document.createElement('button');tab.type='button';tab.className='gt-nstv5-tab '+type;
+  tab.dataset.type=type;tab.setAttribute('aria-label','Open '+spec[type].title);tab.setAttribute('aria-pressed','false');
+  tab.title=spec[type].title;tab.innerHTML=svg[type];tabs.append(tab);tabBtns[type]=tab;
+ }
+ const visibility=document.createElement('button');visibility.type='button';visibility.className='gt-nstv5-visibility';
+ visibility.setAttribute('aria-controls','gt-nstv5-tabs');visibility.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+ tabs.id='gt-nstv5-tabs';rail.append(tabs,visibility);host.append(rail);
+ const scrim=document.createElement('div');scrim.className='gt-nstv5-scrim';
+ const panel=document.createElement('aside');panel.className='gt-nstv5-panel';
+ panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','gt-nstv5-heading');panel.setAttribute('aria-hidden','true');
+ const head=document.createElement('div');head.className='gt-nstv5-panel-head';
+ const panelTitle=document.createElement('div');panelTitle.className='gt-nstv5-panel-title';
+ const panelIcon=document.createElement('span');panelIcon.className='gt-nstv5-panel-icon';
+ const headingWrap=document.createElement('div');const heading=document.createElement('h2');heading.id='gt-nstv5-heading';
+ const subtitle=document.createElement('p');headingWrap.append(heading,subtitle);panelTitle.append(panelIcon,headingWrap);
+ const closeBtn=document.createElement('button');closeBtn.type='button';closeBtn.className='gt-nstv5-icon-btn';closeBtn.setAttribute('aria-label','Close panel');closeBtn.textContent='×';head.append(panelTitle,closeBtn);
+ const panelBody=document.createElement('div');panelBody.className='gt-nstv5-body';
+ const readView=document.createElement('div');const label=document.createElement('p');label.className='gt-nstv5-label';
+ const statement=document.createElement('p');statement.className='gt-nstv5-statement';readView.append(label,statement);
+ const editView=document.createElement('div');const editLabel=document.createElement('label');editLabel.className='gt-nstv5-edit-label';editLabel.htmlFor='gt-nstv5-editor';
+ const editor=document.createElement('textarea');editor.id='gt-nstv5-editor';editor.className='gt-nstv5-editor';editor.maxLength=6000;editor.rows=8;
+ editView.append(editLabel,editor);const error=document.createElement('p');error.className='gt-nstv5-error';error.setAttribute('role','alert');editView.append(error);
+ panelBody.append(readView,editView);
+ const foot=document.createElement('div');foot.className='gt-nstv5-foot';
+ const cancel=document.createElement('button');cancel.type='button';cancel.className='gt-nstv5-action';cancel.textContent='Cancel';
+ const edit=document.createElement('button');edit.type='button';edit.className='gt-nstv5-action';edit.textContent='Edit';
+ const save=document.createElement('button');save.type='button';save.className='gt-nstv5-action primary';save.textContent='Save';
+ foot.append(cancel,edit,save);panel.append(head,panelBody,foot);host.append(scrim,panel);
+ root.append(host);
+ let selected=null,editing=false,lastFocus=null;
+ function getRecord(type){
+  if(!playerContext.player)return null;
+  return db.personalRecords.find(n=>!n.deletedAt&&n.type===type&&T.playerKey(n.player)===T.playerKey(playerContext.player))||null;
+ }
+ function renderPanel(){
+  if(!selected)return;
+  const item=spec[selected],record=getRecord(selected);
+  heading.textContent=item.title;subtitle.textContent=item.sub;panelIcon.innerHTML=svg[selected];
+  label.textContent=item.title.toUpperCase();editLabel.textContent=item.title;
+  const contents=record?.body||'';
+  statement.textContent=playerContext.player?(contents||'Nothing written yet. Select Edit to add your words.'):'Choose a player to write or edit your words.';
+  statement.classList.toggle('is-empty',!contents);
+  readView.hidden=editing;editView.hidden=!editing;
+  edit.hidden=editing||!playerContext.player;cancel.hidden=!editing;save.hidden=!editing;
+  error.textContent='';
+ }
+ function setVisible(visible){
+  rail.classList.toggle('is-hidden',!visible);tabs.hidden=!visible;
+  visibility.setAttribute('aria-expanded',String(visible));
+  visibility.setAttribute('aria-label',visible?'Hide Notebook side tabs':'Show Notebook side tabs');
+  visibility.title=visible?'Hide tabs':'Show tabs';
+ }
+ function open(type){
+  lastFocus=document.activeElement;selected=type;editing=false;
+  panel.classList.add('open');scrim.classList.add('open');panel.setAttribute('aria-hidden','false');
+  for(const k of Object.keys(tabBtns))tabBtns[k].setAttribute('aria-pressed',String(k===type));
+  renderPanel();closeBtn.focus();
+ }
+ function close(){
+  selected=null;editing=false;
+  panel.classList.remove('open');scrim.classList.remove('open');panel.setAttribute('aria-hidden','true');
+  Object.values(tabBtns).forEach(b=>b.setAttribute('aria-pressed','false'));
+  lastFocus?.focus();
+ }
+ Object.entries(tabBtns).forEach(([kind,tab])=>tab.addEventListener('click',()=>open(kind)));
+ visibility.addEventListener('click',()=>setVisible(rail.classList.contains('is-hidden')));setVisible(true);
+ closeBtn.addEventListener('click',close);scrim.addEventListener('click',close);
+ edit.addEventListener('click',()=>{editing=true;editor.value=getRecord(selected)?.body||'';renderPanel();editor.focus()});
+ cancel.addEventListener('click',()=>{editing=false;renderPanel()});
+ save.addEventListener('click',()=>{
+  if(!selected||!playerContext.player)return;
+  const type=selected,player=playerContext.player,id=type+'-'+T.hash(T.playerKey(player)).toString(36);
+  const original=getRecord(type),snapshot=original?fingerprint(original):null;
+  try{
+   personalCommit(data=>{
+    const current=data.personalRecords.find(n=>n.id===id);
+    if((current?fingerprint(current):null)!==snapshot)throw Error('This entry changed. Reopen it before saving.');
+    const at=C.now(),record=J.record({id,player,type,body:editor.value.trim(),createdAt:original?.createdAt||at,updatedAt:at});
+    const pos=data.personalRecords.findIndex(n=>n.id===id);if(pos<0)data.personalRecords.push(record);else data.personalRecords[pos]=record;
+   });
+   editing=false;renderPanel();
+  }catch(e){error.textContent=e.message||'Unable to save. Please retry.'}
+ });
+ function onKey(e){
+  if(ui.screen!=='notebook'||!selected)return;
+  if(e.key==='Escape'){e.preventDefault();if(editing){editing=false;renderPanel()}else close();return}
+  if(e.key!=='Tab')return;
+  const items=[...panel.querySelectorAll('button:not([hidden]),textarea:not([hidden])')].filter(x=>x.getClientRects().length);
+  if(!items.length)return;
+  const first=items[0],last=items[items.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+ document.addEventListener('keydown',onKey);
+ function alignRail(){
+  if(!root.isConnected)return;
+  const rect=page.getBoundingClientRect(),width=rail.offsetWidth||42;
+  rail.style.left=Math.max(0,Math.min(window.innerWidth-width,rect.right-width+1))+'px';
+ }
+ window.addEventListener('resize',alignRail);window.addEventListener('scroll',alignRail,{passive:true});alignRail();
+ gtNotebookSideTabsV5Cleanup=()=>{
+  document.removeEventListener('keydown',onKey);window.removeEventListener('resize',alignRail);window.removeEventListener('scroll',alignRail);
+  host.remove();
+ };
+}
+const gtNotebookWithAllNotesAndSideTabs=renderNotebook;
+renderNotebook=function(...args){
+ const result=gtNotebookWithAllNotesAndSideTabs(...args);
+ if(ui.screen==='notebook')gtNotebookSideTabsV5Mount();
+ return result;
+};
 })();
 
 
@@ -11048,6 +13213,8 @@ play.addEventListener('click',()=>{if(playing){playing=false;cancelAnimationFram
 
 
 })();
+
+
 </script>
 
 
@@ -11144,4 +13311,491 @@ window.addEventListener('pagehide',()=>{if(recording)return;stream?.getTracks().
 
 
 })();
-</script></body></html>
+</script>
+<!-- Approved reusable GameTrace Menu V1.4, review integration only -->
+<style id="gt-menu-component-v1-4-css">
+/* Approved GameTrace Menu V1.4: shared typography/theme and Home Court quick action styling. */
+.gtm-root{
+  --gtm-bg:var(--gt-bg,#f7f8f5);--gtm-surface:var(--gt-surface,#fff);
+  --gtm-ink:var(--gt-ink,#172119);--gtm-muted:var(--gt-muted,#59655b);
+  --gtm-edge:var(--gt-edge,#cbd3c8);--gtm-accent:var(--gt-accent,#087d42);
+  font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--gtm-ink);background:var(--gtm-bg);display:flex;flex-direction:column;
+  min-width:0;width:100%;height:100%;overflow:hidden;box-sizing:border-box;
+}
+.gtm-root *{box-sizing:border-box}
+.gtm-root button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer}
+.gtm-header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px 10px;background:var(--gtm-bg)}
+.gtm-brand{display:flex;align-items:center;gap:10px;min-width:0}
+.gtm-logo{width:44px;height:44px;object-fit:contain;background:#101211;border-radius:10px;flex:none}
+.gtm-logo-unavailable{font-size:9px}
+.gtm-brand-name{display:flex;flex-direction:column;min-width:0;gap:2px}
+.gtm-wordmark{font-size:23px;font-weight:800;letter-spacing:-.8px;line-height:1.1}
+.gtm-tagline{font-size:10px;line-height:1.3;color:var(--gtm-muted)}
+.gtm-close{width:44px;height:44px;flex:none;border:1px solid var(--gtm-edge);border-radius:12px;background:var(--gtm-surface);font-size:23px!important}
+.gtm-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:8px 16px 18px;border-bottom:1px solid var(--gtm-edge)}
+.gtm-action{min-height:56px!important;display:flex;align-items:center;justify-content:center;gap:8px;
+ padding:10px 6px!important;border:1.5px solid #c8d8cb!important;border-radius:16px!important;
+ background:#e3efe5!important;color:#172119!important;font-size:15px!important;font-weight:550!important;letter-spacing:0!important;
+ text-align:center;min-width:0;white-space:normal}
+.gtm-action:disabled{opacity:.42;cursor:not-allowed}
+.gtm-icon{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;flex:0 0 23px;color:inherit}
+.gtm-icon svg,.gtm-icon.menu-icon svg{width:100%;height:100%;stroke-width:1.8;display:block}
+.gtm-icon-missing{border:1px dashed currentColor;border-radius:4px;font-size:10px}
+.gtm-scroll{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.gtm-nav{padding:7px 16px 20px}
+.gtm-group{padding:8px 0 15px}
+.gtm-group+.gtm-group{padding-top:11px}
+.gtm-group:last-child{border-top:1px solid var(--gtm-edge);padding-top:20px;margin-top:1px}
+.gtm-group-heading{margin:6px 6px 10px;color:var(--gtm-accent);font-size:10px;line-height:1.35;font-weight:820;
+ letter-spacing:.65px;text-transform:uppercase}
+.gtm-item{display:flex;align-items:center;gap:13px;width:100%;min-height:50px;padding:9px 12px!important;
+ text-align:left;border:0!important;border-radius:12px;background:transparent!important;color:var(--gtm-ink)!important;
+ font-size:15px!important;font-weight:650!important;line-height:1.35}
+.gtm-item .gtm-icon{color:var(--gtm-ink)}
+.gtm-item.is-active{background:var(--gt-control,#edf0e9)!important;color:var(--gtm-ink)!important;font-weight:780!important}
+.gtm-item.is-active .gtm-icon{color:var(--gtm-accent)}
+.gtm-item.gtm-signout{margin-top:8px}
+.gtm-root button:focus-visible{outline:2px solid var(--gtm-accent);outline-offset:2px}
+@media(hover:hover){.gtm-item:hover{background:var(--gt-control,#edf0e9)!important}}
+@media(max-width:350px){.gtm-actions{padding-inline:10px;gap:6px}.gtm-action{font-size:13px!important;gap:5px}.gtm-nav{padding-inline:11px}}
+[data-appearance=dark] .gtm-action{background:#283d2e!important;border-color:#45684f!important;color:#f0f4ef!important}
+
+
+/* GameTrace V1.4 integration specificity: retain cell-heading sizes despite global h2 rules. */
+html[data-theme] #app.gt-app .gtm-root{height:clamp(240px,calc(100dvh - 130px),760px);max-height:calc(100dvh - 95px);overflow:hidden}
+html[data-theme] #app.gt-app .gtm-group-heading{font-size:10px!important;line-height:1.35!important;font-weight:820!important;letter-spacing:.65px!important;margin:6px 6px 10px!important;color:var(--gt-accent)!important}
+html[data-theme] #app.gt-app .gtm-item{font-size:15px!important;font-weight:650!important}
+html[data-theme] #app.gt-app .gtm-item.is-active{font-weight:780!important}
+html[data-theme] #app.gt-app .gtm-action{border-radius:16px!important;min-height:56px!important;font-size:15px!important}
+html[data-theme] #app.gt-app .gtm-wordmark{font-size:23px!important;line-height:1.1!important}
+html[data-theme] #app.gt-app .gtm-tagline{font-size:10px!important;color:var(--gt-muted)!important}
+html[data-theme] #app.gt-app .gtm-logo{display:block;width:44px;height:44px;object-fit:contain;border-radius:10px}
+html[data-theme] #app.gt-app .gtm-close{min-height:44px;min-width:44px}
+/* App Navigation owns the logo/close: prevent a second visual header in any menu render path. */
+html[data-theme] #app.gt-app #menuContent .gtm-header{display:none!important}
+
+/* Same CSS specification as the approved Home Court .up1-action, scoped to Menu V1.4. */
+html[data-theme] #app.gt-app #menuContent .gtm-actions{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;padding:0;margin:20px 0 0;width:100%;
+  border-bottom:1px solid var(--gt-edge);padding-bottom:20px;
+}
+html[data-theme] #app.gt-app #menuContent .gtm-action{
+  border-radius:11px!important;border:1px solid #c6d9c8!important;
+  background:#e3efe5!important;color:var(--gt-ink)!important;
+  min-height:50px!important;min-width:0;padding:9px 4px!important;
+  font-size:clamp(11px,2.8vw,14px)!important;font-weight:400!important;line-height:1.2!important;
+  display:flex;align-items:center;justify-content:center;gap:5px!important;
+  white-space:normal;overflow-wrap:anywhere;
+}
+html[data-theme] #app.gt-app #menuContent .gtm-action .gtm-icon{
+  width:17px!important;height:17px!important;flex:0 0 17px!important;
+}
+html[data-theme] #app.gt-app #menuContent .gtm-action svg{
+  width:17px!important;height:17px!important;flex:0 0 17px!important;
+}
+html[data-theme=courtside] #app.gt-app #menuContent .gtm-action{
+  background:#2a4934!important;border-color:#416d50!important;color:#e4f6e6!important;
+}
+@media(max-width:365px){
+  html[data-theme] #app.gt-app #menuContent .gtm-action{
+    font-size:10px!important;flex-direction:column;gap:2px!important;min-height:57px!important;
+  }
+  html[data-theme] #app.gt-app #menuContent .gtm-actions{gap:5px}
+}
+
+
+</style>
+<script id="gt-menu-component-v1-4-js">
+/* GameTrace Menu V1.4 — presentation-only child of existing App Navigation.
+ * Actual page-header icons are supplied by the integration layer.
+ * Approved standalone component; not integrated into the full app.
+ */
+(function(global){
+ 'use strict';
+ const routes={home:'court',games:'home',training:'training',schedule:'schedule',scoreboard:'reports',playbook:'goals',wall:'trophies',notebook:'notebook',huddle:'family',settings:'settings',cloud:'family',signout:'signout'};
+ const groups=[
+  ['YOUR GAME',[['home','Home Court'],['games','Games'],['training','Training'],['schedule','Schedule']]],
+  ['YOUR PROGRESS',[['scoreboard','Scoreboard'],['playbook','Playbook'],['wall','The Wall'],['notebook','Notebook']]],
+  ['YOUR TEAM',[['huddle','Family Huddle']]],
+  ['ACCOUNT & SETTINGS',[['settings','Settings'],['cloud','Family Cloud'],['signout','Sign Out']]]
+ ];
+ const elt=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!=null)n.textContent=value;return n};
+ function iconFor(screen,iconFactory){
+  let node=null;
+  if(typeof iconFactory==='function')node=iconFactory(screen);
+  else if(typeof global.menuIcon==='function'&&global.pageIcons43?.[screen])node=global.menuIcon(global.pageIcons43[screen]);
+  if(!(node instanceof global.Node)){
+   node=elt('span','gtm-icon-missing','?');node.title='Missing approved page-header icon: '+screen;
+  }
+  node.classList.add('gtm-icon');node.setAttribute('aria-hidden','true');return node;
+ }
+ function MenuComponentV1({active='home',onNavigate=()=>{},onClose=()=>{},onQuickAction=()=>{},iconFactory=null,logo=null,canCreateGame=true,showHeader=true}={}){
+  const root=elt('aside','gtm-root');root.dataset.component='MenuComponent';root.dataset.version='V1.4';root.setAttribute('aria-label','GameTrace menu');
+  const header=elt('header','gtm-header'),brand=elt('div','gtm-brand');
+  if(logo instanceof global.Node)brand.append(logo);
+  else{
+   const mark=elt('img','gtm-logo');mark.src='https://raw.githubusercontent.com/ohhigetit/gametrace/development/icons/gametrace-official-192.png';mark.alt='GameTrace official mark';mark.loading='eager';brand.append(mark);
+   mark.addEventListener('error',()=>{mark.alt='GameTrace logo unavailable offline';mark.classList.add('gtm-logo-unavailable')});
+  }
+  const name=elt('div','gtm-brand-name');name.append(elt('strong','gtm-wordmark','GameTrace'),elt('span','gtm-tagline','Follow the Play. The Game. The Journey.'));brand.append(name);
+  const close=elt('button','gtm-close','×');close.type='button';close.setAttribute('aria-label','Close menu');close.addEventListener('click',onClose);
+  header.append(brand,close);if(showHeader)root.append(header);
+  const actions=elt('div','gtm-actions');actions.setAttribute('aria-label','Quick actions');actions.setAttribute('role','group');
+  for(const [id,label,screen] of [['newGame','New Game','setup'],['newTraining','New Training','training']]){
+   const b=elt('button','gtm-action');b.type='button';b.dataset.action=id;b.append(iconFor(screen,iconFactory),elt('span','',label));
+   if(id==='newGame'&&!canCreateGame){b.disabled=true;b.title='An unfinished game is already active';}
+   b.addEventListener('click',()=>onQuickAction(id));actions.append(b);
+  }
+  root.append(actions);
+  const scroll=elt('div','gtm-scroll'),nav=elt('nav','gtm-nav');nav.setAttribute('aria-label','Main navigation');
+  for(const [heading,items] of groups){
+   const section=elt('section','gtm-group'),title=elt('h2','gtm-group-heading',heading);section.append(title);
+   for(const [id,label] of items){
+    const b=elt('button','gtm-item');b.type='button';b.dataset.nav=id;b.append(iconFor(routes[id],iconFactory),elt('span','gtm-item-label',label));
+    if(id===active){b.classList.add('is-active');b.setAttribute('aria-current','page');}
+    if(id==='signout')b.classList.add('gtm-signout');
+    b.addEventListener('click',()=>onNavigate(id));section.append(b);
+   }
+   nav.append(section);
+  }
+  scroll.append(nav);root.append(scroll);
+  root.setActive=function(next){root.querySelectorAll('.gtm-item').forEach(b=>{const selected=b.dataset.nav===next;b.classList.toggle('is-active',selected);if(selected)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})};
+  return root;
+ }
+ global.GameTraceMenuComponentV1=MenuComponentV1;
+})(window);
+
+
+
+
+
+</script>
+
+<style data-gt="schedule-universal-v1">
+/* Exact approved Home Court Coming Up styles, page-scoped to Schedule. */
+#app.gt-app #scheduleContent .gtsl-section{background:transparent!important;border:0!important;box-shadow:none!important;min-width:0;margin:24px 0 0!important;padding:0!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-width:0;padding:0 0 14px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-heading{min-width:0;flex:1}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-heading h2{margin:0!important;color:var(--gt-ink)!important;font-size:18px!important;font-weight:800!important;line-height:1.3!important;letter-spacing:-.35px!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-heading p{margin:4px 0 0!important;color:var(--gt-muted)!important;font-size:12px!important;line-height:1.5!important;font-weight:400!important;letter-spacing:normal!important;text-transform:none!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-action{min-height:44px;display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;flex:0 0 auto;background:transparent!important;border:0!important;box-shadow:none!important;color:var(--gt-accent)!important;font-size:12px!important;font-weight:700!important;padding:9px 0 9px 8px!important;white-space:nowrap}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-action svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-items{min-width:0}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-row{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:9px;align-items:center;position:relative;min-height:68px;padding:12px 0;width:100%;box-shadow:none!important;background:transparent!important;border:0!important;border-radius:0!important;color:var(--gt-ink)!important;text-align:left;cursor:pointer}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-row+.gtsl-row{border-top:1px solid var(--gt-edge)!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date{width:50px;min-height:51px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 3px;gap:2px;border:1px solid var(--gt-edge);border-radius:10px;background:transparent;color:var(--gt-ink);line-height:1}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date .gtsl-month{font-size:10px!important;font-weight:750!important;letter-spacing:.9px!important;color:var(--gt-muted)!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date .gtsl-day{font-size:18px!important;font-weight:800!important;color:var(--gt-ink)!important;line-height:1.15!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-main{min-width:0;display:flex;flex-direction:column;gap:3px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-title{font-size:14px!important;line-height:1.4!important;font-weight:740!important;color:var(--gt-ink)!important;overflow-wrap:anywhere}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-location{font-size:12px!important;line-height:1.4!important;color:var(--gt-muted)!important;overflow-wrap:anywhere}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-dayname{font-size:11px!important;line-height:1.4!important;color:var(--gt-muted)!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-time{font-size:12px!important;font-weight:750!important;color:var(--gt-ink)!important;white-space:nowrap;text-align:right;align-self:center}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-empty{padding:24px 12px;text-align:center;border:1px dashed var(--gt-edge);border-radius:12px;background:transparent;font-size:13px;color:var(--gt-muted)}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-empty strong{display:block;color:var(--gt-ink);margin-bottom:5px;font-size:13px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-empty span{font-size:12px;line-height:1.5}
+#app.gt-app #scheduleContent .gtsl-section :is(.gtsl-action,.gtsl-row):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-row{grid-template-columns:49px minmax(0,1fr) auto;gap:7px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-date{width:47px}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-title{font-size:13px!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-location{font-size:11px!important}
+#app.gt-app #scheduleContent .gtsl-section .gtsl-time{font-size:11px!important}
+#app.gt-app #scheduleContent :is(
+ .gtal-section .gtal-action,
+ .gtsl-section .gtsl-action,
+ .gtnl-section .gtnl-action,
+ .gtav1-section .gtav1-action,
+ .gtglv1-section .gtglv1-action
+){
+ appearance:none!important;
+ font-family:inherit!important;
+ font-size:12px!important;
+ font-weight:700!important;
+ line-height:1.4!important;
+ letter-spacing:normal!important;
+ text-transform:none!important;
+ color:var(--gt-accent)!important;
+ background:transparent!important;
+ border:0!important;
+ box-shadow:none!important;
+ min-height:44px;
+ padding:9px 0 9px 8px!important;
+ margin:0!important;
+ flex:0 0 auto;
+ text-align:right;
+ white-space:nowrap;
+ cursor:pointer;
+}
+#app.gt-app #scheduleContent :is(
+ .gtal-section .gtal-action,
+ .gtsl-section .gtsl-action,
+ .gtnl-section .gtnl-action,
+ .gtav1-section .gtav1-action,
+ .gtglv1-section .gtglv1-action
+):focus-visible{outline:2px solid var(--gt-accent);outline-offset:2px}
+
+html[data-theme] #app.gt-app #scheduleContent>.up1-page{display:flex;flex-direction:column;min-width:0;min-height:100%}
+html[data-theme] #app.gt-app #scheduleContent .up1-header{padding:12px 0 20px}
+html[data-theme] #app.gt-app #scheduleContent .up1-heading{display:grid;grid-template-columns:34px minmax(0,1fr) 44px;gap:9px;align-items:start}
+html[data-theme] #app.gt-app #scheduleContent .up1-back{width:34px;min-height:44px;border:0;background:none;color:var(--gt-ink);display:grid;place-items:center;padding:4px;border-radius:8px}
+html[data-theme] #app.gt-app #scheduleContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #scheduleContent .up1-title{display:flex;align-items:center;min-height:44px;gap:9px;min-width:0}
+html[data-theme] #app.gt-app #scheduleContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important;color:var(--gt-ink)!important}
+html[data-theme] #app.gt-app #scheduleContent .up1-title svg{width:25px;height:25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px!important;text-transform:uppercase!important;color:var(--gt-ink)!important;margin:7px 0 0!important;padding:0!important;white-space:normal!important}
+html[data-theme] #app.gt-app #scheduleContent .up1-actions{display:grid;grid-template-columns:minmax(0,1fr);margin-top:20px;width:100%}
+html[data-theme] #app.gt-app #scheduleContent .up1-action{border-radius:11px;border:1px solid #c6d9c8;background:#e3efe5;color:var(--gt-ink);min-height:50px;min-width:0;padding:9px 8px;font-size:clamp(11px,2.8vw,14px);font-weight:400;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:7px}
+html[data-theme] #app.gt-app #scheduleContent .up1-action svg{width:17px;height:17px;flex:0 0 17px}
+html[data-theme=courtside] #app.gt-app #scheduleContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #scheduleContent .up1-content{min-width:0;flex:1 0 auto;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #scheduleContent .up1-footer{border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #scheduleContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .up1-footer span:last-child{color:var(--gt-accent)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter{position:relative;align-self:start;z-index:12}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter summary{list-style:none;cursor:pointer;min-width:44px;padding:8px!important}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter summary::-webkit-details-marker{display:none}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter summary svg{width:22px;height:22px}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel{position:absolute;right:0;top:50px;width:min(280px,80vw);background:var(--gt-surface,#fff);border:1px solid var(--gt-edge);border-radius:12px;box-shadow:0 8px 20px #0002;padding:14px;display:grid;gap:12px;z-index:15}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel label{display:grid;gap:5px;font-size:13px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel select,html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-panel input{width:100%;min-height:40px;font:inherit;border:1px solid var(--gt-edge);border-radius:8px;padding:7px;color:var(--gt-ink);background:var(--gt-bg)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-filter-done{min-height:38px;border-radius:8px;border:1px solid var(--gt-edge);background:var(--gt-bg);color:var(--gt-ink)}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility{margin-top:18px;border-top:1px solid var(--gt-edge);padding-top:12px;font-size:14px}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility summary{cursor:pointer;font-weight:600}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-utility-content{padding:12px 0}
+html[data-theme] #app.gt-app #scheduleContent .gtschedule-feed{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+@media(min-width:700px){html[data-theme] #app.gt-app #scheduleContent .up1-actions{max-width:360px}}
+</style>
+<style id="gt-notebook-universal-shell-v1">
+html[data-theme] #app.gt-app #notebookContent .up1-page{width:100%;min-width:0}
+html[data-theme] #app.gt-app #notebookContent .up1-header{padding:0 0 14px}
+html[data-theme] #app.gt-app #notebookContent .up1-heading{display:flex;align-items:flex-start;gap:10px}
+html[data-theme] #app.gt-app #notebookContent .up1-back{display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border:0;background:transparent;color:var(--gt-ink);padding:5px;border-radius:9px}
+html[data-theme] #app.gt-app #notebookContent .up1-back svg{width:24px;height:24px}
+html[data-theme] #app.gt-app #notebookContent .up1-title{display:flex;gap:9px;align-items:center;min-height:39px}
+html[data-theme] #app.gt-app #notebookContent .up1-title h1{margin:0!important;font-size:clamp(20px,5.5vw,29px)!important;line-height:1.2;font-weight:800;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-title svg{width:25px;height:25px;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-subtitle-v1{display:block!important;font:750 11px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;letter-spacing:1.2px;text-transform:uppercase;color:var(--gt-ink);margin:7px 0 0}
+html[data-theme] #app.gt-app #notebookContent .up1-actions{display:grid;grid-template-columns:minmax(0,1fr);margin-top:20px}
+html[data-theme] #app.gt-app #notebookContent .up1-action{width:100%;min-height:50px;display:flex;align-items:center;justify-content:center;background:#e3efe5;border:1px solid #c6d9c8;border-radius:11px;color:var(--gt-ink);font-size:14px;font-weight:500}
+html[data-theme=courtside] #app.gt-app #notebookContent .up1-action{background:#2a4934;border-color:#416d50;color:#e4f6e6}
+html[data-theme] #app.gt-app #notebookContent .up1-content{min-height:110px;border-top:1px solid var(--gt-edge);padding-top:20px}
+html[data-theme] #app.gt-app #notebookContent .up1-footer{border-top:1px solid var(--gt-edge);background:transparent;text-align:center;margin-top:30px;padding:24px 0 6px}
+html[data-theme] #app.gt-app #notebookContent .up1-footer span{display:block;font-size:clamp(10px,3.05vw,13px);font-weight:850;letter-spacing:1.1px;line-height:1.7;color:var(--gt-ink)}
+html[data-theme] #app.gt-app #notebookContent .up1-footer span:last-child{color:var(--gt-accent)}
+</style>
+<style id="gt-notebook-recent-notes-v7-approved">
+#app.gt-app #notebookContent .gt-rn-section{margin:0 0 24px;min-width:0}
+#app.gt-app #notebookContent .gt-rn-heading{display:flex;justify-content:space-between;align-items:start;gap:10px;margin:0 0 13px}
+#app.gt-app #notebookContent .gt-rn-heading h2{font-size:18px!important;font-weight:800!important;letter-spacing:-.35px!important;line-height:1.3!important;color:var(--gt-ink)!important;margin:0!important}
+#app.gt-app #notebookContent .gt-rn-heading p{font-size:12px!important;color:var(--gt-muted)!important;margin:4px 0 0!important}
+#app.gt-app #notebookContent .gt-recent-notes{--ink:#172119;--ink-soft:#59655b;--line:#d6e6d8;--banner:#e8f4e9;--g1:#dff0e1;--g2:#d2ead6;--g3:#c9e4cf;--g4:#d8efd8;--g5:#cfe7d3;--g6:#e3f3e3;box-sizing:border-box}
+#app.gt-app #notebookContent .gt-recent-notes *{box-sizing:border-box}
+#app.gt-app #notebookContent .gt-recent-notes .gt-rn-banner{background:var(--banner)!important;border:1px solid var(--line)!important;border-radius:20px!important;overflow:hidden;box-shadow:0 3px 16px rgba(30,70,49,.05)!important;padding:0!important}
+
+#app.gt-app #notebookContent .gt-rn-main{padding:10px}
+#app.gt-app #notebookContent .gt-rn-cells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(96px,auto));gap:8px}
+#app.gt-app #notebookContent .gt-rn-cell{box-shadow:inset 0 0 0 1px rgba(43,89,59,.04);transition:transform .14s ease,filter .14s ease}
+#app.gt-app #notebookContent .gt-rn-cell:hover,#app.gt-app #notebookContent .gt-rn-cell:focus-visible{transform:translateY(-1px);filter:brightness(.985)}
+#app.gt-app #notebookContent .gt-rn-note-text{margin:0;line-height:1.35;letter-spacing:-.01em}
+#app.gt-app #notebookContent .gt-rn-note-text::before,#app.gt-app #notebookContent .gt-rn-note-text::after{content:'"';font-style:normal;opacity:.75}
+#app.gt-app #notebookContent .gt-rn-a{grid-area:1/1/2/3;background:var(--g1)!important;border-radius:26px 18px 24px 20px!important}
+#app.gt-app #notebookContent .gt-rn-c{grid-area:1/3/2/4;background:var(--g2)!important;border-radius:18px 28px 18px 24px!important}
+#app.gt-app #notebookContent .gt-rn-d{grid-area:2/1/4/2;background:var(--g3)!important;border-radius:28px 20px 18px 26px!important}
+#app.gt-app #notebookContent .gt-rn-e{grid-area:2/2/3/4;background:var(--g4)!important;border-radius:18px 24px 26px 18px!important}
+#app.gt-app #notebookContent .gt-rn-f{grid-area:3/2/4/3;background:var(--g5)!important;border-radius:24px 18px 28px 20px!important}
+#app.gt-app #notebookContent .gt-rn-g{grid-area:3/3/4/4;background:var(--g6)!important;border-radius:20px 26px 18px 24px!important}
+#app.gt-app #notebookContent .gt-rn-wide .gt-rn-note-text{font-size:17px!important}
+#app.gt-app #notebookContent .gt-rn-tall .gt-rn-note-text{font-size:16px!important}
+#app.gt-app #notebookContent .gt-rn-standard .gt-rn-note-text{font-size:15px!important}
+#app.gt-app #notebookContent .gt-rn-short .gt-rn-note-text{font-size:16px!important}
+#app.gt-app #notebookContent .gt-rn-long .gt-rn-note-text{font-size:14px!important;line-height:1.32!important}
+#app.gt-app #notebookContent .gt-rn-verylong .gt-rn-note-text{font-size:13px!important;line-height:1.28!important}
+#app.gt-app #notebookContent .gt-rn-cell{border:0!important;min-width:0!important;width:100%!important;cursor:pointer!important;text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:12px 10px!important;color:#172119!important;position:relative!important}
+#app.gt-app #notebookContent .gt-rn-note-text{font-style:italic!important;font-weight:600!important;color:#172119!important}
+#app.gt-app #notebookContent .gt-rn-meta{font-size:10.5px!important;color:#59655b!important;font-weight:650!important}
+#app.gt-app #notebookContent .gt-rn-cell:focus-visible{outline:2px solid #6aa17d!important;outline-offset:-2px}
+#app.gt-app #notebookContent .gt-rn-placeholder{pointer-events:none!important;opacity:.28!important}
+#app.gt-app #notebookContent .gt-rn-empty{min-height:170px;grid-column:1/-1;display:grid;place-items:center;text-align:center;color:#59655b;font-size:13px;padding:16px}
+@media(max-width:420px){
+#app.gt-app #notebookContent .gt-rn-main{padding:8px!important}
+#app.gt-app #notebookContent .gt-rn-cells{gap:6px!important;grid-template-rows:repeat(3,minmax(102px,auto))!important}
+#app.gt-app #notebookContent .gt-rn-cell{padding:10px 8px!important}
+#app.gt-app #notebookContent .gt-rn-wide .gt-rn-note-text{font-size:16px!important}
+#app.gt-app #notebookContent .gt-rn-tall .gt-rn-note-text{font-size:15px!important}
+#app.gt-app #notebookContent .gt-rn-standard .gt-rn-note-text{font-size:14px!important}
+#app.gt-app #notebookContent .gt-rn-short .gt-rn-note-text{font-size:15px!important}
+#app.gt-app #notebookContent .gt-rn-long .gt-rn-note-text{font-size:13px!important}
+#app.gt-app #notebookContent .gt-rn-verylong .gt-rn-note-text{font-size:12.5px!important}
+}
+</style>
+<style id="gt-notebook-all-notes-v18">
+#app.gt-app #notebookContent .gt-an-v18-section{--an-ink:#172119;--an-muted:#59655b;--an-accent:#087b40;--an-edge:#cedbd2;background:#fff!important;border:1px solid var(--an-edge)!important;border-radius:16px!important;overflow:hidden;box-shadow:none!important;margin:20px 0}
+#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 16px 14px!important;border-bottom:1px solid var(--an-edge)}
+#app.gt-app #notebookContent .gt-an-v18-section .gtc-section-titles{min-width:0;flex:1}
+#app.gt-app #notebookContent .gt-an-v18-section .gtc-section-title{font-size:17px!important;line-height:1.3!important;font-weight:810!important;letter-spacing:-.3px!important;margin:0!important;color:var(--an-ink)!important}
+#app.gt-app #notebookContent .gt-an-v18-section .gtc-section-subtitle{font-size:12px!important;font-weight:500!important;line-height:1.4!important;color:var(--an-muted)!important;margin:4px 0 0!important}
+#app.gt-app #notebookContent .gt-an-v18-trigger{display:inline-flex;align-items:center;justify-content:center;flex:0 0 36px;width:36px;height:36px;background:transparent!important;border:1px solid var(--an-edge)!important;border-radius:9px!important;color:var(--an-accent)!important;padding:7px!important;cursor:pointer}
+#app.gt-app #notebookContent .gt-an-v18-trigger[aria-expanded=true]{background:#e7f3e9!important;border-color:#94c3a2!important}
+#app.gt-app #notebookContent .gt-an-v18-accordion{padding:16px;background:#f9fbf9;border-bottom:1px solid var(--an-edge);display:grid;gap:12px}
+#app.gt-app #notebookContent .gt-an-v18-accordion[hidden],#app.gt-app #notebookContent .gt-an-v18-dates[hidden]{display:none!important}
+#app.gt-app #notebookContent .gt-an-v18-field{display:grid;gap:6px;min-width:0}
+#app.gt-app #notebookContent .gt-an-v18-field>span{font-size:10px;font-weight:800;letter-spacing:.55px;text-transform:uppercase;color:var(--an-muted)}
+#app.gt-app #notebookContent .gt-an-v18-field select,#app.gt-app #notebookContent .gt-an-v18-field input{appearance:auto;min-width:0;width:100%;min-height:41px;border:1px solid var(--an-edge)!important;border-radius:9px!important;background:#f6faf6!important;color:var(--an-ink)!important;padding:8px 9px!important;font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+#app.gt-app #notebookContent .gt-an-v18-dates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#app.gt-app #notebookContent .gt-an-v18-status{grid-column:1/-1;margin:0;font-size:10px;color:var(--an-muted)}
+#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-content{padding:0!important;background:#fff!important;min-width:0}
+#app.gt-app #notebookContent .gt-an-v18-groups{padding:8px 16px 22px;background:#fff;min-height:180px}
+#app.gt-app #notebookContent .gt-an-v18-group+.gt-an-v18-group{margin-top:9px}
+#app.gt-app #notebookContent .gt-an-v18-group-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:43px;padding:12px 0 9px;border-bottom:1px solid #e3eae4;color:var(--an-accent);font-size:12px;font-weight:800}
+#app.gt-app #notebookContent .gt-an-v18-group-date{font-weight:650;color:var(--an-muted)}
+#app.gt-app #notebookContent .gt-an-v18-count{margin-left:auto;font-size:10px;font-weight:700;color:var(--an-muted);white-space:nowrap}
+#app.gt-app #notebookContent .gt-an-v18-note{margin:0;padding:16px 0 17px;border:0;background:transparent;cursor:pointer}
+#app.gt-app #notebookContent .gt-an-v18-note+.gt-an-v18-note{border-top:1px solid #edf1ed}
+#app.gt-app #notebookContent .gt-an-v18-note q{display:block;quotes:'“' '”';font-size:18px!important;line-height:1.46!important;font-style:italic!important;font-weight:600!important;color:var(--an-ink)!important;overflow-wrap:anywhere}
+#app.gt-app #notebookContent .gt-an-v18-meta{margin-top:11px;font-size:11px;font-weight:650;line-height:1.45;color:var(--an-muted);text-align:right}
+#app.gt-app #notebookContent .gt-an-v18-empty{font-size:13px;color:var(--an-muted);text-align:center;padding:20px}
+#app.gt-app #notebookContent .gt-an-v18-note:focus-visible,#app.gt-app #notebookContent .gt-an-v18-trigger:focus-visible{outline:2px solid var(--an-accent);outline-offset:2px}
+@media(min-width:560px){#app.gt-app #notebookContent .gt-an-v18-accordion{grid-template-columns:1fr 1fr;align-items:start}}
+@media(max-width:420px){#app.gt-app #notebookContent .gt-an-v18-section>.gtc-section-header{padding:15px 13px 12px!important}#app.gt-app #notebookContent .gt-an-v18-groups{padding:6px 13px 20px}#app.gt-app #notebookContent .gt-an-v18-note q{font-size:17px!important}}
+</style>
+<style id="gt-notebook-v5-sidebar-and-typography">
+/* Approved V18 All Notes text: normal weight, keep existing 18/17px size. */
+#app.gt-app #notebookContent .gt-an-v18-note q{font-weight:400!important}
+#app.gt-app #notebookContent .gt-updated-note-cta{display:none}
+html[data-theme] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-action{
+ background:#e3efe5!important;border:1px solid #c6d9c8!important;border-radius:20px!important;
+ box-shadow:none!important;min-height:50px!important;font:400 15px/1.25 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+ color:var(--gt-ink)!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;
+}
+html[data-theme=courtside] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-action{background:#2a4934!important;border-color:#416d50!important;color:#e4f6e6!important}
+html[data-theme] #app.gt-app #notebookContent .up1-action.gt-notebook-new-note-action svg{height:21px!important;width:21px!important;flex:0 0 21px!important}
+#app.gt-app #notebookContent .gt-nstv5-host{--nst-ink:#172119;--nst-muted:#59655b;--nst-accent:#087b40;--nst-edge:#cedbd2;--nst-tab1:#dcefe0;--nst-tab2:#cbe5d2}
+#app.gt-app #notebookContent .gt-nstv5-host *{box-sizing:border-box}
+#app.gt-app #notebookContent .gt-nstv5-rail{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));top:auto;left:calc(100vw - 42px);width:42px;z-index:120;pointer-events:none}
+#app.gt-app #notebookContent .gt-nstv5-tabs{width:42px;display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+#app.gt-app #notebookContent .gt-nstv5-tab{height:47px;width:42px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--nst-tab1)!important;color:#165c35!important;border:1px solid #b7d6bf!important;border-right:0!important;border-radius:12px 0 0 12px!important;cursor:pointer;box-shadow:2px 2px 4px rgba(25,62,40,.035);transition:background .15s,transform .15s}
+#app.gt-app #notebookContent .gt-nstv5-tab.commitment{background:var(--nst-tab2)!important}
+#app.gt-app #notebookContent .gt-nstv5-tab:hover,#app.gt-app #notebookContent .gt-nstv5-tab[aria-pressed=true]{background:#a7d7b6!important;transform:translateX(-2px)}
+#app.gt-app #notebookContent .gt-nstv5-tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#app.gt-app #notebookContent .gt-nstv5-visibility{pointer-events:auto;display:flex;align-items:center;justify-content:center;width:42px;height:28px;margin-top:7px;padding:0;background:#eff6f0!important;color:#165c35!important;border:1px solid #b7d6bf!important;border-right:0!important;border-radius:9px 0 0 9px!important;cursor:pointer;box-shadow:0 2px 5px rgba(25,62,40,.07)}
+#app.gt-app #notebookContent .gt-nstv5-visibility svg{width:16px;height:16px;transition:transform .15s}
+#app.gt-app #notebookContent .gt-nstv5-rail.is-hidden .gt-nstv5-tabs{display:none!important}
+#app.gt-app #notebookContent .gt-nstv5-rail.is-hidden .gt-nstv5-visibility{height:42px;background:#dcefe0!important;margin-top:0}
+#app.gt-app #notebookContent .gt-nstv5-rail.is-hidden .gt-nstv5-visibility svg{transform:rotate(180deg)}
+#app.gt-app #notebookContent .gt-nstv5-scrim{position:fixed;inset:0;background:rgba(13,38,23,.38);z-index:190;display:none}
+#app.gt-app #notebookContent .gt-nstv5-scrim.open{display:block}
+#app.gt-app #notebookContent .gt-nstv5-panel{position:fixed;z-index:191;top:0;right:0;bottom:0;width:min(420px,100vw);background:#fff!important;color:var(--nst-ink)!important;box-shadow:-14px 0 35px rgba(13,38,23,.12);transform:translateX(105%);transition:transform .24s ease;display:flex;flex-direction:column}
+#app.gt-app #notebookContent .gt-nstv5-panel.open{transform:translateX(0)}
+#app.gt-app #notebookContent .gt-nstv5-panel-head{padding:22px 20px 15px;border-bottom:1px solid var(--nst-edge);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#app.gt-app #notebookContent .gt-nstv5-panel-title{display:flex;align-items:center;gap:12px}
+#app.gt-app #notebookContent .gt-nstv5-panel-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;background:#e8f4e9;color:var(--nst-accent)}
+#app.gt-app #notebookContent .gt-nstv5-panel-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#app.gt-app #notebookContent .gt-nstv5-panel h2{font-size:19px!important;margin:0 0 3px!important;color:var(--nst-ink)!important}
+#app.gt-app #notebookContent .gt-nstv5-panel-head p{margin:0!important;color:var(--nst-muted)!important;font-size:11px!important}
+#app.gt-app #notebookContent .gt-nstv5-icon-btn{min-width:36px;min-height:36px;border:1px solid var(--nst-edge)!important;background:#fff!important;border-radius:8px!important;font-size:21px!important;cursor:pointer;color:var(--nst-muted)!important}
+#app.gt-app #notebookContent .gt-nstv5-body{padding:23px 21px;overflow:auto;flex:1}
+#app.gt-app #notebookContent .gt-nstv5-label{font-size:10px!important;letter-spacing:.7px;color:var(--nst-accent)!important;font-weight:800!important;text-transform:uppercase;margin:0 0 13px!important}
+#app.gt-app #notebookContent .gt-nstv5-statement{font-size:19px!important;font-weight:600!important;line-height:1.65!important;font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere;margin:0!important;color:var(--nst-ink)!important}
+#app.gt-app #notebookContent .gt-nstv5-statement.is-empty{font-size:14px!important;color:var(--nst-muted)!important;font-style:normal}
+#app.gt-app #notebookContent .gt-nstv5-edit-label{font-size:11px!important;font-weight:800!important;color:var(--nst-muted)!important;display:block;margin-bottom:8px}
+#app.gt-app #notebookContent .gt-nstv5-editor{width:100%;min-height:190px;resize:vertical;border:1px solid var(--nst-edge)!important;border-radius:10px!important;background:#f9fbf9!important;color:var(--nst-ink)!important;font-size:15px!important;font-weight:500!important;line-height:1.65!important;padding:13px!important}
+#app.gt-app #notebookContent .gt-nstv5-error{color:#b91c1c;font-size:12px}
+#app.gt-app #notebookContent .gt-nstv5-foot{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--nst-edge);display:flex;gap:8px;justify-content:flex-end}
+#app.gt-app #notebookContent .gt-nstv5-action{border:1px solid #b6d1bd!important;border-radius:9px!important;padding:10px 15px!important;min-height:40px;background:#fff!important;color:var(--nst-accent)!important;font-size:12px!important;font-weight:750!important;cursor:pointer}
+#app.gt-app #notebookContent .gt-nstv5-action.primary{background:var(--nst-accent)!important;color:white!important;border-color:var(--nst-accent)!important}
+#app.gt-app #notebookContent .gt-nstv5-host [hidden]{display:none!important}
+#app.gt-app #notebookContent .gt-nstv5-visibility:focus-visible,#app.gt-app #notebookContent .gt-nstv5-tab:focus-visible,#app.gt-app #notebookContent .gt-nstv5-action:focus-visible{outline:2px solid var(--nst-accent);outline-offset:2px}
+@media(max-width:430px){#app.gt-app #notebookContent .gt-nstv5-rail{width:39px;bottom:calc(82px + env(safe-area-inset-bottom,0px))}#app.gt-app #notebookContent .gt-nstv5-tabs{width:39px}#app.gt-app #notebookContent .gt-nstv5-tab{width:39px;height:45px}#app.gt-app #notebookContent .gt-nstv5-visibility{width:39px}#app.gt-app #notebookContent .gt-nstv5-panel{width:100vw}}
+@media(prefers-reduced-motion:reduce){#app.gt-app #notebookContent .gt-nstv5-panel,#app.gt-app #notebookContent .gt-nstv5-tab{transition:none}}
+</style>
+<style id="gt-notebook-banners-homecourt-surface-v1">
+/* Match the exact approved Home Court SharedBanner V2 surface.
+   Only Notebook banner surfaces are changed; individual V7 bubbles retain their approved colors. */
+html[data-theme] #app.gt-app #notebookContent {
+  --gtv2-banner-surface:linear-gradient(135deg,#f3f7f4,#e6efe8);
+  --gtv2-banner-edge:#cedbd2;
+}
+html[data-theme="courtside"] #app.gt-app #notebookContent {
+  --gtv2-banner-surface:linear-gradient(135deg,#27352e,#202c26);
+  --gtv2-banner-edge:#455a4d;
+}
+html[data-theme] #app.gt-app #notebookContent .gt-recent-notes .gt-rn-banner,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section {
+  background:var(--gtv2-banner-surface)!important;
+  border:1px solid var(--gtv2-banner-edge)!important;
+  box-shadow:none!important;
+}
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section > .gtc-section-content,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-groups {
+  background:transparent!important;
+}
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion{
+  background:transparent!important;
+}
+</style>
+<style id="gt-homecourt-shared-banner-surface-extension-v1">
+/* Extend the exact approved Home Court / Notebook SharedBanner V2 surface to
+   Performance Overview and Trainings, without changing banner layout or content. */
+html[data-theme] #app.gt-app {
+  --gt-homecourt-banner-surface:linear-gradient(135deg,#f3f7f4,#e6efe8);
+  --gt-homecourt-banner-border:#cedbd2;
+}
+html[data-theme="courtside"] #app.gt-app {
+  --gt-homecourt-banner-surface:linear-gradient(135deg,#27352e,#202c26);
+  --gt-homecourt-banner-border:#455a4d;
+}
+/* Scoreboard — Performance Overview V7.1. */
+html[data-theme] #app.gt-app #reportsContent #gt-scoreboard-review .gtpo-v71-banner {
+  background:var(--gt-homecourt-banner-surface)!important;
+  border-color:var(--gt-homecourt-banner-border)!important;
+  box-shadow:none!important;
+}
+/* Trainings — approved Training Summary V8; keep chips transparent. */
+html[data-theme] #app.gt-app .gttsv2-banner,
+html[data-theme] #app.gt-app .gttsv2-banner :is(.gttsv2-cell,.gttsv2-primary-one,.gttsv2-primary-two,.gttsv2-milestone,.gttsv2-details-row,.gttsv2-details-cell) {
+  background:var(--gt-homecourt-banner-surface)!important;
+  border-color:var(--gt-homecourt-banner-border)!important;
+}
+/* Training Details — the separately approved training banner. */
+html[data-theme] #app.gt-app .gt-training-detail-section .training-banner {
+  background:var(--gt-homecourt-banner-surface)!important;
+  border-color:var(--gt-homecourt-banner-border)!important;
+  box-shadow:none!important;
+}
+/* Preserve transparent achievement and skill chips. */
+html[data-theme] #app.gt-app .gttsv2-banner :is(.gttsv2-achievement,.gttsv2-skill-tag){background:transparent!important;}
+</style>
+
+<style id="gt-notebook-side-tabs-quarter-height-v1">
+/* My Prayer / My Commitment: approved compact drawer height, iPhone-first.
+   Keep the existing panel DOM, footer actions, and scrolling behavior. */
+#app.gt-app #notebookContent .gt-nstv5-panel {
+  top:auto!important;
+  bottom:0!important;
+  height:75vh!important;
+  height:75dvh!important;
+  max-height:75vh!important;
+  max-height:75dvh!important;
+  border-radius:18px 18px 0 0!important;
+  overflow:hidden;
+}
+#app.gt-app #notebookContent .gt-nstv5-panel-head {flex-shrink:0;}
+#app.gt-app #notebookContent .gt-nstv5-body {min-height:0;overflow-y:auto;}
+#app.gt-app #notebookContent .gt-nstv5-foot {flex-shrink:0;}
+</style>
+
+<style id="gt-notebook-all-notes-transparent-v1">
+/* All Notes only: remove the tinted banner fill; retain approved content, structure and typography. */
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section > .gtc-section-header,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-section > .gtc-section-content,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-groups,
+html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion {
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+</style>
+</body></html>

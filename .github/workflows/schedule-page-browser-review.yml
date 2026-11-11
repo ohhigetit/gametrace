@@ -1,0 +1,23 @@
+name: Schedule Page Full Browser Review
+on:
+  push:
+    branches: [review/schedule-universal-v1-20261110]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  schedule-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chrome automation driver
+        run: npm install --prefix /tmp/gt-schedule-browser puppeteer-core@24 --no-save --no-package-lock
+      - name: Run real application in headless Chrome
+        env:
+          NODE_PATH: /tmp/gt-schedule-browser/node_modules
+          CHROME_BIN: /usr/bin/google-chrome
+        run: node tests/schedule-page-browser-review.cjs

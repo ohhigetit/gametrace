@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameTrace · Recent Notes · V7 Approved Banner Ink</title>
+<style>
+:root{
+  --page:#f5f8f5;
+  --ink:#172119;
+  --ink-soft:#59655b;
+  --line:#d6e6d8;
+  --banner:#e8f4e9;
+  --g1:#dff0e1;
+  --g2:#d2ead6;
+  --g3:#c9e4cf;
+  --g4:#d8efd8;
+  --g5:#cfe7d3;
+  --g6:#e3f3e3;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);padding:18px 12px}
+.wrap{max-width:640px;margin:0 auto}
+.eyebrow{font-size:12px;line-height:1.4;color:var(--ink-soft);margin:0 0 12px}
+.banner{background:var(--banner);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 3px 16px rgba(30,70,49,.05)}
+.main{padding:10px}
+.cells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(96px,auto));gap:8px}
+.cell{
+  border:0; min-width:0; width:100%; cursor:pointer; text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;
+  padding:12px 10px; color:var(--ink); position:relative;
+  box-shadow: inset 0 0 0 1px rgba(43,89,59,.04);
+  transition:transform .14s ease, filter .14s ease;
+}
+.cell:hover,.cell:focus-visible{transform:translateY(-1px);filter:brightness(.985);outline:2px solid #6aa17d;outline-offset:-2px}
+.note-text{margin:0; font-style:italic; font-weight:600; color:var(--ink); line-height:1.35; letter-spacing:-.01em}
+.note-text::before,.note-text::after{content:'"'; font-style:normal; opacity:.75}
+.meta{display:block; font-size:10.5px; line-height:1.35; font-weight:650; color:var(--ink-soft); opacity:1}
+/* merged layout */
+.a{grid-area:1/1/2/3;background:var(--g1);border-radius:26px 18px 24px 20px}
+.c{grid-area:1/3/2/4;background:var(--g2);border-radius:18px 28px 18px 24px}
+.d{grid-area:2/1/4/2;background:var(--g3);border-radius:28px 20px 18px 26px}
+.e{grid-area:2/2/3/4;background:var(--g4);border-radius:18px 24px 26px 18px}
+.f{grid-area:3/2/4/3;background:var(--g5);border-radius:24px 18px 28px 20px}
+.g{grid-area:3/3/4/4;background:var(--g6);border-radius:20px 26px 18px 24px}
+/* Approved banner ink #172119; muted #59655b; individual note sizes adapt to cell/length. */
+/* type sizing by cell + note length */
+.wide .note-text{font-size:17px}
+.tall .note-text{font-size:16px}
+.standard .note-text{font-size:15px}
+.short .note-text{font-size:16px}
+.long .note-text{font-size:14px;line-height:1.32}
+.verylong .note-text{font-size:13px;line-height:1.28}
+.detail{display:none;margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px}
+.detail.show{display:block}
+.detail small{display:block;color:var(--ink-soft);margin-bottom:6px}
+.tag{display:inline-block;background:#e6f2e9;color:#176139;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700;margin-bottom:10px}
+.detail p{margin:0;line-height:1.5;color:var(--ink)}
+.close{float:right;border:0;background:transparent;color:var(--ink-soft);font-size:18px;cursor:pointer}
+.label{margin:12px 2px 0;font-size:11px;line-height:1.5;color:var(--ink-soft)}
+@media (max-width:420px){
+  body{padding:12px 8px}
+  .main{padding:8px}
+  .cells{gap:6px;grid-template-rows:repeat(3,minmax(102px,auto))}
+  .cell{padding:10px 8px}
+  .wide .note-text{font-size:16px}
+  .tall .note-text{font-size:15px}
+  .standard .note-text{font-size:14px}
+  .short .note-text{font-size:15px}
+  .long .note-text{font-size:13px}
+  .verylong .note-text{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">GameTrace · Recent Notes content only · Colors aligned with approved Training Detail Banner typography</p>
+  <section class="banner" aria-label="Recent Notes">
+
+    <div class="main">
+      <div class="cells">
+        <button class="cell a wide short" data-origin="Game · vs Panthers" data-date="Nov 9" data-area="Become" data-full="I stayed focused after mistakes, even when I missed shots.">
+          <span class="note-text">Stay focused after mistakes</span>
+          <span class="meta">Game · Nov 9</span>
+        </button>
+
+        <button class="cell c standard short" data-origin="Personal Reflection" data-date="Nov 8" data-area="Become More" data-full="I want to attack the basket with confidence.">
+          <span class="note-text">Attack with confidence</span>
+          <span class="meta">Personal · Nov 8</span>
+        </button>
+
+        <button class="cell d tall verylong" data-origin="Game · vs Wildcats" data-date="Nov 4" data-area="See" data-full="I noticed that my hesitation sometimes causes me to pass up a chance to drive, and I want to understand it better.">
+          <span class="note-text">Understand hesitation and learn from every game</span>
+          <span class="meta">Game · Nov 4</span>
+        </button>
+
+        <button class="cell e wide long" data-origin="Training · Skills" data-date="Nov 3" data-area="See" data-full="I make quicker decisions when I know where the defender is.">
+          <span class="note-text">Quick decisions matter when reading defenders</span>
+          <span class="meta">Training · Nov 3</span>
+        </button>
+
+        <button class="cell f standard short" data-origin="Game · vs Eagles" data-date="Oct 24" data-area="Become More" data-full="I want to become a better teammate.">
+          <span class="note-text">Be a better teammate</span>
+          <span class="meta">Game · Oct 24</span>
+        </button>
+
+        <button class="cell g standard short" data-origin="Personal Reflection" data-date="Oct 18" data-area="Become" data-full="I want to keep working hard.">
+          <span class="note-text">Keep working hard</span>
+          <span class="meta">Personal · Oct 18</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div id="detail" class="detail" aria-live="polite">
+    <button class="close" aria-label="Close note" onclick="document.getElementById('detail').classList.remove('show')">×</button>
+    <small id="origin"></small>
+    <div class="tag" id="area"></div>
+    <p id="full"></p>
+  </div>
+
+  <p class="label">Content-only component (no header). Row 1: columns 1–2 are merged; column 3 is separate. Rows 2–3: column 1 is one tall merged cell; row 2 columns 2–3 are merged; row 3 columns 2 and 3 are separate. Each bubble uses a green background with a slightly different shape. Note text is shown in quotes and italics, with font size adjusted by cell size and note length.</p>
+</div>
+
+<script>
+function openDetail(btn){
+  document.getElementById('origin').textContent = btn.dataset.origin + ' · ' + btn.dataset.date;
+  document.getElementById('area').textContent = btn.dataset.area;
+  document.getElementById('full').textContent = btn.dataset.full;
+  document.getElementById('detail').classList.add('show');
+}
+document.querySelectorAll('.cell').forEach(btn=>btn.addEventListener('click',()=>openDetail(btn)));
+</script>
+</body>
+</html>
