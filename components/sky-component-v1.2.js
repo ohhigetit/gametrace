@@ -103,17 +103,83 @@
 
   // Re-check deferred bridge registration after original app scripts finish.
   window.addEventListener('pageshow',connectGameTraceStore);
+
+  // Sky V1.7: local rule-based retrieval using the read-only GameTrace provider.
+  function answerFromData(question){
+    const state=dataBridge.snapshot();
+    if(!state.connected)return 'GameTrace data is not connected. '+(state.reason||'');
+    const data=state.data||{};
+    const arr=(key)=>Array.isArray(data[key])?data[key]:[];
+    const str=(value)=>String(value===undefined||value===null?'':value).trim();
+    const clip=(value,n=250)=>str(value).slice(0,n);
+    const date=(value)=>str(value).slice(0,10)||'date unavailable';
+    const byLatest=(a,b)=>str(b.date||b.start).localeCompare(str(a.date||a.start));
+    const notes=[...arr('notes')].sort(byLatest);
+    const q=str(question).toLowerCase();
+    const linesForNote=(note)=>{
+      const labels={see:'What I Saw',became:'What I Became',more:'What I Want to Become More',additional:'Additional Notes',well:'What Went Well',challenge:'Challenge',next:'Next Focus'};
+      const out=Object.entries(note.feedback||{}).filter(([key,value])=>labels[key]&&str(value)).map(([key,value])=>labels[key]+': '+clip(value,320));
+      if(str(note.notes))out.push('Note: '+clip(note.notes,300));
+      if(str(note.text))out.push('Note: '+clip(note.text,300));
+      return out;
+    };
+    if(/last game|latest game|recent game|game performance|how did i perform/.test(q)){
+      const games=[...arr('games')].sort(byLatest);
+      if(!games.length)return 'No recorded games are available here.';
+      const game=games[0];
+      let result='Latest game: '+clip(game.team||'Your team',80)+' vs '+clip(game.opponent||'opponent not recorded',80)+' on '+date(game.date)+'.';
+      const score=game.finalScore;
+      if(score&&str(score.team)&&str(score.opponent))result+=' Final score: '+score.team+'–'+score.opponent+'.';
+      if(str(game.status))result+=' Status: '+clip(game.status,30)+'.';
+      const note=notes.find(n=>n.gameId===game.id);
+      if(note&&linesForNote(note).length)result+='\nPlayer Notes: '+linesForNote(note).slice(0,3).join(' | ');
+      return result;
+    }
+    if(/training|practice|practiced|sessions/.test(q)){
+      const sessions=[...arr('trainings')].sort(byLatest);
+      if(!sessions.length)return 'No trainings are available here.';
+      const last=sessions[0];
+      let result=sessions.length+' training sessions found. Latest: '+clip(last.name||last.type||'Training',90)+' on '+date(last.date)+(str(last.minutes)?' ('+last.minutes+' minutes)':'')+'.';
+      result+='\nRecent sessions: '+sessions.slice(0,5).map(s=>clip(s.name||s.type||'Training',65)+' — '+date(s.date)).join('; ')+'.';
+      const note=notes.find(n=>n.trainingId===last.id);
+      if(note&&linesForNote(note).length)result+='\nLatest reflection: '+linesForNote(note).slice(0,2).join(' | ');
+      return result;
+    }
+    if(/notes|note|reflection|what i saw|what i became|wrote|observations/.test(q)){
+      if(!notes.length)return 'No Player Notes or reflections were found.';
+      return notes.length+' note records found. Three most recent:\n'+notes.slice(0,3).map(n=>(n.source||'Note')+' ('+date(n.date)+'): '+(linesForNote(n).slice(0,3).join(' | ')||'No note text')).join('\n');
+    }
+    if(/goal|playbook|target|next steps/.test(q)){
+      const goals=arr('goals');
+      if(!goals.length)return 'No Playbook goals were found.';
+      const active=goals.filter(g=>g.status!=='achieved');
+      const lines=active.slice(0,6).map(g=>{
+        const entries=[...(Array.isArray(g.entries)?g.entries:[])].sort(byLatest);
+        return '• '+clip(g.title||'Untitled goal',120)+(str(g.targetDate)?' (target '+date(g.targetDate)+')':'')+(entries.length&&str(entries[0].rating)?' — latest self-rating '+entries[0].rating+'/5':'');
+      });
+      return goals.length+' Playbook goals: '+active.length+' active, '+(goals.length-active.length)+' achieved.'+(lines.length?'\n'+lines.join('\n'):'');
+    }
+    if(/schedule|upcoming|next event|calendar/.test(q)){
+      const today=new Date().toISOString().slice(0,10);
+      const events=arr('schedule').filter(e=>date(e.start||e.date)>=today).sort((a,b)=>str(a.start||a.date).localeCompare(str(b.start||b.date))).slice(0,5);
+      if(!events.length)return 'No upcoming events were found in this preview.';
+      return 'Upcoming events:\n'+events.map(e=>'• '+date(e.start||e.date)+' — '+clip(e.title||e.activity||'Event',130)).join('\n');
+    }
+    return 'I can summarize your latest game, trainings, Player Notes, Playbook goals, and upcoming schedule. Try one of those questions. Gemini is not connected yet.';
+  }
+  window.GameTraceSkyAnswers=Object.freeze({ask:answerFromData});
+
   const conversation=[];
   let priorFocus=null;
   let priorOverflow='';
   function add(role,text){conversation.push({role,text});const node=mk('div',{class:'gt-sky-message','data-role':role},mk('small',{text:role==='player'?'You':'Sky (preview)'}),document.createTextNode(text));messages.append(node);messages.scrollTop=messages.scrollHeight}
-  add('sky','Hi! I’m Sky, your GameTrace companion. Data access is read-only and stays on this device. Type “my data” to check the connection. AI conversations are not connected yet.');
+  add('sky','Hi! I’m Sky, your GameTrace companion. Data access is read-only and stays on this device. Ask about games, trainings, Player Notes, goals, or your schedule. Type “my data” to check the connection. Gemini is not connected.');
   function open(){priorFocus=document.activeElement;overlay.hidden=false;trigger.setAttribute('aria-expanded','true');priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';input.focus({preventScroll:true})}
   function shut(){overlay.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.style.overflow=priorOverflow;(priorFocus?.isConnected?priorFocus:trigger).focus({preventScroll:true})}
   trigger.addEventListener('click',open);close.addEventListener('click',shut);
   overlay.addEventListener('pointerdown',e=>{if(e.target===overlay)shut()});
   overlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();shut()}else if(e.key==='Tab'){const targets=[close,input,send];const i=targets.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();send.focus()}else if(!e.shiftKey&&i===2){e.preventDefault();close.focus()}}});
-  form.addEventListener('submit',e=>{e.preventDefault();const value=input.value.trim();if(!value)return;add('player',value);input.value='';if(['my data','data status','connect data','what data do you have'].includes(value.toLowerCase().replace(/[?]$/,''))){const state=dataBridge.snapshot();add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.')}else{add('sky','Sky is still in local preview mode. You can type “my data” to check the GameTrace read-only connection. Gemini is not connected.')}input.focus()});
+  form.addEventListener('submit',e=>{e.preventDefault();const value=input.value.trim();if(!value)return;add('player',value);input.value='';if(['my data','data status','connect data','what data do you have'].includes(value.toLowerCase().replace(/[?]$/,''))){const state=dataBridge.snapshot();add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.')}else{add('sky',answerFromData(value))}input.focus()});
   // Preserve the app cover: Sky becomes available only after entry.
   const cover=document.getElementById('gt-app-cover');
   const refreshVisibility=()=>{trigger.hidden=Boolean(cover && getComputedStyle(cover).display!=='none' && getComputedStyle(cover).visibility!=='hidden' && !cover.hidden && cover.getAttribute('aria-hidden')!=='true' && !document.documentElement.classList.contains('gt-cover-dismissed') && document.documentElement.classList.contains('gt-cover-open'));};
