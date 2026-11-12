@@ -26,6 +26,9 @@ export default async function handler(request){
     if(!verified.ok)return json({error:'Family Cloud session is invalid'},401);
     user=await verified.json();
     if(!user||!user.id)return json({error:'Family Cloud session is invalid'},401);
+    // Pilot is explicitly allowlisted to avoid unexpected API usage.
+    const approvedIds=(process.env.SKY_ALLOWED_USER_IDS||'').split(',').map(x=>x.trim()).filter(Boolean);
+    if(!approvedIds.includes(user.id))return json({error:'Sky AI is not enabled for this family account'},403);
   }catch{return json({error:'Unable to verify Family Cloud session'},503)}
   // Context must be curated by the browser. Reject unexpected structures.
   const allowed=new Set(['game','training','note','goal','schedule']);
