@@ -169,17 +169,88 @@
   }
   window.GameTraceSkyAnswers=Object.freeze({ask:answerFromData});
 
+
+  // AI remains OFF by default. Only an explicit "ai on" opts into sending
+  // a small, curated set of records to the authenticated Netlify proxy.
+  let aiMode=false;
+  const curatedContext=()=>{
+    const state=dataBridge.snapshot();
+    if(!state.connected)throw Error('GameTrace data is not connected.');
+    const data=state.data||{};
+    const safe=v=>String(v===undefined||v===null?'':v).slice(0,160);
+    const list=k=>Array.isArray(data[k])?data[k]:[];
+    const sortRecent=a=>[...a].sort((x,y)=>String(y.date||y.start||'').localeCompare(String(x.date||x.start||'')));
+    const out=[];
+    const push=(type,summary)=>{
+      if(out.length<25 && summary)out.push({type,summary:String(summary).slice(0,450)});
+    };
+    sortRecent(list('games')).slice(0,4).forEach(g=>push('game',
+      'Game '+safe(g.date)+': '+safe(g.team)+' vs '+safe(g.opponent)+
+      (g.finalScore?' final '+safe(g.finalScore.team)+'-'+safe(g.finalScore.opponent):'')+
+      ' status '+safe(g.status)));
+    sortRecent(list('trainings')).slice(0,5).forEach(t=>push('training',
+      'Training '+safe(t.date)+' '+safe(t.name||t.type)+' '+safe(t.minutes)+' minutes'));
+    sortRecent(list('notes')).slice(0,5).forEach(n=>{
+      const f=n.feedback||{};
+      push('note','Reflection '+safe(n.date)+' '+safe(n.source)+
+        ' Saw: '+safe(f.see)+' Became: '+safe(f.became)+' Become More: '+safe(f.more)+
+        ' Note: '+safe(n.notes||n.text));
+    });
+    list('goals').slice(0,6).forEach(g=>push('goal',
+      'Goal '+safe(g.title)+' '+safe(g.status)+' target '+safe(g.targetDate)));
+    sortRecent(list('schedule')).slice(0,5).forEach(e=>push('schedule',
+      'Event '+safe(e.start||e.date)+' '+safe(e.title||e.activity)));
+    return out;
+  };
+  const askGemini=async question=>{
+    if(typeof window.__gtSkyAICall!=='function')throw Error('Sky AI bridge is not available in this review.');
+    const context=curatedContext();
+    const result=await window.__gtSkyAICall({prompt:question.slice(0,500),context});
+    if(typeof result.answer!=='string'||!result.answer.trim())throw Error('Sky AI returned an empty answer.');
+    return result.answer.slice(0,2500);
+  };
+
   const conversation=[];
   let priorFocus=null;
   let priorOverflow='';
   function add(role,text){conversation.push({role,text});const node=mk('div',{class:'gt-sky-message','data-role':role},mk('small',{text:role==='player'?'You':'Sky (preview)'}),document.createTextNode(text));messages.append(node);messages.scrollTop=messages.scrollHeight}
-  add('sky','Hi! I’m Sky, your GameTrace companion. Data access is read-only and stays on this device. Ask about games, trainings, Player Notes, goals, or your schedule. Type “my data” to check the connection. Gemini is not connected.');
+  add('sky','Hi! I’m Sky, your GameTrace companion. Data access is read-only and stays on this device. Ask about games, trainings, Player Notes, goals, or your schedule. Type “my data” to check the connection. Gemini is off in this review; local answers are available.');
   function open(){priorFocus=document.activeElement;overlay.hidden=false;trigger.setAttribute('aria-expanded','true');priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';input.focus({preventScroll:true})}
   function shut(){overlay.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.style.overflow=priorOverflow;(priorFocus?.isConnected?priorFocus:trigger).focus({preventScroll:true})}
   trigger.addEventListener('click',open);close.addEventListener('click',shut);
   overlay.addEventListener('pointerdown',e=>{if(e.target===overlay)shut()});
   overlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();shut()}else if(e.key==='Tab'){const targets=[close,input,send];const i=targets.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();send.focus()}else if(!e.shiftKey&&i===2){e.preventDefault();close.focus()}}});
-  form.addEventListener('submit',e=>{e.preventDefault();const value=input.value.trim();if(!value)return;add('player',value);input.value='';if(['my data','data status','connect data','what data do you have'].includes(value.toLowerCase().replace(/[?]$/,''))){const state=dataBridge.snapshot();add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.')}else{add('sky',answerFromData(value))}input.focus()});
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const value=input.value.trim();
+    if(!value)return;
+    if(send.disabled)return;
+    add('player',value);
+    input.value='';
+    const command=value.toLowerCase().replace(/[?]$/,'').trim();
+    if(['my data','data status','connect data','what data do you have'].includes(command)){
+      const state=dataBridge.snapshot();
+      add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.');
+    }else if(command==='ai on'){
+      if(typeof window.__gtSkyAICall!=='function'||!location.hostname.endsWith('.netlify.app')){
+        add('sky','Gemini is not available on this HTML preview. Your records remain local; Sky V1.7 answers still work.');
+      }else{
+        aiMode=true;
+        add('sky','Gemini mode is ON for this page only. Questions will send a limited selection of recent GameTrace records to the secured AI service. Type “ai off” to return to local-only answers.');
+      }
+    }else if(command==='ai off'){
+      aiMode=false;
+      add('sky','Gemini mode is OFF. Sky is using local read-only answers.');
+    }else if(!aiMode){
+      add('sky',answerFromData(value));
+    }else{
+      send.disabled=true;send.textContent='…';
+      try{add('sky',await askGemini(value));}
+      catch(error){add('sky',String(error?.message||'Sky AI is unavailable')+' Local answer: '+answerFromData(value));}
+      finally{send.disabled=false;send.textContent='Send';}
+    }
+    input.focus({preventScroll:true});
+  });
   // Preserve the app cover: Sky becomes available only after entry.
   const cover=document.getElementById('gt-app-cover');
   const refreshVisibility=()=>{trigger.hidden=Boolean(cover && getComputedStyle(cover).display!=='none' && getComputedStyle(cover).visibility!=='hidden' && !cover.hidden && cover.getAttribute('aria-hidden')!=='true' && !document.documentElement.classList.contains('gt-cover-dismissed') && document.documentElement.classList.contains('gt-cover-open'));};
