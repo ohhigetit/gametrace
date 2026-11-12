@@ -56,6 +56,44 @@
   })();
   window.GameTraceSkyData=dataBridge;
 
+  // Actual GameTrace V42+ local model: db.trainingSessions and db.personalRecords
+  // are verified in the app source. Other collections are used only if present.
+  // No mutations, persistence, authentication reads, or outgoing requests.
+  function connectGameTraceStore(){
+    if(typeof db==='undefined'||!db||typeof db!=='object')return false;
+    const fields={
+      games:['id','date','team','opponent','player','status','finalScore','scoreTracking','settings','events'],
+      trainings:['id','date','player','type','minutes','title','focus','skills','notes','activities','achievements'],
+      notes:['id','date','player','title','text','content','body','answer','answers','questions','source','gameId','trainingId'],
+      goals:['id','date','player','title','description','target','deadline','dueDate','status','progress','steps'],
+      schedule:['id','date','player','team','opponent','title','activity','type','start','end','location','source']
+    };
+    const pick=(row,type)=>{
+      if(!row||typeof row!=='object'||row.deletedAt)return null;
+      const result={};
+      for(const key of fields[type])if(Object.prototype.hasOwnProperty.call(row,key))result[key]=row[key];
+      return Object.keys(result).length?result:null;
+    };
+    const records=()=>Array.isArray(db.personalRecords)?db.personalRecords:[];
+    const classify=(group)=>records().filter(r=>group.includes(String(r?.type||'').toLowerCase())).map(r=>pick(r,group===noteTypes?'notes':group===goalTypes?'goals':'schedule')).filter(Boolean);
+    const noteTypes=['note','notes','player_note','player_notes','reflection'];
+    const goalTypes=['goal','goals','playbook','next_step'];
+    const scheduleTypes=['schedule','event'];
+    dataBridge.connect(()=>({
+      games:(Array.isArray(db.games)?db.games:[]).map(r=>pick(r,'games')).filter(Boolean),
+      trainings:(Array.isArray(db.trainingSessions)?db.trainingSessions:[]).map(r=>pick(r,'trainings')).filter(Boolean),
+      notes:classify(noteTypes),
+      goals:classify(goalTypes),
+      schedule:classify(scheduleTypes)
+    }));
+    return true;
+  }
+  // Defer registration until app startup finishes; snapshot reads the live store.
+  if(!connectGameTraceStore()){
+    window.addEventListener('load',connectGameTraceStore,{once:true});
+  }
+
+
   const conversation=[];
   let priorFocus=null;
   let priorOverflow='';
