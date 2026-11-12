@@ -87,7 +87,8 @@
         name:t.name,minutes:t.minutes,feedback:reflection(t)})),
       notes,goals,schedule
     };
-  };\n`;\n  if(!html.includes(marker))throw new Error('Cannot find safe DEV data initialization anchor');
+  };\n`;
+  if(!html.includes(marker))throw new Error('Cannot find safe DEV data initialization anchor');
   const bridged=html.replace(marker,adapter+marker);
   const result=bridged
     .replace('</head>',baseTag+'<style id="gt-sky-review-style">'+skyCss+'</style></head>')
