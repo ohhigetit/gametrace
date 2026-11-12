@@ -32,8 +32,8 @@
   // Keep DEV source files untouched. Attach a read-only adapter inside the
   // existing app's own JavaScript scope, where its private "db" lives.
   // The separate Sky component cannot directly see this lexical binding.
-  const marker='\\nload();\\nwindow.GameTraceFamily.boot();';
-  const adapter=`\\nwindow.__gtSkyReadOnlyProvider = function(){
+  const marker='\nload();\nwindow.GameTraceFamily.boot();';
+  const adapter=`\nwindow.__gtSkyReadOnlyProvider = function(){
     const current = (typeof db!=='undefined' && db && typeof db==='object') ? db : null;
     if(!current) return null;
     const records = Array.isArray(current.personalRecords) ? current.personalRecords : [];
@@ -45,7 +45,7 @@
       goals: byType(['goal','goals','playbook','next_step']),
       schedule: byType(['schedule','event'])
     };
-  };\\n`;
+  };\n`;
   if(!html.includes(marker))throw new Error('Cannot find safe DEV data initialization anchor');
   const bridged=html.replace(marker,adapter+marker);
   const result=bridged
