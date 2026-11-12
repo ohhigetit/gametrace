@@ -33,20 +33,61 @@
   // existing app's own JavaScript scope, where its private "db" lives.
   // The separate Sky component cannot directly see this lexical binding.
   const marker='\nload();\nwindow.GameTraceFamily.boot();';
-  const adapter=`\nwindow.__gtSkyReadOnlyProvider = function(){
+  const adapter=\`\nwindow.__gtSkyReadOnlyProvider = function(){
     const current = (typeof db!=='undefined' && db && typeof db==='object') ? db : null;
     if(!current) return null;
-    const records = Array.isArray(current.personalRecords) ? current.personalRecords : [];
-    const byType = types => records.filter(r=>r && types.includes(String(r.type||'').toLowerCase()) && !r.deletedAt);
-    return {
-      games: Array.isArray(current.games) ? current.games.filter(r=>r&&!r.deletedAt) : [],
-      trainings: Array.isArray(current.trainingSessions) ? current.trainingSessions.filter(r=>r&&!r.deletedAt) : [],
-      notes: byType(['note','notes','player_note','player_notes','reflection']),
-      goals: byType(['goal','goals','playbook','next_step']),
-      schedule: byType(['schedule','event'])
+    const live = list => Array.isArray(list) ? list.filter(r => r && !r.deletedAt) : [];
+    const games = live(current && current.games);
+    const trainings = live(current && current.trainingSessions);
+    const personal = live(current && current.personalRecords);
+    const hasText = value => typeof value === 'string' && value.trim().length > 0;
+    const reflection = item => {
+      const out = {};
+      for(const key of ['see','became','more','additional','well','challenge','next']){
+        if(hasText(item && item.feedback && item.feedback[key]))out[key]=item.feedback[key];
+      }
+      return out;
     };
-  };\n`;
-  if(!html.includes(marker))throw new Error('Cannot find safe DEV data initialization anchor');
+    const notes = [];
+    for(const game of games){
+      const feedback=reflection(game);
+      if(Object.keys(feedback).length || hasText(game.progressNotes)){
+        notes.push({id:'game-'+game.id,gameId:game.id,source:'game',date:game.date,
+          player:game.player,feedback,notes:game.progressNotes||''});
+      }
+    }
+    for(const session of trainings){
+      const feedback=reflection(session);
+      if(Object.keys(feedback).length || hasText(session.notes)){
+        notes.push({id:'training-'+session.id,trainingId:session.id,source:'training',
+          date:session.date,player:session.player,feedback,notes:session.notes||''});
+      }
+    }
+    for(const record of personal){
+      if(record.type==='note' && (hasText(record.text)||hasText(record.content)||hasText(record.body)||hasText(record.notes))){
+        notes.push({id:record.id,date:record.date,player:record.player,source:'notebook',
+          text:record.text||record.content||record.body||record.notes||''});
+      }
+    }
+    // Playbook goals are stored in db.goals, not personalRecords.
+    const goals=live(current && current.goals).map(g=>({
+      id:g.id,title:g.title,player:g.player,status:g.status,targetDate:g.targetDate,
+      achievedAt:g.achievedAt,
+      entries:live(g.entries).map(e=>({date:e.date,rating:e.rating,note:e.note}))
+    }));
+    const schedule=personal.filter(r=>r.type==='schedule').map(r=>({
+      id:r.id,title:r.title,date:r.date,start:r.start,end:r.end,player:r.player,
+      activity:r.activity,team:r.team,opponent:r.opponent,location:r.location
+    }));
+    return {
+      games:games.map(g=>({id:g.id,date:g.date,player:g.player,team:g.team,
+        opponent:g.opponent,status:g.status,finalScore:g.finalScore,
+        scoreTracking:g.scoreTracking,events:g.events})),
+      trainings:trainings.map(t=>({id:t.id,date:t.date,player:t.player,type:t.type,
+        name:t.name,minutes:t.minutes,feedback:reflection(t)})),
+      notes,goals,schedule
+    };
+  };\n  if(!html.includes(marker))throw new Error('Cannot find safe DEV data initialization anchor');
   const bridged=html.replace(marker,adapter+marker);
   const result=bridged
     .replace('</head>',baseTag+'<style id="gt-sky-review-style">'+skyCss+'</style></head>')
