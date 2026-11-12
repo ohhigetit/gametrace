@@ -29,11 +29,9 @@
   const [skyCss,skyJs]=await Promise.all([cssResponse.text(),jsResponse.text()]);
   // Inject both assets inside the original HTML before writing the page.
   // Sky then runs after DEV's own inline initialization in document order.
-  const safeCss=skyCss.replace(/<\\/style/gi,'<\\\\/style');
-  const safeJs=skyJs.replace(/<\\/script/gi,'<\\\\/script');
   const result=html
-    .replace(/<head([^>]*)>/i,'<head$1>'+baseTag+'<style id="gt-sky-review-style">'+safeCss+'</style>')
-    .replace(/<\\/body\\s*>/i,'<script id="gt-sky-review-script">'+safeJs+'<\\/script></body>');
+    .replace('</head>',baseTag+'<style id="gt-sky-review-style">'+skyCss+'</style></head>')
+    .replace('</body>','<scr'+'ipt id="gt-sky-review-script">'+skyJs+'</scr'+'ipt></body>');
   document.open();document.write(result);document.close();
 
  }catch(error){
