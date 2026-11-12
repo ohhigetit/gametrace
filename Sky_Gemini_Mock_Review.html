@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GameTrace — Sky Gemini Simulation Test</title>
+<style>body{font-family:system-ui;margin:0;padding:24px;color:#243b2c;background:#f7faf7}#gt-status{max-width:560px;margin:12vh auto;padding:20px;border:1px solid #d5dfd6;border-radius:14px;background:white}#gt-status p{line-height:1.5}</style>
+</head>
+<body>
+<div id="gt-status" role="status"><h1>GameTrace + Sky</h1><p>Opening the unmodified development app with Sky on the same page…</p></div>
+<script>
+(async function(){
+ const baseline='https://raw.githubusercontent.com/ohhigetit/gametrace/development/index.html';
+ const assets='https://raw.githubusercontent.com/ohhigetit/gametrace/review/sky-isolated-dev-20261112/';
+ try {
+  const response=await fetch(baseline,{cache:'no-store'});
+  if(!response.ok)throw new Error('DEV baseline returned HTTP '+response.status);
+  const html=await response.text();
+  if(!/<html[\s>]/i.test(html)||!/<\/body\s*>/i.test(html))throw new Error('DEV baseline response is not a complete HTML document.');
+  // Keep every original baseline byte in the same order. Only add Sky asset tags.
+  // Use an absolute base URL so existing DEV component imports resolve unchanged.
+  const baseTag='<base href="https://raw.githubusercontent.com/ohhigetit/gametrace/development/">';
+  // Fetch Sky as text and attach directly: raw GitHub JS is often served with
+  // a MIME type that mobile browsers reject as an external script.
+  const [cssResponse,jsResponse]=await Promise.all([
+    fetch(assets+'components/sky-component-v1.2.css',{cache:'no-store'}),
+    fetch(assets+'components/sky-component-v1.2.js',{cache:'no-store'})
+  ]);
+  if(!cssResponse.ok||!jsResponse.ok)throw new Error('Sky assets could not be loaded');
+  const [skyCss,skyJs]=await Promise.all([cssResponse.text(),jsResponse.text()]);
+  // Inject both assets inside the original HTML before writing the page.
+  // Sky then runs after DEV's own inline initialization in document order.
+  // Keep DEV source files untouched. Attach a read-only adapter inside the
+  // existing app's own JavaScript scope, where its private "db" lives.
+  // The separate Sky component cannot directly see this lexical binding.
+  const marker='\nload();\nwindow.GameTraceFamily.boot();';
+  const adapter=`\nwindow.__gtSkyAICall = async function(payload){
+    // This is only active on a real same-origin Netlify deployment.
+    // The HTMLPreview review must stay in local-only mode.
+    if(!location.hostname.endsWith('.netlify.app'))throw Error('Sky AI requires a secure same-origin deployment.');
+    if(typeof familyAuth==='undefined' || !familyAuth || !familyAuth.access_token)throw Error('Sign in to Family Huddle before using Sky AI.');
+    const response=await fetch('/.netlify/functions/sky-chat',{
+      method:'POST',
+      credentials:'same-origin',
+      headers:{'Content-Type':'application/json',Authorization:'Bearer '+familyAuth.access_token},
+      body:JSON.stringify(payload)
+    });
+    const data=await response.json().catch(()=>({error:'Sky AI returned an unreadable response'}));
+    if(!response.ok)throw Error(data.error||'Sky AI is unavailable.');
+    return data;
+  };
+  window.__gtSkyAICall = async function mockGemini(payload){
+    const question=String(payload.prompt||'').slice(0,500);
+    const context=Array.isArray(payload.context)?payload.context:[];
+    const categories=[...new Set(context.map(r=>r.type))].join(', ');
+    const selected=context.slice(0,3).map(r=>String(r.summary||'').slice(0,130));
+    const nl=String.fromCharCode(10);
+    return {mode:'mock',answer:'[GEMINI SIMULATION - NO EXTERNAL API CALL]'+nl+'Question: '+question+nl+'Context: '+context.length+' summarized GameTrace records ('+categories+').'+(selected.length?nl+'Sample context:'+nl+selected.join(nl):'')+nl+'This confirms the Sky client, context selector and response UI work. This is a simulated answer, not a live Gemini response.'};
+  };
+  window.__gtSkyAICall.mock=true;
+  window.__gtSkyReadOnlyProvider = function(){
+    const current = (typeof db!=='undefined' && db && typeof db==='object') ? db : null;
+    if(!current) return null;
+    const live = list => Array.isArray(list) ? list.filter(r => r && !r.deletedAt) : [];
+    const games = live(current && current.games);
+    const trainings = live(current && current.trainingSessions);
+    const personal = live(current && current.personalRecords);
+    const hasText = value => typeof value === 'string' && value.trim().length > 0;
+    const reflection = item => {
+      const out = {};
+      for(const key of ['see','became','more','additional','well','challenge','next']){
+        if(hasText(item && item.feedback && item.feedback[key]))out[key]=item.feedback[key];
+      }
+      return out;
+    };
+    const notes = [];
+    for(const game of games){
+      const feedback=reflection(game);
+      if(Object.keys(feedback).length || hasText(game.progressNotes)){
+        notes.push({id:'game-'+game.id,gameId:game.id,source:'game',date:game.date,
+          player:game.player,feedback,notes:game.progressNotes||''});
+      }
+    }
+    for(const session of trainings){
+      const feedback=reflection(session);
+      if(Object.keys(feedback).length || hasText(session.notes)){
+        notes.push({id:'training-'+session.id,trainingId:session.id,source:'training',
+          date:session.date,player:session.player,feedback,notes:session.notes||''});
+      }
+    }
+    for(const record of personal){
+      if(record.type==='note' && (hasText(record.text)||hasText(record.content)||hasText(record.body)||hasText(record.notes))){
+        notes.push({id:record.id,date:record.date,player:record.player,source:'notebook',
+          text:record.text||record.content||record.body||record.notes||''});
+      }
+    }
+    // Playbook goals are stored in db.goals, not personalRecords.
+    const goals=live(current && current.goals).map(g=>({
+      id:g.id,title:g.title,player:g.player,status:g.status,targetDate:g.targetDate,
+      achievedAt:g.achievedAt,
+      entries:live(g.entries).map(e=>({date:e.date,rating:e.rating,note:e.note}))
+    }));
+    const schedule=personal.filter(r=>r.type==='schedule').map(r=>({
+      id:r.id,title:r.title,date:r.date,start:r.start,end:r.end,player:r.player,
+      activity:r.activity,team:r.team,opponent:r.opponent,location:r.location
+    }));
+    return {
+      games:games.map(g=>({id:g.id,date:g.date,player:g.player,team:g.team,
+        opponent:g.opponent,status:g.status,finalScore:g.finalScore,
+        scoreTracking:g.scoreTracking,events:g.events})),
+      trainings:trainings.map(t=>({id:t.id,date:t.date,player:t.player,type:t.type,
+        name:t.name,minutes:t.minutes,feedback:reflection(t)})),
+      notes,goals,schedule
+    };
+  };\n`;
+  if(!html.includes(marker))throw new Error('Cannot find safe DEV data initialization anchor');
+  const bridged=html.replace(marker,adapter+marker);
+  const result=bridged
+    .replace('</head>',baseTag+'<style id="gt-sky-review-style">'+skyCss+'</style></head>')
+    .replace('</body>','<scr'+'ipt id="gt-sky-review-script">'+skyJs+'</scr'+'ipt></body>');
+  document.open();document.write(result);document.close();
+
+ }catch(error){
+  const target=document.querySelector('#gt-status');
+  if(target)target.innerHTML='<h1>Review cannot load</h1><p>The same-page DEV loader could not retrieve the original application. The existing DEV deployment and review files are unchanged.</p><p></p>';
+  const last=target?.lastElementChild;if(last)last.textContent=String(error.message||error);
+ }
+})();
+</script>
+</body>
+</html>
