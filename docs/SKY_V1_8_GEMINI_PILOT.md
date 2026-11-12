@@ -48,3 +48,15 @@ These are **mocked requests**; no live Gemini API call and no real Supabase acco
 6. Verify a successful answer, data minimization, no record mutations, user-visible privacy disclosure and provider usage; then disable the flag until further approval.
 
 **Environment limitation:** The present HTMLPreview test cannot perform an authenticated Gemini call. A working, limited-scope Netlify test deployment with authorized secrets is required. The Netlify account must be configured by someone with access; the public GitHub repository alone is insufficient.
+
+## V1.9 ready-to-deploy pilot entry point
+
+A pinned, real-backend pilot page is now at `Sky_Gemini_Live_Pilot_V19.html`. It **does not contain the mock responder**. It retains the approved unmodified DEV app, the verified Sky styling and local data bridge, and the Gemini server bridge.
+
+Do **not** try to activate it from `html-preview.github.io`: Gemini requests are deliberately rejected on that domain. The full flow must be served from the **same origin** as `/.netlify/functions/sky-chat`, and the signed-in Family Cloud user must be explicitly allowlisted.
+
+For the low-risk pilot, create a **new isolated Netlify site** connected to the review branch. Use the existing repository root as the publish directory (no build command). Once the branch is deployed, navigate to `https://<isolated-site>.netlify.app/Sky_Gemini_Live_Pilot_V19.html`. Do not modify the existing GameTrace dev or production sites.
+
+Configure the five environment keys from the section above **for the isolated pilot site only**, starting with `SKY_GEMINI_ENABLED=false`. Avoid pasting any secret into a GitHub file, browser preview, screenshot, or chat. Set a narrow allowlist and a conservative API spending limit. Then redeploy the isolated site to apply those variables. Verify the expected 503-disabled path first, and enable only after the pilot safeguards are checked. Netlify may charge for deployment and function execution; no deployment was initiated while preparing this file.
+
+The first end-to-end Gemini call remains **unverified** until an authorized deployment is created and real credentials are configured. The existing source code remains read-only and the existing app data is unchanged.
