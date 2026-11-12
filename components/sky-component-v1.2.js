@@ -232,11 +232,11 @@
       const state=dataBridge.snapshot();
       add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.');
     }else if(command==='ai on'){
-      if(typeof window.__gtSkyAICall!=='function'||!location.hostname.endsWith('.netlify.app')){
+      if(typeof window.__gtSkyAICall!=='function'||(!location.hostname.endsWith('.netlify.app')&&window.__gtSkyAICall.mock!==true)){
         add('sky','Gemini is not available on this HTML preview. Your records remain local; Sky V1.7 answers still work.');
       }else{
         aiMode=true;
-        add('sky','Gemini mode is ON for this page only. Questions will send a limited selection of recent GameTrace records to the secured AI service. Type “ai off” to return to local-only answers.');
+        add('sky',window.__gtSkyAICall.mock===true?'SIMULATION MODE: A local test responder is active. No GameTrace data will leave this browser. Type “ai off” to return to the V1.7 local answers.':'Gemini mode is ON for this page only. Questions will send a limited selection of recent GameTrace records to the secured AI service. Type “ai off” to return to local-only answers.');
       }
     }else if(command==='ai off'){
       aiMode=false;
