@@ -44,6 +44,7 @@
       return true;
     }
     function snapshot(){
+      if(!provider)connectGameTraceStore();
       if(!provider)return {connected:false,reason:'GameTrace has not registered its data provider'};
       let raw;
       try{raw=provider()}catch(e){return {connected:false,reason:'GameTrace data is temporarily unavailable'}}
@@ -88,9 +89,11 @@
     }));
     return true;
   }
-  // Defer registration until app startup finishes; snapshot reads the live store.
+  // Defer registration until app startup finishes; retry when main app initializes.
   if(!connectGameTraceStore()){
     window.addEventListener('load',connectGameTraceStore,{once:true});
+    let retries=0;
+    const retryTimer=setInterval(()=>{if(connectGameTraceStore()||++retries>=40)clearInterval(retryTimer)},250);
   }
 
 
