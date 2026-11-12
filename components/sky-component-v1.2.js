@@ -20,10 +20,11 @@
   panel.append(handle,header,messages,form);overlay.append(panel);document.body.append(trigger,overlay);
   const conversation=[];
   let priorFocus=null;
+  let priorOverflow='';
   function add(role,text){conversation.push({role,text});const node=mk('div',{class:'gt-sky-message','data-role':role},mk('small',{text:role==='player'?'You':'Sky (preview)'}),document.createTextNode(text));messages.append(node);messages.scrollTop=messages.scrollHeight}
   add('sky','Hi! I’m Sky, your GameTrace companion. This is a UI preview. GameTrace data and Gemini are not connected yet.');
-  function open(){priorFocus=document.activeElement;overlay.hidden=false;trigger.setAttribute('aria-expanded','true');document.body.style.setProperty('--gt-sky-prev-overflow',document.body.style.overflow);document.body.style.overflow='hidden';input.focus({preventScroll:true})}
-  function shut(){overlay.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.style.overflow='';(priorFocus||trigger).focus({preventScroll:true})}
+  function open(){priorFocus=document.activeElement;overlay.hidden=false;trigger.setAttribute('aria-expanded','true');priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';input.focus({preventScroll:true})}
+  function shut(){overlay.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.style.overflow=priorOverflow;(priorFocus?.isConnected?priorFocus:trigger).focus({preventScroll:true})}
   trigger.addEventListener('click',open);close.addEventListener('click',shut);
   overlay.addEventListener('pointerdown',e=>{if(e.target===overlay)shut()});
   overlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();shut()}else if(e.key==='Tab'){const targets=[close,input,send];const i=targets.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();send.focus()}else if(!e.shiftKey&&i===2){e.preventDefault();close.focus()}}});
