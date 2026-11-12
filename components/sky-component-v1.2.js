@@ -45,7 +45,7 @@
     }
     function snapshot(){
       if(!provider)connectGameTraceStore();
-      if(!provider)return {connected:false,reason:'No registered provider',diagnostics:{dbVisible:typeof db!=='undefined',windowDbVisible:typeof window.db!=='undefined',appRootVisible:!!document.getElementById('app'),documentReady:document.readyState,origin:location.origin}};
+      if(!provider)return {connected:false,reason:'No registered provider',diagnostics:{version:'sky-bridge-probe-v2',bridgePresent:typeof window.__gtSkyReadOnlyProvider==='function',dbVisible:typeof db!=='undefined',windowDbVisible:typeof window.db!=='undefined',appRootVisible:!!document.getElementById('app'),documentReady:document.readyState,origin:location.origin}};
       let raw;
       try{raw=provider()}catch(e){return {connected:false,reason:'GameTrace data is temporarily unavailable'}}
       if(!raw||typeof raw!=='object')return {connected:false,reason:'No valid GameTrace snapshot'};
@@ -101,6 +101,8 @@
   }
 
 
+  // Re-check deferred bridge registration after original app scripts finish.
+  window.addEventListener('pageshow',connectGameTraceStore);
   const conversation=[];
   let priorFocus=null;
   let priorOverflow='';
