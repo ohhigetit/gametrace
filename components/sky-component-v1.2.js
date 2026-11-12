@@ -61,6 +61,10 @@
   // are verified in the app source. Other collections are used only if present.
   // No mutations, persistence, authentication reads, or outgoing requests.
   function connectGameTraceStore(){
+    if(typeof window.__gtSkyReadOnlyProvider==='function'){
+      dataBridge.connect(window.__gtSkyReadOnlyProvider);
+      return true;
+    }
     if(typeof db==='undefined'||!db||typeof db!=='object')return false;
     const fields={
       games:['id','date','team','opponent','player','status','finalScore','scoreTracking','settings','events'],
