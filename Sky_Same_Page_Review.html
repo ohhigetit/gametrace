@@ -19,11 +19,20 @@
   // Keep every original baseline byte in the same order. Only add Sky asset tags.
   // Use an absolute base URL so existing DEV component imports resolve unchanged.
   const baseTag='<base href="https://raw.githubusercontent.com/ohhigetit/gametrace/development/">';
-  const cssTag='<link rel="stylesheet" href="'+assets+'components/sky-component-v1.2.css">';
-  const jsTag='<script defer src="'+assets+'components/sky-component-v1.2.js"><\/script>';
-  const result=html.replace(/<head([^>]*)>/i,'<head$1>'+baseTag+cssTag)
-                   .replace(/<\/body\s*>/i,jsTag+'</body>');
+  // Fetch Sky as text and attach directly: raw GitHub JS is often served with
+  // a MIME type that mobile browsers reject as an external script.
+  const [cssResponse,jsResponse]=await Promise.all([
+    fetch(assets+'components/sky-component-v1.2.css',{cache:'no-store'}),
+    fetch(assets+'components/sky-component-v1.2.js',{cache:'no-store'})
+  ]);
+  if(!cssResponse.ok||!jsResponse.ok)throw new Error('Sky assets could not be loaded');
+  const [skyCss,skyJs]=await Promise.all([cssResponse.text(),jsResponse.text()]);
+  const result=html.replace(/<head([^>]*)>/i,'<head$1>'+baseTag);
   document.open();document.write(result);document.close();
+  const style=document.createElement('style');style.id='gt-sky-review-style';style.textContent=skyCss;document.head.append(style);
+  const script=document.createElement('script');script.id='gt-sky-review-script';script.textContent=skyJs;document.body.append(script);
+  if(!window.GameTraceSkyV1)throw new Error('Sky did not initialize');
+
  }catch(error){
   const target=document.querySelector('#gt-status');
   if(target)target.innerHTML='<h1>Review cannot load</h1><p>The same-page DEV loader could not retrieve the original application. The existing DEV deployment and review files are unchanged.</p><p></p>';
