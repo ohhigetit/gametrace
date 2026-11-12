@@ -30,3 +30,21 @@ This stage preserves the verified V1.7 read-only local answers, Sky visuals, and
 3. `ai on` in HTMLPreview reports AI unavailable while local retrieval continues to work; `ai off` confirms local-only mode.
 4. In a **separate authorized deployment only**, configure environment variables, verify 401 for no token, 403 for a valid but non-allowlisted account, 503 when disabled; then verify one allowlisted response and monitor usage.
 5. Obtain approval before changing any DEV or PROD branch or enabling Gemini in a deployed environment.
+
+## Verification on November 12, 2026
+Static syntax validation of the client, review loader and serverless endpoint passed. Controlled mocks verified:
+- Authenticated and explicitly allowlisted user: 200 with a Gemini-shaped answer.
+- Cross-origin request: 403; missing Authorization: 401.
+- Unsupported context type: 400.
+- Gemini disabled: 503.
+These are **mocked requests**; no live Gemini API call and no real Supabase account lookup occurred. A no-secrets test harness is saved at `tests/sky-gemini-proxy.test.mjs`.
+
+## Steps for the first live test (not yet performed)
+1. Create an isolated, restricted Netlify test deployment for this review branch; **do not modify production or existing development**, and avoid enabling PR previews with exposed secrets.
+2. In Netlify **Project configuration → Environment variables**, configure the five variables listed above for the test deployment context only. Do not put API keys in GitHub or in chat. Use Functions scope if available, or the least-privileged supported scope.
+3. Confirm Google Gemini API key is active and set conservative model-level usage/billing limits with the provider; the current function has **no durable per-user rate limiter** and must not be broadly enabled.
+4. Start with `SKY_GEMINI_ENABLED=false`; verify that local mode continues working and that the endpoint returns 503.
+5. Set it true in the isolated test context, redeploy once to apply updated environment variables, sign into Family Cloud with an explicitly allowlisted pilot account, and enter `ai on`. Only then ask one narrow AI question.
+6. Verify a successful answer, data minimization, no record mutations, user-visible privacy disclosure and provider usage; then disable the flag until further approval.
+
+**Environment limitation:** The present HTMLPreview test cannot perform an authenticated Gemini call. A working, limited-scope Netlify test deployment with authorized secrets is required. The Netlify account must be configured by someone with access; the public GitHub repository alone is insufficient.
