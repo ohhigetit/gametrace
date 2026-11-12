@@ -33,7 +33,22 @@
   // existing app's own JavaScript scope, where its private "db" lives.
   // The separate Sky component cannot directly see this lexical binding.
   const marker='\nload();\nwindow.GameTraceFamily.boot();';
-  const adapter=`\nwindow.__gtSkyReadOnlyProvider = function(){
+  const adapter=`\nwindow.__gtSkyAICall = async function(payload){
+    // This is only active on a real same-origin Netlify deployment.
+    // The HTMLPreview review must stay in local-only mode.
+    if(!location.hostname.endsWith('.netlify.app'))throw Error('Sky AI requires a secure same-origin deployment.');
+    if(typeof familyAuth==='undefined' || !familyAuth || !familyAuth.access_token)throw Error('Sign in to Family Huddle before using Sky AI.');
+    const response=await fetch('/.netlify/functions/sky-chat',{
+      method:'POST',
+      credentials:'same-origin',
+      headers:{'Content-Type':'application/json',Authorization:'Bearer '+familyAuth.access_token},
+      body:JSON.stringify(payload)
+    });
+    const data=await response.json().catch(()=>({error:'Sky AI returned an unreadable response'}));
+    if(!response.ok)throw Error(data.error||'Sky AI is unavailable.');
+    return data;
+  };
+  window.__gtSkyReadOnlyProvider = function(){
     const current = (typeof db!=='undefined' && db && typeof db==='object') ? db : null;
     if(!current) return null;
     const live = list => Array.isArray(list) ? list.filter(r => r && !r.deletedAt) : [];
