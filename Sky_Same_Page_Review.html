@@ -27,11 +27,14 @@
   ]);
   if(!cssResponse.ok||!jsResponse.ok)throw new Error('Sky assets could not be loaded');
   const [skyCss,skyJs]=await Promise.all([cssResponse.text(),jsResponse.text()]);
-  const result=html.replace(/<head([^>]*)>/i,'<head$1>'+baseTag);
+  // Inject both assets inside the original HTML before writing the page.
+  // Sky then runs after DEV's own inline initialization in document order.
+  const safeCss=skyCss.replace(/<\\/style/gi,'<\\\\/style');
+  const safeJs=skyJs.replace(/<\\/script/gi,'<\\\\/script');
+  const result=html
+    .replace(/<head([^>]*)>/i,'<head$1>'+baseTag+'<style id="gt-sky-review-style">'+safeCss+'</style>')
+    .replace(/<\\/body\\s*>/i,'<script id="gt-sky-review-script">'+safeJs+'<\\/script></body>');
   document.open();document.write(result);document.close();
-  const style=document.createElement('style');style.id='gt-sky-review-style';style.textContent=skyCss;document.head.append(style);
-  const script=document.createElement('script');script.id='gt-sky-review-script';script.textContent=skyJs;document.body.append(script);
-  if(!window.GameTraceSkyV1)throw new Error('Sky did not initialize');
 
  }catch(error){
   const target=document.querySelector('#gt-status');
