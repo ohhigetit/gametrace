@@ -33,7 +33,7 @@
   // existing app's own JavaScript scope, where its private "db" lives.
   // The separate Sky component cannot directly see this lexical binding.
   const marker='\nload();\nwindow.GameTraceFamily.boot();';
-  const adapter=\`\nwindow.__gtSkyReadOnlyProvider = function(){
+  const adapter=`\nwindow.__gtSkyReadOnlyProvider = function(){
     const current = (typeof db!=='undefined' && db && typeof db==='object') ? db : null;
     if(!current) return null;
     const live = list => Array.isArray(list) ? list.filter(r => r && !r.deletedAt) : [];
