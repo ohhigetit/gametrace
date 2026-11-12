@@ -231,7 +231,7 @@
     if(['my data','data status','connect data','what data do you have'].includes(command)){
       const state=dataBridge.snapshot();
       add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.');
-    }else if(command==='ai on'){
+    }else if(['ai','ai on','gemini','gemini on'].includes(command)){
       if(typeof window.__gtSkyAICall!=='function'||(!location.hostname.endsWith('.netlify.app')&&window.__gtSkyAICall.mock!==true)){
         add('sky','Gemini is not available on this HTML preview. Your records remain local; Sky V1.7 answers still work.');
       }else{
