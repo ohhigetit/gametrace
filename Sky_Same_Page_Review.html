@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GameTrace — Same-Page Sky Review</title>
+<style>body{font-family:system-ui;margin:0;padding:24px;color:#243b2c;background:#f7faf7}#gt-status{max-width:560px;margin:12vh auto;padding:20px;border:1px solid #d5dfd6;border-radius:14px;background:white}#gt-status p{line-height:1.5}</style>
+</head>
+<body>
+<div id="gt-status" role="status"><h1>GameTrace + Sky</h1><p>Opening the unmodified development app with Sky on the same page…</p></div>
+<script>
+(async function(){
+ const baseline='https://raw.githubusercontent.com/ohhigetit/gametrace/development/index.html';
+ const assets='https://raw.githubusercontent.com/ohhigetit/gametrace/review/sky-isolated-dev-20261112/';
+ try {
+  const response=await fetch(baseline,{cache:'no-store'});
+  if(!response.ok)throw new Error('DEV baseline returned HTTP '+response.status);
+  const html=await response.text();
+  if(!/<html[\s>]/i.test(html)||!/<\/body\s*>/i.test(html))throw new Error('DEV baseline response is not a complete HTML document.');
+  // Keep every original baseline byte in the same order. Only add Sky asset tags.
+  // Use an absolute base URL so existing DEV component imports resolve unchanged.
+  const baseTag='<base href="https://raw.githubusercontent.com/ohhigetit/gametrace/development/">';
+  const cssTag='<link rel="stylesheet" href="'+assets+'components/sky-component-v1.2.css">';
+  const jsTag='<script defer src="'+assets+'components/sky-component-v1.2.js"><\/script>';
+  const result=html.replace(/<head([^>]*)>/i,'<head$1>'+baseTag+cssTag)
+                   .replace(/<\/body\s*>/i,jsTag+'</body>');
+  document.open();document.write(result);document.close();
+ }catch(error){
+  const target=document.querySelector('#gt-status');
+  if(target)target.innerHTML='<h1>Review cannot load</h1><p>The same-page DEV loader could not retrieve the original application. The existing DEV deployment and review files are unchanged.</p><p></p>';
+  const last=target?.lastElementChild;if(last)last.textContent=String(error.message||error);
+ }
+})();
+</script>
+</body>
+</html>
