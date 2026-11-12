@@ -1,5 +1,5 @@
 
-/* Sky V1.4 — visual integration only. No network/API, no reads or writes to player data. */
+/* Sky review: read-only local snapshots; no Gemini API calls, writes, or external player-data transmission. */
 (function(){
   'use strict';
   if(window.GameTraceSkyV1)return;
@@ -68,9 +68,9 @@
     if(typeof db==='undefined'||!db||typeof db!=='object')return false;
     const fields={
       games:['id','date','team','opponent','player','status','finalScore','scoreTracking','settings','events'],
-      trainings:['id','date','player','type','minutes','title','focus','skills','notes','activities','achievements'],
-      notes:['id','date','player','title','text','content','body','answer','answers','questions','source','gameId','trainingId'],
-      goals:['id','date','player','title','description','target','deadline','dueDate','status','progress','steps'],
+      trainings:['id','date','player','type','minutes','name','feedback','notes'],
+      notes:['id','date','player','title','text','content','body','notes','feedback','source','gameId','trainingId'],
+      goals:['id','date','player','title','status','targetDate','achievedAt','entries'],
       schedule:['id','date','player','team','opponent','title','activity','type','start','end','location','source']
     };
     const pick=(row,type)=>{
