@@ -45,7 +45,7 @@
     }
     function snapshot(){
       if(!provider)connectGameTraceStore();
-      if(!provider)return {connected:false,reason:'GameTrace has not registered its data provider'};
+      if(!provider)return {connected:false,reason:'No registered provider',diagnostics:{dbVisible:typeof db!=='undefined',windowDbVisible:typeof window.db!=='undefined',appRootVisible:!!document.getElementById('app'),documentReady:document.readyState,origin:location.origin}};
       let raw;
       try{raw=provider()}catch(e){return {connected:false,reason:'GameTrace data is temporarily unavailable'}}
       if(!raw||typeof raw!=='object')return {connected:false,reason:'No valid GameTrace snapshot'};
@@ -107,7 +107,7 @@
   trigger.addEventListener('click',open);close.addEventListener('click',shut);
   overlay.addEventListener('pointerdown',e=>{if(e.target===overlay)shut()});
   overlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();shut()}else if(e.key==='Tab'){const targets=[close,input,send];const i=targets.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();send.focus()}else if(!e.shiftKey&&i===2){e.preventDefault();close.focus()}}});
-  form.addEventListener('submit',e=>{e.preventDefault();const value=input.value.trim();if(!value)return;add('player',value);input.value='';if(['my data','data status','connect data','what data do you have'].includes(value.toLowerCase().replace(/[?]$/,''))){const state=dataBridge.snapshot();add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected yet. The app must register its read-only data provider. No player data was accessed.')}else{add('sky','Sky is still in local preview mode. You can type “my data” to check the GameTrace read-only connection. Gemini is not connected.')}input.focus()});
+  form.addEventListener('submit',e=>{e.preventDefault();const value=input.value.trim();if(!value)return;add('player',value);input.value='';if(['my data','data status','connect data','what data do you have'].includes(value.toLowerCase().replace(/[?]$/,''))){const state=dataBridge.snapshot();add('sky',state.connected?'Read-only GameTrace data connected: '+Object.entries(state.counts).map(([k,n])=>k+': '+n).join(', ')+'. No information has been sent externally.':'GameTrace data is not connected. Diagnostic: '+JSON.stringify(state.diagnostics||{reason:state.reason})+'. No player data was accessed.')}else{add('sky','Sky is still in local preview mode. You can type “my data” to check the GameTrace read-only connection. Gemini is not connected.')}input.focus()});
   // Preserve the app cover: Sky becomes available only after entry.
   const cover=document.getElementById('gt-app-cover');
   const refreshVisibility=()=>{trigger.hidden=Boolean(cover && getComputedStyle(cover).display!=='none' && getComputedStyle(cover).visibility!=='hidden' && !cover.hidden && cover.getAttribute('aria-hidden')!=='true' && !document.documentElement.classList.contains('gt-cover-dismissed') && document.documentElement.classList.contains('gt-cover-open'));};
