@@ -50,7 +50,17 @@ export default async function handler(request){
       }),
       signal:AbortSignal.timeout(18000)
     });
-    if(!upstream.ok)return json({error:'Sky AI service is temporarily unavailable'},502);
+    if(!upstream.ok){
+      // Report only a safe category, not upstream body, credentials, or prompt.
+      const code=upstream.status;
+      const explanation=code===400?'Gemini rejected the request format or model configuration':
+        code===401||code===403?'Gemini API key lacks access or is invalid':
+        code===404?'Gemini model endpoint was not found for this API key':
+        code===429?'Gemini quota or rate limit was reached':
+        code>=500?'Gemini service is currently unavailable':
+        'Gemini request was rejected';
+      return json({error:explanation,upstreamStatus:code},502);
+    }
     const result=await upstream.json();
     const answer=(result.candidates?.[0]?.content?.parts||[]).filter(x=>typeof x.text==='string').map(x=>x.text).join('').trim().slice(0,2500);
     if(!answer)return json({error:'Sky did not produce a response'},502);
