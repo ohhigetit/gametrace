@@ -13288,6 +13288,34 @@ renderNotebook=function(...args){
  if(ui.screen==='notebook')gtNotebookSideTabsV5Mount();
  return result;
 };
+
+/* Integrated in GameTrace app scope: settings review */
+
+(function(){
+ const previous=renderSettings;
+ renderSettings=function(...args){
+  const value=previous.apply(this,args);
+  const root=document.getElementById('settingsContent');
+  if(!root)return value;
+  for(const section of [...root.children]){
+   if(!section.matches?.('.settings-section,.family-panel'))continue;
+   if(section.closest('.gt-settings-fold'))continue;
+   const title=section.querySelector(':scope>h2')?.textContent?.trim();
+   if(!title)continue;
+   const fold=document.createElement('details');
+   fold.className='gt-settings-fold';
+   const summary=document.createElement('summary');
+   summary.textContent=title;
+   const body=document.createElement('div');
+   body.className='gt-settings-fold-body';
+   section.before(fold);
+   body.append(section);
+   fold.append(summary,body);
+  }
+  return value;
+ };
+})();
+
 })();
 
 
@@ -14230,30 +14258,5 @@ html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion {
 #setupContent .gt493-actions>button{min-height:44px!important;border-radius:10px!important}
 @media(max-width:380px){#setupContent .gt493-card{padding:14px!important}#settingsContent .gt-settings-fold>summary{padding:12px}}
 </style>
-<script id="gt-review-settings-groups-20261113">
-(function(){
- const previous=renderSettings;
- renderSettings=function(...args){
-  const value=previous.apply(this,args);
-  const root=document.getElementById('settingsContent');
-  if(!root)return value;
-  for(const section of [...root.children]){
-   if(!section.matches?.('.settings-section,.family-panel'))continue;
-   if(section.closest('.gt-settings-fold'))continue;
-   const title=section.querySelector(':scope>h2')?.textContent?.trim();
-   if(!title)continue;
-   const fold=document.createElement('details');
-   fold.className='gt-settings-fold';
-   const summary=document.createElement('summary');
-   summary.textContent=title;
-   const body=document.createElement('div');
-   body.className='gt-settings-fold-body';
-   section.before(fold);
-   body.append(section);
-   fold.append(summary,body);
-  }
-  return value;
- };
-})();
-</script>
+
 </body></html>
