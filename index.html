@@ -14202,4 +14202,58 @@ html[data-theme] #app.gt-app #notebookContent .gt-an-v18-accordion {
   window.GameTraceSkyV1={open,close:shut,conversation};
 })();
 
-</script></body></html>
+</script>
+<!-- Review integration: Settings compact collapsible groups + approved New/Edit Game form refinements. -->
+<style id="gt-review-settings-newgame-20261113">
+/* Preserve universal navigation and existing form behavior; refine existing approved component. */
+#settingsContent .settings-section,#settingsContent .family-panel{margin:0 0 10px!important;min-width:0}
+#settingsContent .gt-settings-fold{border:1px solid var(--gt-edge,#cbd8ce);border-radius:14px;background:var(--gt-surface,#fff);overflow:hidden;margin-bottom:10px}
+#settingsContent .gt-settings-fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;font-size:14px;font-weight:650;line-height:1.35;color:var(--gt-ink,#192b20)}
+#settingsContent .gt-settings-fold>summary::-webkit-details-marker{display:none}
+#settingsContent .gt-settings-fold>summary:after{content:'⌄';font-size:18px;font-weight:400;transition:transform .15s}
+#settingsContent .gt-settings-fold[open]>summary:after{transform:rotate(180deg)}
+#settingsContent .gt-settings-fold>.gt-settings-fold-body{padding:0 15px 14px}
+#settingsContent .gt-settings-fold-body>.settings-section,#settingsContent .gt-settings-fold-body>.family-panel{border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;background:transparent!important}
+#settingsContent .gt-settings-fold-body>.settings-section>h2,#settingsContent .gt-settings-fold-body>.family-panel>h2{display:none}
+#settingsContent .gt-settings-fold-body .settings-row{font-size:13px!important;padding:10px 0!important}
+#settingsContent .gt-settings-fold-body :is(label,small,p,.view-note){font-size:13px!important;line-height:1.45!important}
+#settingsContent .gt-settings-fold-body :is(input,select,button){max-width:100%}
+#settingsContent .review-reading-preview{display:none!important}
+#setupContent .setup-page{max-width:650px!important;margin:0 auto!important;min-width:0}
+#setupContent .gt493-layout{gap:14px!important}
+#setupContent .gt493-card{border-radius:16px!important;padding:18px!important;background:var(--gt-surface,#fff)!important;border:1px solid var(--gt-edge,#cbd8ce)!important;box-shadow:none!important}
+#setupContent .gt493-card>h2,#setupContent .gt493-form .gt-feedback legend{font-size:15px!important;line-height:1.4!important;font-weight:650!important;letter-spacing:0!important;margin-bottom:14px!important}
+#setupContent .gt493-grid{gap:14px!important}
+#setupContent .gt493-label{font-size:13px!important;font-weight:500!important}
+#setupContent .gt493-form :is(input:not([type=checkbox]):not([type=radio]),select,textarea){min-height:44px!important;border-radius:9px!important;padding:10px 12px!important;font-size:16px!important;background:var(--gt-control,#fff)!important;color:var(--gt-ink,#192b20)!important}
+#setupContent .gt493-actions{gap:12px!important;margin:10px 0 18px!important}
+#setupContent .gt493-actions>button{min-height:44px!important;border-radius:10px!important}
+@media(max-width:380px){#setupContent .gt493-card{padding:14px!important}#settingsContent .gt-settings-fold>summary{padding:12px}}
+</style>
+<script id="gt-review-settings-groups-20261113">
+(function(){
+ const previous=renderSettings;
+ renderSettings=function(...args){
+  const value=previous.apply(this,args);
+  const root=document.getElementById('settingsContent');
+  if(!root)return value;
+  for(const section of [...root.children]){
+   if(!section.matches?.('.settings-section,.family-panel'))continue;
+   if(section.closest('.gt-settings-fold'))continue;
+   const title=section.querySelector(':scope>h2')?.textContent?.trim();
+   if(!title)continue;
+   const fold=document.createElement('details');
+   fold.className='gt-settings-fold';
+   const summary=document.createElement('summary');
+   summary.textContent=title;
+   const body=document.createElement('div');
+   body.className='gt-settings-fold-body';
+   section.before(fold);
+   body.append(section);
+   fold.append(summary,body);
+  }
+  return value;
+ };
+})();
+</script>
+</body></html>
