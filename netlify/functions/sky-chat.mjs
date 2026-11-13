@@ -38,7 +38,7 @@ export default async function handler(request){
     context.push({type:item.type,summary:item.summary});
   }
   const system='You are Sky, a supportive basketball reflection assistant for the signed-in GameTrace family. Use only the supplied local records for specific facts. Distinguish observations from coaching suggestions; do not invent scores, events, or records. Keep replies concise. Do not claim to have edited records, and never suggest that you can change data.';
-  const model='gemini-2.5-flash';
+  const model='gemini-3.5-flash-lite';
   try{
     const upstream=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent',{
       method:'POST',
