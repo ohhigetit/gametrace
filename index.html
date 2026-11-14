@@ -9930,6 +9930,58 @@ window.__gtSkyAICall = async function(payload){
     };
   };
 
+/* DEV-only, one-shot iPhone notification test. */
+const notificationSettingsBase=renderSettings;
+renderSettings=function(){
+ notificationSettingsBase();
+ if(location.origin!=='https://development--game-trace.netlify.app')return;
+ const installed=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+ const supported=installed&&'serviceWorker' in navigator&&'Notification' in window&&'PushManager' in window;
+ const status=el('p',{class:'view-note',role:'status'},supported?'Allow notifications, then lock your iPhone.':'Open GameTrace DEV from the iPhone Home Screen to run this test.');
+ const toggle=el('input',{type:'checkbox',role:'switch','aria-label':'Lock Screen notification test'});
+ const pendingKey='gametrace_notification_test_until';
+ function syncToggle(){
+  const pending=Number(localStorage.getItem(pendingKey)||0)>Date.now();
+  toggle.checked=pending;
+  toggle.disabled=!supported||pending;
+  return pending;
+ }
+ if(syncToggle())status.textContent='Test queued. Alerts are due 1, 2, and 3 minutes after enabling.';
+ toggle.addEventListener('change',async()=>{
+  if(!toggle.checked)return;
+  toggle.disabled=true;
+  status.textContent='Setting up the notification test…';
+  try{
+   const permission=await Notification.requestPermission();
+   if(permission!=='granted')throw Error('Allow GameTrace notifications in iPhone Settings to run the test.');
+   const result=await fetch('/.netlify/functions/notification-test',{cache:'no-store'});
+   const configuration=await result.json();
+   if(!result.ok)throw Error(configuration.error||'Notification test setup is unavailable.');
+   await navigator.serviceWorker.register('/notification-test-sw.js');
+   const worker=await navigator.serviceWorker.ready;
+   const base64=configuration.publicKey.replace(/-/g,'+').replace(/_/g,'/');
+   const key=Uint8Array.from(atob(base64.padEnd(Math.ceil(base64.length/4)*4,'=')),char=>char.charCodeAt(0));
+   const subscription=await worker.pushManager.getSubscription()||await worker.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:key});
+   const response=await fetch('/.netlify/functions/notification-test',{
+    method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription})
+   });
+   if(response.status!==202){
+    const detail=await response.json().catch(()=>null);
+    throw Error(detail?.error||(response.status===429?'Wait a few minutes before running another test.':'Could not queue the notification test.'));
+   }
+   localStorage.setItem(pendingKey,String(Date.now()+185000));
+   status.textContent='Test queued. Lock your iPhone now. Alerts are due in 1, 2, and 3 minutes.';
+   setTimeout(()=>{if(toggle.isConnected&&!syncToggle())status.textContent='Test finished. Enable the switch to run it again.'},185000);
+  }catch(error){
+   toggle.checked=false;toggle.disabled=false;status.textContent=error.message;
+  }
+ });
+ const label=el('label',{class:'settings-row'},el('span',{},'Lock Screen notification test'),toggle);
+ $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Notifications'),label,
+  el('p',{class:'view-note'},'One test alert after 1, 2, and 3 minutes.'),status));
+};
+
+
 load();
 window.GameTraceFamily.boot();
 setInterval(expireSavedGames,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)expireSavedGames()});
