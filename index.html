@@ -6611,7 +6611,48 @@ html.gt-cover-open #gt-sky-launcher{display:none}
 
 #gt-sky-launcher[hidden]{display:none!important}
 
-</style></head><body>
+</style><style id="gt-settings-groups">
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-group {
+ margin: 0 0 10px;
+ background: var(--gt-surface);
+ border: 1px solid var(--gt-edge);
+ border-radius: 14px;
+}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-group > summary {
+ min-height: 48px;
+ padding: 12px 14px;
+ font-size: 16px;
+ font-weight: 700;
+ line-height: 1.45;
+ color: var(--gt-ink);
+ cursor: pointer;
+}
+#settingsContent .gt-settings-group > summary::marker { color: var(--gt-accent); }
+#settingsContent .gt-settings-group > summary:focus-visible { outline: 2px solid var(--gt-accent); outline-offset: -3px; border-radius: 14px; }
+#settingsContent .gt-settings-body { padding: 0 14px 12px; }
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body :is(.settings-section,#gtRecordingLibrary) {
+ margin: 0; padding: 8px 0 0; border: 0; background: transparent;
+}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .settings-section + .settings-section {
+ margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gt-edge);
+}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body :is(.settings-row,.form-field,.appearance-options button,#gtRecordingLibrary button) {
+ font-size: 15px; line-height: 1.45;
+}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .settings-row {
+ min-height: 44px; margin: 0 0 8px; padding: 10px 12px; border: 1px solid var(--gt-edge); border-radius: 10px;
+}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body label.settings-row {
+ display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+#settingsContent .gt-settings-body input[role="switch"] { flex: none; margin: 0; accent-color: var(--gt-accent); }
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body :is(.view-note,.review-meta,#gtRecordingLibrary p,#gtRecordingLibrary small) {
+ margin: 6px 0; font-size: 14px; line-height: 1.55; color: var(--gt-muted);
+}
+#settingsContent .gt-settings-body section > h2 { margin: 0 0 8px; font-size: 16px; line-height: 1.45; }
+#settingsContent #gtRecordingLibrary { gap: 8px; }
+</style>
+</head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
  <div class="gt-film-stage">
@@ -10028,6 +10069,52 @@ renderSettings=function(){
  $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Schedule reminders'),
   el('label',{class:'settings-row'},el('span',{},'Remind me before scheduled games'),toggle),
   el('p',{class:'view-note'},'Every timed event · 45, 30, and 15 minutes before start.'),status));
+};
+
+
+const renderSettingsBeforeGroups=renderSettings;
+renderSettings=function(){
+ const root=$('settingsContent');
+ const openGroups=new Set([...root.querySelectorAll('details[data-settings-group][open]')].map(group=>group.dataset.settingsGroup));
+ renderSettingsBeforeGroups();
+
+ const sections=[...root.querySelectorAll(':scope > .settings-section')];
+ const notificationSections=sections.filter(section=>['Notifications','Schedule reminders'].includes(section.querySelector('h2')?.textContent));
+ function group(title,content){
+  const details=el('details',{class:'gt-settings-group','data-settings-group':title},
+   el('summary',{},title),el('div',{class:'gt-settings-body'},content));
+  details.open=openGroups.has(title);
+  return details;
+ }
+ for(const section of sections){
+  const heading=section.querySelector(':scope > h2');
+  if(!heading)continue;
+  const title=heading.textContent;
+  if(notificationSections.includes(section)){
+   if(section!==notificationSections[0])continue;
+   const notifications=group('Notifications',[]);
+   section.before(notifications);
+   const body=notifications.lastElementChild;
+   for(const part of notificationSections){
+    if(part===section)part.querySelector(':scope > h2')?.remove();
+    body.append(part);
+   }
+   continue;
+  }
+  const details=group(title,[]);
+  section.before(details);
+  heading.remove();
+  details.lastElementChild.append(section);
+ }
+ root.querySelector('.review-reading-preview')?.remove();
+ root.append(group('My Recordings',el('div',{id:'gtRecordingLibrary','aria-label':'My Recordings'})));
+};
+const navigateBeforeSettingsGroups=navigate;
+navigate=function(screen){
+ if(screen==='settings'&&ui.screen!=='settings'){
+  for(const group of $('settingsContent').querySelectorAll('details[data-settings-group][open]'))group.open=false;
+ }
+ return navigateBeforeSettingsGroups(screen);
 };
 
 load();
@@ -13715,7 +13802,7 @@ recorder.start(1000);started=Date.now();recording=true;clock.hidden=false;clock.
 async function exportItem(item){const ext=item.type.includes('webm')?'webm':'mp4',file=new File([item.blob],(item.name||'GameTrace').replace(/[^a-z0-9 _-]/gi,'_')+'.'+ext,{type:item.type});try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:item.name});return true}}catch(e){if(e.name==='AbortError')return false}
 const u=URL.createObjectURL(item.blob);const a=document.createElement('a');a.href=u;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);return true}
 let rendering=false;
-async function refreshLibrary(){const target=document.getElementById('gtRecordingLibrary');if(!target||rendering)return;rendering=true;try{const allRows=await list(),rows=allRows.filter(item=>!item.deletedAt).sort((a,b)=>b.created-a.created);const removed=allRows.filter(item=>item.deletedAt);target.replaceChildren();const heading=document.createElement('h3');heading.textContent='My Recordings ('+rows.length+')';target.append(heading);const note=document.createElement('p');note.textContent='Stored on this device in GameTrace. Export important videos to Photos or Files; browser storage is not permanent.';target.append(note);if(removed.length){const trash=document.createElement('details'),title=document.createElement('summary');title.textContent='Recently deleted recordings ('+removed.length+')';trash.append(title);for(const item of removed){const restore=document.createElement('button');restore.textContent='Restore '+item.name;restore.onclick=async()=>{item.deletedAt=null;await put(item);refreshLibrary()};trash.append(restore)}target.append(trash)}
+async function refreshLibrary(){const target=document.getElementById('gtRecordingLibrary');if(!target||rendering)return;rendering=true;try{const allRows=await list(),rows=allRows.filter(item=>!item.deletedAt).sort((a,b)=>b.created-a.created);const removed=allRows.filter(item=>item.deletedAt);target.replaceChildren();const heading=document.createElement('h3');heading.textContent='My Recordings ('+rows.length+')';const summary=target.closest('details[data-settings-group]')?.querySelector('summary');if(summary)summary.textContent=heading.textContent;else target.append(heading);const note=document.createElement('p');note.textContent='Stored on this device in GameTrace. Export important videos to Photos or Files; browser storage is not permanent.';target.append(note);if(removed.length){const trash=document.createElement('details'),title=document.createElement('summary');title.textContent='Recently deleted recordings ('+removed.length+')';trash.append(title);for(const item of removed){const restore=document.createElement('button');restore.textContent='Restore '+item.name;restore.onclick=async()=>{item.deletedAt=null;await put(item);refreshLibrary()};trash.append(restore)}target.append(trash)}
 if(navigator.storage?.estimate){try{const e=await navigator.storage.estimate();const p=document.createElement('small');p.textContent='Browser storage: '+Math.round((e.usage||0)/1048576)+' MB used'+(e.quota?', '+Math.round(e.quota/1048576)+' MB estimated quota':'');target.append(p)}catch{}}
 if(pending){const recover=document.createElement('button');recover.type='button';recover.textContent='Retry saving unsaved video';recover.addEventListener('click',async()=>{try{await persistRecording(pending.blob);pending=null;say('✓ Recording recovered');refreshLibrary()}catch(e){say('Save failed: '+e.message)}});target.append(recover);const ex=document.createElement('button');ex.type='button';ex.textContent='Export unsaved video';ex.addEventListener('click',()=>exportItem({name:'GameTrace Recovery',blob:pending.blob,type:pending.blob.type}));target.append(ex)}
 if(!rows.length){const empty=document.createElement('p');empty.textContent='No locally saved videos yet.';target.append(empty)}
@@ -13726,8 +13813,8 @@ add('Export',async()=>{if(await exportItem(item)){item.exported=true;try{await p
 add('Rename',async()=>{const n=prompt('Recording name',item.name);if(n?.trim()){item.name=n.trim().slice(0,100);await put(item);refreshLibrary()}});
 add('Delete',async()=>{if(!confirm('Move this recording to Recently deleted? You can restore it in My Recordings. This does not free device storage.'))return;item.deletedAt=Date.now();await put(item);refreshLibrary()});
 box.append(name,meta,actions);target.append(box)}
-}catch(e){target.textContent='Recordings unavailable: '+(e.message||e)}finally{rendering=false}}
-function ensureLibrary(){const root=document.getElementById('settingsContent');if(!root||root.closest('[hidden]'))return;if(root.querySelector('#gtRecordingLibrary'))return;const block=document.createElement('section');block.id='gtRecordingLibrary';root.append(block);refreshLibrary()}
+}catch(e){target.textContent='Recordings unavailable: '+(e.message||e)}finally{rendering=false;const current=document.getElementById('gtRecordingLibrary');if(current&&current!==target)refreshLibrary()}}
+function ensureLibrary(){const root=document.getElementById('settingsContent');if(!root||root.closest('[hidden]'))return;const block=root.querySelector('#gtRecordingLibrary');if(block&&!block.hasChildNodes())refreshLibrary()}
 const observer=new MutationObserver(()=>{if(document.getElementById('settingsView')?.hidden===false)queueMicrotask(ensureLibrary)});observer.observe(document.getElementById('settingsView'),{attributes:true,attributeFilter:['hidden']});observer.observe(document.getElementById('settingsContent'),{childList:true});ensureLibrary();
 window.addEventListener('pagehide',()=>{if(recording)return;stream?.getTracks().forEach(t=>t.stop());stream=null});
 
