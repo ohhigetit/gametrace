@@ -6662,12 +6662,15 @@ html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .form-field 
 #settingsContent .gt-settings-preview{display:grid;place-items:center;width:44px;height:44px;padding:0;color:var(--gt-accent);background:var(--gt-surface);border:1px solid var(--gt-edge);border-radius:10px}
 #settingsContent .gt-settings-preview .menu-icon{display:block;width:22px;height:22px}
 #settingsContent .gt-settings-body .gt-settings-save{justify-self:end;min-height:44px}
-#settingsContent .gt-settings-body input[role="switch"]{appearance:none;-webkit-appearance:none;width:44px;height:26px;border-radius:20px;border:1px solid var(--gt-muted);background:var(--gt-surface);position:relative;cursor:pointer;padding:0}
-#settingsContent .gt-settings-body input[role="switch"]::before{content:"";display:block;position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--gt-muted)}
-#settingsContent .gt-settings-body input[role="switch"]:checked{background:var(--gt-accent);border-color:var(--gt-accent)}
-#settingsContent .gt-settings-body input[role="switch"]:checked::before{left:21px;background:var(--gt-surface)}
-#settingsContent .gt-settings-body input[role="switch"]:disabled{opacity:.5;cursor:default}
-#settingsContent :is(.gt-settings-preview,input[role="switch"]):focus-visible{outline:2px solid var(--gt-accent);outline-offset:3px}
+#settingsContent .gt-switch{position:relative;display:block;flex:0 0 50px;width:50px;height:30px}
+html[data-theme] #app.app.gt-app #settingsContent .gt-switch > input[role="switch"]{position:absolute;inset:0;z-index:1;width:100%;height:100%;min-height:0;opacity:0;margin:0;cursor:pointer}
+#settingsContent .gt-switch-track{display:block;width:100%;height:100%;border-radius:999px;background:var(--gt-muted);position:relative;pointer-events:none}
+#settingsContent .gt-switch-track::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0004}
+#settingsContent .gt-switch input:checked + .gt-switch-track{background:var(--gt-accent)}
+#settingsContent .gt-switch input:checked + .gt-switch-track::after{transform:translateX(20px)}
+#settingsContent .gt-switch input:disabled + .gt-switch-track{opacity:.5}
+#settingsContent .gt-switch input:disabled{cursor:default}
+#settingsContent .gt-settings-preview:focus-visible,#settingsContent .gt-switch input:focus-visible + .gt-switch-track{outline:2px solid var(--gt-accent);outline-offset:3px}
 @media (max-width:360px){#settingsContent .review-two-fields{grid-template-columns:1fr}}
 @media (display-mode:standalone){#app[data-screen="settings"]::after{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--gt-bg);z-index:20;pointer-events:none}}
 </style>
@@ -7384,11 +7387,14 @@ function renderMenu(){
  }root.append(nav);
 }
 function settings(){navigate('settings')}
+function settingsSwitchTrack(control){
+ return el('span',{class:'gt-switch'},control,el('span',{class:'gt-switch-track','aria-hidden':'true'}));
+}
 function settingsSwitch(label,checked,onChange){
  const control=el('input',{type:'checkbox',role:'switch','aria-label':label});
  control.checked=!!checked;
  control.onchange=()=>onChange(control.checked);
- return el('label',{class:'settings-row gt-setting-switch'},el('span',{},label),control);
+ return el('label',{class:'settings-row gt-setting-switch'},el('span',{},label),settingsSwitchTrack(control));
 }
 function renderSettingsOriginal(){
  const root=$('settingsContent');root.replaceChildren(pageHeading('Settings',()=>navigate('menu')));
@@ -9045,7 +9051,7 @@ renderFamily=function(){familyBefore41();const root=$('familyContent');reviewPag
 function applyReadingSize41(value){const size=['standard','large','extra'].includes(value)?value:'standard';$('app').dataset.readingSize=size;$('app').style.setProperty('--reading-size',size==='extra'?'20px':size==='large'?'18px':'16px')}
 try{applyReadingSize41(localStorage.getItem('gametrace-reading-size'))}catch{applyReadingSize41('standard')}
 const settingsBefore41=renderSettings;
-renderSettings=function(){settingsBefore41();const root=$('settingsContent');reviewPage41(root,'Make GameTrace comfortable for you.');const sections=[...root.querySelectorAll(':scope>.settings-section')],appearance=sections.find(n=>n.querySelector('h2')?.textContent==='Appearance'),reading=sections.find(n=>n.querySelector('h2')?.textContent==='Reading size');if(reading){const input=el('select',{'aria-label':'Text size'});for(const[v,label]of [['standard','Comfortable'],['large','Larger'],['extra','Extra large']])input.append(el('option',{value:v},label));input.value=$('app').dataset.readingSize;input.onchange=()=>{try{localStorage.setItem('gametrace-reading-size',input.value);applyReadingSize41(input.value)}catch{announce('Text size could not be saved.')}};reading.replaceChildren(el('label',{class:'form-field'},'Text size',input),el('div',{class:'review-reading-preview'},el('strong',{},'Keep showing up.'),el('p',{},'Your work, your games, your journey.')));appearance?.append(...reading.childNodes);reading.remove()}const sound=sections.find(n=>n.querySelector('h2')?.textContent==='Sound'),nudge=sections.find(n=>n.querySelector('h2')?.textContent==='Nudge');if(sound){reviewLabel41(sound.querySelector('h2'),'Sound & feedback');if(nudge){for(const n of [...nudge.children])if(n.tagName!=='H2')sound.append(n);nudge.remove()}}for(const panel of root.querySelectorAll(':scope>.family-panel'))if(panel.querySelector('h2')?.textContent==='Fresh start')panel.remove();const defaults=sections.find(n=>n.querySelector('h2')?.textContent==='Game defaults');if(defaults){reviewLabel41(defaults.querySelector('h2'),'New game defaults');defaults.prepend(defaults.querySelector('h2'));const quick=el('div',{class:'review-two-fields'}),format=el('select',{'aria-label':'Default game format'}),minutes=el('input',{type:'number',min:1,max:60,step:1,'aria-label':'Default minutes per period'});format.append(el('option',{value:'4Q'},'4 quarters'),el('option',{value:'2H'},'2 halves'));format.value=db.prefs.periods.format;const periods=db.prefs.periods.durations[format.value];minutes.value=new Set(periods).size===1?String(periods[0]/60):'';minutes.placeholder='Individual lengths';const save=()=>{try{if(!Number.isInteger(+minutes.value)||+minutes.value<1||+minutes.value>60)throw Error('Use whole minutes from 1 to 60.');commit(()=>{db.prefs.periods.format=format.value;db.prefs.periods.current=0;db.prefs.periods.durations[format.value]=Array(C.count(format.value)).fill(+minutes.value*60)});announce('New game defaults saved')}catch(e){announce(e.message)}};quick.append(el('label',{class:'form-field'},'Format',format),el('label',{class:'form-field'},'Minutes per period',minutes));defaults.querySelector('h2').after(quick,button('Save defaults',save,'primary gt-settings-save'));const advanced=[...defaults.querySelectorAll('button')].find(b=>b.textContent==='Period defaults');if(advanced)advanced.textContent='Individual period lengths'}for(const section of root.querySelectorAll('.settings-section'))section.classList.add('review-section')};
+renderSettings=function(){settingsBefore41();const root=$('settingsContent');reviewPage41(root,'Make GameTrace comfortable for you.');const sections=[...root.querySelectorAll(':scope>.settings-section')],appearance=sections.find(n=>n.querySelector('h2')?.textContent==='Appearance'),reading=sections.find(n=>n.querySelector('h2')?.textContent==='Reading size');if(reading){const input=el('select',{'aria-label':'Text size'});for(const[v,label]of [['standard','Comfortable'],['large','Larger'],['extra','Extra large']])input.append(el('option',{value:v},label));input.value=$('app').dataset.readingSize;input.onchange=()=>{try{localStorage.setItem('gametrace-reading-size',input.value);applyReadingSize41(input.value)}catch{announce('Text size could not be saved.')}};reading.replaceChildren(el('label',{class:'form-field'},'Text size',input),el('div',{class:'review-reading-preview'},el('strong',{},'Keep showing up.'),el('p',{},'Your work, your games, your journey.')));appearance?.append(...reading.childNodes);reading.remove()}const sound=sections.find(n=>n.querySelector('h2')?.textContent==='Sound'),nudge=sections.find(n=>n.querySelector('h2')?.textContent==='Nudge');if(sound){reviewLabel41(sound.querySelector('h2'),'Sound & feedback');if(nudge){for(const n of [...nudge.children])if(n.tagName!=='H2')sound.append(n);nudge.remove()}}for(const panel of root.querySelectorAll(':scope>.family-panel'))if(panel.querySelector('h2')?.textContent==='Fresh start')panel.remove();const defaults=sections.find(n=>n.querySelector('h2')?.textContent==='Game defaults');if(defaults){reviewLabel41(defaults.querySelector('h2'),'New game defaults');defaults.prepend(defaults.querySelector('h2'));const quick=el('div',{class:'review-two-fields'}),format=el('select',{'aria-label':'Default game format'}),minutes=el('input',{type:'number',min:1,max:60,step:1,'aria-label':'Default minutes per period'});format.append(el('option',{value:'4Q'},'4 quarters'),el('option',{value:'2H'},'2 halves'));format.value=db.prefs.periods.format;const periods=db.prefs.periods.durations[format.value];minutes.value=new Set(periods).size===1?String(periods[0]/60):'';minutes.placeholder='Individual lengths';const save=()=>{try{if(!Number.isInteger(+minutes.value)||+minutes.value<1||+minutes.value>60)throw Error('Use whole minutes from 1 to 60.');commit(()=>{db.prefs.periods.format=format.value;db.prefs.periods.current=0;db.prefs.periods.durations[format.value]=Array(C.count(format.value)).fill(+minutes.value*60)});announce('New game defaults saved')}catch(e){announce(e.message)}};quick.append(el('label',{class:'form-field'},'Format',format),el('label',{class:'form-field'},'Minutes per period',minutes));defaults.querySelector('h2').after(quick,button('Save defaults',save,'primary gt-settings-save'));const advanced=[...defaults.querySelectorAll('button')].find(b=>b.textContent==='Period defaults');advanced?.remove()}for(const section of root.querySelectorAll('.settings-section'))section.classList.add('review-section')};
 
 
 const backupBefore41=renderBackup;
@@ -10046,7 +10052,7 @@ renderSettings=function(){
   }
  };
  $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Notifications'),
-  el('label',{class:'settings-row gt-setting-switch'},el('span',{},'Schedule reminders'),toggle),
+  el('label',{class:'settings-row gt-setting-switch'},el('span',{},'Schedule reminders'),settingsSwitchTrack(toggle)),
   el('p',{class:'view-note'},'Every timed event · 45, 30, and 15 minutes before start.'),status));
 };
 
