@@ -3,6 +3,26 @@ const fs=require('fs'),assert=require('node:assert/strict');const {JSDOM,Virtual
 await test('Feed requires family authentication and reads remote records without local mutation',async()=>{run(`navigate('liveFeed')`);assert(d.querySelector('#liveFeedContent').textContent.includes('Sign in'));const before=run('JSON.stringify(db)'),cloud=JSON.parse(run('JSON.stringify(game())'));w.__cloud=cloud;run(`familyAuth={access_token:'test-only',refresh_token:'test-only',expires_at:Date.now()+3600000,user:{id:'viewer'}};familyState.familyId='test-family';familyAccess=true;resetFeed42();navigate('liveFeed')`);const requests=[];w.fetch=async(url,options={})=>{requests.push({url,method:options.method});return{ok:true,text:async()=>JSON.stringify([{record_id:cloud.id,payload:cloud,version:1,updated_at:cloud.updatedAt}])}};await run('refreshLiveFeed42()');assert(d.querySelector('.v42-feed-score').textContent.includes('2'));assert(d.querySelector('[data-feed-event]'));assert.equal(run('JSON.stringify(db)'),before);assert(requests.every(r=>r.method==='GET'));assert(requests[0].url.includes('family_id=eq.test-family&kind=eq.game'));assert(!d.querySelector('#liveFeedContent [data-edit-record]'));assert(!d.querySelector('#liveFeedContent [data-drag-id]'))});
 await test('Feed polls corrections, retains last read on network failure, clears revoked access',async()=>{const before=run('JSON.stringify(db)'),cloud=JSON.parse(run('JSON.stringify(game())'));cloud.events.find(e=>e.code==='2_make').code='3_make';w.fetch=async()=>({ok:true,text:async()=>JSON.stringify([{payload:cloud,version:2}])});await run('refreshLiveFeed42()');assert.equal(d.querySelector('.v42-feed-stats strong').textContent,'3');w.fetch=async()=>{throw Error('Network failed')};await run('refreshLiveFeed42()');assert(d.querySelector('[data-feed-connection]').textContent.includes('last received'));assert(d.querySelector('[data-feed-event]'));w.fetch=async()=>({ok:false,status:403,text:async()=>JSON.stringify({message:'permission denied'})});await run('refreshLiveFeed42()');assert.equal(d.querySelectorAll('[data-feed-event]').length,0);assert(d.querySelector('#liveFeedContent').textContent.includes('Family access'));assert.equal(run('JSON.stringify(db)'),before);run(`familyAuth=null;familyAccess=false;familyState.familyId=null;resetFeed42()`)});
 
+await test('Feed follows a newly synced live game after initially showing a final',async()=>{
+ const live=JSON.parse(run('JSON.stringify(game())'));
+ const final={...live,id:'completed-game',status:'completed',finalScore:{team:2,opponent:2}};
+ let rows=[{payload:final}];
+ run(`familyAuth={access_token:'test-only',expires_at:Date.now()+3600000,user:{id:'viewer'}};
+ familyState.familyId='test-family';familyAccess=true;resetFeed42();navigate('liveFeed')`);
+ w.fetch=async()=>({ok:true,text:async()=>JSON.stringify(rows)});
+ await run('refreshLiveFeed42()');
+ assert.equal(d.querySelector('.v42-feed-status strong').textContent,'Final');
+ rows.push({payload:live});
+ await run('refreshLiveFeed42()');
+ const select=d.querySelector('[aria-label="Game to follow"]');
+ assert.equal(select.value,live.id);
+ assert.equal(d.querySelector('.v42-feed-status strong').textContent,'Live');
+ select.value=final.id;
+ select.dispatchEvent(new w.Event('change'));
+ await run('refreshLiveFeed42()');
+ assert.equal(d.querySelector('[aria-label="Game to follow"]').value,final.id);
+});
+
 await test('Realtime notifications refresh both scores and plays without viewer writes or duplicate events',async()=>{
  const sockets=[],requests=[];
  w.WebSocket=class {
