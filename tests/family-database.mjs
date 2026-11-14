@@ -69,4 +69,38 @@ await test('Fresh Start reset does not cross family boundaries and setup reruns 
 await test('Notebook/Schedule migration retains data, permissions and conflict history',async()=>{const before=(await as(owner,'select * from gt_records')).rows.length;await superSQL(fs.readFileSync('cloud/migrations/006_notebook_schedule.sql','utf8'));assert.equal((await as(owner,'select gt_cloud_features() as c')).rows[0].c.version,6);assert.equal((await as(owner,'select * from gt_records')).rows.length,before);const result=(await save(member,'personal','prayer-1',{type:'prayer',player:'Geo',body:'Courage'},0)).rows[0].result;assert.equal(result.record.payload.body,'Courage');await assert.rejects(()=>save(outsider,'personal','foreign',{type:'commitment',player:'Geo',body:'Attack'},0),/Family access/);assert.equal((await save(owner,'personal','prayer-1',{type:'prayer',player:'Geo',body:'Competing'},0)).rows[0].result.conflict,true);await save(owner,'personal','prayer-1',{type:'prayer',player:'Geo',body:'Updated'},1);assert.equal((await as(owner,"select * from gt_history where kind='personal'")).rows.length,1);await assert.rejects(()=>save(member,'personal','bad',{type:'bad',player:'Geo'},0),/Invalid Notebook/);await superSQL(fs.readFileSync('cloud/migrations/006_notebook_schedule.sql','utf8'));assert.equal((await as(owner,"select * from gt_records where kind='personal'")).rows.length,1)});
 await test('V42 notes migration preserves records and grants version 7 without resetting',async()=>{const before=(await as(owner,'select * from gt_records')).rows.length;await superSQL(fs.readFileSync('cloud/migrations/007_notes_recurring.sql','utf8'));assert.equal((await as(owner,'select * from gt_records')).rows.length,before);assert.equal((await as(owner,'select gt_cloud_features() as c')).rows[0].c.version,7);const result=(await save(member,'personal','general-note',{type:'note',player:'Georgina',body:'Attack space'},0)).rows[0].result;assert.equal(result.record.payload.type,'note');await assert.rejects(()=>save(outsider,'personal','foreign-note',{type:'note',player:'Georgina',body:'Hidden'},0),/Family access/)});
 await test('Live Feed queries are family-isolated by existing RLS',async()=>{const games=(await as(member,"select * from gt_records where family_id=$1 and kind='game'",[fid])).rows;assert(Array.isArray(games));assert.equal((await as(outsider,"select * from gt_records where family_id=$1",[fid])).rows.length,0);await fail(null,'select * from gt_records',/permission denied/)});
+const liveSql=fs.readFileSync('cloud/migrations/008_live_game_realtime.sql','utf8');
+const saveLive=(actor,key,version,body)=>as(actor,
+  'select gt_save_live_game($1,$2,$3,$4,$5) as result',
+  [fid,'live-1',JSON.stringify({id:'live-1',...body}),version,key]);
+const liveSnapshot={status:'in_progress',score:{team:3,opponent:2},events:[{id:'play-1'}],period:2};
+await test('Live migration publishes shared records without altering existing games',async()=>{
+  await superSQL('create publication supabase_realtime');
+  const before=(await as(owner,'select * from gt_records')).rows;
+  await superSQL(liveSql);
+  await superSQL(liveSql);
+  assert.deepEqual((await as(owner,'select * from gt_records')).rows,before);
+  assert.equal((await superSQL("select count(*)::int as count from pg_publication_tables where pubname='supabase_realtime' and tablename=$1",['gt_records'])).rows[0].count,1);
+});
+await test('One live controller can write, including when both browsers use the same account',async()=>{
+  const first=(await saveLive(owner,owner,0,liveSnapshot)).rows[0].result;
+  assert.equal(first.record.version,1);
+  await assert.rejects(()=>saveLive(owner,member,1,liveSnapshot),/controlled by another device/);
+  await assert.rejects(()=>saveLive(member,owner,1,liveSnapshot),/controlled by another device/);
+  await assert.rejects(()=>save(owner,'game','live-1',{status:'completed'},1),/controlled by another device/);
+  await assert.rejects(()=>saveLive(outsider,member,1,liveSnapshot),/Family access/);
+  const viewer=(await as(member,"select payload from gt_records where record_id='live-1'")).rows[0];
+  assert.deepEqual(viewer.payload,{id:'live-1',...liveSnapshot});
+  await fail(member,'select * from gt_live_controllers',/permission denied/);
+});
+await test('Controller reconnects against the saved version and completes the game',async()=>{
+  const retry=(await saveLive(owner,owner,0,liveSnapshot)).rows[0].result;
+  assert.equal(retry.conflict,true);
+  const final={...liveSnapshot,status:'completed',score:{team:5,opponent:2},events:[...liveSnapshot.events,{id:'play-2'}]};
+  const completed=(await saveLive(owner,owner,1,final)).rows[0].result.record;
+  assert.equal(completed.version,2);
+  assert.deepEqual(completed.payload,{id:'live-1',...final});
+  const updated=(await save(member,'game','live-1',{...final,note:'Reviewed'},2)).rows[0].result.record;
+  assert.equal(updated.version,3);
+});
 console.log('TOTAL',checks);await db.close();

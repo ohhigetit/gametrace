@@ -7102,7 +7102,7 @@ function persist(replace=false){
   const candidate={...db,revision:existing+1,updatedAt:C.now()};localStorage.setItem(C.KEY,JSON.stringify(candidate));db=candidate;baseRevision=candidate.revision;recoveryRaw=null;saveState='Saved';saveError='';drawSave();queueMicrotask(()=>window.GameTraceFamily?.schedule());return true;
  }catch(e){saveState='Not saved';saveError=e.message||'Saving is unavailable. Retry or export a backup.';drawSave();return false}
 }
-function commit(fn,touchId=null){const beforeGame=touchId?C.clone(db.games.find(g=>g.id===touchId)):null;fn();if(touchId){const target=db.games.find(g=>g.id===touchId);preserveDeletedPlays(beforeGame,target);if(target)C.reconcileGame(target);}if(touchId){const g=db.games.find(x=>x.id===touchId);if(g){g.updatedAt=C.now();g.revision++}}const ok=persist();render();return ok}
+function commit(fn,touchId=null){if(touchId&&isViewerGame(touchId)){announce('Follow this game in Live Feed.');return false}const beforeGame=touchId?C.clone(db.games.find(g=>g.id===touchId)):null;fn();if(touchId){const target=db.games.find(g=>g.id===touchId);preserveDeletedPlays(beforeGame,target);if(target)C.reconcileGame(target);}if(touchId){const g=db.games.find(x=>x.id===touchId);if(g){g.updatedAt=C.now();g.revision++}}const ok=persist();render();return ok}
 function load(){try{const raw=localStorage.getItem(C.KEY)||localStorage.getItem(C.PREVIOUS_KEY);if(raw){try{db=C.validDB(JSON.parse(raw));const migrated=!localStorage.getItem(C.KEY);baseRevision=migrated?0:db.revision;saveState='Saved';if(migrated)persist()}catch(e){recoveryRaw=raw;saveState='Not saved';saveError='The saved library could not be read. Download a recovery copy or restore a backup.'}}else{try{const p=JSON.parse(localStorage.getItem('gametrace_period_preview_v1')||'null');if(p)db.prefs.periods=C.validSettings(p)}catch{}}}catch{saveState='Not saved';saveError='Saving is unavailable in this browser. You can still export a backup.'}expireSavedGames();render()}
 function closeDialog(){if(sheet.open)sheet.close()}
 function openDialog(title,build,{reachable=false,anchor=null}={}){
@@ -7217,7 +7217,7 @@ function baseGameForm(id=null,periodOnly=false){
    if(meta)C.newGame(meta,settings);
    const before=db,candidate=C.clone(db);let created;
    if(isNew){if(candidate.games.some(g=>!g.deletedAt&&g.status==='in_progress'))throw Error('Finish the current game before starting another.');created=C.prepareGame(meta,settings);created.gameTime=meta.gameTime;created.progressNotes=ui.gameNotesDraft?.id===null?ui.gameNotesDraft.value:'';candidate.games.push(created);candidate.activeGameId=created.id}
-   else if(id){const target=candidate.games.find(g=>g.id===id);if(meta)Object.assign(target,meta);if(ui.scoreDraft?.id===id)target.finalScore=ui.scoreDraft.score;if(ui.feedbackDraft?.id===id)target.feedback=ui.feedbackDraft.feedback;if(ui.gameNotesDraft?.id===id)target.progressNotes=ui.gameNotesDraft.value;if(target.timingVersion&&target.events.some(e=>!['game_start','period_start'].includes(e.code))&&settings.format!==target.settings.format)throw Error('This game already has recorded plays. Keep its format; period lengths remain editable.');target.settings=settings;target.updatedAt=C.now();target.revision++;candidate.activeGameId=id}
+   else if(id){if(isViewerGame(id))throw Error('Follow this game in Live Feed.');const target=candidate.games.find(g=>g.id===id);if(meta)Object.assign(target,meta);if(ui.scoreDraft?.id===id)target.finalScore=ui.scoreDraft.score;if(ui.feedbackDraft?.id===id)target.feedback=ui.feedbackDraft.feedback;if(ui.gameNotesDraft?.id===id)target.progressNotes=ui.gameNotesDraft.value;if(target.timingVersion&&target.events.some(e=>!['game_start','period_start'].includes(e.code))&&settings.format!==target.settings.format)throw Error('This game already has recorded plays. Keep its format; period lengths remain editable.');target.settings=settings;target.updatedAt=C.now();target.revision++;candidate.activeGameId=id}
    candidate.prefs.periods={...C.clone(settings),current:0};db=candidate;
    if(!persist()){db=before;drawSave();error.textContent='The game was not '+(isNew?'saved':'updated')+'. '+saveError;return}
    draftState.finished=true;ui.setup=null;if(isNew){ui.newDraft=null;ui.period='all';ui.historyPeriod='all';ui.stat=null;ui.liveExpanded=false;navigate('live');announce('Game saved · tap Start Game when ready')}
@@ -7340,7 +7340,7 @@ let reportEditorActive=false,expiring=false;
 const unfinishedGames=()=>db.games.filter(g=>!g.deletedAt&&g.status==='in_progress').sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
 const liveGame=()=>unfinishedGames().find(g=>g.id===db.activeGameId)||unfinishedGames()[0]||null;
 function chooseGame(id,screen='live'){if(id!==db.activeGameId){reportEditorActive=false;reportState.editorId=null;reportState.adding=false;reportState.expanded=null;reportState.adjustedId=null;reportState.status=''}baseChooseGame(id,screen)}
-function transaction(id,fn){const before=db,candidate=C.clone(db),target=candidate.games.find(g=>g.id===id);if(!target)throw Error('This game is no longer available.');fn(target,candidate);preserveDeletedPlays(before.games.find(g=>g.id===id),target);C.reconcileGame(target);target.updatedAt=C.now();target.revision++;db=candidate;if(!persist()){db=before;drawSave();throw Error('Changes were not saved. '+saveError)}return target}
+function transaction(id,fn){if(isViewerGame(id))throw Error('Follow this game in Live Feed.');const before=db,candidate=C.clone(db),target=candidate.games.find(g=>g.id===id);if(!target)throw Error('This game is no longer available.');fn(target,candidate);preserveDeletedPlays(before.games.find(g=>g.id===id),target);C.reconcileGame(target);target.updatedAt=C.now();target.revision++;db=candidate;if(!persist()){db=before;drawSave();throw Error('Changes were not saved. '+saveError)}return target}
 function expireSavedGames(){if(expiring||recoveryRaw||saveState==='Not saved')return;expiring=true;try{const before=db,candidate=C.clone(db);if(C.expireGames(candidate)){db=candidate;if(!persist()){db=before;drawSave()}else{reportEditorActive=false;ui.setup=null;ui.newDraft=null;closeDialog();render();announce('An unfinished game was completed after 24 hours.')}}}finally{expiring=false}}
 function gameForm(id=null,periodOnly=false){expireSavedGames();if(!id&&!periodOnly&&unfinishedGames().length){const g=liveGame();openDialog('A game is in progress',box=>box.append(el('p',{class:'setup-help'},g.player+' · vs '+g.opponent+'. Finish this game before starting another.'),el('div',{class:'period-tools'},button('Resume Game',()=>chooseGame(g.id,'live'),'primary'),button('End Current Game',()=>endGame(g.id)),button('Cancel',closeDialog,'cancel-choice'))));return}baseGameForm(id,periodOnly);if(id&&!periodOnly)addSummaryFields(id)}
 function addSummaryFields(id){appendGameFeedbackFields(id);const g=db.games.find(g=>g.id===id),form=$('gameForm');if(!g||!form)return;const section=el('fieldset',{class:'ng-section'},el('legend',{},'Game score')),fields=el('div',{class:'report-edit-grid'}),team=formField(fields,'Team score',g.finalScore?.team??'',{type:'number',min:0,max:9999,'aria-label':'Team score'}),opponent=formField(fields,'Opponent score',g.finalScore?.opponent??'',{type:'number',min:0,max:9999,'aria-label':'Opponent score'});section.append(fields);form.insertBefore(section,form.querySelector('.ng-form-footer'));
@@ -7749,21 +7749,61 @@ function familySafeToApply(){return saveState!=='Not saved'&&!recoveryRaw&&!shee
 async function familyFetch(path,{method='GET',body,headers={},auth=true,raw=false}={}){if(!familyConfig)throw Error('Cloud setup is required.');if(auth){if(!familyAuth?.access_token)throw Error('Sign in to Family Cloud.');if(Date.now()>=(familyAuth.expires_at||0)-60000){const fresh=await familyFetch('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:familyAuth.refresh_token},auth:false});storeFamilyAuth(fresh)}}const response=await fetch(familyConfig.url+path,{method,headers:{apikey:familyConfig.key,...(auth?{Authorization:'Bearer '+familyAuth.access_token}:{}),...(body&&!raw?{'Content-Type':'application/json'}:{}),...headers},body:body?(raw?body:JSON.stringify(body)):undefined});let value;const txt=await response.text();try{value=txt?JSON.parse(txt):null}catch{value=txt}if(!response.ok)throw Error(value?.msg||value?.message||value?.error_description||value?.error||'Cloud request failed ('+response.status+').');return value}
 function storeFamilyAuth(value){familyAuth={...value,expires_at:Date.now()+Number(value.expires_in||3600)*1000};localStorage.setItem(FA_KEY,JSON.stringify(familyAuth))}
 const familyRpc=(name,args)=>familyFetch('/rest/v1/rpc/'+name,{method:'POST',body:args});
+// Kept outside exports and game payloads. A second signed-in browser has its own key.
+async function saveFamilyRecord(kind,id,body,version){
+ const args={fid:familyState.familyId,rid:id,body,expected_version:version};
+ if(kind==='game'&&globalThis.crypto?.randomUUID){
+  const keyName='gametrace_live_controller_key';
+  let key=localStorage.getItem(keyName);
+  if(!key){key=crypto.randomUUID();localStorage.setItem(keyName,key)}
+  try{return await familyRpc('gt_save_live_game',{...args,controller_key:key})}
+  catch(e){
+   if(!/PGRST202|Could not find the function.*gt_save_live_game/i.test(e.message))throw e;
+  }
+ }
+ return familyRpc('gt_save_record',{...args,record_kind:kind});
+}
 function currentFamilyRecords(){return [...db.games.map(payload=>({kind:'game',id:payload.id,payload})),...(db.trainingSessions||[]).map(payload=>({kind:'session',id:payload.id,payload})),...(db.goals||[]).map(payload=>({kind:'goal',id:payload.id,payload})),...(db.goalOrders||[]).map(payload=>({kind:'goal_order',id:payload.id,payload})),...(db.journeyResets||[]).map(payload=>({kind:'journey_reset',id:payload.id,payload})),...(db.trophyDefinitions||[]).map(payload=>({kind:'trophy_definition',id:payload.id,payload})),...(db.familyAwards||[]).map(payload=>({kind:'family_award',id:payload.id,payload})),...Object.values(familyState.clips||{}).map(payload=>({kind:'clip',id:payload.id,payload}))]}
 function localRecord(kind,id){if(kind==='clip')return familyState.clips[id];return (kind==='game'?db.games:kind==='goal'?(db.goals||[]):kind==='goal_order'?(db.goalOrders||[]):kind==='journey_reset'?(db.journeyResets||[]):kind==='trophy_definition'?(db.trophyDefinitions||[]):kind==='family_award'?(db.familyAwards||[]):db.trainingSessions).find(r=>r.id===id)}
 function validateCloudPayload(kind,payload){if(kind==='journey_reset')return GameTraceAwards.reset(payload);if(kind==='trophy_definition')return GameTraceAwards.definition(payload);if(kind==='family_award')return GameTraceAwards.award(payload);if(kind==='game'){return C.validDB({...C.blankDB(),games:[payload]}).games[0]}if(kind==='session')return T.validSession(payload);if(kind==='goal')return T.validGoal(payload);if(kind==='goal_order')return T.validGoalOrder(payload);if(kind==='clip'){if(!payload||typeof payload.id!=='string'||!payload.path?.startsWith(familyState.familyId+'/')||!['game','session',''].includes(payload.attachedKind||'')||String(payload.name).length>200)throw Error('Invalid shared clip.');return payload}throw Error('Unknown shared record type.')}
+function isViewerGame(id){
+ const g=localRecord('game',id);
+ return !!(familyState.remoteLive?.[id]&&g?.status==='in_progress'&&!g.deletedAt);
+}
 function applyFamilyPayload(kind,payload){if(kind==='journey_reset'&&typeof archiveJourneyReset==='function')archiveJourneyReset(payload);if(kind==='clip'){familyState.clips[payload.id]=payload;return}const list=kind==='game'?db.games:kind==='goal'?db.goals:kind==='goal_order'?db.goalOrders:kind==='journey_reset'?db.journeyResets:kind==='trophy_definition'?db.trophyDefinitions:kind==='family_award'?db.familyAwards:db.trainingSessions,index=list.findIndex(r=>r.id===payload.id);if(index<0)list.push(payload);else list[index]=payload}
 async function cloudRows(){let rows=[],offset=0;while(true){const page=await familyFetch('/rest/v1/gt_records?family_id=eq.'+familyState.familyId+'&select=*&order=kind,record_id&limit=500&offset='+offset);rows.push(...page);if(page.length<500)break;offset+=page.length}return rows}
 async function syncFamily(){if(familyBusy||familyClipUploading||familyUI.busy||familyUI.recovery||!familyAuth)return;if(!navigator.onLine){familyStatus='Saved on device · waiting for connection';familyStatusDraw();return}if(!familySafeToApply()){familyStatus='Saved on device · sync after editing';familyStatusDraw();return}familyBusy=true;familyError='';familyStatus='Syncing…';familyStatusDraw();try{
  if(!await verifyFamilyMembership())return;
  const remote=await cloudRows();familyConflicts=[];
- for(const r of remote){const key=r.kind+':'+r.record_id;if(familyState.localOnly?.[key])continue;const base=familyState.baseline[key],local=localRecord(r.kind,r.record_id),cloud=validateCloudPayload(r.kind,r.payload),cloudHash=fingerprint(cloud),localHash=local?fingerprint(local):null;if(base&&r.version===base.version)continue;if(localHash===cloudHash){familyState.baseline[key]={version:r.version,hash:cloudHash};continue}if(!['trophy_definition','family_award','journey_reset'].includes(r.kind)&&local&&(!base||localHash!==base.hash)){familyConflicts.push(r);continue}if(!familySafeToApply())continue;const before=C.clone(db),beforeClips=C.clone(familyState.clips);applyFamilyPayload(r.kind,cloud);if(r.kind!=='clip'&&!persist()){db=before;familyState.clips=beforeClips;throw Error('Cloud changes could not be saved on this device.')}familyState.baseline[key]={version:r.version,hash:cloudHash};saveFamilyState();}
+ for(const r of remote){const key=r.kind+':'+r.record_id;if(familyState.localOnly?.[key])continue;const base=familyState.baseline[key],local=localRecord(r.kind,r.record_id),cloud=validateCloudPayload(r.kind,r.payload),cloudHash=fingerprint(cloud),localHash=local?fingerprint(local):null;if(base&&r.version===base.version)continue;
+ const attempted=familyState.liveAttempts?.[r.record_id];
+ if(r.kind==='game'&&attempted?.hash===fingerprint(r.payload)&&r.version===attempted.version+1){
+  familyState.baseline[key]={version:r.version,hash:attempted.hash};
+  delete familyState.liveAttempts[r.record_id];
+  saveFamilyState();
+  continue;
+ }if(localHash===cloudHash){familyState.baseline[key]={version:r.version,hash:cloudHash};continue}if(!['trophy_definition','family_award','journey_reset'].includes(r.kind)&&local&&(!base||localHash!==base.hash)){familyConflicts.push(r);continue}if(!familySafeToApply())continue;const before=C.clone(db),beforeClips=C.clone(familyState.clips);applyFamilyPayload(r.kind,cloud);if(r.kind!=='clip'&&!persist()){db=before;familyState.clips=beforeClips;throw Error('Cloud changes could not be saved on this device.')}if(r.kind==='game'&&!local&&cloud.status==='in_progress'){
+ familyState.remoteLive??={};familyState.remoteLive[r.record_id]=true;
+ }
+ familyState.baseline[key]={version:r.version,hash:cloudHash};saveFamilyState();}
  if(typeof applyJourneyReset==='function'&&familySafeToApply())applyJourneyReset();
- if(!sharingNeedsReview()&&familySafeToApply())for(const item of currentFamilyRecords().filter(r=>!familyState.localOnly?.[familyRecordKey(r)])){if(!familySafeToApply())break;if(['trophy_definition','family_award','journey_reset'].includes(item.kind))continue;if(['goal','goal_order'].includes(item.kind)&&!familyGoalsCloud)continue;const key=item.kind+':'+item.id;if(familyConflicts.some(r=>r.kind===item.kind&&r.record_id===item.id))continue;const base=familyState.baseline[key],sent=C.clone(item.payload),hash=fingerprint(sent);if(base?.hash===hash)continue;const result=await familyRpc('gt_save_record',{fid:familyState.familyId,record_kind:item.kind,rid:item.id,body:sent,expected_version:base?.version||0});if(result.conflict){familyConflicts.push(result.record);continue}familyState.baseline[key]={version:result.record.version,hash};saveFamilyState();}
+ if(!sharingNeedsReview()&&familySafeToApply())for(const item of currentFamilyRecords().filter(r=>!familyState.localOnly?.[familyRecordKey(r)])){if(!familySafeToApply())break;if(['trophy_definition','family_award','journey_reset'].includes(item.kind))continue;if(['goal','goal_order'].includes(item.kind)&&!familyGoalsCloud)continue;const key=item.kind+':'+item.id;if(familyConflicts.some(r=>r.kind===item.kind&&r.record_id===item.id))continue;const base=familyState.baseline[key],current=localRecord(item.kind,item.id);if(!current)continue;const sent=C.clone(current),hash=fingerprint(sent);if(base?.hash===hash)continue;if(item.kind==='game'){
+  familyState.liveAttempts??={};
+  familyState.liveAttempts[item.id]={version:base?.version||0,hash};
+  saveFamilyState();
+ }
+ let result;
+ try{result=await saveFamilyRecord(item.kind,item.id,sent,base?.version||0)}
+ catch(e){
+  if(item.kind!=='game'||!e.message.includes('This live game is controlled by another device'))throw e;
+  const row=remote.find(r=>r.kind==='game'&&r.record_id===item.id);
+  if(row)familyConflicts.push(row);else throw e;
+  continue;
+ }if(result.conflict){familyConflicts.push(result.record);continue}familyState.baseline[key]={version:result.record.version,hash};if(item.kind==='game')delete familyState.liveAttempts[item.id];saveFamilyState();}
  if(!sharingNeedsReview()){familyState.reviewedFor=familyReviewKey();if(!familyConflicts.length&&!familyPending().length)familyState.lastSync=C.now()}saveFamilyState();familyStatus=sharingNeedsReview()?'Needs attention · review existing device records':familyConflicts.length?familyConflicts.length+' changes need review':familyPending().some(r=>['goal','goal_order'].includes(r.kind))&&!familyGoalsCloud?'Games/training synced · Goals await cloud update':familyPending().length?'Saved on device · changes queued':'Synced with family';if(familySafeToApply()&&!['setup','training','family'].includes(ui.screen))render();
  }catch(e){familyStatus='Saved on device · sync needs retry';familyError=e.message}finally{familyBusy=false;familyStatusDraw();if(ui.screen==='family'&&!document.querySelector('#familyContent input:focus')&&!document.querySelector('#familyContent select:focus'))renderFamily()}}
-function scheduleFamily(){if(familyAuth&&!familyBusy&&familyPending().length){familyStatus='Saved on this device · pending sync';familyStatusDraw()}clearTimeout(familyTimer);familyTimer=setTimeout(syncFamily,1600)}
-async function resolveFamilyConflict(record,useCloud){try{if(!await verifyFamilyMembership())throw Error('Family access required');if(sharingNeedsReview())throw Error('Review existing device records first.');const current=localRecord(record.kind,record.record_id);if(!current)throw Error('Local record is unavailable.');if(useCloud){familyState.recovery??=[];familyState.recovery.push({kind:record.kind,id:record.record_id,payload:C.clone(current),savedAt:C.now()});saveFamilyState();if(!familySafeToApply())throw Error('Finish your current edit first.');const payload=validateCloudPayload(record.kind,record.payload),before=C.clone(db);applyFamilyPayload(record.kind,payload);if(record.kind!=='clip'&&!persist()){db=before;throw Error('Could not save the family copy on this device.')}familyState.baseline[record.kind+':'+record.record_id]={version:record.version,hash:fingerprint(payload)}}else{const result=await familyRpc('gt_save_record',{fid:familyState.familyId,record_kind:record.kind,rid:record.record_id,body:current,expected_version:record.version});if(result.conflict)throw Error('The family copy changed again. Sync and review it.');familyState.baseline[record.kind+':'+record.record_id]={version:result.record.version,hash:fingerprint(current)}}familyConflicts=familyConflicts.filter(r=>r!==record);saveFamilyState();renderFamily();scheduleFamily()}catch(e){familyError=e.message;familyStatusDraw()}}
+function scheduleFamily(){if(familyAuth&&!familyBusy&&familyPending().length){familyStatus='Saved on this device · pending sync';familyStatusDraw()}if(familyTimer!==null)return;familyTimer=setTimeout(()=>{familyTimer=null;syncFamily()},ui.screen==='live'?200:1600)}
+async function resolveFamilyConflict(record,useCloud){try{if(!await verifyFamilyMembership())throw Error('Family access required');if(sharingNeedsReview())throw Error('Review existing device records first.');const current=localRecord(record.kind,record.record_id);if(!current)throw Error('Local record is unavailable.');if(useCloud){familyState.recovery??=[];familyState.recovery.push({kind:record.kind,id:record.record_id,payload:C.clone(current),savedAt:C.now()});saveFamilyState();if(!familySafeToApply())throw Error('Finish your current edit first.');const payload=validateCloudPayload(record.kind,record.payload),before=C.clone(db);applyFamilyPayload(record.kind,payload);if(record.kind!=='clip'&&!persist()){db=before;throw Error('Could not save the family copy on this device.')}familyState.baseline[record.kind+':'+record.record_id]={version:record.version,hash:fingerprint(payload)}}else{const result=await saveFamilyRecord(record.kind,record.record_id,current,record.version);if(result.conflict)throw Error('The family copy changed again. Sync and review it.');familyState.baseline[record.kind+':'+record.record_id]={version:result.record.version,hash:fingerprint(current)}}familyConflicts=familyConflicts.filter(r=>r!==record);saveFamilyState();renderFamily();scheduleFamily()}catch(e){familyError=e.message;familyStatusDraw()}}
 function bindFamily(fid){if(familyState.familyId&&familyState.familyId!==fid){familyState.pendingFamilyId=fid;saveFamilyState();return}familyState.familyId=fid;saveFamilyState();scheduleFamily()}
 function renderFamily(){
  const root=$('familyContent');root.replaceChildren(pageHeading('Family Cloud',()=>navigate('menu')),el('span',{class:'family-state','data-family-status':'',role:'status'},familyStatus),el('p',{class:'family-error','data-family-error':'',role:'alert'},familyError));
@@ -9654,9 +9694,65 @@ renderTraining=function(){trainingBefore44Enhancements();enhanceGymBanner44()};
 
 /* Family-scoped viewer uses authenticated reads; it never writes or replaces tracker records. */
 const feed42={scope:'',selected:null,records:[],busy:false,error:'',lastRead:null,filter:'all',request:0};
+// Realtime signals a version change. REST remains the source for snapshots and reconnects.
+let liveFeedSocket=null;
+function stopLiveFeedSocket(){
+ const connection=liveFeedSocket;
+ liveFeedSocket=null;
+ if(connection){clearInterval(connection.timer);connection.socket.close()}
+}
+function connectLiveFeedSocket(scope){
+ const token=familyAuth?.access_token;
+ if(ui.screen!=='liveFeed'||document.hidden||!navigator.onLine||!familyAccess||!token||!window.WebSocket){
+  stopLiveFeedSocket();return;
+ }
+ if(liveFeedSocket?.scope===scope&&liveFeedSocket.token===token)return;
+ stopLiveFeedSocket();
+ const url=new URL(familyConfig.url+'/realtime/v1/websocket');
+ url.protocol=url.protocol==='https:'?'wss:':'ws:';
+ url.searchParams.set('apikey',familyConfig.key);
+ url.searchParams.set('vsn','1.0.0');
+ let socket;
+ try{socket=new WebSocket(url)}catch{return}
+ const connection={socket,token,scope,timer:null,heartbeat:null,sequence:0,ready:false};
+ liveFeedSocket=connection;
+ const topic='realtime:game-trace-live';
+ const send=(topic,event,payload)=>{
+  const ref=String(++connection.sequence);
+  socket.send(JSON.stringify({topic,event,payload,ref}));
+  return ref;
+ };
+ socket.onopen=()=>{
+  if(liveFeedSocket!==connection)return;
+  send(topic,'phx_join',{access_token:token,config:{
+   broadcast:{ack:false,self:false},presence:{enabled:false},
+   postgres_changes:[{event:'*',schema:'public',table:'gt_records',filter:'family_id=eq.'+familyState.familyId}]
+  }});
+  connection.timer=setInterval(()=>{
+   if(connection.heartbeat){stopLiveFeedSocket();return}
+   connection.heartbeat=send('phoenix','heartbeat',{});
+  },25000);
+ };
+ socket.onmessage=message=>{
+  if(liveFeedSocket!==connection||feedScope42()!==scope)return;
+  let change;
+  try{change=JSON.parse(message.data)}catch{return}
+  if(change.ref===connection.heartbeat)connection.heartbeat=null;
+  if(change.event==='phx_error'||change.event==='phx_close'){stopLiveFeedSocket();return}
+  const data=change.payload?.data;
+  const ready=change.event==='system'&&change.payload?.status==='ok'&&!connection.ready;
+  if(ready)connection.ready=true;
+  if(ready||(change.event==='postgres_changes'&&(data?.record?.kind==='game'||data?.type==='DELETE'))){
+   if(feed42.busy)feed42.refreshQueued=true;
+   else refreshLiveFeed42();
+  }
+ };
+ socket.onerror=()=>{if(liveFeedSocket===connection)stopLiveFeedSocket()};
+ socket.onclose=()=>{if(liveFeedSocket===connection)stopLiveFeedSocket()};
+}
 const feedView42=el('section',{class:'app-view',id:'liveFeedView',hidden:''},el('div',{class:'content gt-standard-page',id:'liveFeedContent'}));$('familyView').after(feedView42);
 function feedScope42(){return familyState.familyId&&familyUser()?familyState.familyId+':'+familyUser():''}
-function resetFeed42(){feed42.scope=feedScope42();feed42.selected=null;feed42.records=[];feed42.error='';feed42.lastRead=null;feed42.request++;feed42.busy=false}
+function resetFeed42(){feed42.scope=feedScope42();feed42.selected=null;feed42.records=[];feed42.error='';feed42.lastRead=null;feed42.request++;feed42.busy=false;feed42.refreshQueued=false;stopLiveFeedSocket()}
 function openLiveFeed42(id=null){if(feed42.scope!==feedScope42())resetFeed42();feed42.selected=id;navigate('liveFeed');refreshLiveFeed42()}
 function feedTime42(e){return new Date(C.occurred(e)).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
 function renderLiveFeed42(){const root=$('liveFeedContent');root.replaceChildren(pageHeading('Live Feed',()=>navigate('family')),el('p',{class:'v42-subtitle'},'Follow the game, wherever you are.'));root.querySelector('h1')?.prepend(menuIcon('circle-play'));
@@ -9671,12 +9767,25 @@ function renderLiveFeed42(){const root=$('liveFeedContent');root.replaceChildren
  const heading=el('div',{class:'v42-section-row'},el('h2',{},'Play-by-Play'),el('small',{},'Newest first')),filters=el('div',{class:'v42-feed-filters',role:'group','aria-label':'Filter live feed'});for(const [value,label]of [['all','All plays'],['scoring','Scoring']])filters.append(button(label,()=>{feed42.filter=value;renderLiveFeed42()},'journey-button',{'aria-pressed':feed42.filter===value}));root.append(heading,filters);
  const list=el('div',{'data-live-feed-events':'',role:'list','aria-label':'Recorded plays'}),events=C.ordered(g).filter(e=>feed42.filter==='all'||/^(2|3|ft)_make$|^(team|opponent)_\d$|^score_set$/.test(e.code)).reverse();for(const e of events){const scoring=/^(2|3|ft)_make$|^(team|opponent)_\d$|^score_set$/.test(e.code),snapshot=g.scoreTracking&&scoring?C.scoreAt(g,e.id):null,row=el('article',{class:'v42-feed-event',role:'listitem','data-feed-event':e.id}),type=e.code.endsWith('_make')?'make':e.code.endsWith('_miss')?'miss':e.code.startsWith('opponent_')?'opponent':'support';row.append(el('div',{class:'v42-feed-time'},el('strong',{},e.period.label),el('small',{},feedTime42(e))),el('span',{class:'v42-feed-dot '+type,'aria-hidden':'true'},type==='make'?'✓':type==='miss'?'×':'•'),el('div',{class:'v42-feed-label'},el('strong',{},C.eventLabel(e)),e.note?el('small',{},e.note):''),snapshot?el('strong',{class:'v42-feed-event-score'},snapshot.team+'–'+snapshot.opponent):'');list.append(row)}if(!events.length)list.append(el('p',{class:'review-meta'},g.pendingStart?'Ready. Plays appear after the tracker starts this game.':'No plays recorded in this view.'));root.append(list,el('p',{class:'review-meta'},'Updates as plays are recorded. Viewer mode · editing is available only on tracking and review pages.'));
 }
-async function refreshLiveFeed42(){const scope=feedScope42();if(feed42.scope!==scope)resetFeed42();if(feed42.busy||ui.screen!=='liveFeed'||document.hidden)return;if(!familyAuth||!familyState.familyId)return;if(!navigator.onLine){feed42.error='Waiting for connection.';renderLiveFeed42();return}feed42.busy=true;const request=++feed42.request,fid=familyState.familyId;try{if(!familyAccess&&!await verifyFamilyMembership())return;const rows=await familyFetch('/rest/v1/gt_records?family_id=eq.'+encodeURIComponent(fid)+'&kind=eq.game&select=record_id,payload,version,updated_at&order=updated_at.desc&limit=200');if(feedScope42()!==scope||request!==feed42.request)return;if(!Array.isArray(rows))throw Error('Live updates are unavailable.');const games=[];for(const row of rows){if(row.payload)games.push(validateCloudPayload('game',row.payload))}feed42.records=games;feed42.error='';feed42.lastRead=Date.now()}catch(e){if(feedScope42()!==scope||request!==feed42.request)return;if(/401|403|JWT|permission|signed? out|not authorized/i.test(e.message)){feed42.records=[];feed42.error='Family access needs to be checked. Open Family Huddle.'}else feed42.error='Live updates need a retry.'}finally{if(request===feed42.request){feed42.busy=false;if(ui.screen==='liveFeed')renderLiveFeed42()}}}
-const renderBeforeFeed42=render;render=function(){renderBeforeFeed42();$('liveFeedView').hidden=ui.screen!=='liveFeed';if(ui.screen==='liveFeed')renderLiveFeed42()};
+async function refreshLiveFeed42(){const scope=feedScope42();if(feed42.scope!==scope)resetFeed42();if(feed42.busy||ui.screen!=='liveFeed'||document.hidden)return;if(!familyAuth||!familyState.familyId)return;if(!navigator.onLine){feed42.error='Waiting for connection.';renderLiveFeed42();return}feed42.busy=true;const request=++feed42.request,fid=familyState.familyId;try{if(!familyAccess&&!await verifyFamilyMembership())return;const rows=await familyFetch('/rest/v1/gt_records?family_id=eq.'+encodeURIComponent(fid)+'&kind=eq.game&select=record_id,payload,version,updated_at&order=updated_at.desc&limit=200');if(feedScope42()!==scope||request!==feed42.request)return;if(!Array.isArray(rows))throw Error('Live updates are unavailable.');const games=[];for(const row of rows){if(row.payload)games.push(validateCloudPayload('game',row.payload))}feed42.records=games;feed42.error='';feed42.lastRead=Date.now();connectLiveFeedSocket(scope)}catch(e){if(feedScope42()!==scope||request!==feed42.request)return;if(/401|403|JWT|permission|signed? out|not authorized/i.test(e.message)){stopLiveFeedSocket();feed42.records=[];feed42.error='Family access needs to be checked. Open Family Huddle.'}else feed42.error='Live updates need a retry.'}finally{if(request===feed42.request){feed42.busy=false;if(ui.screen==='liveFeed')renderLiveFeed42();if(feed42.refreshQueued){feed42.refreshQueued=false;refreshLiveFeed42()}}}}
+const renderBeforeFeed42=render;render=function(){
+ if(ui.screen==='live'&&game()&&isViewerGame(game().id)){
+  const id=game().id;
+  if(feed42.scope!==feedScope42())resetFeed42();
+  ui.screen='liveFeed';feed42.selected=id;
+  queueMicrotask(refreshLiveFeed42);
+ }
+ renderBeforeFeed42();$('liveFeedView').hidden=ui.screen!=='liveFeed';if(ui.screen==='liveFeed')renderLiveFeed42();else stopLiveFeedSocket()};
 const familyBeforeFeed42=renderFamily;renderFamily=function(){familyBeforeFeed42();if(familyUI.view!=='overview'||familyUI.recovery||!familyAccess||!familyAuth)return;const panel=el('section',{class:'review-work-banner','data-family-live-feed':''},reviewHeading41('Live Game Feed','circle-play'),el('p',{},'Follow shared scores, game progress, player stats and recorded plays.'),button('Watch Game',()=>openLiveFeed42(),'primary'));$('familyContent').querySelector('.page-heading,.view-title')?.after(panel);stylePage43($('familyContent'),'family')};
 const syncBeforeFeed42=syncFamily;syncFamily=async function(){if(ui.screen==='liveFeed')return refreshLiveFeed42();return syncBeforeFeed42()};
-setInterval(()=>{if(document.hidden)return;if(ui.screen==='liveFeed')refreshLiveFeed42();else if(ui.screen==='live'&&familyAuth&&familyAccess&&navigator.onLine)syncFamily()},5000);
-window.addEventListener('online',()=>{if(ui.screen==='liveFeed')refreshLiveFeed42()});document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ui.screen==='liveFeed')refreshLiveFeed42()});
+setInterval(()=>{if(document.hidden)return;if(ui.screen==='liveFeed')refreshLiveFeed42();else if(familyAuth&&navigator.onLine&&
+ (ui.screen==='live'||familyPending().some(r=>r.kind==='game'&&!familyConflicts.some(c=>c.kind==='game'&&c.record_id===r.id))))syncFamily()},5000);
+window.addEventListener('online',()=>{if(ui.screen==='liveFeed')refreshLiveFeed42()});window.addEventListener('offline',()=>{stopLiveFeedSocket();if(ui.screen==='liveFeed')refreshLiveFeed42()});
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden)stopLiveFeedSocket();
+ else if(ui.screen==='liveFeed')refreshLiveFeed42();
+ else if(ui.screen==='live')scheduleFamily();
+});
 
 
 /* Sky V2: isolated, read-only bridge to this app's lexical data scope. */

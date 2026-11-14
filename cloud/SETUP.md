@@ -62,3 +62,24 @@ Run `migrations/004_family_trophies.sql` after migration 002. This migration inc
 Read-only live `/auth/v1/settings` check confirmed email/password enabled, signup enabled and `mailer_autoconfirm: false` (email confirmation required). No accounts or project settings were changed and no email was sent. This endpoint does not establish the private redirect allowlist, Site URL, templates, SMTP delivery or inbox behavior.
 
 `tests/family-workflow.cjs` now has 20 checks including development/production redirects, confirmation callbacks, expired/incomplete/rejected links, successful reset and local sign-out, short/mismatched passwords, rejected-update retry drafts, recovery cancellation/reload, sync suspension and rate-limit feedback. Pending sync must not hide the separate confirmation notice; non-recovery callbacks clear stale recovery state. Changes are local only. Real emailed-link delivery/redirect acceptance remains unverified until an actual inbox test.
+
+## Live Game Realtime review
+
+Open the review build on the controller and viewer. Apply
+`cloud/migrations/008_live_game_realtime.sql` in the test Supabase project's SQL
+editor to activate Realtime and server-side controller protection. Use a new test
+game. The migration adds the shared records table to the Supabase Realtime
+publication and preserves existing records.
+
+Sign in to the same test family on both devices. On the controller, start the
+game and record a player basket, an opponent score, a timeout, and a period
+change. On the viewer, open **Family Huddle → Watch Game** and confirm each
+update appears. Disconnect the controller, record more plays and both scores,
+reconnect, then confirm the viewer catches up with each play shown once. End the
+game on the controller and confirm the viewer shows the final score.
+
+The first successful live save from the review build binds the game to the
+controller's browser storage and Family Cloud account until completion. Keep
+that browser profile for the duration of the game. Use separate profiles or
+devices when checking controller protection. Older builds keep polling and
+cannot edit a game after the review controller claims it.
