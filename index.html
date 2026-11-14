@@ -6652,6 +6652,25 @@ html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body :is(.view-no
 #settingsContent .gt-settings-body section > h2 { margin: 0 0 8px; font-size: 16px; line-height: 1.45; }
 #settingsContent #gtRecordingLibrary { gap: 8px; }
 </style>
+<style id="gt-settings-controls">
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .settings-section{display:grid;gap:10px}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .settings-row{margin:0}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .form-field{display:grid;gap:5px;min-width:0;margin:0;font-weight:650}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .form-field :is(select,input){width:100%;min-width:0;min-height:44px;font-size:16px;line-height:1.35}
+#settingsContent .review-two-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#settingsContent .gt-settings-tone{display:grid;grid-template-columns:minmax(0,1fr) 44px;align-items:end;gap:8px}
+#settingsContent .gt-settings-preview{display:grid;place-items:center;width:44px;height:44px;padding:0;color:var(--gt-accent);background:var(--gt-surface);border:1px solid var(--gt-edge);border-radius:10px}
+#settingsContent .gt-settings-preview .menu-icon{display:block;width:22px;height:22px}
+#settingsContent .gt-settings-body .gt-settings-save{justify-self:end;min-height:44px}
+#settingsContent .gt-settings-body input[role="switch"]{appearance:none;-webkit-appearance:none;width:44px;height:26px;border-radius:20px;border:1px solid var(--gt-muted);background:var(--gt-surface);position:relative;cursor:pointer;padding:0}
+#settingsContent .gt-settings-body input[role="switch"]::before{content:"";display:block;position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--gt-muted)}
+#settingsContent .gt-settings-body input[role="switch"]:checked{background:var(--gt-accent);border-color:var(--gt-accent)}
+#settingsContent .gt-settings-body input[role="switch"]:checked::before{left:21px;background:var(--gt-surface)}
+#settingsContent .gt-settings-body input[role="switch"]:disabled{opacity:.5;cursor:default}
+#settingsContent :is(.gt-settings-preview,input[role="switch"]):focus-visible{outline:2px solid var(--gt-accent);outline-offset:3px}
+@media (max-width:360px){#settingsContent .review-two-fields{grid-template-columns:1fr}}
+@media (display-mode:standalone){#app[data-screen="settings"]::after{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--gt-bg);z-index:20;pointer-events:none}}
+</style>
 </head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
 <button type="button" id="gt-cover-skip">Skip</button>
@@ -7365,12 +7384,19 @@ function renderMenu(){
  }root.append(nav);
 }
 function settings(){navigate('settings')}
+function settingsSwitch(label,checked,onChange){
+ const control=el('input',{type:'checkbox',role:'switch','aria-label':label});
+ control.checked=!!checked;
+ control.onchange=()=>onChange(control.checked);
+ return el('label',{class:'settings-row gt-setting-switch'},el('span',{},label),control);
+}
 function renderSettingsOriginal(){
  const root=$('settingsContent');root.replaceChildren(pageHeading('Settings',()=>navigate('menu')));
- const section=el('section',{class:'settings-section'},el('h2',{},'Appearance')),appearanceGroup=el('div',{class:'appearance-options',role:'group','aria-label':'Appearance'});
- for(const[value,label]of [['courtside','Courtside · Dark'],['day','Day Game · Light']])appearanceGroup.append(button(label,()=>setAppearance(value),'',{'aria-pressed':appearance===value,'data-appearance':value}));section.append(appearanceGroup);root.append(section);
- const soundSection=el('section',{class:'settings-section'},el('h2',{},'Sound')),soundButton=button('Sound '+(db.prefs.sound?'On':'Off'),()=>{commit(()=>db.prefs.sound=!db.prefs.sound);if(db.prefs.sound)sound()},'settings-row',{'aria-pressed':db.prefs.sound});soundSection.append(soundButton);root.append(soundSection);
- root.append(el('section',{class:'settings-section'},el('h2',{},'Game defaults'),button('Period defaults',()=>gameForm(null,true),'settings-row'),el('p',{class:'view-note'},'Choose the starting format and period lengths for new games.')));
+ root.append(el('section',{class:'settings-section'},el('h2',{},'Appearance'),
+  settingsSwitch('Dark mode',appearance==='courtside',enabled=>setAppearance(enabled?'courtside':'day'))));
+ root.append(el('section',{class:'settings-section'},el('h2',{},'Sound'),
+  settingsSwitch('Sound',db.prefs.sound,enabled=>{commit(()=>db.prefs.sound=enabled);if(db.prefs.sound)sound()})));
+ root.append(el('section',{class:'settings-section'},el('h2',{},'Game defaults'),button('Period defaults',()=>gameForm(null,true),'settings-row'),el('p',{class:'view-note'},'Applies to new games.')));
 }
 function dataMenu(){navigate('backup')}
 function renderBackup(){
@@ -7593,7 +7619,7 @@ async function sound(test=false){if(!db.prefs.sound)return false;try{const Audio
 function nudge(test=false){if(!db.prefs.nudge)return;let vibrated=false;try{vibrated=typeof navigator.vibrate==='function'&&navigator.vibrate(25)===true}catch{}const target=ui.screen==='live'?document.querySelector('.visual'):$('app');target?.classList.remove('feedback-nudge');if(target){void target.offsetWidth;target.classList.add('feedback-nudge');setTimeout(()=>target.classList.remove('feedback-nudge'),240)}if(test)announce(vibrated?'Nudge tested':'Visual nudge tested · vibration unavailable in this browser')}
 
 
-function renderSettingsV24(){renderSettingsOriginal();const root=$('settingsContent'),section=el('section',{class:'settings-section'},el('h2',{},'Nudge'));section.append(button('Nudge '+(db.prefs.nudge?'On':'Off'),()=>{commit(()=>db.prefs.nudge=!db.prefs.nudge);if(db.prefs.nudge)nudge(true)},'settings-row',{'aria-pressed':db.prefs.nudge,'data-nudge-toggle':''}),el('p',{class:'view-note'},typeof navigator.vibrate==='function'?'Visual feedback with vibration when available.':'Visual feedback is available. This browser does not provide vibration.'),button('Test nudge',()=>{if(!db.prefs.nudge){announce('Turn Nudge on to test it.');return}nudge(true)},'settings-row',{'data-test-nudge':''}));root.append(section);const soundSection=[...root.querySelectorAll('.settings-section')].find(s=>s.querySelector('h2')?.textContent==='Sound');if(soundSection)soundSection.append(button('Test sound',()=>{if(!db.prefs.sound){announce('Turn Sound on to test it.');return}sound(true)},'settings-row',{'data-test-sound':''}),el('p',{class:'view-note'},'Plays after a saved action. Use device volume and audio settings to adjust playback.'))}
+function renderSettingsV24(){renderSettingsOriginal();const root=$('settingsContent'),section=el('section',{class:'settings-section'},el('h2',{},'Nudge'));section.append(settingsSwitch('Nudge',db.prefs.nudge,enabled=>{commit(()=>db.prefs.nudge=enabled);if(db.prefs.nudge)nudge(true)}),el('p',{class:'view-note'},typeof navigator.vibrate==='function'?'Visual feedback with vibration when available.':'Visual feedback is available. This browser does not provide vibration.'),button('Test nudge',()=>{if(!db.prefs.nudge){announce('Turn Nudge on to test it.');return}nudge(true)},'settings-row',{'data-test-nudge':''}));root.append(section);const soundSection=[...root.querySelectorAll('.settings-section')].find(s=>s.querySelector('h2')?.textContent==='Sound');if(soundSection)soundSection.append(button('Test sound',()=>{if(!db.prefs.sound){announce('Turn Sound on to test it.');return}sound(true)},'settings-row',{'data-test-sound':''}),el('p',{class:'view-note'},'Plays after a saved action. Use device volume and audio settings to adjust playback.'))}
 
 
 function renderReportsV20(){
@@ -7675,7 +7701,11 @@ function renderSettings(){
   if(!persist()){db=previous;render();announce('Tone was not saved. Try again.');return}render();$('soundTone')?.focus();
  }});
  for(const tone of SOUND_TONES)select.append(el('option',{value:tone.id},tone.name));select.value=db.prefs.soundTone||'digital-tick';
- section.append(el('label',{class:'ng-field sound-tone-field',for:'soundTone'},'Sound tone',select),button('Preview tone',()=>sound(true),'settings-row',{'data-test-sound':''}),el('p',{class:'view-note',id:'soundToneHelp'},'Preview works with Sound off. Saved actions use your selected tone when Sound is on. Check device sound and volume.'));
+ const preview=button('',()=>sound(true),'gt-settings-preview',{'data-test-sound':'','aria-label':'Preview tone',title:'Preview tone'});
+ preview.append(menuIcon('circle-play'));
+ section.append(el('div',{class:'gt-settings-tone'},
+  el('label',{class:'form-field',for:'soundTone'},'Sound tone',select),preview),
+  el('p',{class:'view-note',id:'soundToneHelp'},'You can preview a tone with Sound off.'));
 }
 
 
@@ -9015,7 +9045,7 @@ renderFamily=function(){familyBefore41();const root=$('familyContent');reviewPag
 function applyReadingSize41(value){const size=['standard','large','extra'].includes(value)?value:'standard';$('app').dataset.readingSize=size;$('app').style.setProperty('--reading-size',size==='extra'?'20px':size==='large'?'18px':'16px')}
 try{applyReadingSize41(localStorage.getItem('gametrace-reading-size'))}catch{applyReadingSize41('standard')}
 const settingsBefore41=renderSettings;
-renderSettings=function(){settingsBefore41();const root=$('settingsContent');reviewPage41(root,'Make GameTrace comfortable for you.');const sections=[...root.querySelectorAll(':scope>.settings-section')],appearance=sections.find(n=>n.querySelector('h2')?.textContent==='Appearance'),reading=sections.find(n=>n.querySelector('h2')?.textContent==='Reading size');if(reading){const input=el('select',{'aria-label':'Text size'});for(const[v,label]of [['standard','Comfortable'],['large','Larger'],['extra','Extra large']])input.append(el('option',{value:v},label));input.value=$('app').dataset.readingSize;input.onchange=()=>{try{localStorage.setItem('gametrace-reading-size',input.value);applyReadingSize41(input.value)}catch{announce('Text size could not be saved.')}};reading.replaceChildren(el('label',{class:'form-field'},'Text size',input),el('div',{class:'review-reading-preview'},el('strong',{},'Keep showing up.'),el('p',{},'Your work, your games, your journey.')));appearance?.append(...reading.childNodes);reading.remove()}const sound=sections.find(n=>n.querySelector('h2')?.textContent==='Sound'),nudge=sections.find(n=>n.querySelector('h2')?.textContent==='Nudge');if(sound){reviewLabel41(sound.querySelector('h2'),'Sound & feedback');if(nudge){for(const n of [...nudge.children])if(n.tagName!=='H2')sound.append(n);nudge.remove()}}for(const panel of root.querySelectorAll(':scope>.family-panel'))if(panel.querySelector('h2')?.textContent==='Fresh start')panel.remove();const defaults=sections.find(n=>n.querySelector('h2')?.textContent==='Game defaults');if(defaults){reviewLabel41(defaults.querySelector('h2'),'New game defaults');defaults.prepend(defaults.querySelector('h2'));const quick=el('div',{class:'review-two-fields'}),format=el('select',{'aria-label':'Default game format'}),minutes=el('input',{type:'number',min:1,max:60,step:1,'aria-label':'Default minutes per period'});format.append(el('option',{value:'4Q'},'4 quarters'),el('option',{value:'2H'},'2 halves'));format.value=db.prefs.periods.format;const periods=db.prefs.periods.durations[format.value];minutes.value=new Set(periods).size===1?String(periods[0]/60):'';minutes.placeholder='Individual lengths';const save=()=>{try{if(!Number.isInteger(+minutes.value)||+minutes.value<1||+minutes.value>60)throw Error('Use whole minutes from 1 to 60.');commit(()=>{db.prefs.periods.format=format.value;db.prefs.periods.current=0;db.prefs.periods.durations[format.value]=Array(C.count(format.value)).fill(+minutes.value*60)});announce('New game defaults saved')}catch(e){announce(e.message)}};quick.append(el('label',{class:'form-field'},'Format',format),el('label',{class:'form-field'},'Minutes per period',minutes));defaults.querySelector('h2').after(quick,button('Save defaults',save,'journey-button'));const advanced=[...defaults.querySelectorAll('button')].find(b=>b.textContent==='Period defaults');if(advanced)advanced.textContent='Individual period lengths';defaults.append(el('p',{class:'review-meta'},'Existing games keep their own setup.'))}for(const section of root.querySelectorAll('.settings-section'))section.classList.add('review-section')};
+renderSettings=function(){settingsBefore41();const root=$('settingsContent');reviewPage41(root,'Make GameTrace comfortable for you.');const sections=[...root.querySelectorAll(':scope>.settings-section')],appearance=sections.find(n=>n.querySelector('h2')?.textContent==='Appearance'),reading=sections.find(n=>n.querySelector('h2')?.textContent==='Reading size');if(reading){const input=el('select',{'aria-label':'Text size'});for(const[v,label]of [['standard','Comfortable'],['large','Larger'],['extra','Extra large']])input.append(el('option',{value:v},label));input.value=$('app').dataset.readingSize;input.onchange=()=>{try{localStorage.setItem('gametrace-reading-size',input.value);applyReadingSize41(input.value)}catch{announce('Text size could not be saved.')}};reading.replaceChildren(el('label',{class:'form-field'},'Text size',input),el('div',{class:'review-reading-preview'},el('strong',{},'Keep showing up.'),el('p',{},'Your work, your games, your journey.')));appearance?.append(...reading.childNodes);reading.remove()}const sound=sections.find(n=>n.querySelector('h2')?.textContent==='Sound'),nudge=sections.find(n=>n.querySelector('h2')?.textContent==='Nudge');if(sound){reviewLabel41(sound.querySelector('h2'),'Sound & feedback');if(nudge){for(const n of [...nudge.children])if(n.tagName!=='H2')sound.append(n);nudge.remove()}}for(const panel of root.querySelectorAll(':scope>.family-panel'))if(panel.querySelector('h2')?.textContent==='Fresh start')panel.remove();const defaults=sections.find(n=>n.querySelector('h2')?.textContent==='Game defaults');if(defaults){reviewLabel41(defaults.querySelector('h2'),'New game defaults');defaults.prepend(defaults.querySelector('h2'));const quick=el('div',{class:'review-two-fields'}),format=el('select',{'aria-label':'Default game format'}),minutes=el('input',{type:'number',min:1,max:60,step:1,'aria-label':'Default minutes per period'});format.append(el('option',{value:'4Q'},'4 quarters'),el('option',{value:'2H'},'2 halves'));format.value=db.prefs.periods.format;const periods=db.prefs.periods.durations[format.value];minutes.value=new Set(periods).size===1?String(periods[0]/60):'';minutes.placeholder='Individual lengths';const save=()=>{try{if(!Number.isInteger(+minutes.value)||+minutes.value<1||+minutes.value>60)throw Error('Use whole minutes from 1 to 60.');commit(()=>{db.prefs.periods.format=format.value;db.prefs.periods.current=0;db.prefs.periods.durations[format.value]=Array(C.count(format.value)).fill(+minutes.value*60)});announce('New game defaults saved')}catch(e){announce(e.message)}};quick.append(el('label',{class:'form-field'},'Format',format),el('label',{class:'form-field'},'Minutes per period',minutes));defaults.querySelector('h2').after(quick,button('Save defaults',save,'primary gt-settings-save'));const advanced=[...defaults.querySelectorAll('button')].find(b=>b.textContent==='Period defaults');if(advanced)advanced.textContent='Individual period lengths'}for(const section of root.querySelectorAll('.settings-section'))section.classList.add('review-section')};
 
 
 const backupBefore41=renderBackup;
@@ -9972,57 +10002,6 @@ window.__gtSkyAICall = async function(payload){
   };
 
 /* DEV-only, one-shot iPhone notification test. */
-const notificationSettingsBase=renderSettings;
-renderSettings=function(){
- notificationSettingsBase();
- if(location.origin!=='https://development--game-trace.netlify.app')return;
- const installed=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
- const supported=installed&&'serviceWorker' in navigator&&'Notification' in window&&'PushManager' in window;
- const status=el('p',{class:'view-note',role:'status'},supported?'Allow notifications, then lock your iPhone.':'Open GameTrace DEV from the iPhone Home Screen to run this test.');
- const toggle=el('input',{type:'checkbox',role:'switch','aria-label':'Lock Screen notification test'});
- const pendingKey='gametrace_notification_test_until';
- function syncToggle(){
-  const pending=Number(localStorage.getItem(pendingKey)||0)>Date.now();
-  toggle.checked=pending;
-  toggle.disabled=!supported||pending;
-  return pending;
- }
- if(syncToggle())status.textContent='Test queued. Alerts are due 1, 2, and 3 minutes after enabling.';
- toggle.addEventListener('change',async()=>{
-  if(!toggle.checked)return;
-  toggle.disabled=true;
-  status.textContent='Setting up the notification test…';
-  try{
-   const permission=await Notification.requestPermission();
-   if(permission!=='granted')throw Error('Allow GameTrace notifications in iPhone Settings to run the test.');
-   const result=await fetch('/.netlify/functions/notification-test',{cache:'no-store'});
-   const configuration=await result.json();
-   if(!result.ok)throw Error(configuration.error||'Notification test setup is unavailable.');
-   await navigator.serviceWorker.register('/notification-test-sw.js');
-   const worker=await navigator.serviceWorker.ready;
-   const base64=configuration.publicKey.replace(/-/g,'+').replace(/_/g,'/');
-   const key=Uint8Array.from(atob(base64.padEnd(Math.ceil(base64.length/4)*4,'=')),char=>char.charCodeAt(0));
-   const subscription=await worker.pushManager.getSubscription()||await worker.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:key});
-   const response=await fetch('/.netlify/functions/notification-test',{
-    method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription})
-   });
-   if(response.status!==202){
-    const detail=await response.json().catch(()=>null);
-    throw Error(detail?.error||(response.status===429?'Wait a few minutes before running another test.':'Could not queue the notification test.'));
-   }
-   localStorage.setItem(pendingKey,String(Date.now()+185000));
-   status.textContent='Test queued. Lock your iPhone now. Alerts are due in 1, 2, and 3 minutes.';
-   setTimeout(()=>{if(toggle.isConnected&&!syncToggle())status.textContent='Test finished. Enable the switch to run it again.'},185000);
-  }catch(error){
-   toggle.checked=false;toggle.disabled=false;status.textContent=error.message;
-  }
- });
- const label=el('label',{class:'settings-row'},el('span',{},'Lock Screen notification test'),toggle);
- $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Notifications'),label,
-  el('p',{class:'view-note'},'One test alert after 1, 2, and 3 minutes.'),status));
-};
-
-
 const scheduleReminderSettingsBase=renderSettings;
 renderSettings=function(){
  scheduleReminderSettingsBase();
@@ -10066,8 +10045,8 @@ renderSettings=function(){
    toggle.checked=!enabled;toggle.disabled=false;status.textContent=error.message;
   }
  };
- $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Schedule reminders'),
-  el('label',{class:'settings-row'},el('span',{},'Remind me before scheduled games'),toggle),
+ $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Notifications'),
+  el('label',{class:'settings-row gt-setting-switch'},el('span',{},'Schedule reminders'),toggle),
   el('p',{class:'view-note'},'Every timed event · 45, 30, and 15 minutes before start.'),status));
 };
 
@@ -10079,7 +10058,6 @@ renderSettings=function(){
  renderSettingsBeforeGroups();
 
  const sections=[...root.querySelectorAll(':scope > .settings-section')];
- const notificationSections=sections.filter(section=>['Notifications','Schedule reminders'].includes(section.querySelector('h2')?.textContent));
  function group(title,content){
   const details=el('details',{class:'gt-settings-group','data-settings-group':title},
    el('summary',{},title),el('div',{class:'gt-settings-body'},content));
@@ -10090,17 +10068,6 @@ renderSettings=function(){
   const heading=section.querySelector(':scope > h2');
   if(!heading)continue;
   const title=heading.textContent;
-  if(notificationSections.includes(section)){
-   if(section!==notificationSections[0])continue;
-   const notifications=group('Notifications',[]);
-   section.before(notifications);
-   const body=notifications.lastElementChild;
-   for(const part of notificationSections){
-    if(part===section)part.querySelector(':scope > h2')?.remove();
-    body.append(part);
-   }
-   continue;
-  }
   const details=group(title,[]);
   section.before(details);
   heading.remove();
@@ -13805,7 +13772,7 @@ let rendering=false;
 async function refreshLibrary(){const target=document.getElementById('gtRecordingLibrary');if(!target||rendering)return;rendering=true;try{const allRows=await list(),rows=allRows.filter(item=>!item.deletedAt).sort((a,b)=>b.created-a.created);const removed=allRows.filter(item=>item.deletedAt);target.replaceChildren();const heading=document.createElement('h3');heading.textContent='My Recordings ('+rows.length+')';const summary=target.closest('details[data-settings-group]')?.querySelector('summary');if(summary)summary.textContent=heading.textContent;else target.append(heading);const note=document.createElement('p');note.textContent='Stored on this device in GameTrace. Export important videos to Photos or Files; browser storage is not permanent.';target.append(note);if(removed.length){const trash=document.createElement('details'),title=document.createElement('summary');title.textContent='Recently deleted recordings ('+removed.length+')';trash.append(title);for(const item of removed){const restore=document.createElement('button');restore.textContent='Restore '+item.name;restore.onclick=async()=>{item.deletedAt=null;await put(item);refreshLibrary()};trash.append(restore)}target.append(trash)}
 if(navigator.storage?.estimate){try{const e=await navigator.storage.estimate();const p=document.createElement('small');p.textContent='Browser storage: '+Math.round((e.usage||0)/1048576)+' MB used'+(e.quota?', '+Math.round(e.quota/1048576)+' MB estimated quota':'');target.append(p)}catch{}}
 if(pending){const recover=document.createElement('button');recover.type='button';recover.textContent='Retry saving unsaved video';recover.addEventListener('click',async()=>{try{await persistRecording(pending.blob);pending=null;say('✓ Recording recovered');refreshLibrary()}catch(e){say('Save failed: '+e.message)}});target.append(recover);const ex=document.createElement('button');ex.type='button';ex.textContent='Export unsaved video';ex.addEventListener('click',()=>exportItem({name:'GameTrace Recovery',blob:pending.blob,type:pending.blob.type}));target.append(ex)}
-if(!rows.length){const empty=document.createElement('p');empty.textContent='No locally saved videos yet.';target.append(empty)}
+if(!rows.length){const empty=document.createElement('p');empty.textContent='No recordings on this device.';target.prepend(empty)}
 for(const item of rows){const box=document.createElement('div');box.className='gt-video-item';const name=document.createElement('strong');name.textContent=item.name;const meta=document.createElement('small');meta.textContent=new Date(item.created).toLocaleString()+' · '+Math.floor(item.duration/60)+':'+String(item.duration%60).padStart(2,'0')+' · '+(item.size/1048576).toFixed(1)+' MB';meta.textContent+=' · '+(item.cloudStatus||'On this device');const actions=document.createElement('div');actions.className='gt-video-actions';const add=(label,cb)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.addEventListener('click',cb);actions.append(b)};
 add('Play',()=>{if(libraryURL){URL.revokeObjectURL(libraryURL);libraryURL=null}target.querySelectorAll('video').forEach(v=>v.remove());const v=document.createElement('video');v.controls=true;v.playsInline=true;libraryURL=URL.createObjectURL(item.blob);v.src=libraryURL;box.append(v)});
 if(window.GameTraceFamily?.connected())add(item.cloudStatus==='Uploaded'?'Upload again':'Upload to family',async()=>{try{await window.GameTraceFamily.upload(item,true);refreshLibrary()}catch(e){say(e.message)}});
