@@ -6673,6 +6673,15 @@ html[data-theme] #app.app.gt-app #settingsContent .gt-switch > input[role="switc
 #settingsContent .gt-settings-preview:focus-visible,#settingsContent .gt-switch input:focus-visible + .gt-switch-track{outline:2px solid var(--gt-accent);outline-offset:3px}
 @media (max-width:360px){#settingsContent .review-two-fields{grid-template-columns:1fr}}
 @media (display-mode:standalone){#app[data-screen="settings"]::after{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--gt-bg);z-index:20;pointer-events:none}}
+
+html[data-theme] #app.app.gt-app #settingsContent :is(.page-heading,.view-title) h1{font-size:clamp(20px,5.5vw,29px)!important;line-height:1.19!important;letter-spacing:-.65px!important;font-weight:800!important}
+html[data-theme] #app.app.gt-app #settingsContent > .review-subtitle{font:750 11px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;letter-spacing:1.2px;text-transform:uppercase}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-group > summary{font-size:18px;font-weight:800;letter-spacing:-.35px;line-height:1.3}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .form-field{font-size:13px;font-weight:700;line-height:1.35}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body .form-field :is(select,input){font-size:16px;font-weight:400;line-height:1.3}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body label.settings-row{font-size:16px;line-height:1.3}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body :is(button.settings-row,.gt-settings-save,#gtRecordingLibrary button){font-size:14px;font-weight:750;line-height:1.4}
+html[data-theme] #app.app.gt-app #settingsContent .gt-settings-body :is(.view-note,.review-meta,#gtRecordingLibrary p,#gtRecordingLibrary small){font-size:13px;line-height:1.4}
 </style>
 </head><body>
 <section id="gt-app-cover" role="region" aria-label="Welcome to GameTrace">
