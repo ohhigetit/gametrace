@@ -9982,6 +9982,54 @@ renderSettings=function(){
 };
 
 
+const scheduleReminderSettingsBase=renderSettings;
+renderSettings=function(){
+ scheduleReminderSettingsBase();
+ if(location.origin!=='https://development--game-trace.netlify.app')return;
+ const installed=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+ const supported=installed&&'serviceWorker' in navigator&&'Notification' in window&&'PushManager' in window;
+ const key='gametrace_dev_schedule_reminders';
+ const preference=safeRead(key);
+ const active=preference?.user===familyAuth?.user?.id&&preference?.active===true;
+ const toggle=el('input',{type:'checkbox',role:'switch','aria-label':'Schedule reminders'});
+ toggle.checked=active;toggle.disabled=!supported||!familyAuth||!familyState.familyId||familyConfig?.url!==DEFAULT_FAMILY_CONFIG.url;
+ const status=el('p',{class:'view-note',role:'status'},!supported?'Open GameTrace DEV from your iPhone Home Screen.':
+  toggle.disabled?'Connect to GameTrace Family Cloud to enable reminders.':'Reminders use Schedule events synced through Family Cloud.');
+ toggle.onchange=async()=>{
+  const enabled=toggle.checked;
+  toggle.disabled=true;
+  try{
+   let subscription=null;
+   if(enabled){
+    if(await Notification.requestPermission()!=='granted')throw Error('Allow GameTrace notifications in iPhone Settings.');
+    const response=await fetch('/.netlify/functions/notification-test',{cache:'no-store'});
+    const configuration=await response.json();
+    if(!response.ok)throw Error(configuration.error||'Notification setup is unavailable.');
+    await navigator.serviceWorker.register('/notification-test-sw.js');
+    const worker=await navigator.serviceWorker.ready;
+    const base64=configuration.publicKey.replace(/-/g,'+').replace(/_/g,'/');
+    const applicationServerKey=Uint8Array.from(atob(base64.padEnd(Math.ceil(base64.length/4)*4,'=')),char=>char.charCodeAt(0));
+    subscription=await worker.pushManager.getSubscription()||await worker.pushManager.subscribe({userVisibleOnly:true,applicationServerKey});
+   }
+   const user=familyAuth.user.id;
+   const existing=safeRead(key);
+   const device=existing?.user===user?existing.device:crypto.randomUUID();
+   // Retain the device ID before the RPC so a lost response can be retried safely.
+   const previous=safeRead(key);
+   localStorage.setItem(key,JSON.stringify({user,device,active:previous?.user===user&&previous.active}));
+   await familyRpc('gt_dev_set_reminders',{device,family:familyState.familyId,push:subscription?.toJSON()??null});
+   localStorage.setItem(key,JSON.stringify({user,device,active:enabled}));
+   renderSettings();
+   announce(enabled?'Schedule reminders enabled':'Schedule reminders disabled');
+  }catch(error){
+   toggle.checked=!enabled;toggle.disabled=false;status.textContent=error.message;
+  }
+ };
+ $('settingsContent').append(el('section',{class:'settings-section'},el('h2',{},'Schedule reminders'),
+  el('label',{class:'settings-row'},el('span',{},'Remind me before scheduled games'),toggle),
+  el('p',{class:'view-note'},'Every timed event · 45, 30, and 15 minutes before start.'),status));
+};
+
 load();
 window.GameTraceFamily.boot();
 setInterval(expireSavedGames,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)expireSavedGames()});
