@@ -2,7 +2,10 @@ import { createECDH, ECDH } from 'node:crypto';
 
 export const notificationTestOrigin = 'https://development--game-trace.netlify.app';
 export function notificationTestKey() {
-  const privateKey = process.env.GAMETRACE_DEV_PUSH_PRIVATE_KEY;
+  return pushSigningKey(process.env.GAMETRACE_DEV_PUSH_PRIVATE_KEY);
+}
+
+export function pushSigningKey(privateKey) {
   if (!privateKey || !/^[A-Za-z0-9_-]{43}$/.test(privateKey)) return null;
   try {
     const ecdh = createECDH('prime256v1');
