@@ -2214,6 +2214,12 @@ html[data-theme] #app.gt-app .gt468-icon-trigger svg{width:23px;height:23px;disp
 #setupContent .gt493-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 26px}
 #setupContent .gt493-actions button{width:100%;min-height:51px;border-radius:13px;border:1px solid #c5d5c9;background:white;font-size:16px;font-weight:750}
 #setupContent .gt493-actions button:last-child{background:#dcefe3}
+html[data-theme] #app.gt-app :is(.gt493-actions,.gtf-actions-v1):has(>.gt-edit-delete),
+.gt-note-edit-actions:has(>.gt-edit-delete){grid-template-columns:repeat(3,minmax(0,1fr))}
+.gt-note-edit-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gt-note-edit-actions>button{min-width:0;min-height:44px}
+html[data-theme] #app.gt-app button.gt-edit-delete,
+.gt-note-edit-actions>button.gt-edit-delete{color:#961d2c;background:#fff3f3;border:1px solid #cca4a9;border-radius:13px}
 #setupContent .gt493-advanced{margin:10px 0 0}
 #setupContent .gt493-advanced>summary{font-size:13px}
 #setupContent .gt493-advanced .ng-formats,#setupContent .gt493-advanced legend{display:none!important}
@@ -8769,8 +8775,11 @@ function noteForm40(id=null){
  const items=[...db.games.filter(g=>!g.deletedAt).map(g=>({kind:'game',id:g.id,player:g.player,label:gameTitle(g)})),...db.trainingSessions.filter(s=>!s.deletedAt).map(s=>({kind:'session',id:s.id,player:s.player,label:s.name})),...db.goals.filter(g=>!g.deletedAt).map(g=>({kind:'goal',id:g.id,player:g.player,label:g.title||g.name}))];
  function links(){const old=link.value;link.replaceChildren(el('option',{value:''},'No linked activity'));for(const r of items.filter(r=>T.playerKey(r.player)===T.playerKey(player.value)))link.append(el('option',{value:r.kind+':'+r.id},r.kind+' · '+r.label));link.value=[...link.options].some(o=>o.value===old)?old:''}links();link.value=original?.linkKind?original.linkKind+':'+original.linkId:'';player.addEventListener('input',links);
  const save=()=>{try{const value=link.value,i=value.indexOf(':'),at=C.now(),entry=J.record({id:original?.id||C.uid(),type:'note',title:title.value,player:canonicalPlayer(player.value),date:date.value,body:body.value,linkKind:i<0?'':value.slice(0,i),linkId:i<0?'':value.slice(i+1),createdAt:original?.createdAt||at,updatedAt:at});personalCommit(d=>{const index=d.personalRecords.findIndex(r=>r.id===entry.id);if(original&&(index<0||fingerprint(d.personalRecords[index])!==snapshot))throw Error('This note changed. Reopen it before saving.');if(index<0)d.personalRecords.push(entry);else d.personalRecords[index]=entry});closeDialog();renderNotebook();announce('Note saved'+(familyAccess&&!extendedPersonalCloud40?' on this device · cloud update required':''))}catch(e){error.textContent=e.message}};
- form.append(el('label',{},'Note',body),el('label',{},'Link to activity (optional)',link),error,button('Save note',save,'primary'),button('Cancel',closeDialog,'cancel-choice'));
- if(original)form.append(button('Delete note',()=>{if(deleteNote40(original.id,snapshot))closeDialog()},'family-link danger'));form.addEventListener('submit',e=>{e.preventDefault();save()});box.append(form);
+ const actions=el('div',{class:'gt-note-edit-actions'},button('Cancel',closeDialog,'cancel-choice'));
+ if(original)actions.append(button('Delete',()=>{if(deleteNote40(original.id,snapshot))closeDialog()},'gt-edit-delete',{'aria-label':'Delete note'}));
+ actions.append(button('Save note',save,'primary'));
+ form.append(el('label',{},'Note',body),el('label',{},'Link to activity (optional)',link),error,actions);
+ form.addEventListener('submit',e=>{e.preventDefault();save()});box.append(form);
  });
 }
 function deleteNote40(id,snapshot){
@@ -11413,6 +11422,7 @@ gameForm=function(id=null,periodOnly=false){
  const oldFooter=form.querySelector('.ng-form-footer'),save=oldFooter?.querySelector('button');
  const actions=el('div',{class:'gt493-actions'});
  actions.append(button('Cancel',()=>{if(confirm('Discard unsaved changes?'))navigate('home')},'gt493-cancel',{type:'button'}));
+ if(saved&&!isViewerGame(saved.id))actions.append(button('Delete',()=>openDeleteGame(saved.id),'gt-edit-delete',{'aria-label':'Delete game'}));
  if(save){save.textContent=id?'Save Changes':'Create Game';actions.append(save)}
  const fresh=el('div',{class:'gt493-layout'});fresh.append(p,info,fmt);
  if(result)fresh.append(result);
@@ -11579,6 +11589,10 @@ buildSessionEditor=function(opts){
       skills:chips().map(x=>x.name),today:localDate(),
       onSubmit,onCancel:cancel
     });
+    if(mode==='edit'){
+      const save=form.element.querySelector('.gtf-action-primary-v1');
+      save.before(button('Delete',()=>deleteTrainingSession(original),'gt-edit-delete',{'aria-label':'Delete session'}));
+    }
     const header=P.PageHeaderV1({
       title,subtitle,backIcon:up1Icon('back'),pageIcon:up1Icon('session'),
       onBack:cancel,backLabel:'Back to Gym'
@@ -12210,8 +12224,6 @@ function gtGamesBuildUniversalV1(){
  }
  const body=document.createElement('main');body.className='up1-content';body.dataset.component='PrimaryContent';
  body.setAttribute('aria-label','Games page content');body.append(gtGamesFeaturedBannerV1(),gtGamesRecentActivityListV1());
- const current=liveGame();
- if(current&&!isViewerGame(current.id))body.append(button('Delete game',()=>openDeleteGame(current.id),'family-link danger'));
  appendDeletedGames(body);
  const footer=document.createElement('footer');footer.className='up1-footer';footer.dataset.component='PageFooter';
  const one=document.createElement('span'),two=document.createElement('span');one.textContent='SHOW UP. PUT IN THE WORK.';two.textContent='TRUST THE JOURNEY.';
@@ -12315,7 +12327,6 @@ function gtGameDetailsUniversalV1(){
  if(priorNotes)priorNotes.remove();
  approvedNotes.dataset.section="player-notes";
  body.append(approvedNotes);
- if(!isViewerGame(g.id))body.append(button('Delete game',()=>openDeleteGame(g.id),'family-link danger'));
  const footer=node('footer','up1-footer');
  footer.dataset.component='PageFooter';
  const one=node('span'),two=node('span');
@@ -12886,8 +12897,7 @@ function gtTrainingDetailsUniversalV1(){
    returnTo:'training'
  });
  const page=Components.UniversalPageV1({
-   page:'training-details',header,content:[trainingSummary,sessionNotes,
-     button('Delete session',()=>deleteTrainingSession(session),'family-link danger'),recentTrainings],
+   page:'training-details',header,content:[trainingSummary,sessionNotes,recentTrainings],
    contentLabel:'Training Details page content',
    footerLines:['SHOW UP. PUT IN THE WORK.','TRUST THE JOURNEY.']
  });
