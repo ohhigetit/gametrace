@@ -1477,12 +1477,13 @@ html[data-theme] dialog#sheet.v42-left-thumb .choices{display:flex!important;fle
 .gt-feed-board .v42-feed-status>strong[data-live]::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#53ed93;margin-right:7px;vertical-align:1px}
 .gt-feed-board .v42-feed-score{gap:6px;margin:12px 0}
 .gt-feed-board .v42-feed-score>div>span{min-height:0;color:#cfebdb}
-.gt-feed-board .v42-feed-score strong{font-size:clamp(52px,17vw,84px);line-height:1.05;letter-spacing:-.055em}
+#liveFeedContent .gt-feed-board .v42-feed-score strong{color:inherit;font-size:clamp(52px,17vw,84px);line-height:1.05;letter-spacing:-.055em}
 .gt-feed-board .v42-feed-score strong.gt-feed-score-changed{animation:gt-feed-score-change 650ms ease-out}
 @keyframes gt-feed-score-change{from{color:#79ffae;text-shadow:0 0 12px #79ffae}to{color:inherit;text-shadow:none}}
 @media(prefers-reduced-motion:reduce){.gt-feed-board .v42-feed-score strong.gt-feed-score-changed{animation:none}}
 .gt-feed-latest{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1b382b;border-left:3px solid #53ed93;border-radius:8px;padding:10px 12px;overflow-wrap:anywhere}
-.gt-feed-latest small{display:block;color:#addac0;margin-bottom:3px}
+#liveFeedContent .gt-feed-latest small{display:block;color:#addac0;margin-bottom:3px}
+#liveFeedContent .gt-feed-latest strong{color:inherit}
 .gt-feed-latest>strong{flex:none;font-variant-numeric:tabular-nums}
 .gt-feed-switch{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:13px}
 .gt-feed-switch>span{flex:none}
@@ -9786,7 +9787,7 @@ function renderLiveFeed42(){const root=$('liveFeedContent');root.replaceChildren
   const changed=score&&lastScore?.id===g.id&&lastScore[side]!==score[side];
   return el('div',{},el('span',{},name),el('strong',{class:changed?'gt-feed-score-changed':''},score?score[side]:'—'));
  }
- const banner=el('section',{class:'review-work-banner v42-feed-banner gt-feed-board','aria-label':'Live scoreboard'},
+ const banner=el('section',{class:'v42-feed-banner gt-feed-board','aria-label':'Live scoreboard'},
   el('div',{class:'v42-feed-status'},el('strong',status==='Live'?{'data-live':''}:{},status),el('span',{},connection)),
   el('div',{class:'v42-feed-score'},scoreCell('team',team),el('span',{'aria-hidden':'true'},'–'),scoreCell('opponent',opponent)));
  const latest=C.ordered(g).at(-1);
