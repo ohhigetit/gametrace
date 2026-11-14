@@ -1472,6 +1472,21 @@ html[data-theme] #app.app.gt-app .v42-header-filters .reports-filters{display:gr
 html[data-theme] #app.app.gt-app #playerName[role=button]{cursor:pointer}#playerName[role=button]:focus-visible{outline:2px solid var(--gt-accent);outline-offset:4px}
 html[data-theme] dialog#sheet.v42-left-thumb{position:fixed!important;top:auto!important;bottom:max(14px,env(safe-area-inset-bottom))!important;left:max(12px,calc((100vw - 480px)/2 + 12px))!important;right:auto!important;margin:0!important;transform:none!important;width:min(340px,calc(100vw - 24px))!important;max-height:min(75svh,620px)!important;overflow:auto!important}
 html[data-theme] dialog#sheet.v42-left-thumb .choices{display:flex!important;flex-direction:column;gap:10px;padding-bottom:8px}html[data-theme] dialog#sheet.v42-left-thumb button{min-height:50px!important;text-align:left;font-size:16px!important}
+#liveFeedContent .gt-feed-board{background:#10251d;color:#f6fff9;border:1px solid #29513d;border-radius:22px;padding:clamp(14px,4vw,24px);margin:12px 0}
+.gt-feed-board .v42-feed-status>strong{color:#a4f8c5;background:#1d4733;border-radius:999px;padding:5px 10px}
+.gt-feed-board .v42-feed-status>strong[data-live]::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#53ed93;margin-right:7px;vertical-align:1px}
+.gt-feed-board .v42-feed-score{gap:6px;margin:12px 0}
+.gt-feed-board .v42-feed-score>div>span{min-height:0;color:#cfebdb}
+.gt-feed-board .v42-feed-score strong{font-size:clamp(52px,17vw,84px);line-height:1}
+.gt-feed-board .v42-feed-score strong.gt-feed-score-changed{animation:gt-feed-score-change 600ms ease-out}
+@keyframes gt-feed-score-change{from{color:#79ffae;text-shadow:0 0 12px #79ffae}to{color:inherit;text-shadow:none}}
+@media(prefers-reduced-motion:reduce){.gt-feed-board .v42-feed-score strong.gt-feed-score-changed{animation:none}}
+.gt-feed-latest{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1b382b;border-left:3px solid #53ed93;border-radius:8px;padding:10px 12px;overflow-wrap:anywhere}
+.gt-feed-latest small{display:block;color:#a6d6ba;margin-bottom:3px}
+.gt-feed-latest>strong{flex:none;font-variant-numeric:tabular-nums}
+.gt-feed-switch{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:13px}
+.gt-feed-switch>span{flex:none}
+.gt-feed-switch select{min-width:0;max-width:100%;padding:6px;font:inherit}
 .v42-feed-score{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);align-items:center;gap:12px;text-align:center;margin:20px 0 5px}.v42-feed-score>div{display:flex;flex-direction:column;min-width:0;gap:8px}.v42-feed-score>div>span{min-height:38px;font-size:15px;font-weight:650;overflow-wrap:anywhere}.v42-feed-score strong{font-size:52px;line-height:1.2;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}.v42-feed-status{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px}.v42-feed-status>strong{color:var(--gt-accent);text-transform:uppercase;letter-spacing:1px}.v42-feed-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:16px 0;border-top:1px solid var(--gt-edge);border-bottom:1px solid var(--gt-edge);margin:18px 0 26px}.v42-feed-stats>div{text-align:center}.v42-feed-stats strong{display:block;font-size:28px}.v42-feed-stats small{font-size:11px;color:var(--gt-muted)}.v42-feed-filters{display:flex;gap:8px;margin:12px 0}.v42-feed-filters [aria-pressed=true]{outline:1px solid var(--gt-accent)}.v42-feed-event{display:grid;grid-template-columns:48px 28px minmax(0,1fr) 50px;align-items:start;gap:8px;padding:16px 0;border-bottom:1px solid var(--gt-edge)}.v42-feed-time{font-size:11px;color:var(--gt-muted)}.v42-feed-time strong,.v42-feed-time small{display:block;font-size:11px!important}.v42-feed-dot{width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;background:var(--gt-control);color:var(--gt-muted)}.v42-feed-dot.make{background:#e3efe5;color:#087d42}.v42-feed-dot.miss{background:#f5e7e3;color:#ae4c45}.v42-feed-dot.opponent{background:#e5ecf4;color:#356695}.v42-feed-label{min-width:0;overflow-wrap:anywhere}.v42-feed-label strong{display:block;font-size:14px}.v42-feed-label small{display:block;color:var(--gt-muted);font-size:12px!important}.v42-feed-event-score{font-size:12px;text-align:right;white-space:nowrap}
 
 
@@ -9755,13 +9770,43 @@ function feedScope42(){return familyState.familyId&&familyUser()?familyState.fam
 function resetFeed42(){feed42.scope=feedScope42();feed42.selected=null;feed42.records=[];feed42.error='';feed42.lastRead=null;feed42.request++;feed42.busy=false;feed42.refreshQueued=false;stopLiveFeedSocket()}
 function openLiveFeed42(id=null){if(feed42.scope!==feedScope42())resetFeed42();feed42.selected=id;navigate('liveFeed');refreshLiveFeed42()}
 function feedTime42(e){return new Date(C.occurred(e)).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
-function renderLiveFeed42(){const root=$('liveFeedContent');root.replaceChildren(pageHeading('Live Feed',()=>navigate('family')),el('p',{class:'v42-subtitle'},'Follow the game, wherever you are.'));root.querySelector('h1')?.prepend(menuIcon('circle-play'));
+function renderLiveFeed42(){const root=$('liveFeedContent');root.replaceChildren(pageHeading('Live Feed',()=>navigate('family')),el('p',{class:'v42-subtitle'},'Scores and play-by-play'));root.querySelector('h1')?.prepend(menuIcon('circle-play'));
  if(feed42.scope!==feedScope42())resetFeed42();
  if(!familyAuth||!familyState.familyId||!familyAccess){root.append(el('section',{class:'review-work-banner'},el('h2',{},'Follow with your family'),el('p',{},'Sign in and connect to Family Huddle to follow shared games.'),button('Open Family Huddle',()=>navigate('family'),'primary')));return}
  const available=feed42.records.filter(g=>!g.deletedAt).sort((a,b)=>(a.status==='in_progress'?0:1)-(b.status==='in_progress'?0:1)||b.updatedAt.localeCompare(a.updatedAt));const g=available.find(game=>game.id===feed42.selected)||available[0]
- if(!g){root.append(el('p',{class:'review-meta',role:'status'},feed42.error|| (feed42.busy?'Checking for shared games…':'No shared games yet. A game appears after the tracker syncs it with your family.')),button('Refresh',refreshLiveFeed42,'journey-button'));return}
- if(available.length>1){const select=el('select',{'aria-label':'Game to follow'});for(const entry of available)select.append(el('option',{value:entry.id},gameTitle(entry)+' · '+friendlyDate(entry.date)+(entry.status==='in_progress'?' · Live':'')));select.value=g.id;select.onchange=()=>{feed42.selected=select.value;renderLiveFeed42()};root.append(el('label',{class:'form-field'},'Game',select))}
- const score=g.scoreTracking?C.scoreAt(g):g.finalScore,t=C.totals(g.events),status=feed42.error||!navigator.onLine?'Waiting for connection':g.deletedAt?'Unavailable':g.status==='completed'?'Final':g.pendingStart?'Ready':C.paused(g)?'Paused':C.periodActive(g)?'Live':'Period break',banner=el('section',{class:'review-work-banner v42-feed-banner','aria-label':'Live scoreboard'},el('div',{class:'v42-feed-status'},el('strong',{},status),el('span',{},g.status==='completed'?'Game completed':g.pendingStart?'Not started':C.label(g.settings.format,g.settings.current)+' of '+C.count(g.settings.format))),el('div',{class:'v42-feed-score'},el('div',{},el('span',{},g.team||'Team'),el('strong',{},score?score.team:'—')),el('span',{},'–'),el('div',{},el('span',{},g.opponent),el('strong',{},score?score.opponent:'—'))));root.append(banner);
+ if(!g){root.feedScore=null;root.append(el('p',{class:'review-meta',role:'status'},feed42.error|| (feed42.busy?'Checking for shared games…':'No shared games yet. A game appears after the tracker syncs it with your family.')),button('Refresh',refreshLiveFeed42,'journey-button'));return}
+ const score=g.scoreTracking?C.scoreAt(g):g.finalScore;
+ const t=C.totals(g.events),period=C.label(g.settings.format,g.settings.current);
+ const status=g.status==='completed'?'Final':g.pendingStart?'Ready':C.paused(g)?'Timeout':C.periodActive(g)?'Live':period+' complete';
+ const connection=feed42.error||!navigator.onLine?'Reconnecting…':g.status==='completed'||g.pendingStart?'':period;
+ const lastScore=root.feedScore;
+ root.feedScore=score?{id:g.id,...score}:null;
+ const team=g.team||'Team',opponent=g.opponent;
+ function scoreCell(side,name){
+  const changed=score&&lastScore?.id===g.id&&lastScore[side]!==score[side];
+  return el('div',{},el('span',{},name),el('strong',{class:changed?'gt-feed-score-changed':''},score?score[side]:'—'));
+ }
+ const banner=el('section',{class:'review-work-banner v42-feed-banner gt-feed-board','aria-label':'Live scoreboard'},
+  el('div',{class:'v42-feed-status'},el('strong',status==='Live'?{'data-live':''}:{},status),el('span',{},connection)),
+  el('div',{class:'v42-feed-score'},scoreCell('team',team),el('span',{'aria-hidden':'true'},'–'),scoreCell('opponent',opponent)));
+ const latest=C.ordered(g).at(-1);
+ if(latest){
+  const playerPoints={'2_make':2,'3_make':3,ft_make:1}[latest.code];
+  const teamScoring=/^(team|opponent)_([123])$/.exec(latest.code);
+  const description=playerPoints?(g.player||'Player')+' scores +'+playerPoints:teamScoring?
+   (teamScoring[1]==='team'?team:opponent)+' scores +'+teamScoring[2]:C.eventLabel(latest);
+  banner.append(el('div',{class:'gt-feed-latest'},
+   el('div',{},el('small',{},'Latest play · '+latest.period.label),el('strong',{},description)),
+   score?el('strong',{},score.team+'–'+score.opponent):''));
+ }
+ root.append(banner);
+ if(available.length>1){
+  const select=el('select',{'aria-label':'Game to follow'});
+  for(const entry of available)select.append(el('option',{value:entry.id},gameTitle(entry)+' · '+friendlyDate(entry.date)+(entry.status==='in_progress'?' · Live':'')));
+  select.value=g.id;
+  select.onchange=()=>{feed42.selected=select.value;renderLiveFeed42()};
+  root.append(el('label',{class:'gt-feed-switch'},el('span',{},'Switch game'),select));
+ }
  const last=feed42.lastRead?Math.max(0,Math.floor((Date.now()-feed42.lastRead)/1000)):null;root.append(el('p',{class:'review-meta',role:'status','data-feed-connection':''},feed42.error?feed42.error+' Showing the last received update.':!navigator.onLine?'Offline · Showing the last received update.':last===null?'Checking for updates…':last<10?'Updated just now · Connected':'Last checked '+last+' seconds ago'));
  if(g.status==='completed')root.append(el('p',{class:'review-meta'},'Final score received.'));root.append(el('h2',{},'Player Stats'),el('div',{class:'v42-feed-stats'},...['pts','reb','ast','stl'].map(key=>el('div',{},el('strong',{},t[key]),el('small',{},key.toUpperCase())))));
  const heading=el('div',{class:'v42-section-row'},el('h2',{},'Play-by-Play'),el('small',{},'Newest first')),filters=el('div',{class:'v42-feed-filters',role:'group','aria-label':'Filter live feed'});for(const [value,label]of [['all','All plays'],['scoring','Scoring']])filters.append(button(label,()=>{feed42.filter=value;renderLiveFeed42()},'journey-button',{'aria-pressed':feed42.filter===value}));root.append(heading,filters);
